@@ -1,0 +1,16 @@
+LAZYIPDCA_QCQP_V1
+name generic_zero_model_fixture
+n 2
+x0 0 0
+lb -1 -1
+ub 1 1
+objective
+quadratic
+name objective
+constant 0
+linear 0 0
+hessian_nnz 0
+end_quadratic
+equalities 0
+inequalities 0
+end_problem

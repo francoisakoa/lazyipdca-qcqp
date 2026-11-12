@@ -1,0 +1,74 @@
+DÉPOUILLEMENT DE LA MÉGA CAMPAGNE — LAZY MA27 / IPOPT PAR DÉFAUT
+
+Commande :
+  python3 DEPOUILLER.py --run RUN --out NOUVEAU_DOSSIER --archive
+
+Le lecteur utilise le PLAN.json gelé et les RESULT.json atomiques finalisés du
+contrôleur de la méga campagne. Un reçu de travail provisoire n'est pas compté
+comme résultat final. Les entrées, départs, identités de run, contrats de tâche,
+binaires et installations sont liés aux observations ; un résultat d'une
+campagne précédente ou d'un autre backend est refusé.
+
+Périmètres :
+- principal : 4 078 instances × 8 méthodes = 32 624 tâches ;
+- avec les quatre cellules expérimentales I/M : 39 960 tâches.
+Les méthodes historiques R3, HH, HS, SH, SS et SS_legacy restent distinctes.
+Toutes utilisent MA27 dans ce nouveau run. Les références Ipopt utilisent les
+réglages algorithmiques de bibliothèque et respectivement MA27 et MUMPS.
+Les origines finales des directions sont instrumentées pour les quatre cellules
+croisées I/M uniquement. Aucune fraction de directions acceptées des six profils
+historiques n'est inférée à partir des compteurs de candidats. La configuration
+MA27, le backend rapporté et les sorties structurelles sans factorisation
+restent distingués dans les preuves.
+Les cellules de recherche F_R3, F_X1, F_X2 et F_H0 sont séparées des profils
+historiques. Seules ces quatre cellules sont transmises à l'analyse factorielle
+préenregistrée ; le R3 historique ne leur est jamais ajouté comme un second coin.
+
+Fichiers principaux :
+- OBSERVATIONS.jsonl / .csv : toutes les variantes et références, résidus
+  originaux, statuts propres, objectifs et temps ;
+- GLOBAL, BY_METHOD, BY_REGIME, BY_DATASET et BY_DATASET_REGIME.csv :
+  prévus, reçus, stricts, non stricts, indéterminés et manquants ;
+- COVERAGE_PAIRED.csv : tableaux croisés entre toutes les méthodes, avec
+  discordances confirmées et paires inconnues séparées ;
+- OBJECTIVES_PAIRED.csv : écarts symétriques aux trois seuils 1e-4/1e-3/1e-2 ;
+- TIMINGS_PAIRED.csv : temps sur certificats communs, cohorte dont les deux
+  temps dépassent 1 s, et cohorte à objectifs équivalents ;
+- COVERAGE_EQUAL_WEIGHTS.csv : pondération par instance, famille et dataset,
+  avec bornes explicites tant que certaines observations restent inconnues ;
+- ORIGINAL_AUDIT_PROOFS.jsonl : audits originaux, provenance des directions,
+  contrôles de backend et compteurs de travail interne ;
+- MISSING_PLANNED.jsonl : tâches sans observation finalisée ;
+- factorial/ : analyse préenregistrée des quatre cellules, si elles existent ;
+- MANIFEST.json et SHA256.json : identités des plans, sources et extractions.
+
+La classification originale à trois valeurs est conservée. Une observation
+censurée, non auditée ou sans preuve suffisante reste indéterminée. Une tâche
+encore absente reste manquante. Les codes internes Ipopt 0 et 1 sont exportés
+séparément du certificat original. Les succès internes avec audit original
+non strict sont aussi séparés des succès internes dont l'audit est indéterminé.
+Le champ « without_original_strict » inclut ces deux catégories ; il ne doit
+pas être présenté seul comme un nombre de contradictions confirmées.
+
+Un objectif n'est comparé que sur deux certificats KKT originaux stricts.
+L'écart est (f_gauche-f_droite)/max(1,abs(f_gauche),abs(f_droite)). Les médianes
+conditionnelles sur les écarts positifs et négatifs sont indiquées comme telles.
+
+L'horloge principale est celle du processus de résolution, démarrage de son
+wrapper compris ; l'audit indépendant est séparé. Le temps du processus enfant,
+les temps CPU et la mémoire wait4 sont conservés à part. Aucune constante de
+démarrage n'est soustraite. Les rapports de campagne sous charge restent des
+mesures descriptives, sans prétendre représenter un banc hors charge.
+
+Par défaut, les preuves compactes (audit, métadonnées du point, commandes,
+contrôles de route et intégrité) sont relues et hachées. Les empreintes archivées
+des gros endpoints, journaux et traces acceptées sont conservées sans relire
+leurs octets. Pour vérifier aussi toutes ces grandes pièces :
+  python3 DEPOUILLER.py --run RUN --out NOUVEAU_DOSSIER --archive --verify-all-evidence
+
+Le plan transmis conserve une seule copie de chaque cas. Ses tâches y renvoient
+par identifiant ; le contenu logique complet se reconstruit sans perte. Les
+empreintes du PLAN original et de sa valeur JSON sont conservées.
+
+Le ZIP contient les tableaux, observations et preuves compactes ; aucun solveur
+n'est invoqué, aucune donnée gelée n'est copiée ou transformée.

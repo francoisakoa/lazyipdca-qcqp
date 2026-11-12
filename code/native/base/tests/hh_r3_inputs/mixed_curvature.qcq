@@ -1,0 +1,44 @@
+LAZYIPDCA_QCQP_V1
+name anonymous
+n 3
+x0 0.5 0.5 0.7071067811865476
+lb -2 -2 -2
+ub 2 2 2
+objective
+quadratic
+name f
+constant 0
+linear -0.2 0 0
+hessian_nnz 3
+0 0 -2
+1 1 4
+2 2 1
+end_quadratic
+equalities 1
+quadratic
+name sphere
+constant -1
+linear 0 0 0
+hessian_nnz 3
+0 0 2
+1 1 2
+2 2 2
+end_quadratic
+inequalities 2
+quadratic
+name product
+constant -0.3
+linear 0 0 0
+hessian_nnz 1
+0 1 1
+end_quadratic
+quadratic
+name ball
+constant -2
+linear 0 0 0
+hessian_nnz 3
+0 0 2
+1 1 2
+2 2 2
+end_quadratic
+end_problem

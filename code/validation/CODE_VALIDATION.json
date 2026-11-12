@@ -1,0 +1,47 @@
+{
+  "schema": "lazyqcqp-code-check-v1",
+  "profiles": {
+    "mumps": {
+      "verified_files": 823,
+      "byte_exact": true
+    },
+    "ma27": {
+      "verified_files": 823,
+      "byte_exact": true
+    },
+    "asu": {
+      "verified_files": 824,
+      "byte_exact": true
+    },
+    "persistence": {
+      "verified_files": 824,
+      "byte_exact": true
+    },
+    "refinement": {
+      "verified_files": 825,
+      "byte_exact": true
+    },
+    "factorial_observer": {
+      "verified_files": 825,
+      "byte_exact": true
+    }
+  },
+  "optimizer_invocations": 0,
+  "auditor_tests": {
+    "returncode": 0,
+    "output": "{\"status\": \"PASS\", \"checks\": 13, \"optimizer_invocations\": 0}"
+  },
+  "convex_endpoint_audit": {
+    "strict_qcqp": true,
+    "objective": -0.9999991999964802,
+    "input_sha256": "1d12d2936e7ffcdb7fbb550b954178377595a9ff51e158110dc44e44b15f0ad3",
+    "endpoint_sha256": "4aa4f961acc340d3c73ee81baa43eb43e18af32f4e1181324898955f7935787b"
+  },
+  "nonconvex_endpoint_audit": {
+    "strict_qcqp": true,
+    "objective": 1.0000001599979744,
+    "input_sha256": "42e10622c308d39be65cd0d3bba7f9a282079e8baedd515010d79884efda96b5",
+    "endpoint_sha256": "f3423f8dd6dae6871dc436f103a1fb797083af64a1b8891e8e64a3f80356fe92"
+  },
+  "passed": true
+}

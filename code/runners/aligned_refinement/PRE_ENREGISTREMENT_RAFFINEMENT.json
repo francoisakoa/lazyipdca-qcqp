@@ -1,0 +1,18 @@
+{
+  "schema": "adaptive-refinement-production-registration-v2",
+  "registration_status": "draft_not_sealed",
+  "study_contract_file": "STUDY_CONTRACT.json",
+  "study_contract_sha256": "bb73bc927a7397fff847338f2a76e436e48177101994e37483919eddf260bbb3",
+  "bindings": {
+    "source_tree_sha256": null,
+    "binary_sha256_by_backend": {
+      "ma27": null,
+      "mumps": null
+    },
+    "source_separation_audit_sha256": null,
+    "qualification50_receipt_sha256": null,
+    "direction_trace_schema_sha256": null,
+    "common_guard_vector_sha256": null
+  },
+  "note": "Seal only after the source/build/parity/synthetic gates pass. Gate receipts bind the static study SHA; production observations bind this final seal SHA, avoiding a hash cycle."
+}

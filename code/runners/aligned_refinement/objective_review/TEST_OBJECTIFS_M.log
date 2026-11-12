@@ -1,0 +1,12 @@
+test_counts_and_thresholds (__main__.Tests.test_counts_and_thresholds) ... ok
+test_duplicate_rejected (__main__.Tests.test_duplicate_rejected) ... ok
+test_hash_mismatch_rejected (__main__.Tests.test_hash_mismatch_rejected) ... ok
+test_nonstrict_not_objective_cohort (__main__.Tests.test_nonstrict_not_objective_cohort) ... ok
+test_signed_negative_favors_left (__main__.Tests.test_signed_negative_favors_left) ... ok
+test_strict_original_not_internal (__main__.Tests.test_strict_original_not_internal) ... ok
+test_type7_quartiles (__main__.Tests.test_type7_quartiles) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.007s
+
+OK

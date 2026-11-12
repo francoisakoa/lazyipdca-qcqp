@@ -1,0 +1,24 @@
+LAZYIPDCA_QCQP_V1
+name generic_curvature_cache_control
+n 2
+x0 0 0.5
+lb -4 -2
+ub 4 2
+objective
+quadratic
+name objective
+constant 0
+linear 1 0
+hessian_nnz 1
+1 1 2
+end_quadratic
+equalities 0
+inequalities 1
+quadratic
+name constraint
+constant -1
+linear 0 0
+hessian_nnz 1
+0 0 2
+end_quadratic
+end_problem

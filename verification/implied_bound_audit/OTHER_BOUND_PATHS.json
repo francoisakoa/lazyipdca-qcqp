@@ -1,0 +1,448 @@
+{
+  "schema": "other-native-bound-representations-static-audit-v1",
+  "optimizer_invocations": 0,
+  "sources": {
+    "mumps": "campaign_20261109/recovered/article/reproduction/qualified_native_source",
+    "ma27": "factorial_20261109/staging/LAZYQCQP_IPOPT_ALIGNE_RAFFINEMENT_20261109_R1/native/reference_source"
+  },
+  "paths": [
+    {
+      "name": "Frozen-reader absent-side sentinel canonicalization",
+      "effect": "Maps either infinite sign on a lower side to -infinity and either infinite sign on an upper side to +infinity. Finiteness determines bound-side presence; finite bounds and raw start coordinates are untouched.",
+      "gate": "QCQ reader, before model validation and all presolve comparisons; applies independently of policy.",
+      "evidence": [
+        {
+          "path": "src/io.cpp",
+          "lines": [
+            107,
+            111
+          ],
+          "sha256": {
+            "mumps": "ba98bc92b473ac79bf32279a4eef3ee9c28fc8cf977c7038d9dd6d4465340583",
+            "ma27": "ba98bc92b473ac79bf32279a4eef3ee9c28fc8cf977c7038d9dd6d4465340583"
+          }
+        },
+        {
+          "path": "src/qcq_bound_sentinels.hpp",
+          "lines": [
+            8,
+            19
+          ],
+          "sha256": {
+            "mumps": "b1610a3f3968581c19c5151a31d50b83861fe83029f298cb4ae7e03b3c28d091",
+            "ma27": "b1610a3f3968581c19c5151a31d50b83861fe83029f298cb4ae7e03b3c28d091"
+          }
+        }
+      ],
+      "asu_limit": "This cannot remove a finite ASU bound and is distinct from implied-bound suppression."
+    },
+    {
+      "name": "R3 exact equality/closed-zero-face phase before standard selection",
+      "effect": "ClosedZeroFace may set an existing lower-zero variable upper bound to zero and discard exactly redundant rows. It tightens/fixes a proved face; it does not drop variable bound sides.",
+      "gate": "standard_r10_policy=auto, convexification_study=off, study_controller=r3, majorants/lazy-dca, no rank context/private phase/checkpoint/product-definition/scaling, shared restoration budget; coefficient proof and time/source caps must pass.",
+      "evidence": [
+        {
+          "path": "src/solver.cpp",
+          "lines": [
+            4072,
+            4098
+          ],
+          "sha256": {
+            "mumps": "1c02cd9b8dbf370d7d878ccf1fa62a982fd63ed08db0385a7d7bce3246ea642e",
+            "ma27": "e8b10d6f00e483f959f4256fb36c8ee576639a89a182dbd193f66ef1efbd1a98"
+          }
+        },
+        {
+          "path": "src/closed_zero_face.hpp",
+          "lines": [
+            70,
+            111
+          ],
+          "sha256": {
+            "mumps": "f96031091344f315b1ce053f3489570a67399a86d2739cd35932ee47b0f97f8a",
+            "ma27": "f96031091344f315b1ce053f3489570a67399a86d2739cd35932ee47b0f97f8a"
+          }
+        }
+      ],
+      "asu_limit": "Original quadratic inequalities exclude standard-R10 selection, but do not by themselves exclude this preceding exact-face inspection. No retained per-case face flag in the projected observations establishes whether inspection applied on ASU."
+    },
+    {
+      "name": "Global exact affine-face variable elimination",
+      "effect": "Removes coordinates proved zero by exact affine-combination/singleton/product closure certificates. Copies every bound of each retained coordinate. This is not general implied-bound-side suppression.",
+      "gate": "original_exact_affine_faces or LAZY_EXACT_AFFINE_FACE_RESEARCH, not consumed; majorants/lazy-dca; rank context/checkpoints/global product substitution/augmented repair prohibited.",
+      "evidence": [
+        {
+          "path": "src/solver.cpp",
+          "lines": [
+            4692,
+            4750
+          ],
+          "sha256": {
+            "mumps": "1c02cd9b8dbf370d7d878ccf1fa62a982fd63ed08db0385a7d7bce3246ea642e",
+            "ma27": "e8b10d6f00e483f959f4256fb36c8ee576639a89a182dbd193f66ef1efbd1a98"
+          }
+        },
+        {
+          "path": "src/exact_affine_face_presolve.hpp",
+          "lines": [
+            62,
+            140
+          ],
+          "sha256": {
+            "mumps": "0780d66c7b3d06d0ce4a1675260dcd67bcf2fdca0192fa0e509e261307022e04",
+            "ma27": "0780d66c7b3d06d0ce4a1675260dcd67bcf2fdca0192fa0e509e261307022e04"
+          }
+        }
+      ],
+      "asu_limit": "Absent frozen coefficients and full native flags/logs prevent a generic proof that no zero-face certificate exists. standard_auto applies only if original inequalities all affine; ASU has quadratic inequalities so that automatic route cannot enable this branch."
+    },
+    {
+      "name": "Native signed-square auxiliary elimination before rank presolve",
+      "effect": "Eliminates t from t^2-x^2=0 with t>=0, introducing signed-square functions, and removes its variable/bound coordinates. Bounds of retained variables are copied.",
+      "gate": "No equality stabilization, input has no prior signed-square terms, lazy-dca/majorants, convexification_study=off. Eligible auxiliary needs original lb=0, ub=+infinity, exact raw t0=abs(x0), plus compatible component incidence.",
+      "evidence": [
+        {
+          "path": "src/solver.cpp",
+          "lines": [
+            4860,
+            4913
+          ],
+          "sha256": {
+            "mumps": "1c02cd9b8dbf370d7d878ccf1fa62a982fd63ed08db0385a7d7bce3246ea642e",
+            "ma27": "e8b10d6f00e483f959f4256fb36c8ee576639a89a182dbd193f66ef1efbd1a98"
+          }
+        },
+        {
+          "path": "src/native_signed_square_reduction.hpp",
+          "lines": [
+            18,
+            73
+          ],
+          "sha256": {
+            "mumps": "3bf5d0a634877f1f8a19a7247937b129654a09daa01569b37448851e4c4ecfbc",
+            "ma27": "3bf5d0a634877f1f8a19a7247937b129654a09daa01569b37448851e4c4ecfbc"
+          }
+        }
+      ],
+      "asu_limit": "The observation projection has no signed-square/auxiliary-elimination trace. Zero reported eliminated variables and unchanged rank dimensions alone are not a proof that this preceding transformation never ran."
+    },
+    {
+      "name": "Common-factor exact coordinate substitution",
+      "effect": "For u_j=t*x_j, sets non-pivot lb/ub to infinite but introduces the corresponding two affine inequalities L_j*t<=u_j<=U_j*t. This replaces a box representation; it does not remove its feasible-set restriction.",
+      "gate": "R3 auto/off/r3, majorants or auto, no rank context/private phase/product/scaling/custom callback/signed-square; positive-start nonnegative-domain pivot; all other bounds finite; every nonzero Hessian term must be off-diagonal and incident to the pivot.",
+      "evidence": [
+        {
+          "path": "src/solver.cpp",
+          "lines": [
+            4269,
+            4312
+          ],
+          "sha256": {
+            "mumps": "1c02cd9b8dbf370d7d878ccf1fa62a982fd63ed08db0385a7d7bce3246ea642e",
+            "ma27": "e8b10d6f00e483f959f4256fb36c8ee576639a89a182dbd193f66ef1efbd1a98"
+          }
+        },
+        {
+          "path": "src/common_factor_substitution.hpp",
+          "lines": [
+            17,
+            70
+          ],
+          "sha256": {
+            "mumps": "b02095f329eae8a9dad570044c86d24ea2db8a094e66a3ff1d011dc5087a0e4a",
+            "ma27": "b02095f329eae8a9dad570044c86d24ea2db8a094e66a3ff1d011dc5087a0e4a"
+          }
+        }
+      ],
+      "asu_limit": "All 503 retained MA27 ASU R3 observations report common_factor_substitution=false. In addition, a nonzero diagonal equality term would reject this substitution, but coefficients are absent: do not assert the detailed ASU equality structure from names alone."
+    },
+    {
+      "name": "Positive-square epigraph coordinate substitution",
+      "effect": "Substitution u=t^2 changes lb_t to lb_t^2 and maps the raw start. No bound side is removed. Other coordinates must already have no finite bounds.",
+      "gate": "R3 auto/off/r3, allowed engines, affine objective with one positive linear term, epigraph variable lb>=0 and ub=+infinity, all equalities affine and independent of t, specified diagonal quadratic inequality structure.",
+      "evidence": [
+        {
+          "path": "src/solver.cpp",
+          "lines": [
+            4320,
+            4346
+          ],
+          "sha256": {
+            "mumps": "1c02cd9b8dbf370d7d878ccf1fa62a982fd63ed08db0385a7d7bce3246ea642e",
+            "ma27": "e8b10d6f00e483f959f4256fb36c8ee576639a89a182dbd193f66ef1efbd1a98"
+          }
+        },
+        {
+          "path": "src/positive_square_epigraph_substitution.hpp",
+          "lines": [
+            17,
+            56
+          ],
+          "sha256": {
+            "mumps": "7a0cb5d485d964a0ec92fab497f380e79acd62864602bcaec983d7feb3e3b623",
+            "ma27": "7a0cb5d485d964a0ec92fab497f380e79acd62864602bcaec983d7feb3e3b623"
+          }
+        }
+      ],
+      "asu_limit": "ASU has quadratic equalities (from metadata), violating the all-affine equality requirement; no fresh coefficient audit performed."
+    },
+    {
+      "name": "Explicit product-definition auxiliary elimination",
+      "effect": "Eliminates variables defined by unit products. Rewrites each eliminated finite bound as a quadratic inequality, except when exact rational factor-interval proof establishes it redundant. All retained-factor bounds remain.",
+      "gate": "product_definition_presolve=true; top-level original project termination; majorants/lazy-dca or permitted atomic route. Default is false.",
+      "evidence": [
+        {
+          "path": "src/solver.cpp",
+          "lines": [
+            4780,
+            4787
+          ],
+          "sha256": {
+            "mumps": "1c02cd9b8dbf370d7d878ccf1fa62a982fd63ed08db0385a7d7bce3246ea642e",
+            "ma27": "e8b10d6f00e483f959f4256fb36c8ee576639a89a182dbd193f66ef1efbd1a98"
+          }
+        },
+        {
+          "path": "src/product_definition_presolve.hpp",
+          "lines": [
+            30,
+            93
+          ],
+          "sha256": {
+            "mumps": "51e3d78a30597da28216db73ae868c0c10d0d6c4308c25655fa6e78970543fd6",
+            "ma27": "51e3d78a30597da28216db73ae868c0c10d0d6c4308c25655fa6e78970543fd6"
+          }
+        },
+        {
+          "path": "include/lazyipdca_qcqp/settings.hpp",
+          "lines": [
+            1051,
+            1052
+          ],
+          "sha256": {
+            "mumps": "465b2c82a505e579ad7d1c36f0b3eb8762cdae99e8a3fe77b6a6720818188f41",
+            "ma27": "465b2c82a505e579ad7d1c36f0b3eb8762cdae99e8a3fe77b6a6720818188f41"
+          }
+        }
+      ],
+      "asu_limit": "No explicit enabling option found in retained ASU R3 commands; default false. This is independent of rank implied-bound removal if enabled in a separately declared profile."
+    },
+    {
+      "name": "Free-epigraph leaf elimination",
+      "effect": "Eliminates an isolated negative-diagonal inequality leaf only if its original box is [0,+infinity), retaining all remaining variable bounds.",
+      "gate": "free_epigraph_presolve && majorant_adaptive_globalization && convexification_study!=off && lazy-dca/majorants && no rank context/signed-square.",
+      "evidence": [
+        {
+          "path": "src/solver.cpp",
+          "lines": [
+            4793,
+            4796
+          ],
+          "sha256": {
+            "mumps": "1c02cd9b8dbf370d7d878ccf1fa62a982fd63ed08db0385a7d7bce3246ea642e",
+            "ma27": "e8b10d6f00e483f959f4256fb36c8ee576639a89a182dbd193f66ef1efbd1a98"
+          }
+        },
+        {
+          "path": "src/free_epigraph_presolve.cpp",
+          "lines": [
+            64,
+            92
+          ],
+          "sha256": {
+            "mumps": "a8088de8157b8201a9dc15f5b0c61a265f68db465e9d122339c20887af69bf78",
+            "ma27": "a8088de8157b8201a9dc15f5b0c61a265f68db465e9d122339c20887af69bf78"
+          }
+        }
+      ],
+      "asu_limit": "Published R3 uses convexification_study=off, so this entry is gated off regardless of source coefficients. Zero preparation/postsolve counters are consistent, but not the sole proof."
+    },
+    {
+      "name": "Exact dyadic power-of-two scaling",
+      "effect": "Maps finite box endpoints by exact powers of two, preserving whether each side is finite. No side is suppressed.",
+      "gate": "power2_scaling=true, or internally invoked after common-factor/positive-square substitution; no rank/checkpoint context for explicit use.",
+      "evidence": [
+        {
+          "path": "src/solver.cpp",
+          "lines": [
+            4788,
+            4791
+          ],
+          "sha256": {
+            "mumps": "1c02cd9b8dbf370d7d878ccf1fa62a982fd63ed08db0385a7d7bce3246ea642e",
+            "ma27": "e8b10d6f00e483f959f4256fb36c8ee576639a89a182dbd193f66ef1efbd1a98"
+          }
+        },
+        {
+          "path": "src/power2_scaling.hpp",
+          "lines": [
+            35,
+            49
+          ],
+          "sha256": {
+            "mumps": "dc5a1b5523fedd2c296258029afc163a36eca7cb2046244b4169a9a69e4460f8",
+            "ma27": "dc5a1b5523fedd2c296258029afc163a36eca7cb2046244b4169a9a69e4460f8"
+          }
+        }
+      ],
+      "asu_limit": "Explicit scaling option defaults false; internal invocations are limited to the preceding separately gated substitutions."
+    },
+    {
+      "name": "Fixed-bound representation inside auxiliary model",
+      "effect": "A finite interval whose width is within fixed_bound_tolerance is represented as an equality; its two bound inequality rows are not additionally constructed. This retains a fixing condition rather than deleting feasible-set control.",
+      "gate": "Both sides finite and abs(ub-lb)<=fixed_bound_tolerance.",
+      "evidence": [
+        {
+          "path": "src/solver.cpp",
+          "lines": [
+            1238,
+            1268
+          ],
+          "sha256": {
+            "mumps": "1c02cd9b8dbf370d7d878ccf1fa62a982fd63ed08db0385a7d7bce3246ea642e",
+            "ma27": "e8b10d6f00e483f959f4256fb36c8ee576639a89a182dbd193f66ef1efbd1a98"
+          }
+        }
+      ],
+      "asu_limit": "All 503 MA27 ASU R3 observations report lazy_newton_fixed_variables=0. No evidence of this case on the retained ASU runs."
+    },
+    {
+      "name": "Condensed-bound promotion for linear-system precision",
+      "effect": "Moves an already active inequality/bound from condensed Gram representation to an explicit KKT border. Appends algebraic matrix entries; preserves the QCQP, inequalities, active flag, slacks and barrier equations. This is not bound removal or working-set deactivation.",
+      "gate": "Condensation/direction precision recovery after factor or expanded-residual difficulty; ratio/roundoff selection. Stats distinguish promoted bounds by inequality_kind!=0.",
+      "evidence": [
+        {
+          "path": "src/atomic_newton.cpp",
+          "lines": [
+            1430,
+            1448
+          ],
+          "sha256": {
+            "mumps": "e6119e297a10bc443c996e8c39caa688bbdb32d974a76a453ab5ae571a753ec1",
+            "ma27": "e6119e297a10bc443c996e8c39caa688bbdb32d974a76a453ab5ae571a753ec1"
+          }
+        },
+        {
+          "path": "src/atomic_newton.cpp",
+          "lines": [
+            1450,
+            1504
+          ],
+          "sha256": {
+            "mumps": "e6119e297a10bc443c996e8c39caa688bbdb32d974a76a453ab5ae571a753ec1",
+            "ma27": "e6119e297a10bc443c996e8c39caa688bbdb32d974a76a453ab5ae571a753ec1"
+          }
+        }
+      ],
+      "asu_limit": "The nonzero lazy_newton_promoted_bounds counters are evidence of equivalent numerical representation changes only; they cannot be counted as removed original bound sides."
+    },
+    {
+      "name": "Affine quadratic rewrite and equality-row redundancy",
+      "effect": "Exact polynomial rewrite keeps equality constraints and the original variables/bounds. Exact redundant-equality removal may discard proved equalities, but preserves all variable bounds. Neither is a second implied-bound-removal implementation.",
+      "gate": "R3 standard auto/off/r3 majorants/lazy-dca top-level with stated no-context/research restrictions.",
+      "evidence": [
+        {
+          "path": "src/solver.cpp",
+          "lines": [
+            4210,
+            4267
+          ],
+          "sha256": {
+            "mumps": "1c02cd9b8dbf370d7d878ccf1fa62a982fd63ed08db0385a7d7bce3246ea642e",
+            "ma27": "e8b10d6f00e483f959f4256fb36c8ee576639a89a182dbd193f66ef1efbd1a98"
+          }
+        },
+        {
+          "path": "src/affine_face_quadratic_rewrite.hpp",
+          "lines": [
+            42,
+            85
+          ],
+          "sha256": {
+            "mumps": "f30ce9aa924211caa6e6a79be7888e8f2e512265d6a93a4e6b10fcb0b13809ee",
+            "ma27": "f30ce9aa924211caa6e6a79be7888e8f2e512265d6a93a4e6b10fcb0b13809ee"
+          }
+        },
+        {
+          "path": "src/exact_redundant_equalities.hpp",
+          "lines": [
+            20,
+            145
+          ],
+          "sha256": {
+            "mumps": "96fbfea722598c84fd03ff2bbbebe3f3745a8e07e0022d3c6cb47e1d4446b107",
+            "ma27": "96fbfea722598c84fd03ff2bbbebe3f3745a8e07e0022d3c6cb47e1d4446b107"
+          }
+        }
+      ],
+      "asu_limit": "No coefficient-level rewrite incidence or equality-redundancy audit repeated; unchanged variable dimensions would not alone exclude these row operations."
+    }
+  ],
+  "observed_ma27_asu_r3": {
+    "records": 503,
+    "counter_values": {
+      "common_factor_substitution": {
+        "false": 503
+      },
+      "common_factor_variable": {
+        "-1": 503
+      },
+      "free_epigraph_postsolve_seconds": {
+        "0": 503
+      },
+      "free_epigraph_postsolve_valid": {
+        "false": 503
+      },
+      "free_epigraph_preparation_seconds": {
+        "0": 503
+      },
+      "lazy_newton_eliminated_variables": {
+        "0": 503
+      },
+      "lazy_newton_fixed_variables": {
+        "0": 503
+      },
+      "lazy_newton_promoted_bounds": {
+        "1": 31,
+        "2": 26,
+        "4": 22,
+        "15": 20,
+        "14": 22,
+        "13": 26,
+        "18": 24,
+        "11": 28,
+        "9": 26,
+        "19": 12,
+        "0": 84,
+        "16": 17,
+        "12": 22,
+        "10": 18,
+        "17": 22,
+        "8": 21,
+        "3": 18,
+        "7": 19,
+        "5": 18,
+        "20": 7,
+        "6": 14,
+        "21": 4,
+        "24": 1,
+        "22": 1
+      },
+      "standard_auto_free_epigraph_presolve_skipped": {
+        "false": 503
+      },
+      "standard_auto_rank_presolve_effective": {
+        "true": 503
+      },
+      "standard_auto_rank_presolve_requested": {
+        "true": 503
+      }
+    },
+    "observations_sha256": "d082f3d73e5e0d50d5ba8f76931494d1aa31507e919693cc984f48cd7cba85fe"
+  },
+  "limitations": [
+    "No full frozen coefficient model, endpoint, or per-iteration solver log was available for this audit. Metadata and exported counters are not substituted for coefficient-level exclusion proofs.",
+    "Source-level transformed-model gates and recorded transformation flags can exclude specific paths. Absence of an exported counter cannot prove absence of the corresponding native phase.",
+    "MUMPS source mechanisms are inspected, but the available MUMPS publication projections do not contain the detailed ASU counters measured here for MA27."
+  ]
+}

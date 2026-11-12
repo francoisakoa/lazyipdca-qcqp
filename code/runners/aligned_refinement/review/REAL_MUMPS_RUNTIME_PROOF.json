@@ -1,0 +1,26 @@
+{
+  "optimizer_invocations": 0,
+  "source": "Actual staged runtime; independently data-derived bound representation from the smoke input",
+  "checks": [
+    {
+      "strategy": "adaptive",
+      "passed": true,
+      "effective_options_sha256": "47dc741112da6e694168b73bba994daf53e8020f34b6638812df0eb23afe1af5",
+      "effective_bound_infinity": {
+        "nlp_lower_bound_inf": -1e+19,
+        "nlp_upper_bound_inf": 1e+19
+      },
+      "input_representation_overrides": []
+    },
+    {
+      "strategy": "monotone",
+      "passed": true,
+      "effective_options_sha256": "629afa4e4d6c881e5cbd8a947c4addb8425830f5413693e0b003407732dd0fc5",
+      "effective_bound_infinity": {
+        "nlp_lower_bound_inf": -1e+19,
+        "nlp_upper_bound_inf": 1e+19
+      },
+      "input_representation_overrides": []
+    }
+  ]
+}

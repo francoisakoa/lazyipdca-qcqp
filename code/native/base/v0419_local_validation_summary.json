@@ -1,0 +1,45 @@
+{
+  "version": "0.4.19-single-route-all-constraint-defect-soc",
+  "api": 4190,
+  "release_ctest": {"passed": 52, "failed": 0},
+  "asan_ubsan_ctest": {"passed": 52, "failed": 0},
+  "inequality_soc_regression": {
+    "historical_full_residual": {
+      "accepted_alpha": 7.62939453125e-06,
+      "soc_accepted": false
+    },
+    "all_constraint_scaled_model": {
+      "accepted_alpha": 6.103515625e-05,
+      "soc_accepted": true,
+      "final_feasibility": 9.9046782262e-07
+    },
+    "alpha_gain": 8.0
+  },
+  "single_route_regressions": {
+    "BT1": {
+      "status": "solved",
+      "objective": -1.0,
+      "feasibility": 9.95759e-11,
+      "dual_infeasibility": 5.32894e-07,
+      "outer_iterations": 3,
+      "inner_iterations": 4
+    },
+    "DISCS": {
+      "status": "solved",
+      "objective": 16.6416,
+      "feasibility": 3.57396e-08,
+      "dual_infeasibility": 2.58746e-08,
+      "outer_iterations": 72,
+      "inner_iterations": 10056
+    },
+    "HS116": {
+      "status": "solved",
+      "objective": 97.5875,
+      "feasibility": 2.84217e-14,
+      "dual_infeasibility": 5.24381e-12,
+      "outer_iterations": 206,
+      "inner_iterations": 4129
+    }
+  },
+  "exact_core2_external_run_required": true
+}

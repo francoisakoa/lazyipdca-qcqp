@@ -1,0 +1,17 @@
+{
+  "version": "0.4.28r3p28g10-cholesk-r7d9",
+  "api_version": 4340,
+  "build_id": "v0.4.28r3p28g10-cholesk-r7d9-api-4340",
+  "branch": "filter-aggregate-dca",
+  "parent": "0.4.28r3p28g10-cholesk-r5",
+  "performance_target_met": false,
+  "package_revision": 9,
+  "performance_target_scope": "correctness and portability revision; no six-case performance claim without all six frozen QCQ inputs",
+  "features": [
+    "native Cholesk KKT backend",
+    "Ipopt-compatible scaled termination metrics",
+    "separate primal, bound-dual, and equality-dual step policies",
+    "independent adaptive primal and dual regularization",
+    "fail-closed validation entry points"
+  ]
+}

@@ -1,0 +1,26 @@
+IPOPT : adaptive et monotone × MA27 et MUMPS, 4078 cas, cœurs0–21.
+RAFFINEMENT : cœur23 exclusivement, une tâche à la fois.
+
+Après téléchargement du ZIP dans Téléchargements :
+
+cd "$HOME/Téléchargements" &&
+python3 -m zipfile -e LAZYQCQP_IPOPT_ALIGNE_RAFFINEMENT_20261109_R1.zip . &&
+bash LAZYQCQP_IPOPT_ALIGNE_RAFFINEMENT_20261109_R1/LANCER_TOUT.sh &&
+bash LAZYQCQP_IPOPT_ALIGNE_RAFFINEMENT_20261109_R1/SUIVRE_TOUT.sh
+
+Lancer seulement Ipopt :
+bash "$HOME/Téléchargements/LAZYQCQP_IPOPT_ALIGNE_RAFFINEMENT_20261109_R1/LANCER_IPOPT_ALIGNE.sh"
+
+Lancer seulement le raffinement :
+bash "$HOME/Téléchargements/LAZYQCQP_IPOPT_ALIGNE_RAFFINEMENT_20261109_R1/LANCER_FACTORIEL.sh"
+
+Arrêter les deux :
+bash "$HOME/Téléchargements/LAZYQCQP_IPOPT_ALIGNE_RAFFINEMENT_20261109_R1/ARRETER_TOUT.sh"
+
+Reprendre les productions déjà qualifiées :
+bash "$HOME/Téléchargements/LAZYQCQP_IPOPT_ALIGNE_RAFFINEMENT_20261109_R1/REPRENDRE_TOUT.sh"
+
+Suivi ponctuel :
+bash "$HOME/Téléchargements/LAZYQCQP_IPOPT_ALIGNE_RAFFINEMENT_20261109_R1/SUIVRE_TOUT.sh" --once
+
+Les contrôles natifs sur TRX précèdent chaque lancement. Les résultats antérieurs sont conservés.

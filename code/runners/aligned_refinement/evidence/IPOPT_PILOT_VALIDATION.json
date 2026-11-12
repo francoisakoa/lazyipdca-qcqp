@@ -1,0 +1,17 @@
+{
+  "schema": "ipopt-aligned-orchestration-local-tests-v1",
+  "passed": true,
+  "tests": 10,
+  "optimizer_invocations": 0,
+  "scope": "Mock local Python child commands, orchestration/provenance/stop tests; no native solver qualification",
+  "production_authorized": false,
+  "scripts": {
+    "PILOTER_IPOPT.py": "c807f2a31cf3ce2d556c96dff3f31a7a6f55f76759e2638e0f0f71ab7cd59ee6",
+    "TEST_PILOTER_IPOPT.py": "00fdf50d50306b1b4e9d072acca3c515ae032d97e861d5cc818a5add5f07413d",
+    "LANCER_IPOPT_ALIGNE.sh": "accaff6d746d40a302ae514e3cd90797b005ddc23c51192be286e3a2aeeb4795",
+    "SUIVRE_IPOPT_ALIGNE.sh": "516570de8b165dda7c6e2ec0240793c87754906cd0c0869f0b37bb9dacb83039",
+    "ARRETER_IPOPT_ALIGNE.sh": "bb0926256f11e8b919f4975895f1eea2923dcf44145ad4208d95dd39a8384daf",
+    "REPRENDRE_IPOPT_ALIGNE.sh": "c79a0840482a63ffe292feb3c7073c3a5a514e1c0cff1f24245ac81ce599ed6e",
+    "DEPOUILLER_IPOPT_ALIGNE.sh": "21d876a5f1eedba667dc6631438935b461b6b4cba8c5bf578013d432a81ebf98"
+  }
+}

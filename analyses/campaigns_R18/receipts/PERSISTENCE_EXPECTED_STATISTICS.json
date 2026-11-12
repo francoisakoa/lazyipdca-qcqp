@@ -1,0 +1,1732 @@
+{
+  "status": "PASS",
+  "scope": "independent read-only recomputation from 144 finalized RESULT.json, selected solver_resources.json/AUDIT.json and CSV rows",
+  "raw_result_count": 144,
+  "case_count": 12,
+  "backend_pair_count": 24,
+  "repetitions_per_mode": 3,
+  "all_original_strict": true,
+  "all_finalized_uncontaminated": true,
+  "all_24_numerical_and_work_parity": true,
+  "max_original_residuals": {
+    "primal": 1.0270839213843977e-10,
+    "dual": 9.986793438544646e-07,
+    "complementarity": 8.862560315838528e-07
+  },
+  "backends": [
+    {
+      "count": 12,
+      "median": 0.8492719138449791,
+      "q1": 0.7886869929947529,
+      "q3": 0.8779171061511335,
+      "minimum": 0.026653907355031915,
+      "maximum": 0.9899270998909111,
+      "backend": "ma27",
+      "median_gain_percent": 15.072808615502087,
+      "reuse_faster_pairs": 12,
+      "repetition_paired_wins": 36,
+      "nonzero_correction_pairs": 11
+    },
+    {
+      "count": 12,
+      "median": 0.8531506211315872,
+      "q1": 0.813320232609015,
+      "q3": 0.8757568955371029,
+      "minimum": 0.026945908654836967,
+      "maximum": 0.9943911447381084,
+      "backend": "mumps",
+      "median_gain_percent": 14.684937886841276,
+      "reuse_faster_pairs": 12,
+      "repetition_paired_wins": 36,
+      "nonzero_correction_pairs": 11
+    }
+  ],
+  "families": [
+    {
+      "count": 2,
+      "median": 0.9311514681623194,
+      "q1": 0.929957606033034,
+      "q3": 0.9323453302916047,
+      "minimum": 0.9287637439037487,
+      "maximum": 0.93353919242089,
+      "backend": "ma27",
+      "family": "Contrôle distribué",
+      "gain_percent_median": 6.884853183768058,
+      "speedup_min": 1.0711923057100166,
+      "speedup_max": 1.0767000828400486
+    },
+    {
+      "count": 2,
+      "median": 0.02700777992372566,
+      "q1": 0.026830843639378786,
+      "q3": 0.027184716208072533,
+      "minimum": 0.026653907355031915,
+      "maximum": 0.027361652492419404,
+      "backend": "ma27",
+      "family": "Multicast",
+      "gain_percent_median": 97.29922200762744,
+      "speedup_min": 36.54750020222835,
+      "speedup_max": 37.51795137125412
+    },
+    {
+      "count": 6,
+      "median": 0.8492719138449791,
+      "q1": 0.8408731994072964,
+      "q3": 0.855520250928842,
+      "minimum": 0.8303898084084751,
+      "maximum": 0.8609682269002618,
+      "backend": "ma27",
+      "family": "OPF PGLib",
+      "gain_percent_median": 15.072808615502087,
+      "speedup_min": 1.161483047522315,
+      "speedup_max": 1.2042537009414889
+    },
+    {
+      "count": 1,
+      "median": 0.9899270998909111,
+      "q1": 0.9899270998909111,
+      "q3": 0.9899270998909111,
+      "minimum": 0.9899270998909111,
+      "maximum": 0.9899270998909111,
+      "backend": "ma27",
+      "family": "QPLIB 3312 (correction nulle)",
+      "gain_percent_median": 1.00729001090889,
+      "speedup_min": 1.0101753958551078,
+      "speedup_max": 1.0101753958551078
+    },
+    {
+      "count": 1,
+      "median": 0.6635785467535862,
+      "q1": 0.6635785467535862,
+      "q3": 0.6635785467535862,
+      "minimum": 0.6635785467535862,
+      "maximum": 0.6635785467535862,
+      "backend": "ma27",
+      "family": "Surface minimale COPS",
+      "gain_percent_median": 33.64214532464138,
+      "speedup_min": 1.5069806052234247,
+      "speedup_max": 1.5069806052234247
+    },
+    {
+      "count": 2,
+      "median": 0.9276301918889303,
+      "q1": 0.9232894200583658,
+      "q3": 0.9319709637194946,
+      "minimum": 0.9189486482278014,
+      "maximum": 0.936311735550059,
+      "backend": "mumps",
+      "family": "Contrôle distribué",
+      "gain_percent_median": 7.236980811106974,
+      "speedup_min": 1.0680203633382057,
+      "speedup_max": 1.088200088142582
+    },
+    {
+      "count": 2,
+      "median": 0.027288243184745507,
+      "q1": 0.027117075919791237,
+      "q3": 0.02745941044969978,
+      "minimum": 0.026945908654836967,
+      "maximum": 0.02763057771465405,
+      "backend": "mumps",
+      "family": "Multicast",
+      "gain_percent_median": 97.27117568152545,
+      "speedup_min": 36.19178760311058,
+      "speedup_max": 37.11138536129838
+    },
+    {
+      "count": 6,
+      "median": 0.8531506211315872,
+      "q1": 0.8404635691881589,
+      "q3": 0.8592637435850399,
+      "minimum": 0.8347930383096229,
+      "maximum": 0.8613596446402034,
+      "backend": "mumps",
+      "family": "OPF PGLib",
+      "gain_percent_median": 14.684937886841276,
+      "speedup_min": 1.1609552481620007,
+      "speedup_max": 1.197901700312338
+    },
+    {
+      "count": 1,
+      "median": 0.9943911447381084,
+      "q1": 0.9943911447381084,
+      "q3": 0.9943911447381084,
+      "minimum": 0.9943911447381084,
+      "maximum": 0.9943911447381084,
+      "backend": "mumps",
+      "family": "QPLIB 3312 (correction nulle)",
+      "gain_percent_median": 0.5608855261891588,
+      "speedup_min": 1.0056404919649287,
+      "speedup_max": 1.0056404919649287
+    },
+    {
+      "count": 1,
+      "median": 0.7489018155071909,
+      "q1": 0.7489018155071909,
+      "q3": 0.7489018155071909,
+      "minimum": 0.7489018155071909,
+      "maximum": 0.7489018155071909,
+      "backend": "mumps",
+      "family": "Surface minimale COPS",
+      "gain_percent_median": 25.10981844928091,
+      "speedup_min": 1.3352885242009378,
+      "speedup_max": 1.3352885242009378
+    }
+  ],
+  "pairs": [
+    {
+      "pair_id": "persist_16b673d29c7080eeae692b6a",
+      "case_id": "PGLIB__case4619_goc__sad",
+      "backend": "mumps",
+      "regime": "M",
+      "family": "OPF PGLib",
+      "ratio_reuse_over_rebuild": 0.8489815409949713,
+      "gain_percent": 15.101845900502875,
+      "speedup": 1.177881911104971,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            9.056142841931432,
+            9.013212574878708,
+            9.072724055033177
+          ],
+          "median": 9.056142841931432,
+          "range_over_median": 0.00657139371509487,
+          "construction_median": 0.018271015,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            91,
+            91,
+            91
+          ],
+          "corrected_rows": [
+            19292,
+            19292,
+            19292
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            10.65712380502373,
+            10.764018132118508,
+            10.667066837893799
+          ],
+          "median": 10.667066837893799,
+          "range_over_median": 0.010020967218002788,
+          "construction_median": 1.475604375,
+          "preparations": [
+            91,
+            91,
+            91
+          ],
+          "reanchors": [
+            91,
+            91,
+            91
+          ],
+          "corrected_rows": [
+            19292,
+            19292,
+            19292
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_1db1e165104aa7447e572ecf",
+      "case_id": "PGLIB__case4917_goc__sad",
+      "backend": "ma27",
+      "regime": "M",
+      "family": "OPF PGLib",
+      "ratio_reuse_over_rebuild": 0.839309592193603,
+      "gain_percent": 16.0690407806397,
+      "speedup": 1.1914554644686233,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            9.062700398033485,
+            9.036958659999073,
+            9.067229699809104
+          ],
+          "median": 9.062700398033485,
+          "range_over_median": 0.003340178807698439,
+          "construction_median": 0.015140856,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            110,
+            110,
+            110
+          ],
+          "corrected_rows": [
+            17246,
+            17246,
+            17246
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            10.749048513825983,
+            10.877237418899313,
+            10.797803912078962
+          ],
+          "median": 10.797803912078962,
+          "range_over_median": 0.011871757082931587,
+          "construction_median": 1.5399384569999994,
+          "preparations": [
+            110,
+            110,
+            110
+          ],
+          "reanchors": [
+            110,
+            110,
+            110
+          ],
+          "corrected_rows": [
+            17246,
+            17246,
+            17246
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_21d1bc2da4a00434925fe0f5",
+      "case_id": "PGLIB__case3022_goc__sad",
+      "backend": "mumps",
+      "regime": "M",
+      "family": "OPF PGLib",
+      "ratio_reuse_over_rebuild": 0.8347930383096229,
+      "gain_percent": 16.520696169037706,
+      "speedup": 1.197901700312338,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            11.17674048198387,
+            11.11480700597167,
+            11.162177104037255
+          ],
+          "median": 11.162177104037255,
+          "range_over_median": 0.005548512215399213,
+          "construction_median": 0.009070163,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            227,
+            227,
+            227
+          ],
+          "corrected_rows": [
+            10753,
+            10753,
+            10753
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            13.347159539116547,
+            13.371558224083856,
+            13.371190932113677
+          ],
+          "median": 13.371190932113677,
+          "range_over_median": 0.0018247204075674932,
+          "construction_median": 1.9376375230000005,
+          "preparations": [
+            227,
+            227,
+            227
+          ],
+          "reanchors": [
+            227,
+            227,
+            227
+          ],
+          "corrected_rows": [
+            10753,
+            10753,
+            10753
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_242a04d2494840c61ab6162d",
+      "case_id": "multicast__rayleigh_N64_K128_seed2025",
+      "backend": "ma27",
+      "regime": "I",
+      "family": "Multicast",
+      "ratio_reuse_over_rebuild": 0.026653907355031915,
+      "gain_percent": 97.3346092644968,
+      "speedup": 37.51795137125412,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            14.475076929898933,
+            14.543620669981465,
+            14.5006034639664
+          ],
+          "median": 14.5006034639664,
+          "range_over_median": 0.004726957760955362,
+          "construction_median": 0.735924716,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            731,
+            731,
+            731
+          ],
+          "corrected_rows": [
+            128,
+            128,
+            128
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            544.3034429501276,
+            544.0329356149305,
+            543.536384827923
+          ],
+          "median": 544.0329356149305,
+          "range_over_median": 0.0014099479498196129,
+          "construction_median": 528.6311951069998,
+          "preparations": [
+            731,
+            731,
+            731
+          ],
+          "reanchors": [
+            731,
+            731,
+            731
+          ],
+          "corrected_rows": [
+            128,
+            128,
+            128
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_303bd58d7a86be46c142577c",
+      "case_id": "multicast__rayleigh_N64_K128_seed2024",
+      "backend": "ma27",
+      "regime": "I",
+      "family": "Multicast",
+      "ratio_reuse_over_rebuild": 0.027361652492419404,
+      "gain_percent": 97.26383475075806,
+      "speedup": 36.54750020222835,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            8.7811721439939,
+            8.7792277589906,
+            8.772506361128762
+          ],
+          "median": 8.7792277589906,
+          "range_over_median": 0.0009870780327190438,
+          "construction_median": 0.73666659,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            431,
+            431,
+            431
+          ],
+          "corrected_rows": [
+            128,
+            128,
+            128
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            320.91456776019186,
+            320.8588282971177,
+            320.69774604495615
+          ],
+          "median": 320.8588282971177,
+          "range_over_median": 0.0006757542449009119,
+          "construction_median": 311.8413548320001,
+          "preparations": [
+            431,
+            431,
+            431
+          ],
+          "reanchors": [
+            431,
+            431,
+            431
+          ],
+          "corrected_rows": [
+            128,
+            128,
+            128
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_30acccd7b82e05455302df29",
+      "case_id": "PGLIB__case3120sp_k",
+      "backend": "mumps",
+      "regime": "M",
+      "family": "OPF PGLib",
+      "ratio_reuse_over_rebuild": 0.8613596446402034,
+      "gain_percent": 13.864035535979657,
+      "speedup": 1.1609552481620007,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            3.629463976016268,
+            3.609144377987832,
+            3.5987919121980667
+          ],
+          "median": 3.609144377987832,
+          "range_over_median": 0.008498430820687117,
+          "construction_median": 0.008551576,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            67,
+            67,
+            67
+          ],
+          "corrected_rows": [
+            10437,
+            10437,
+            10437
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            4.154621867928654,
+            4.222878674045205,
+            4.190055106999353
+          ],
+          "median": 4.190055106999353,
+          "range_over_median": 0.016290192938639484,
+          "construction_median": 0.5428665529999999,
+          "preparations": [
+            67,
+            67,
+            67
+          ],
+          "reanchors": [
+            67,
+            67,
+            67
+          ],
+          "corrected_rows": [
+            10437,
+            10437,
+            10437
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_3ccbd2a785698f253b677bb1",
+      "case_id": "mitt_distributed_dist2_n0096_b075",
+      "backend": "ma27",
+      "regime": "I",
+      "family": "Contrôle distribué",
+      "ratio_reuse_over_rebuild": 0.9287637439037487,
+      "gain_percent": 7.123625609625128,
+      "speedup": 1.0767000828400486,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            1.4628347670659423,
+            1.4671520390547812,
+            1.4870540997944772
+          ],
+          "median": 1.4671520390547812,
+          "range_over_median": 0.01650771841215471,
+          "construction_median": 0.00239822,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            35,
+            35,
+            35
+          ],
+          "corrected_rows": [
+            9216,
+            9216,
+            9216
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            1.5796827219892293,
+            1.5793393349740654,
+            1.6215788049157709
+          ],
+          "median": 1.5796827219892293,
+          "range_over_median": 0.02673921120597878,
+          "construction_median": 0.09864788199999999,
+          "preparations": [
+            35,
+            35,
+            35
+          ],
+          "reanchors": [
+            35,
+            35,
+            35
+          ],
+          "corrected_rows": [
+            9216,
+            9216,
+            9216
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_4e55157d0f3dc54dee8457e8",
+      "case_id": "cops_minsurf_epi_nx0050_ny0064",
+      "backend": "mumps",
+      "regime": "I",
+      "family": "Surface minimale COPS",
+      "ratio_reuse_over_rebuild": 0.7489018155071909,
+      "gain_percent": 25.10981844928091,
+      "speedup": 1.3352885242009378,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            3.992055950919166,
+            3.99652490997687,
+            4.009686141973361
+          ],
+          "median": 3.99652490997687,
+          "range_over_median": 0.0044113802494220415,
+          "construction_median": 0.006955167,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            188,
+            188,
+            188
+          ],
+          "corrected_rows": [
+            6630,
+            6630,
+            6630
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            5.297851355979219,
+            5.336513848975301,
+            5.3647526991553605
+          ],
+          "median": 5.336513848975301,
+          "range_over_median": 0.012536525729992727,
+          "construction_median": 1.232953947,
+          "preparations": [
+            188,
+            188,
+            188
+          ],
+          "reanchors": [
+            188,
+            188,
+            188
+          ],
+          "corrected_rows": [
+            6630,
+            6630,
+            6630
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_56047f7fbf6fee89000971e2",
+      "case_id": "mitt_distributed_dist2_n0080_b075",
+      "backend": "mumps",
+      "regime": "I",
+      "family": "Contrôle distribué",
+      "ratio_reuse_over_rebuild": 0.936311735550059,
+      "gain_percent": 6.368826444994102,
+      "speedup": 1.0680203633382057,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            0.8299841589760035,
+            0.8293996120337397,
+            0.8306267431471497
+          ],
+          "median": 0.8299841589760035,
+          "range_over_median": 0.0014784994389820333,
+          "construction_median": 0.001746202,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            26,
+            26,
+            26
+          ],
+          "corrected_rows": [
+            6400,
+            6400,
+            6400
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            0.8864399830345064,
+            0.876868651015684,
+            0.8967626527883112
+          ],
+          "median": 0.8864399830345064,
+          "range_over_median": 0.022442581735229356,
+          "construction_median": 0.047659615999999995,
+          "preparations": [
+            26,
+            26,
+            26
+          ],
+          "reanchors": [
+            26,
+            26,
+            26
+          ],
+          "corrected_rows": [
+            6400,
+            6400,
+            6400
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_5823061b2e565c915c478cfe",
+      "case_id": "PGLIB__case9591_goc",
+      "backend": "mumps",
+      "regime": "M",
+      "family": "OPF PGLib",
+      "ratio_reuse_over_rebuild": 0.8573197012682032,
+      "gain_percent": 14.268029873179678,
+      "speedup": 1.1664260118141865,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            17.9852536090184,
+            17.981671124929562,
+            17.94324603001587
+          ],
+          "median": 17.981671124929562,
+          "range_over_median": 0.0023361332053443355,
+          "construction_median": 0.035320168,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            87,
+            87,
+            87
+          ],
+          "corrected_rows": [
+            37674,
+            37674,
+            37674
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            21.069952956866473,
+            20.974288936005905,
+            20.888773903949186
+          ],
+          "median": 20.974288936005905,
+          "range_over_median": 0.008638149949687321,
+          "construction_median": 2.680304054000001,
+          "preparations": [
+            87,
+            87,
+            87
+          ],
+          "reanchors": [
+            87,
+            87,
+            87
+          ],
+          "corrected_rows": [
+            37674,
+            37674,
+            37674
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_5ec55bfa12980a826db5b888",
+      "case_id": "PGLIB__case4917_goc__sad",
+      "backend": "mumps",
+      "regime": "M",
+      "family": "OPF PGLib",
+      "ratio_reuse_over_rebuild": 0.8376242452525547,
+      "gain_percent": 16.237575474744524,
+      "speedup": 1.1938527396595198,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            9.420411835890263,
+            9.420042315032333,
+            9.446113396901637
+          ],
+          "median": 9.420411835890263,
+          "range_over_median": 0.0027675097780733454,
+          "construction_median": 0.015208987,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            110,
+            110,
+            110
+          ],
+          "corrected_rows": [
+            17246,
+            17246,
+            17246
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            11.246584478998557,
+            11.30066633108072,
+            11.124768550042063
+          ],
+          "median": 11.246584478998557,
+          "range_over_median": 0.015640106680132233,
+          "construction_median": 1.5457981619999992,
+          "preparations": [
+            110,
+            110,
+            110
+          ],
+          "reanchors": [
+            110,
+            110,
+            110
+          ],
+          "corrected_rows": [
+            17246,
+            17246,
+            17246
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_5ff7bba6a1de23c67cade4c6",
+      "case_id": "multicast__rayleigh_N64_K128_seed2025",
+      "backend": "mumps",
+      "regime": "I",
+      "family": "Multicast",
+      "ratio_reuse_over_rebuild": 0.026945908654836967,
+      "gain_percent": 97.30540913451631,
+      "speedup": 37.11138536129838,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            14.660657563013956,
+            14.665646178880706,
+            14.665967139881104
+          ],
+          "median": 14.665646178880706,
+          "range_over_median": 0.0003620417949803226,
+          "construction_median": 0.736673856,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            731,
+            731,
+            731
+          ],
+          "corrected_rows": [
+            128,
+            128,
+            128
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            544.4592249491252,
+            544.1110385979991,
+            544.262446916895
+          ],
+          "median": 544.262446916895,
+          "range_over_median": 0.0006397398040199997,
+          "construction_median": 528.6379963330006,
+          "preparations": [
+            731,
+            731,
+            731
+          ],
+          "reanchors": [
+            731,
+            731,
+            731
+          ],
+          "corrected_rows": [
+            128,
+            128,
+            128
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_60c091e3eacb004e3069e394",
+      "case_id": "PGLIB__case2736sp_k__sad",
+      "backend": "mumps",
+      "regime": "M",
+      "family": "OPF PGLib",
+      "ratio_reuse_over_rebuild": 0.8599117576906521,
+      "gain_percent": 14.008824230934792,
+      "speedup": 1.1629100207741825,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            3.934063381049782,
+            3.9156853628810495,
+            3.953455570852384
+          ],
+          "median": 3.934063381049782,
+          "range_over_median": 0.00960081328462372,
+          "construction_median": 0.007493381,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            85,
+            85,
+            85
+          ],
+          "corrected_rows": [
+            9209,
+            9209,
+            9209
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            4.5579782670829445,
+            4.627991880988702,
+            4.574961728183553
+          ],
+          "median": 4.574961728183553,
+          "range_over_median": 0.015303650186721002,
+          "construction_median": 0.5960766399999997,
+          "preparations": [
+            85,
+            85,
+            85
+          ],
+          "reanchors": [
+            85,
+            85,
+            85
+          ],
+          "corrected_rows": [
+            9209,
+            9209,
+            9209
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_612da7878b211bca73d982ae",
+      "case_id": "PGLIB__case2736sp_k__sad",
+      "backend": "ma27",
+      "regime": "M",
+      "family": "OPF PGLib",
+      "ratio_reuse_over_rebuild": 0.8455640210483768,
+      "gain_percent": 15.44359789516232,
+      "speedup": 1.1826425617780485,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            3.7321357110049576,
+            3.72196975001134,
+            3.7273547439835966
+          ],
+          "median": 3.7273547439835966,
+          "range_over_median": 0.0027273929346346413,
+          "construction_median": 0.007440208,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            85,
+            85,
+            85
+          ],
+          "corrected_rows": [
+            9209,
+            9209,
+            9209
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            4.378165104892105,
+            4.4134923808742315,
+            4.408128363080323
+          ],
+          "median": 4.408128363080323,
+          "range_over_median": 0.008014121430311641,
+          "construction_median": 0.5999944819999999,
+          "preparations": [
+            85,
+            85,
+            85
+          ],
+          "reanchors": [
+            85,
+            85,
+            85
+          ],
+          "corrected_rows": [
+            9209,
+            9209,
+            9209
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_65577cccab297de51e307561",
+      "case_id": "PGLIB__case4619_goc__sad",
+      "backend": "ma27",
+      "regime": "M",
+      "family": "OPF PGLib",
+      "ratio_reuse_over_rebuild": 0.8563670656912621,
+      "gain_percent": 14.363293430873792,
+      "speedup": 1.167723561616416,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            9.794094308046624,
+            9.84611290995963,
+            9.806378858163953
+          ],
+          "median": 9.806378858163953,
+          "range_over_median": 0.005304567839503659,
+          "construction_median": 0.018099937,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            91,
+            91,
+            91
+          ],
+          "corrected_rows": [
+            19292,
+            19292,
+            19292
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            11.488321512006223,
+            11.43706215498969,
+            11.451139646815136
+          ],
+          "median": 11.451139646815136,
+          "range_over_median": 0.0044763541968322945,
+          "construction_median": 1.5146784690000008,
+          "preparations": [
+            91,
+            91,
+            91
+          ],
+          "reanchors": [
+            91,
+            91,
+            91
+          ],
+          "corrected_rows": [
+            19292,
+            19292,
+            19292
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_68159b0e2073542bab87db04",
+      "case_id": "PGLIB__case3022_goc__sad",
+      "backend": "ma27",
+      "regime": "M",
+      "family": "OPF PGLib",
+      "ratio_reuse_over_rebuild": 0.8303898084084751,
+      "gain_percent": 16.961019159152492,
+      "speedup": 1.2042537009414889,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            28.012305102078244,
+            28.050462244078517,
+            27.95958435977809
+          ],
+          "median": 28.012305102078244,
+          "range_over_median": 0.0032442129974403064,
+          "construction_median": 0.017916065000000002,
+          "preparations": [
+            2,
+            2,
+            2
+          ],
+          "reanchors": [
+            602,
+            602,
+            602
+          ],
+          "corrected_rows": [
+            21506,
+            21506,
+            21506
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            33.84141303785145,
+            33.705085096880794,
+            33.733922091079876
+          ],
+          "median": 33.733922091079876,
+          "range_over_median": 0.004041271590139467,
+          "construction_median": 5.0822586940000045,
+          "preparations": [
+            602,
+            602,
+            602
+          ],
+          "reanchors": [
+            602,
+            602,
+            602
+          ],
+          "corrected_rows": [
+            21506,
+            21506,
+            21506
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_6be84fe423e896b62bf71641",
+      "case_id": "PGLIB__case3120sp_k",
+      "backend": "ma27",
+      "regime": "M",
+      "family": "OPF PGLib",
+      "ratio_reuse_over_rebuild": 0.8529798066415814,
+      "gain_percent": 14.702019335841864,
+      "speedup": 1.1723606962482243,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            3.3382355589419603,
+            3.355355787090957,
+            3.336794605012983
+          ],
+          "median": 3.3382355589419603,
+          "range_over_median": 0.005560177450106897,
+          "construction_median": 0.00852978,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            67,
+            67,
+            67
+          ],
+          "corrected_rows": [
+            10437,
+            10437,
+            10437
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            3.902225822908804,
+            3.913616164121777,
+            3.9253159479703754
+          ],
+          "median": 3.913616164121777,
+          "range_over_median": 0.005899946262807065,
+          "construction_median": 0.531699582,
+          "preparations": [
+            67,
+            67,
+            67
+          ],
+          "reanchors": [
+            67,
+            67,
+            67
+          ],
+          "corrected_rows": [
+            10437,
+            10437,
+            10437
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_74411210049c9fcda29f0345",
+      "case_id": "cops_minsurf_epi_nx0050_ny0064",
+      "backend": "ma27",
+      "regime": "I",
+      "family": "Surface minimale COPS",
+      "ratio_reuse_over_rebuild": 0.6635785467535862,
+      "gain_percent": 33.64214532464138,
+      "speedup": 1.5069806052234247,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            2.59693882195279,
+            2.598516735015437,
+            2.60412475396879
+          ],
+          "median": 2.598516735015437,
+          "range_over_median": 0.0027653976282579,
+          "construction_median": 0.006953551,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            188,
+            188,
+            188
+          ],
+          "corrected_rows": [
+            6630,
+            6630,
+            6630
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            3.9138436899520457,
+            3.9159143220167607,
+            3.9255650269333273
+          ],
+          "median": 3.9159143220167607,
+          "range_over_median": 0.002993256751144891,
+          "construction_median": 1.2308697079999995,
+          "preparations": [
+            188,
+            188,
+            188
+          ],
+          "reanchors": [
+            188,
+            188,
+            188
+          ],
+          "corrected_rows": [
+            6630,
+            6630,
+            6630
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_76aad417ea7699954d225581",
+      "case_id": "QPLIB__3312",
+      "backend": "ma27",
+      "regime": "I",
+      "family": "QPLIB 3312 (correction nulle)",
+      "ratio_reuse_over_rebuild": 0.9899270998909111,
+      "gain_percent": 1.00729001090889,
+      "speedup": 1.0101753958551078,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            7.489032766083255,
+            7.491164583014324,
+            7.491193820955232
+          ],
+          "median": 7.491164583014324,
+          "range_over_median": 0.0002884804956597018,
+          "construction_median": 0.001359905,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            53,
+            53,
+            53
+          ],
+          "corrected_rows": [
+            0,
+            0,
+            0
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            7.553797847824171,
+            7.622303993208334,
+            7.567390148062259
+          ],
+          "median": 7.567390148062259,
+          "range_over_median": 0.00905281002350654,
+          "construction_median": 0.06420176399999998,
+          "preparations": [
+            53,
+            53,
+            53
+          ],
+          "reanchors": [
+            53,
+            53,
+            53
+          ],
+          "corrected_rows": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_8c8e370f055d54d9c45060e3",
+      "case_id": "multicast__rayleigh_N64_K128_seed2024",
+      "backend": "mumps",
+      "regime": "I",
+      "family": "Multicast",
+      "ratio_reuse_over_rebuild": 0.02763057771465405,
+      "gain_percent": 97.2369422285346,
+      "speedup": 36.19178760311058,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            8.868283955845982,
+            8.901124550029635,
+            8.865028711035848
+          ],
+          "median": 8.868283955845982,
+          "range_over_median": 0.004070216873242241,
+          "construction_median": 0.736642981,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            431,
+            431,
+            431
+          ],
+          "corrected_rows": [
+            128,
+            128,
+            128
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            320.93530600098893,
+            321.1666326171253,
+            320.9590493340511
+          ],
+          "median": 320.9590493340511,
+          "range_over_median": 0.0007207356097805321,
+          "construction_median": 311.83545856,
+          "preparations": [
+            431,
+            431,
+            431
+          ],
+          "reanchors": [
+            431,
+            431,
+            431
+          ],
+          "corrected_rows": [
+            128,
+            128,
+            128
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_9eff53de5a62904577669ccb",
+      "case_id": "PGLIB__case9591_goc",
+      "backend": "ma27",
+      "regime": "M",
+      "family": "OPF PGLib",
+      "ratio_reuse_over_rebuild": 0.8609682269002618,
+      "gain_percent": 13.903177309973824,
+      "speedup": 1.161483047522315,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            18.597118390956894,
+            18.613599349046126,
+            18.603569242870435
+          ],
+          "median": 18.603569242870435,
+          "range_over_median": 0.0008859030153876814,
+          "construction_median": 0.0341745,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            87,
+            87,
+            87
+          ],
+          "corrected_rows": [
+            37674,
+            37674,
+            37674
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            21.60773029900156,
+            21.549078966956586,
+            21.642716384958476
+          ],
+          "median": 21.60773029900156,
+          "range_over_median": 0.004333514751719061,
+          "construction_median": 2.656601396,
+          "preparations": [
+            87,
+            87,
+            87
+          ],
+          "reanchors": [
+            87,
+            87,
+            87
+          ],
+          "corrected_rows": [
+            37674,
+            37674,
+            37674
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_c52c0a03dc294088db49fc84",
+      "case_id": "mitt_distributed_dist2_n0096_b075",
+      "backend": "mumps",
+      "regime": "I",
+      "family": "Contrôle distribué",
+      "ratio_reuse_over_rebuild": 0.9189486482278014,
+      "gain_percent": 8.105135177219857,
+      "speedup": 1.088200088142582,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            1.4863832949195057,
+            1.4768614389467984,
+            1.4822350710164756
+          ],
+          "median": 1.4822350710164756,
+          "range_over_median": 0.006423985074228103,
+          "construction_median": 0.002426893,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            35,
+            35,
+            35
+          ],
+          "corrected_rows": [
+            9216,
+            9216,
+            9216
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            1.612968334928155,
+            1.6095995919313282,
+            1.6143224369734526
+          ],
+          "median": 1.612968334928155,
+          "range_over_median": 0.0029280457277760237,
+          "construction_median": 0.09914166299999999,
+          "preparations": [
+            35,
+            35,
+            35
+          ],
+          "reanchors": [
+            35,
+            35,
+            35
+          ],
+          "corrected_rows": [
+            9216,
+            9216,
+            9216
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_cbd907429d14b6d4438bcb2a",
+      "case_id": "mitt_distributed_dist2_n0080_b075",
+      "backend": "ma27",
+      "regime": "I",
+      "family": "Contrôle distribué",
+      "ratio_reuse_over_rebuild": 0.93353919242089,
+      "gain_percent": 6.646080757910999,
+      "speedup": 1.0711923057100166,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            0.7943451488390565,
+            0.7994822398759425,
+            0.7999824229627848
+          ],
+          "median": 0.7994822398759425,
+          "range_over_median": 0.0070511561640231365,
+          "construction_median": 0.001703094,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            26,
+            26,
+            26
+          ],
+          "corrected_rows": [
+            6400,
+            6400,
+            6400
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            0.8607570149470121,
+            0.8560519509483129,
+            0.8563992239069194
+          ],
+          "median": 0.8563992239069194,
+          "range_over_median": 0.005494007779729812,
+          "construction_median": 0.048012772999999995,
+          "preparations": [
+            26,
+            26,
+            26
+          ],
+          "reanchors": [
+            26,
+            26,
+            26
+          ],
+          "corrected_rows": [
+            6400,
+            6400,
+            6400
+          ]
+        }
+      }
+    },
+    {
+      "pair_id": "persist_d2edf86941b8efbebe0064ae",
+      "case_id": "QPLIB__3312",
+      "backend": "mumps",
+      "regime": "I",
+      "family": "QPLIB 3312 (correction nulle)",
+      "ratio_reuse_over_rebuild": 0.9943911447381084,
+      "gain_percent": 0.5608855261891588,
+      "speedup": 1.0056404919649287,
+      "repetition_paired_wins": 3,
+      "all_six_numerical_core_and_work_equal": true,
+      "modes": {
+        "reuse": {
+          "seconds": [
+            11.064000356011093,
+            11.06599579192698,
+            11.06185810896568
+          ],
+          "median": 11.064000356011093,
+          "range_over_median": 0.0003739771175126548,
+          "construction_median": 0.001388399,
+          "preparations": [
+            1,
+            1,
+            1
+          ],
+          "reanchors": [
+            54,
+            54,
+            54
+          ],
+          "corrected_rows": [
+            0,
+            0,
+            0
+          ]
+        },
+        "rebuild": {
+          "seconds": [
+            11.2297326058615,
+            11.126406761119142,
+            11.122056925902143
+          ],
+          "median": 11.126406761119142,
+          "range_over_median": 0.009677489082605344,
+          "construction_median": 0.06628200899999999,
+          "preparations": [
+            54,
+            54,
+            54
+          ],
+          "reanchors": [
+            54,
+            54,
+            54
+          ],
+          "corrected_rows": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    }
+  ],
+  "repetition_stability": {
+    "reuse": {
+      "median_range_over_median": 0.0037051978404703404,
+      "max_range_over_median": 0.01650771841215471
+    },
+    "rebuild": {
+      "median_range_over_median": 0.0069570338465593535,
+      "max_range_over_median": 0.02673921120597878
+    }
+  },
+  "interpretation_limits": [
+    "12 fixed selected cases, not representative whole-corpus sample",
+    "6/12 cases are PGLib; case/backend results are dependent",
+    "Only regimes I and M represented; no conclusion for E/Q",
+    "QPLIB3312 has no nonzero curvature correction; a construction-cost control, not evidence of learned correction-memory benefit",
+    "Total-time aggregation dominated by the two multicast cases; prefer median paired ratios and family breakdown",
+    "Exact same numerical endpoint and work means observed effect concerns repeated construction cost, not improvement of KKT coverage or objective"
+  ]
+}

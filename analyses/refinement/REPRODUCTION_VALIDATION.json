@@ -1,0 +1,17 @@
+{
+  "portable_outputs_identical": 10,
+  "files": [
+    "REFINEMENT_PAIR_SUMMARY.json",
+    "refinement_asu.tex",
+    "refinement_times.tex",
+    "REFINEMENT_COMMON_CERTIFICATE_PAIRS.csv",
+    "refinement_detail.tex",
+    "REGISTERED_PRIMARY.json",
+    "refinement_main.tex",
+    "REFINEMENT_ACTIVATION.csv",
+    "REFINEMENT_INTERACTIONS.csv",
+    "REFINEMENT_PAIR_SUMMARY.csv"
+  ],
+  "optimizer_invocations": 0,
+  "classification_changes": 0
+}

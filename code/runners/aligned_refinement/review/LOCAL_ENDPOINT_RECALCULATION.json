@@ -1,0 +1,26 @@
+{
+  "optimizer_invocations_by_reviewer": 0,
+  "scope": "Independent recalculation of source-agent local MUMPS endpoint files; no MA27 qualification claim",
+  "endpoints": [
+    {
+      "backend": "mumps",
+      "strategy": "adaptive",
+      "primal": 0,
+      "dual": 2.020561170784379e-12,
+      "complementarity": 1.0498268920968237e-11,
+      "lambda_inequality": 3.0000000000322213,
+      "fixed_bound_multiplier_difference": 0.5,
+      "iterations": 6
+    },
+    {
+      "backend": "mumps",
+      "strategy": "monotone",
+      "primal": 0,
+      "dual": 7.600264828385351e-12,
+      "complementarity": 2.5086056635219206e-09,
+      "lambda_inequality": 3.000000008353032,
+      "fixed_bound_multiplier_difference": 0.5,
+      "iterations": 7
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+LAZYIPDCA_QCQP_V1
+name toy_nonconvex_qcqp
+n 2
+x0 0.4 0.84
+lb -2 -2
+ub 2 2
+objective
+quadratic
+name objective
+constant 0
+linear -0.2 0
+hessian_nnz 2
+0 0 -1
+1 1 0.5
+end_quadratic
+equalities 1
+quadratic
+name circle_like_eq
+constant -1
+linear 0 1
+hessian_nnz 1
+0 0 2
+end_quadratic
+inequalities 1
+quadratic
+name nonconvex_ineq
+constant -0.8
+linear 1 0
+hessian_nnz 1
+1 1 -1
+end_quadratic
+end_problem

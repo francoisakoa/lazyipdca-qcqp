@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "tests": 30,
+  "failures": 0,
+  "errors": 0,
+  "analysis_sha256": "b955d94076f87bbc433aea3d0158d6eb4d5eefeb7d2f7c1f837397f135a797e5",
+  "optimizer_invocations": 0,
+  "scope": "Synthetic paired-rule and byte-provenance tests only; no native production qualification."
+}

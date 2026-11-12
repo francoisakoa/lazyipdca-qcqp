@@ -1,0 +1,122 @@
+[
+  {
+    "path": "CMakeLists.txt",
+    "parent_sha256": "a51eba5c32d8a3159611580db5854d76d7025e2778239a024b773845bad46c89",
+    "sha256": "d61b0aa92197c0af177207c6821dff4464fb634aeb5f864b9c6007551777a36b"
+  },
+  {
+    "path": "FILTER_DCA_G3.md",
+    "parent_sha256": null,
+    "sha256": "62ab59d2fd1af163aa71a71ba80704ddbebab9c3106dc8138f173823aeb79f62"
+  },
+  {
+    "path": "INSTALL_AND_TEST_G3.md",
+    "parent_sha256": null,
+    "sha256": "179541cb0dbb95cf5c7467a43ae523418f71cab49929c6a9ec6d47c83fdd58d3"
+  },
+  {
+    "path": "README.md",
+    "parent_sha256": "74e8e6601dd5cde628e0bc11542a0fda6c4603160fcdfa7a14366a33ec7f0170",
+    "sha256": "eff74ceae7e403330490b53c0c3aa51b936b03ada29dee98ad49057b3515bd4e"
+  },
+  {
+    "path": "VALIDATION_G3.md",
+    "parent_sha256": null,
+    "sha256": "dab0e6ba4bbd8789a9c698db633bc62a8928cf798d2072367cc41d155c778554"
+  },
+  {
+    "path": "include/lazyipdca_qcqp/dca_filter.hpp",
+    "parent_sha256": null,
+    "sha256": "84167d4574a08c09b24bc09dce6c33c7689025ed48dc095a6307c4f333b59d03"
+  },
+  {
+    "path": "include/lazyipdca_qcqp/result.hpp",
+    "parent_sha256": "a3c6b4e25fd63386ab6b8d5e2f16af3b2eb9df7be3c3a790e8ba302c8807e702",
+    "sha256": "3b1dc36575a43452f29fc9759affe0734c8a8193bdb48d9fbfb2f7eaf83c5a77"
+  },
+  {
+    "path": "include/lazyipdca_qcqp/settings.hpp",
+    "parent_sha256": "3606918001854f7bcc1a2f1d759e658639a65a224533ba504335e5109d610841",
+    "sha256": "6ae7a3a8a4ef12d42c100f3eb812703e483576c84683fbe9d4413913cac104f8"
+  },
+  {
+    "path": "include/lazyipdca_qcqp/version.hpp",
+    "parent_sha256": "fa2512710b1dab1b67b246d9d5c2749441e795a0dd5bb17bb33670d657a98cf1",
+    "sha256": "0056cb98de904f4229743f3b40142cc0c1fcd4ad035c62d2b0c5170573fdf15a"
+  },
+  {
+    "path": "python/benchmark_filter_dca_g3.py",
+    "parent_sha256": null,
+    "sha256": "57e1c5fcf995dcd919a1194b99dd56c6be2fd29945e1f15b3ed8ea647f2adef2"
+  },
+  {
+    "path": "release_identity_g3.json",
+    "parent_sha256": null,
+    "sha256": "db786e3ff2a8cef2aa3ef3cd0355f9a15dc75ab55a714c1e450ffe0bd7e51fa1"
+  },
+  {
+    "path": "src/atomic_newton.cpp",
+    "parent_sha256": "d0887f15b1f6ff82eafc16f14abd36afebd2ef2f89f3e984c33c3d0b16d82514",
+    "sha256": "c66c2d8525b49c69392cffd2af20dcc3e10b3196f2055c1be8233b1b8a77b714"
+  },
+  {
+    "path": "src/dca_curvature.hpp",
+    "parent_sha256": null,
+    "sha256": "28b2ac7b4d4a2b623de8f596d5fd185e120a40170b0b03059f22ec15657780b3"
+  },
+  {
+    "path": "src/dca_filter_contract.hpp",
+    "parent_sha256": null,
+    "sha256": "ae8f8ea5a51a53b44e17700974c34580b756b5e0b6571c0b92ab02e819695ccc"
+  },
+  {
+    "path": "src/dca_filter_engine.hpp",
+    "parent_sha256": null,
+    "sha256": "89fe06ebec86c6b63c330865d82ebaf8a5c3bc1b975c14128f08adb2ea829015"
+  },
+  {
+    "path": "src/io.cpp",
+    "parent_sha256": "fc859bae80d36443d2f6e86b2a365b45b86c224f032166ee7f918ca91ec1c3ce",
+    "sha256": "e6038ae3aa263907e4fd609a87ec5e8683b1c3ed998f8f9a18a9d429fef0cb7c"
+  },
+  {
+    "path": "src/main.cpp",
+    "parent_sha256": "7a97631a3fb383ace78a0fe74c8a15739e69636e97551fdd2404557304ef2917",
+    "sha256": "10d907b2ad7dc22a179b6bb71d14c485ba415c962134ec57c43935c94c3c65a0"
+  },
+  {
+    "path": "src/solver.cpp",
+    "parent_sha256": "6343094d2d11403da8dcf48707136823618ddc589cf72f2edf5edf459011a35d",
+    "sha256": "2a8b8d33d2ffd3c88a89b33c53fafe5243528e2e6ea16ad1489af49be947f83a"
+  },
+  {
+    "path": "tests/test_exporter_pglib_contract_r3p22.py",
+    "parent_sha256": "c31a0654616b27653d01a7731aef587f2e72528ed3f890c1932b6e858ebef54f",
+    "sha256": "3cad8e6c6ec834a3c9be23b84c043ed5a6f98be7e58a7873aa529f03442fd57a"
+  },
+  {
+    "path": "tests/test_g3_campaign_contract.py",
+    "parent_sha256": null,
+    "sha256": "ff3831dac9f8812f74e9304dc897b2a2734327797ce9e88fe1ba726820a03640"
+  },
+  {
+    "path": "tests/test_g3_filter_dca.cpp",
+    "parent_sha256": null,
+    "sha256": "b4614610794b7e2c6c86caead7dee3df2a5a02e3c3264bc5cea6232476437d6f"
+  },
+  {
+    "path": "tests/test_lazy_newton_regression.py",
+    "parent_sha256": "64879f559c6c115c6ee4b56e27651826b4c65cd89c9426b5e7898d2f6a9b8406",
+    "sha256": "f0b27d8c29714fb39f2362e632b765145098e4777be619a2d0966bd6f1ab743a"
+  },
+  {
+    "path": "tools/build_g3.sh",
+    "parent_sha256": null,
+    "sha256": "741b633bbd9e8653a80778b9323adfee6e850b765977e419959a4ef2b1d16198"
+  },
+  {
+    "path": "tools/run_g3.sh",
+    "parent_sha256": null,
+    "sha256": "a52e9b15a8e9faeee0f0480b13d0437cb1f28020a8aa874179f2ac6fb6d545ca"
+  }
+]

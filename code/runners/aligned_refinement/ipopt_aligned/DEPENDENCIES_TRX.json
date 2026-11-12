@@ -1,0 +1,10 @@
+{
+  "ipopt_library": "/data/projects/IPDCA_QCQP/LAZYQCQP_MEGA_PROPRE_20261105_API4390_R2/runtime/lib/python3.12/site-packages/casadi/libipopt.so.3",
+  "ipopt_library_sha256": "2cbc643d9d2717cb084321394cc886fb67d4dbcddd3e88a36bee9f4f02d7cc97",
+  "ipopt_headers": "/data/projects/IPDCA_QCQP/LAZYQCQP_MEGA_PROPRE_20261105_API4390_R2/runtime/lib/python3.12/site-packages/casadi/include/coin-or",
+  "ipopt_version": "3.14.11",
+  "hsl_library": "/data/projects/IPDCA_QCQP/deps/hsl_ma27/setup_hHIqA2RD/build/.libs/libcoinhsl.so.2.2.6",
+  "hsl_library_sha256": "f78ea123316602f118573d387a22f793d51a7491e50a2c38bdcd4dce6e2ae0b3",
+  "schema": "audited-trx-ipopt-dependencies-v1",
+  "source_receipt": "Campaign 20261108 receipts copied without modification of dependency digests"
+}

@@ -1,0 +1,53 @@
+{
+  "schema": "native-versus-aligned-pair-analysis-v1",
+  "rows": 65248,
+  "cases": 4078,
+  "configs": [
+    "R3_ma27",
+    "HH_ma27",
+    "HS_ma27",
+    "SH_ma27",
+    "SS_ma27",
+    "SS_legacy_ma27",
+    "R3_mumps",
+    "HH_mumps",
+    "HS_mumps",
+    "SH_mumps",
+    "SS_mumps",
+    "SS_legacy_mumps",
+    "ipopt_ma27_monotone_aligned",
+    "ipopt_mumps_monotone_aligned",
+    "ipopt_ma27_adaptive_aligned",
+    "ipopt_mumps_adaptive_aligned"
+  ],
+  "scope_sizes": {
+    "all": 4078,
+    "I": 1037,
+    "M": 797,
+    "E": 1704,
+    "Q": 540,
+    "M_ASU": 503,
+    "M_outside_ASU": 294
+  },
+  "source_compact_sha256": "7b18eecc19859ce779aa8f9713908b88b5dc619e71241eb89e604e1cf23734d5",
+  "archive_sha256": null,
+  "source_validation": {
+    "legacy_compact_sha256": "5fa533ed851619d51a63361e292304aa4e6d6a8a15ce76f5106620e267939dcf",
+    "native_compared": 48936,
+    "changed_fields": [],
+    "native_details_sha256": "c3fdce79bcc74dcd527954234cb635d22869528faec57d732e1780234e4f1da8",
+    "native_details_original_observations_sha256": "d082f3d73e5e0d50d5ba8f76931494d1aa31507e919693cc984f48cd7cba85fe"
+  },
+  "aligned_internal_status_not_used": true,
+  "endpoint_reaudits": 0,
+  "optimizer_invocations": 0,
+  "strict_definition": "Archived strict classification plus finite nonnegative original primal/dual/complementarity residuals <=1e-6. The independent audit agent checks archived RESULT/AUDIT/provenance separately.",
+  "pairs_hash_checked": true,
+  "case_metadata_checked": true,
+  "objective_definition": "(f_A-f_B)/max(1,abs(f_A),abs(f_B)); positive favors B",
+  "timing_definition": "Declared solver-process elapsed A/B; audit excluded; no startup subtraction; >1s cohort requires both declared process times >1s",
+  "R3_I_archived_confirmed_pairs": 128,
+  "R3_I_unknown_native_with_Ipopt_strict": 4,
+  "native_iterations_missing_in_compact": true,
+  "full_native_endpoint_traces_not_included": true
+}

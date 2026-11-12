@@ -1,0 +1,24 @@
+{
+  "version": "0.4.25-reference-multiplier-transport",
+  "api": 4250,
+  "release_ctest_passed": 61,
+  "release_ctest_total": 61,
+  "sanitizer_selected_passed": 4,
+  "sanitizer_selected_total": 4,
+  "catenary_structured_regression": {
+    "segments": 50,
+    "status": "solved",
+    "objective": -104847.103057,
+    "feasibility": 6.8212102633e-13,
+    "dual_infeasibility": 4.067715053679e-10,
+    "scaled_nlp_error": 2.652057782061e-11,
+    "outer_iterations": 39,
+    "inner_iterations": 105,
+    "multiplier_refit_successes": 77,
+    "multiplier_row_space_factorizations": 80,
+    "multiplier_row_space_solves": 80,
+    "terminal_kkt_accepted_steps": 2,
+    "elapsed_seconds_native": 0.41323141
+  },
+  "exact_pycutest_cases_run_locally": false
+}

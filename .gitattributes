@@ -1,0 +1,6 @@
+# Preserve the bytes covered by scientific source and data manifests.
+* -text
+*.pdf binary
+*.png binary
+*.gz binary
+*.zip binary

@@ -1,0 +1,11 @@
+test_balanced_order_and_regime_specific_denominators (__main__.MatrixTests.test_balanced_order_and_regime_specific_denominators) ... ok
+test_crossed_cells_share_actual_continuous22_queue (__main__.MatrixTests.test_crossed_cells_share_actual_continuous22_queue) ... ok
+test_dead_controller_monitor_is_finite_and_read_only (__main__.MatrixTests.test_dead_controller_monitor_is_finite_and_read_only) ... ok
+test_full_principal_and_crossed_matrices (__main__.MatrixTests.test_full_principal_and_crossed_matrices) ... ok
+test_native_six_commands_use_ma27_and_same_original_case_path (__main__.MatrixTests.test_native_six_commands_use_ma27_and_same_original_case_path) ... ok
+test_observed_backend_does_not_claim_a_factor_on_early_exit (__main__.MatrixTests.test_observed_backend_does_not_claim_a_factor_on_early_exit) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.381s
+
+OK

@@ -1,0 +1,2833 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -775,7 +775,7 @@
+            COMMAND lazyipdca_qcqp_cli --version)
+   set_tests_properties(r3p28_version_identity PROPERTIES
+     PASS_REGULAR_EXPRESSION
+-      "0.4.28r3p28g1-atomic-graft.*API 4327.*r3p28g1-atomic-graft-api-4327")
++      "0.4.28r3p28g3-filter-dca.*API 4329.*r3p28g3-filter-dca-api-4329")
+   set_tests_properties(benchmark_same_qcqp_r3p24 PROPERTIES
+     ENVIRONMENT "OMP_NUM_THREADS=1;OPENBLAS_NUM_THREADS=1;MKL_NUM_THREADS=1;BLIS_NUM_THREADS=1"
+     TIMEOUT 60)
+@@ -915,3 +915,13 @@
+   add_test(NAME g1_compact_python_reader_parity
+     COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_compact_python_reader.py)
+ endif()
++
++if(LAZYIPDCA_BUILD_TESTS)
++  add_executable(test_g3_filter_dca tests/test_g3_filter_dca.cpp)
++  target_link_libraries(test_g3_filter_dca PRIVATE lazyipdca_qcqp)
++  add_test(NAME g3_filter_dca_contract COMMAND test_g3_filter_dca)
++endif()
++if(LAZYIPDCA_BUILD_TESTS AND Python3_Interpreter_FOUND)
++  add_test(NAME g3_campaign_contract
++           COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_g3_campaign_contract.py $<TARGET_FILE:lazyipdca_qcqp_cli>)
++endif()
+--- /dev/null
++++ b/FILTER_DCA_G3.md
+@@ -0,0 +1,295 @@
++# Lazy-DCA à majorantes et filtre original — G3
++
++Version `0.4.28r3p28g3-filter-dca`, API `4329`.
++
++Cette version implémente une voie **Lazy-DCA explicite**, sélectionnée par
++`--algorithm lazy-dca --dca-engine filter`. Elle construit de véritables modèles
++DC, exécute un nombre borné de pas primal-dual sur un modèle fixe, puis accepte
++le premier point qui satisfait le filtre du problème original. Elle ne lance
++pas le moteur Newton direct à la place de DCA. Les voies historiques restent
++accessibles ; la nouvelle voie est activée explicitement par `tools/run_g3.sh`.
++
++La base est l'archive G1 réparée, version 2. Le correctif de rang du facteur
++normal de G1 est conservé. La présente version est une nouvelle implémentation :
++aucun résultat d'un prototype antérieur perdu n'est attribué à son code.
++
++## 1. Problème original et modèle DC
++
++On utilise la convention
++
++\[
++ \min f(x),\qquad h_j(x)=0,\qquad g_i(x)\leq0,
++ \qquad q(x)=c_q+a_q^Tx+\tfrac12x^TQ_qx.
++\]
++
++Les mises à l'échelle sont fixées à l'initialisation. Le certificat final est
++recalculé dans les unités des coefficients originaux. Les formules ci-dessous
++omettent ces facteurs d'échelle pour alléger les notations.
++
++Au point externe accepté \(x_k\), les multiplicateurs signés des égalités sont
++gelés pour construire le Lagrangien partiel :
++
++\[
++ L_k(x)=f(x)+\lambda_k^Th(x),\qquad
++ B_k=Q_f+\sum_j\lambda_{j,k}Q_{h_j}.
++\]
++
++Une correction positive \(C_k\succeq0\) définit la décomposition DC
++\(L_k=(L_k+\frac12x^TC_kx)-\frac12x^TC_kx\).
++La partie concave est **linéarisée en \(x_k\)** :
++
++\[
++ \widehat L_k(x_k+d)=L_k(x_k+d)+\tfrac12d^TC_kd.
++\]
++
++Il s'agit d'une majorante du **Lagrangien partiel**, pas d'une affirmation de
++majoration de \(f\) seul lorsque les Hessiennes des égalités sont présentes.
++Le modèle calculé emploie réellement cette courbure dans ses valeurs et ses
++gradients ; la correction n'est pas uniquement ajoutée à la matrice de Newton.
++
++Pour chaque inégalité sélectionnée, indépendamment des autres :
++
++\[
++ C_{i,k}\succeq0,\quad Q_{g_i}+C_{i,k}\succeq0,\qquad
++ \widehat g_{i,k}(x_k+d)=g_i(x_k+d)+\tfrac12d^TC_{i,k}d.
++\]
++
++Ces majorantes convexes touchent la valeur et le gradient originaux au centre.
++Les bornes et les contraintes affines n'ont pas besoin d'atomes. Les contraintes
++non sélectionnées sont vérifiées sur les points candidats ; une violation
++active la contrainte et provoque une reconstruction à partir du point accepté.
++
++## 2. Traitement des égalités
++
++**Toutes les égalités sont présentes** sous la forme affine
++\(h_k+A_kd=0\). Le centre, le Jacobien et les majorantes restent fixes pendant
++les pas internes. À un point interne \(d_t\), le second membre du prochain pas
++est le résidu restant \(-h_k-A_kd_t\), et non une nouvelle application de
++\(-h_k\). Les égalités originales sont réévaluées pour chaque décision externe.
++
++Sur cette tranche affine, les termes \(\lambda_k^T(h_k+A_kd)\) s'annulent.
++Le modèle objectif devient donc
++\(f_k+\nabla f_k^Td+\frac12d^T(B_k+C_k)d\).
++La courbure signée des égalités est ainsi exploitée sans remplacer une égalité
++quadratique par deux inégalités majorées incompatibles.
++
++L'élimination affine exacte du noyau G1 est réutilisée :
++\(d=T_kz+P_kr_E\), avec \(r_E=A_Ed\).
++Si \(E\) sélectionne les coordonnées retenues, \(ET_k=I\), \(EP_k=0\).
++Le bloc de courbure analysé est \(B_r=T_k^TB_kT_k\). Pour les égalités restantes,
++\(N_k=A_RT_k\).
++
++La correction objective calculée est
++
++\[
++ C_k=E^T(H_r+\rho I)E
++     +\gamma_R A_R^TA_R+\gamma_E A_E^TA_E.
++\]
++
++L'inertie certifie
++\(B_r+H_r+\rho I+\gamma_RN_k^TN_k\succ\varepsilon I\),
++avec \(\varepsilon=10^{-10}\) dans les coordonnées réduites et mises à l'échelle.
++Le complément \(\gamma_E\) provient d'une borne de Schur suffisante sur les blocs
++éliminés. Les deux compléments normaux sont positifs et **constants sur
++\(h_k+A_kd=0\)** : ils sont supprimés algébriquement du calcul, avec les
++multiplicateurs décalés correspondants. Aucun produit de Gram dense n'est formé.
++Le poids théorique \(\gamma_E\) peut être très grand ; il n'est jamais introduit
++numériquement dans le pas. Un débordement de son calcul est un échec explicite.
++
++La stricte convexité porte sur le modèle complété. Le modèle utilisé après
++suppression des termes normaux peut être indéfini hors de la tranche affine.
++Le scalaire \(\rho\) est un complément **dans les coordonnées retenues** ; il ne
++représente pas un \(\rho I\) uniforme dans toutes les variables originales.
++
++Une correction de second ordre bornée peut réutiliser le facteur du modèle pour
++réduire le défaut quadratique des égalités originales. Elle utilise le Jacobien
++gelé, vérifie la positivité des variables de barrière et repasse par le filtre
++original. Une restauration bornée emploie un objectif de déplacement quadratique
++et les mêmes contrôles de faisabilité. Ses pas et son temps font partie du solve.
++
++## 3. Pas privés et acceptation externe
++
++1. À partir du dernier état accepté, construire ou réutiliser les majorantes.
++2. Effectuer un pas primal-dual prédicteur-correcteur sur ce modèle fixe. Le
++   contrôle de direction porte sur le système Newton étendu, seuil `1e-7`.
++3. Vérifier le point candidat sur les fonctions **originales** : objectif,
++   égalités, inégalités, bornes et résidus KKT non perturbés.
++4. Si le filtre accepte, publier ce point, transporter les slacks et recentrer.
++   Sinon, poursuivre le même modèle, au plus `--dca-inner-max` pas.
++5. Après épuisement, reconstruire au dernier point accepté avec un complément
++   proximal plus fort ; le nombre de reprises est borné. Si aucune reprise
++   n'aboutit, retourner un échec documenté au dernier état accepté.
++
++Le filtre associe non-domination par son historique et diminution suffisante
++de la violation originale ou de l'objectif original. Près de la faisabilité,
++une branche terminale exige une contraction du KKT original et une absence
++d'augmentation, à l'arrondi près, de l'objectif ou du Lagrangien original à
++**multiplicateurs d'ancrage fixes**. Cette dernière branche évite de rejeter les
++derniers pas uniquement à cause du défaut quadratique des égalités. Elle ne
++relâche pas les tolérances de terminaison.
++
++Les pas privés ne sont pas des itérés externes. Ils ne modifient ni le centre,
++ni les Hessiennes, ni les atomes pendant la résolution du modèle. Les variables
++primales-duales rejetées sont restaurées avant chaque reconstruction. Les
++structures creuses, les cartes d'assemblage et les données symboliques persistent
++quand le motif le permet.
++
++## 4. Atomes et complément scalaire
++
++Le budget `--max-atoms` est **global**, objectif/égalités et inégalités réunis.
++Il borne les directions stockées, y compris celles dont le poids est devenu nul.
++Les directions de poids nul restent dans l'historique, mais sont retirées des
++bordures numériques de courbure et de Newton. Le motif symbolique est réanalysé
++si cette sélection change ; on évite ainsi de payer le remplissage de bordures
++denses pour des corrections nulles.
++Il n'impose pas un nombre initial d'atomes. `--max-atoms 0` conserve les certificats
++de convexité et utilise les compléments scalaires et normaux.
++
++Un événement rend l'admission éligible après une mise à jour du Hessien du modèle.
++`--atom-event-every 50` vise les mises à jour 50, 100, etc., et non les itérations
++Newton internes. Le premier modèle de restauration compte comme une mise à jour
++initiale ; ses répétitions à Hessien identique n'en créent pas de nouvelles.
++Les Hessiennes QCQP d'inégalité sont constantes : chaque famille est analysée à
++sa première activation, puis son certificat est réutilisé. Une fréquence élevée
++peut donc laisser ces familles avec leur seul complément scalaire.
++
++L'éligibilité n'impose aucune création. Le moteur tente d'abord un certificat
++avec \(\rho=0\). Si nécessaire, il cherche un complément scalaire certifié.
++L'admission atomique exige ensuite une direction de Rayleigh **strictement
++négative** pour la courbure encore non couverte et le respect du budget :
++
++- Objectif/égalités : réutilisation du facteur du modèle réduit décalé, au plus
++  18 résolutions par recherche de direction, petite extraction de Ritz, puis
++  vérification directe du quotient de Rayleigh. La correction est stockée comme
++  bordure de faible rang ; aucun Hessien dense n'est matérialisé.
++- Inégalités : témoins sur une ou deux coordonnées ; pour les blocs de taille
++  au plus 16, spectre dense exact calculé une seule fois. Les blocs plus grands
++  utilisent le certificat creux et le complément scalaire.
++- Après modification de Hessien, les poids sont réévalués et peuvent baisser
++  jusqu'à zéro. Le modèle corrigé est recertifié. La diminution de \(\rho\)
++  est tentée indépendamment de l'admission d'atomes.
++
++Le complément tend vers zéro **si la courbure restante permet de le certifier**.
++Il ne peut pas être promis nul pour tout point KKT : un point KKT peut être
++non minimal, et une majorante DCA d'inégalité non convexe peut nécessiter une
++correction permanente. La positivité du Newton avec barrière ne prouve pas à
++elle seule la convexité individuelle des majorantes. Les certificats associés
++restent donc distincts ; leurs factorisations sont comptées et chronométrées.
++Le coût atomique est réduit et amorti, mais n'est pas déclaré nul.
++
++| Option | Défaut | Rôle |
++|---|---:|---|
++| `--dca-inner-max` | 8 | Maximum de pas privés sur un modèle fixe |
++| `--max-atoms` | 500 | Maximum global de directions stockées |
++| `--atom-batch-size` | 2 | Admissions maximales par événement |
++| `--atom-event-every` | 1 | Période d'éligibilité en mises à jour de Hessien |
++| `--atom-events` / `--no-atom-events` | activé | Autoriser l'admission de directions |
++| `--display-level` | 0 dans le runner | Affichage de 0 à 4 |
++
++Le maximum de reconstructions vaut 3 après le premier essai et reste réglable
++par l'API `Settings::dca_filter_model_retries`. Le seuil d'admission est
++`Settings::dca_filter_atom_gain=1e-6` : relatif à la borne de courbure pour les
++témoins creux, absolu dans les coordonnées réduites et mises à l'échelle pour
++les témoins de Ritz. Ces deux métriques sont distinguées dans le code.
++
++## 5. Affichage et interprétation des rangs
++
++| Niveau | Contenu |
++|---:|---|
++| 0 | Aucun affichage du noyau ; résultats JSON et résumé de campagne |
++| 1 | Table des seuls itérés externes, colonnes usuelles type Ipopt, puis motif d'arrêt |
++| 2 | Colonnes Lazy et working set, bilan des coûts et évaluations |
++| 3 | Pas internes consommés, factorisations Newton et de courbure, temps cumulé |
++| 4 | Décisions internes du filtre et diagnostics numériques détaillés |
++
++`aOE` compte les directions stockées pour le bloc **objectif + égalités signées**,
++`aI` celles des inégalités. Une séparation artificielle de la correction du
++Lagrangien en un rang d'objectif et un rang d'égalité n'est pas annoncée.
++`rOE<=` et `rI<=` sont des **bornes supérieures de rang** à partir des directions
++de poids positif, et non un calcul de rang par SVD. Le rang objectif est borné
++par la dimension réduite ; celui des inégalités est une somme de bornes par
++modèle. Les normalisations implicites des égalités ne sont pas des atomes
++spectraux et ne sont pas incluses dans ces comptes.
++
++`rhoOE` est le complément scalaire réduit, `rhoI` le maximum des compléments
++d'inégalité, `WS` le nombre de lignes actives, bornes incluses. Les lignes de
++niveau 2 décrivent le modèle qui a produit l'itéré accepté. Le JSON fournit
++également les directions actives et les poids des compléments normaux.
++
++## 6. Contrat de temps et décompte des évaluations
++
++Le préfixe JSON `lazy_newton_` est conservé pour les métriques du **noyau linéaire
++partagé**. L'identité algorithmique est `effective_outer_algorithm=lazy-dca` et
++`dca_filter_used=true`. Les compteurs historiques non utilisés restent à zéro.
++
++`lazy_newton_cost_seconds` est un registre **exclusif** :
++
++| Secteur | Contenu | Dans le core solve |
++|---|---|---|
++| `preparation` | Mise à l'échelle, variables fixées, supports et topologie de réduction | Non |
++| `evaluation` | Évaluations groupées originales et des modèles | Oui |
++| `assembly` | Assemblage numérique du système Newton réduit | Oui |
++| `factorization` | Factorisations du système Newton et récupérations | Oui |
++| `linear_backend` | Substitutions et raffinement du backend | Oui |
++| `direction` | Construction et remontée des directions | Oui |
++| `direction_audit` | Résidu du système Newton étendu | Oui |
++| `globalization` | Filtre original, contrôles candidats et SOC hors sous-secteurs imbriqués | Oui |
++| `atoms` | Construction des majorantes, admission, certificats et caches de courbure | Oui |
++| `core_other` | Pilotage, opérations non attribuées et recherches internes hors secteurs explicites | Oui |
++| `certificate` | Certificat final original | Non |
++| `diagnostics` | Affichage produit à l'intérieur du solveur | Non |
++| `cleanup` | Libération des structures du solveur | Non |
++
++`lazy_newton_core_solve_seconds` est la somme des neuf secteurs « Oui ».
++`elapsed_seconds` mesure l'appel solveur complet : préparation, core, certificat,
++diagnostics et nettoyage. La restauration et les reprises ne sont jamais
++soustraites. Les mesures de référence utilisent `DISPLAY=0`.
++
++Les chronomètres `dca_filter_model_build_seconds`, `dca_filter_curvature_seconds`,
++`dca_filter_original_filter_seconds` et `dca_filter_soc_seconds` sont des
++**sous-profils inclusifs**, pouvant se recouvrir. Ils ne doivent pas être ajoutés
++au registre exclusif. `atoms` n'est pas le seul coût d'ajout d'une direction :
++il comprend aussi la certification des majorantes.
++
++La périphérie est rapportée séparément :
++
++- `.json.timing.json` : analyse des arguments, lecture QCQP, frontière d'appel du
++  solveur, résumé console, écriture JSON, temps CLI jusqu'à l'écriture principale ;
++  la petite écriture du fichier compagnon est en dehors de cette dernière mesure.
++- `process_seconds` : processus complet, lancement, lecture et sorties inclus.
++- `shared_peripheral_seconds` : décompression/export, empreinte et lecture du
++  modèle Python, une seule fois pour tous les solveurs de la campagne.
++- Par répétition : hashes avant/après et certificat Python indépendant en dehors
++  du temps du solveur et de celui de son processus.
++
++`lazy_newton_evaluation_calls` sépare les phases `preparation`, `core`,
++`diagnostics`, `certificate`, puis les familles objectif, égalités, inégalités
++originales et lignes de bornes. Une unité est **une fonction scalaire**, pas un
++appel évaluant tout le vecteur des contraintes. `values`/`gradients` incluent
++originaux et majorantes ; `model_values`/`model_gradients` en sont la part modèle.
++La différence donne les appels originaux. Les accumulations de gradients en cache,
++produits de Jacobien, assemblages et produits hessiens ont des compteurs distincts.
++Les sondages spectraux et petits spectres ont aussi leurs propres compteurs.
++
++## 7. Validation et limites
++
++`tests/test_g3_filter_dca.cpp` vérifie notamment l'inertie, le complément normal,
++l'invalidation du cache, le plafond atomique, les témoins issus de l'inverse
++décalé et leurs valeurs propres recalculées indépendamment, une égalité courbe
++et des QP non convexes avec réduction/bordure atomique.
++`tests/test_g3_campaign_contract.py` vérifie le vrai CLI, le runner, les affichages,
++la fermeture du bilan de temps et le rejet d'un multiplicateur falsifié.
++Les tests hérités vérifient que les autres voies restent utilisables.
++
++Le runner réévalue valeurs, stationnarité, complémentarité et signes des
++multiplicateurs à partir du même fichier QCQP et des vecteurs exportés.
++`CORRECTNESS=PASS`, concordance d'objectif avec Ipopt et `target_met` sont trois
++questions distinctes. Un certificat KKT du premier ordre ne prouve ni l'optimalité
++globale, ni à lui seul un minimum local strict. Cette implémentation possède des
++garde-fous de globalisation et des certificats numériques ; une preuve générale
++de convergence de toutes ses règles d'acceptation n'est pas revendiquée.
++
++Les mesures de cette archive, leur environnement et les éventuels échecs sont
++dans `VALIDATION_G3.md` et `validation_g3/`. Voir `INSTALL_AND_TEST_G3.md` pour
++compiler et reproduire la campagne. Les fichiers de validation historiques G1
++restent des données de provenance, pas des résultats G3.
+--- /dev/null
++++ b/INSTALL_AND_TEST_G3.md
+@@ -0,0 +1,170 @@
++# Installer et tester le moteur Lazy-DCA G3
++
++Le moteur à utiliser est **`--algorithm lazy-dca --dca-engine filter`**.
++Le runner ci-dessous le sélectionne explicitement. Les anciens scripts G1 ou
++R3P29 ne sélectionnent pas ce moteur et ne constituent pas un test de G3.
++
++Prérequis de compilation : CMake, compilateur C++17, BLAS/LAPACK, SuiteSparse LDL,
++METIS et Python 3 avec NumPy/SciPy. Le solveur C++ n'a pas besoin d'Ipopt.
++La comparaison optionnelle avec Ipopt utilise le module Python CasADi et son
++backend MUMPS. Le script de build exige un véritable LDL+METIS et échoue s'ils
++ne sont pas trouvés. Il n'installe pas de dépendances et ne modifie pas Conda.
++
++## Installation sur la TRX ou le laptop
++
++Placer l'archive dans `/data/projects/IPDCA_QCQP`.
++Sur le laptop, remplacer `ENV_NAME=lazydca_mumps` par `ENV_NAME=pf_gpu`.
++L'activation Conda précède `set -u` pour éviter l'erreur des hooks `ADDR2LINE`.
++
++```bash
++if bash -s <<'INSTALL_G3'
++set -Eeo pipefail
++ENV_NAME=lazydca_mumps
++source "$(conda info --base)/etc/profile.d/conda.sh"
++conda activate "$ENV_NAME"
++set -u
++
++unset LD_PRELOAD ASAN_OPTIONS UBSAN_OPTIONS LSAN_OPTIONS
++export OMP_NUM_THREADS=1 OMP_DYNAMIC=FALSE
++export OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 BLIS_NUM_THREADS=1
++
++BASE=/data/projects/IPDCA_QCQP
++TOP=lazyipdca_qcqp_v0.4.28r3p28g3_filter_dca_source
++ARCHIVE="$BASE/${TOP}_only.tar.gz"
++gzip -t "$ARCHIVE"
++mkdir -p "$BASE/results"
++INSTALL=$(mktemp -d "$BASE/r3p28g3_XXXXXXXX")
++tar --no-same-owner -xzf "$ARCHIVE" -C "$INSTALL"
++SRC="$INSTALL/$TOP"
++(cd "$SRC" && sha256sum --quiet -c RELEASE_MANIFEST_SHA256_G3.txt)
++BUILD_JOBS=4 TEST_JOBS=2 bash "$SRC/tools/build_g3.sh"
++printf '%s\n' "$SRC" > "$BASE/results/R3P28G3_SOURCE_LAST"
++INSTALL_G3
++then
++  echo 'INSTALL=PASS'
++else
++  echo "INSTALL=FAIL rc=$? — terminal préservé"
++fi
++```
++
++Le build local s'appelle `build_pf_gpu`, indépendamment du nom de l'environnement.
++Pour des dépendances installées ailleurs, on peut passer à `build_g3.sh` des
++arguments CMake explicites, par exemple `-DLDL_ROOT=/chemin/suitesparse` et
++`-DMETIS_ROOT=/chemin/metis`. Les variables `BUILD_DIR`, `CMAKE`, `CTEST`,
++`BUILD_JOBS` et `TEST_JOBS` permettent d'adapter les outils sans modifier le script.
++
++## Commande paramétrée sur les modèles figés inclus
++
++Les noms disponibles sont `case118`, `case300`, `case1354`, `case2869`.
++Ces modèles incluent déjà le point initial ; aucun répertoire `pglib-opf` n'est
++nécessaire. Le runner décompresse une fois, vérifie les SHA-256 et supprime son
++entrée temporaire après la campagne. Les journaux, résultats et certificats
++restent dans `CAMPAIGN`.
++
++```bash
++if bash -s <<'TEST_G3'
++set -Eeo pipefail
++ENV_NAME=lazydca_mumps
++source "$(conda info --base)/etc/profile.d/conda.sh"
++conda activate "$ENV_NAME"
++set -u
++
++unset LD_PRELOAD ASAN_OPTIONS UBSAN_OPTIONS LSAN_OPTIONS
++export OMP_NUM_THREADS=1 OMP_DYNAMIC=FALSE
++export OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 BLIS_NUM_THREADS=1
++export PYTHONUNBUFFERED=1
++
++# Paramètres modifiables
++PROBLEM=case300
++DISPLAY=2
++PERIOD=1
++MAX_ATOMS=500
++ATOM_BATCH=2
++INNER_MAX=8
++WARMUPS=0
++REPETITIONS=1
++MAX_ITER=1000
++TIME_LIMIT=1800
++TARGET_SECONDS=2
++WITH_IPOPT=0
++
++BASE=/data/projects/IPDCA_QCQP
++SRC=$(cat "$BASE/results/R3P28G3_SOURCE_LAST")
++args=(
++  --base "$BASE" --frozen "$PROBLEM"
++  --binary "$SRC/build_pf_gpu/lazyipdca_qcqp_cli"
++  --display-level "$DISPLAY"
++  --atom-events --atom-event-every "$PERIOD"
++  --max-atoms "$MAX_ATOMS" --atom-batch-size "$ATOM_BATCH"
++  --dca-inner-max "$INNER_MAX"
++  --threads 1 --warmups "$WARMUPS" --repetitions "$REPETITIONS"
++  --max-iter "$MAX_ITER" --time-limit "$TIME_LIMIT"
++  --target-seconds "$TARGET_SECONDS"
++)
++if [[ "$WITH_IPOPT" == 0 ]]; then
++  args+=(--skip-ipopt)
++fi
++bash "$SRC/tools/run_g3.sh" "${args[@]}"
++TEST_G3
++then
++  echo 'CORRECTNESS=PASS'
++else
++  echo "CORRECTNESS=FAIL rc=$? — terminal préservé"
++fi
++```
++
++Pour mesurer les temps : `DISPLAY=0`, `WARMUPS=1`, `REPETITIONS=5`.
++Pour comparer à Ipopt : `WITH_IPOPT=1` ; son niveau d'affichage se règle séparément
++en ajoutant `--ipopt-print-level 5` à `args`.
++`DISPLAY=1` garde la table des seuls itérés externes ; les colonnes atomiques
++commencent au niveau 2. Le détail de chaque colonne figure dans `FILTER_DCA_G3.md`.
++
++`PERIOD=50` rend les admissions éligibles tous les 50 changements de Hessien.
++Cela peut modifier fortement la trajectoire ; les compléments scalaires continuent
++d'assurer la convexification entre ces événements. `MAX_ATOMS=0` désactive le
++stockage de directions sans supprimer les contrôles de convexité.
++Ajouter `--scalar-control` compare le profil demandé à ce contrôle dans le même
++binaire. La campagne signale un échec si l'un des profils demandés échoue.
++
++## Autres instances PGLib, CUTEst et QP
++
++Dans le tableau `args`, remplacer **uniquement** `--frozen "$PROBLEM"` par l'une
++des sources suivantes :
++
++```bash
++# PGLib : nom exact du fichier présent sur cette machine.
++--case "$BASE/pglib-opf/pglib_opf_case57_ieee.m"
++
++# QCQP/QP déjà exporté depuis CUTEst ou une autre source.
++--qcq "/chemin/NCVXQP1_n1000.qcq"
++```
++
++`--case` exporte une seule fois le cas pour tous les solveurs. `--qcq` utilise le
++fichier en lecture seule et vérifie son empreinte avant/après chaque résolution.
++Un QP non convexe utilise exactement le même moteur G3 ; cette version ne route
++pas automatiquement les QP vers l'autre projet `lazyIPDCA_QP`.
++
++Les fichiers figés de case1354 et case2869 représentent respectivement environ
++0,48 Go et 2,43 Go décompressés. Leur décompression et leur analyse texte sont
++des coûts périphériques, affichés séparément du solveur. Prévoir cet espace dans
++le répertoire de campagne. Utiliser d'abord une répétition et une limite de temps
++adaptée pour une nouvelle instance.
++
++## Lecture des résultats
++
++`benchmark_summary.json` distingue :
++
++- `all_correct` : toutes les résolutions demandées, échauffements inclus, passent
++  le contrôle KKT original indépendant à `1e-6` ;
++- `median_solver_seconds` : médiane hors échauffement du temps complet du solveur ;
++- `median_core_solve_seconds` : noyau sans préparation, certificat, affichage,
++  nettoyage ni lecture du fichier ;
++- `target_met` : toutes les répétitions mesurées sont valides et leur médiane
++  est au plus `TARGET_SECONDS` ;
++- `objective_gaps_to_ipopt` : différence d'objectif, sans assimiler un autre point
++  KKT valide à un échec de certification.
++
++Les résultats invalides gardent leur statut, le nombre d'itérations observé et
++leurs diagnostics. Leur durée n'est jamais présentée comme une résolution
++réussie. Chaque résultat C++ contient les quatre vecteurs de multiplicateurs,
++et chaque répétition possède son journal et un fichier de temps CLI compagnon.
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,9 @@
++> **G3 — moteur Lazy-DCA à majorantes et filtre original.**
++> Installation et commandes : [INSTALL_AND_TEST_G3.md](INSTALL_AND_TEST_G3.md).
++> Algorithme, égalités, atomes et temps : [FILTER_DCA_G3.md](FILTER_DCA_G3.md).
++> Mesures de cette version : [VALIDATION_G3.md](VALIDATION_G3.md).
++> Les sections historiques ci-dessous documentent les autres voies.
++
+ # LazyIPDCA-QCQP r3p27a1 — arithmétique creuse et courbure des égalités
+ 
+ Branche expérimentale issue de l'archive r3p27 fournie. Version
+--- /dev/null
++++ b/VALIDATION_G3.md
+@@ -0,0 +1,150 @@
++# Validation du moteur Lazy-DCA G3
++
++**Le profil final résout case300 en 1,833 s de médiane locale**, toutes les cinq
++répétitions étant sous deux secondes et certifiées indépendamment à `1e-6`.
++Case118 est également certifié ; case1354 converge mais demande encore 38,9 s.
++La performance du Newton direct des échanges précédents n'est pas attribuée à DCA.
++
++## Environnement et protocole
++
++Mesures locales du 9 septembre 2026, sur le runtime x86-64 exposant un
++AMD EPYC 9V74. GNU C++ 13.3, CMake Release, `-march=native`, SuiteSparse LDL 5.13,
++véritable METIS 4 et BLAS/LAPACK fournis par CasADi 3.8.0. Ipopt est celui du
++module CasADi et utilise MUMPS. Aucun ordonnanceur de substitution à permutation
++identité. OpenMP et bibliothèques BLAS à un thread, affichage désactivé.
++
++Ce ne sont pas des mesures sur la TRX ni sur le laptop. Les chiffres Ipopt plus
++bas que dans les essais précédents de l'utilisateur reflètent cet environnement.
++Les mêmes coefficients, bornes et point initial sont utilisés pour les solveurs
++comparés. Les hashes avant/après restent identiques. Cas118 et case300 : un
++échauffement par solveur, cinq répétitions, ordre alterné. Case1354 : un essai
++sans échauffement, limite interne de 120 s, sans comparaison Ipopt locale.
++Les builds et la suite de tests ne tournent pas pendant ces mesures finales.
++
++## Résultats finaux
++
++Les temps sont en secondes. La colonne solveur inclut préparation, restauration,
++reprises, certificat et nettoyage ; elle exclut la lecture du fichier par le CLI.
++Le core exclut également préparation, certificat, diagnostics et nettoyage.
++
++| Modèle | Répétitions | Solveur médian | Core médian | Itérations externes | Ipopt médian |
++|---|---:|---:|---:|---:|---:|
++| case118 | 5 | 0.142449 | 0.134903 | 21 | 0.089516 |
++| case300 | 5 | 1.832768 | 1.814672 | 131 | 0.299721 |
++| case1354 | 1 | 38.923324 | 38.807522 | 262 | non mesuré ici |
++
++Case300 : plage **1,812 à 1,882 s**, objectif `565219.9908887225`, écart à Ipopt
++`-1,44e-8`. Case118 : plage **0,137 à 0,153 s**, écart d'objectif `+7,31e-8`.
++Case1354 : objectif `1258843.9962623578` ; une seule observation de 38,923 s.
++Un autre point KKT peut exister pour ces problèmes non convexes : l'accord
++numérique constaté n'est pas une preuve d'optimalité globale.
++
++## Résidus originaux recalculés indépendamment
++
++Maximum sur les répétitions mesurées de Lazy-DCA :
++
++| Modèle | Égalités | Inégalités/bornes | Stationnarité | Complémentarité |
++|---|---:|---:|---:|---:|
++| case118 | 1.558e-10 | 0.000e+00 | 4.979e-07 | 3.428e-07 |
++| case300 | 9.237e-13 | 0.000e+00 | 9.336e-07 | 1.258e-09 |
++| case1354 | 1.168e-10 | 0.000e+00 | 1.011e-07 | 1.279e-07 |
++
++Les signes des multiplicateurs et les contraintes originales sont aussi vérifiés.
++Les échauffements passent les mêmes contrôles. Les certificats du noyau ne sont
++pas pris pour seule preuve : le runner réévalue les coefficients originaux avec
++les vecteurs primaux-duaux exportés. Ipopt est également audité dans le processus
++Python parent à partir de ses vecteurs exportés.
++
++## Travail numérique et parcimonie
++
++Compteurs du premier essai mesuré, déterministes sur les petites campagnes :
++
++| Modèle | Modèles construits | Pas privés | Atomes OE stockés/actifs | Atomes I stockés/actifs | rho OE final |
++|---|---:|---:|---:|---:|---:|
++| case118 | 23 | 24 | 9/0 | 2/2 | 0 |
++| case300 | 137 | 136 | 27/12 | 2/2 | 0 |
++| case1354 | 285 | 287 | 131/2 | 2/2 | 0 |
++
++OE désigne le bloc objectif + égalités signées. Les rangs affichés sont des bornes,
++pas le nombre total d'atomes stockés pris comme un rang exact. Les directions de
++poids nul ne participent pas aux bordures numériques. Le complément maximal
++d'inégalité reste voisin de 2 ; sa persistance est compatible avec une majorante
++convexe d'une inégalité originellement non convexe.
++
++La version de développement qui conservait les bordures de poids nul donnait
++2,312 s de médiane sur case300 (trois mesures, 133 itérations) et atteignait sa
++limite de 60 s sur case1354 sans certificat. Après suppression de ces bordures,
++case300 prend 131 itérations et case1354 converge en 262 itérations. Le changement
++de motif peut modifier légèrement la trajectoire par l'ordre des calculs en
++virgule flottante. Les résultats antérieurs sont conservés dans
++`validation_g3/development_before_inactive/`, clairement séparés du profil final.
++Il ne s'agit pas d'une comparaison répétée contrôlée sur case1354.
++
++## Répartition du core solve
++
++Médianes sectorielles en secondes ; une médiane de somme peut différer légèrement
++de la somme des médianes. Les secteurs exclusifs complets sont dans les JSON.
++
++| Secteur | case118 | case300 | case1354 |
++|---|---:|---:|---:|
++| Majorantes et courbure | 0.091810 | 1.066964 | 22.216854 |
++| Factorisation Newton | 0.015843 | 0.237780 | 6.209516 |
++| Assemblage Newton | 0.003185 | 0.064587 | 1.414683 |
++| Résolutions du backend | 0.001933 | 0.046029 | 0.586520 |
++| Reconstruction des directions | 0.003981 | 0.084887 | 1.633765 |
++| Audit du pas | 0.002453 | 0.043253 | 0.543335 |
++| Évaluations groupées | 0.005843 | 0.099729 | 1.650784 |
++| Globalisation | 0.002527 | 0.043164 | 0.929438 |
++| Pilotage et reste du core | 0.006892 | 0.126088 | 3.622627 |
++
++La gestion des majorantes/certificats reste le premier coût : environ 1,067 s sur
++case300 et 22,217 s sur case1354. La factorisation Newton demande respectivement
++0,238 s et 6,210 s. La création atomique n'est donc pas déclarée quasi gratuite :
++le coût complet de la gestion de courbure est rendu visible. Réduire ce coût et
++le nombre de modèles reste nécessaire pour les grandes instances.
++
++## Décompte d'évaluations — case300
++
++Une unité représente une fonction scalaire évaluée. Les valeurs de toutes les
++contraintes ne sont pas comptées comme un seul appel vectoriel. Exemple du
++premier essai mesuré, phase core :
++
++| Famille | Valeurs originales | Gradients originaux | Valeurs majorantes | Gradients majorantes |
++|---|---:|---:|---:|---:|
++| Objectif | 408 | 408 | 648 | 282 |
++| Égalités | 924528 | 915552 | 1819884 | 632808 |
++| Inégalités | 1311148 | 822997 | 1450237 | 434126 |
++| Lignes de bornes | 783000 | 591600 | 1365900 | 408900 |
++
++Les comptes des autres phases, les accumulations en cache et les produits
++Jacobien/Hessien sont exportés séparément. Les appels de majorante ne sont pas
++confondus avec une nouvelle évaluation de la fonction originale.
++
++## Tests et pièces de validation
++
++**140 tests CTest validés**, dont les tests G3 de l'inertie, des atomes, des
++égalités courbes, des QP non convexes, du filtre, des affichages, des temps et du
++runner. Les seuils numériques n'ont pas été relâchés. Les tests de version ont
++été mis à jour pour G3 ; quelques exécutables avaient perdu leurs permissions
++locales et ont été remis exécutables avant le passage final.
++
++- `validation_g3/ctest_verified.log` : passage complet final.
++- `validation_g3/environment.json` : environnement et dépendances réelles.
++- `validation_g3/tested_code_sha256.json` : empreintes du noyau testé et du binaire
++  de mesure ; le binaire lui-même n'est pas distribué dans l'archive source.
++- `validation_g3/case118/`, `case300/`, `case1354/` : résultats bruts, commandes,
++  journaux, temps périphériques, résidus indépendants et résumés.
++- `validation_g1/frozen/` : modèles d'entrée figés et leurs empreintes, inchangés.
++- `PATCH_FROM_G1_G3.patch` : changement de code et documentation par rapport à G1.
++- `RELEASE_MANIFEST_SHA256_G3.txt` : empreintes de tous les fichiers distribués,
++  excepté le manifeste lui-même.
++
++## Limites de la livraison
++
++Le seuil local de deux secondes est atteint sur case300. Il n'est pas atteint
++sur case1354, et aucune performance de G3 n'est annoncée sur case2869 : son modèle
++est fourni pour les essais de l'utilisateur. Les petits tests QP ne constituent
++pas une campagne NCVXQP de taille 10 000. Cette version garde un moteur explicite
++pour permettre la comparaison avec les voies précédentes ; une preuve générale
++de convergence et une performance équivalente à Ipopt sur toutes les instances
++ne sont pas revendiquées.
+--- /dev/null
++++ b/include/lazyipdca_qcqp/dca_filter.hpp
+@@ -0,0 +1,8 @@
++#pragma once
++#include "lazyipdca_qcqp/lazy_newton.hpp"
++
++namespace lazyipdca::qcqp {
++// A fixed DC majorant is advanced privately. Only an original-filter accepted
++// endpoint changes the public outer point, multipliers and linearization.
++Result solve_filter_dca(const QCQPProblem &, const Settings &);
++} // namespace lazyipdca::qcqp
+--- a/include/lazyipdca_qcqp/result.hpp
++++ b/include/lazyipdca_qcqp/result.hpp
+@@ -71,6 +71,7 @@
+   Direction, DirectionAudit, Globalization, Atoms, CoreOther, Certificate, Diagnostics, Cleanup, Count };
+ inline constexpr std::array<const char*,13> newton_cost_names={"preparation","evaluation","assembly","factorization","linear_backend","direction","direction_audit","globalization","atoms","core_other","certificate","diagnostics","cleanup"};
+ struct NewtonCalls {
++  std::uint64_t model_values=0,model_gradients=0;
+   std::uint64_t values=0,gradients=0,cached_gradient_accumulations=0,jacobian_products=0,hessian_assemblies=0,hessian_products=0;
+ };
+ // Phases: preparation, core, diagnostics, original certificate.
+@@ -180,7 +181,20 @@
+   double certificate_seconds = 0.0;
+ };
+ 
++struct DcaFilterStatistics {
++  bool used=false;
++  int models=0,hessian_updates=0,inner_steps=0,filter_trials=0,filter_rejections=0;
++  int private_continuations=0,model_retries=0,soc_attempts=0,soc_acceptances=0;
++  int restorations=0,atom_events=0,atoms_lagrangian=0,atoms_inequalities=0;
++  int curvature_factors=0,curvature_reuses=0,first_step_acceptances=0;
++  int spectral_inverse_solves=0,small_block_spectra=0,atoms_active_lagrangian=0,atoms_active_inequalities=0;
++  double normal_completion_weight=0,eliminated_normal_completion_weight=0;
++  double rho_lagrangian=0,rho_inequalities_max=0,model_build_seconds=0;
++  double original_filter_seconds=0,curvature_seconds=0,soc_seconds=0;
++};
+ struct Result {
++  DcaFilterStatistics dca_filter;
++
+   LazyNewtonStatistics lazy_newton;
+   bool atomic_engine_used=false;
+   double cli_read_seconds=0.0,cli_solver_call_seconds=0.0,cli_arguments_seconds=0.0;
+--- a/include/lazyipdca_qcqp/settings.hpp
++++ b/include/lazyipdca_qcqp/settings.hpp
+@@ -6,6 +6,15 @@
+ namespace lazyipdca::qcqp {
+ 
+ struct Settings {
++  std::string dca_engine = "legacy"; // explicit filter engine; no terminal Newton substitution
++  int dca_filter_inner_max = 8;
++  int dca_filter_model_retries = 3;
++  int dca_filter_max_atoms = 500;
++  int dca_filter_atom_batch = 2;
++  int dca_filter_atom_every = 1;
++  bool dca_filter_atom_events = true;
++  double dca_filter_atom_gain = 1e-6;
++
+   double native_inertia_relative_zero_tolerance = 0.0;
+   std::string ln_engine = "legacy"; // legacy filter/DC graft | atomic reduced Newton
+   bool lazy_newton_reduction = true;
+--- a/include/lazyipdca_qcqp/version.hpp
++++ b/include/lazyipdca_qcqp/version.hpp
+@@ -1,7 +1,7 @@
+ #pragma once
+ namespace lazyipdca::qcqp {
+ inline constexpr const char* kSolverName = "LazyIPDCA-QCQP";
+-inline constexpr const char* kVersion = "0.4.28r3p28g1-atomic-graft";
+-inline constexpr int kApiVersion = 4327;
+-inline constexpr const char* kBuildId = "v0.4.28r3p28g1-atomic-graft-api-4327";
++inline constexpr const char* kVersion = "0.4.28r3p28g3-filter-dca";
++inline constexpr int kApiVersion = 4329;
++inline constexpr const char* kBuildId = "v0.4.28r3p28g3-filter-dca-api-4329";
+ }
+--- /dev/null
++++ b/python/benchmark_filter_dca_g3.py
+@@ -0,0 +1,266 @@
++#!/usr/bin/env python3
++"""Same-input Lazy-DCA / Ipopt campaign, with independent original KKT audits."""
++from __future__ import annotations
++
++import argparse
++import gzip
++import json
++import math
++import os
++from pathlib import Path
++import shutil
++import statistics
++import subprocess
++import sys
++import tempfile
++import time
++
++from benchmark_pglib_r3p29r8 import finite, sha, validate_endpoint
++from live_process_r3p29r3 import run_logged
++from qcq_model_r3p23 import read_qcq
++
++ROOT = Path(__file__).resolve().parents[1]
++TOL = 1e-6
++
++
++def write_json(path, data):
++    path.write_text(json.dumps(data, indent=2, allow_nan=False) + "\n")
++
++
++def lazy_command(args, binary, qcq, result, mode):
++    return [str(binary), "--problem", str(qcq), "--json", str(result),
++            "--algorithm", "lazy-dca", "--dca-engine", "filter",
++            "--linear-backend", "ldl", "--linear-metis", "1",
++            "--feas-tol", "1e-6", "--opt-tol", "1e-6",
++            "--dual-inf-tol", "1e-6", "--compl-inf-tol", "1e-6",
++            "--kkt-berr-reject", "1e-7", "--max-outer", str(args.max_iter),
++            "--time-limit", str(args.time_limit), "--display-level", str(args.display_level),
++            "--live-iterations-every", str(args.live_every),
++            "--live-header-every", str(args.live_header_every),
++            "--dca-inner-max", str(args.inner_max),
++            "--max-atoms", str(0 if mode == "scalar-control" else args.max_atoms),
++            "--atom-batch-size", str(args.atom_batch_size),
++            "--atom-event-every", str(args.atom_event_every),
++            "--atom-events" if args.atom_events else "--no-atom-events", "--quiet"]
++
++
++def audit_ipopt(model, data, digest):
++    if not data.get("success") or not data.get("kkt_passed") or data.get("model_sha256") != digest:
++        raise ValueError("Ipopt did not pass the original certificate")
++    # Recompute again in this parent process, using exported primal/dual vectors.
++    x, lam, bounds = data["x"], data["constraint_multipliers"], data["bound_multipliers"]
++    if len(x) != model.n or len(bounds) != model.n or len(lam) != len(model.equalities) + len(model.inequalities):
++        raise ValueError("invalid Ipopt certificate dimensions")
++    if not all(finite(v) for vector in (x, lam, bounds) for v in vector):
++        raise ValueError("nonfinite Ipopt certificate")
++    residuals = dict(model.residuals(x), **model.kkt_residuals(x, lam, bounds))
++    if any(not finite(v) or not 0 <= v <= TOL for v in residuals.values()):
++        raise ValueError("independent Ipopt KKT failure: " + str(residuals))
++    return model.objective_value(x), residuals, True
++
++
++def campaign(args, out, temporary):
++    identity = json.loads((ROOT / "release_identity_g3.json").read_text())
++    binary = args.binary.resolve(strict=True)
++    banner = subprocess.check_output([str(binary), "--version"], text=True)
++    if identity["build_id"] not in banner:
++        raise ValueError("binary does not match release_identity_g3.json")
++    env = dict(os.environ, OMP_NUM_THREADS=str(args.threads), OMP_DYNAMIC="FALSE",
++               OPENBLAS_NUM_THREADS="1", MKL_NUM_THREADS="1", BLIS_NUM_THREADS="1", PYTHONUNBUFFERED="1")
++    peripheral = {}
++    start = time.perf_counter()
++    if args.frozen:
++        metadata = json.loads((ROOT / "validation_g1/frozen/models.json").read_text())[args.frozen]
++        compressed = ROOT / "validation_g1/frozen" / (args.frozen + ".qcq.gz")
++        if sha(compressed) != metadata["gzip_sha256"]:
++            raise ValueError("frozen gzip SHA256 mismatch")
++        qcq = temporary / (args.frozen + ".qcq")
++        with gzip.open(compressed, "rb") as source, qcq.open("wb") as destination:
++            shutil.copyfileobj(source, destination, 4 * 1024 * 1024)
++        provenance = {"frozen": args.frozen, **metadata}
++    elif args.qcq:
++        qcq = args.qcq.resolve(strict=True)
++        provenance = {"qcq": str(qcq)}
++    else:
++        case = args.case.resolve(strict=True)
++        qcq = temporary / "export.qcq"
++        command = [sys.executable, str(ROOT / "python/export_pglib_qcqp_r3p23.py"), str(case),
++                   "--output", str(qcq), "--json", str(out / "export.json"), "--flow-limit", "apparent",
++                   "--power-flow-start", "--no-power-flow-voltage-continuation"]
++        run_logged(command, out / "export.log", env=env, timeout=args.time_limit + 60,
++                   live=args.display_level >= 4).check_returncode()
++        provenance = {"case": str(case), "case_sha256": sha(case), "initial_point": "power-flow"}
++    peripheral["input_preparation_seconds"] = time.perf_counter() - start
++    start = time.perf_counter()
++    digest = sha(qcq)
++    if args.frozen and digest != metadata["model_sha256"]:
++        raise ValueError("frozen QCQP SHA256 mismatch")
++    peripheral["initial_hash_seconds"] = time.perf_counter() - start
++    start = time.perf_counter()
++    model = read_qcq(qcq)
++    peripheral["independent_model_read_seconds"] = time.perf_counter() - start
++    modes = ([] if args.skip_ipopt else ["ipopt"]) + ["filter-dca"]
++    if args.scalar_control:
++        modes.append("scalar-control")
++    records = []
++
++    def run(mode, index, warmup):
++        name = ("warmup_" if warmup else "run_") + str(index) + "_" + mode
++        output = out / (name + ".json")
++        if mode == "ipopt":
++            command = [sys.executable, str(ROOT / "python/solve_qcq_ipopt_casadi_r3p23.py"), str(qcq),
++                       "--json", str(output), "--tol", "1e-6", "--constr-viol-tol", "1e-6",
++                       "--dual-inf-tol", "1e-6", "--compl-inf-tol", "1e-6", "--linear-solver", "mumps",
++                       "--print-level", str(args.ipopt_print_level), "--max-iter", str(args.max_iter),
++                       "--time-limit", str(args.time_limit)]
++        else:
++            command = lazy_command(args, binary, qcq, output, mode)
++        row = {"mode": mode, "warmup": warmup, "index": index, "command": command, "valid": False}
++        started = time.perf_counter()
++        if sha(qcq) != digest:
++            raise ValueError("input changed before run")
++        row["hash_before_seconds"] = time.perf_counter() - started
++        started = time.perf_counter()
++        try:
++            process = run_logged(command, out / (name + ".log"), env=env,
++                                 timeout=args.time_limit + 60, live=args.display_level > 0)
++            row["returncode"] = process.returncode
++        except subprocess.TimeoutExpired:
++            row["returncode"] = -1
++        row["process_seconds"] = time.perf_counter() - started
++        started = time.perf_counter()
++        if sha(qcq) != digest:
++            raise ValueError("input changed during run")
++        row["hash_after_seconds"] = time.perf_counter() - started
++        try:
++            data = json.loads(output.read_text())
++            row.update(status=data.get("status"), message=data.get("message"),
++                       attempted_solver_seconds=data.get("elapsed_seconds", data.get("solver_seconds")),
++                       observed_iterations=data.get("outer_iterations", data.get("iterations")))
++            for key, value in data.items():
++                if key.startswith("dca_filter_") or key in ("lazy_newton_cost_seconds", "lazy_newton_core_solve_seconds",
++                        "lazy_newton_evaluation_calls", "lazy_newton_maximum_direction_residual", "lazy_newton_pivoted_fallbacks"):
++                    row[key] = value
++            if row["returncode"] != 0:
++                raise ValueError("process failure: " + str(data.get("message", data.get("status"))))
++            started = time.perf_counter()
++            if mode == "ipopt":
++                objective, residuals, independent = audit_ipopt(model, data, digest)
++                elapsed, iterations = data["solver_seconds"], data["iterations"]
++                row["ipopt_peripheral_seconds"] = {k: data[k] for k in ("parse_seconds", "model_build_seconds", "total_wall_seconds")}
++            else:
++                if any(data.get(k) != identity[k] for k in ("version", "api_version", "build_id")):
++                    raise ValueError("result identity mismatch")
++                if not data.get("dca_filter_used") or data.get("effective_outer_algorithm") != "lazy-dca":
++                    raise ValueError("wrong algorithm; explicit filter Lazy-DCA required")
++                objective, residuals, independent = validate_endpoint(model, data, "filter-dca")
++                elapsed, iterations = data["elapsed_seconds"], data["outer_iterations"]
++                row["cli_timing"] = json.loads(Path(str(output) + ".timing.json").read_text())
++            row["independent_certificate_seconds"] = time.perf_counter() - started
++            if not finite(elapsed) or elapsed < 0 or not finite(objective):
++                raise ValueError("nonfinite result/time")
++            row.update(valid=True, objective=objective, residuals=residuals, independent_certificate=independent,
++                       solver_seconds=elapsed, iterations=iterations)
++        except (ValueError, KeyError, OSError, TypeError) as error:
++            row["error"] = str(error)
++        records.append(row)
++        write_json(out / "records.json", records)
++        print(name, "PASS" if row["valid"] else "FAIL", row.get("solver_seconds", row.get("error")), flush=True)
++
++    for i in range(args.warmups):
++        for mode in modes:
++            run(mode, i + 1, True)
++    for i in range(args.repetitions):
++        offset = i % len(modes)
++        for mode in modes[offset:] + modes[:offset]:
++            run(mode, i + 1, False)
++    reference_values = [r["objective"] for r in records if r["valid"] and r["mode"] == "ipopt"]
++    reference = statistics.median(reference_values) if reference_values else None
++    summary = {"schema": "filter-dca-g3-v1", "identity": identity, "model_sha256": digest,
++               "provenance": provenance, "dimensions": [model.n, len(model.equalities), len(model.inequalities)],
++               "tolerance": TOL, "target_seconds": args.target_seconds, "display_level": args.display_level,
++               "settings": {k: v for k, v in vars(args).items() if not isinstance(v, Path)},
++               "shared_peripheral_seconds": peripheral, "timing_contract": "FILTER_DCA_G3.md",
++               "environment": {k: env[k] for k in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "BLIS_NUM_THREADS")},
++               "all_correct": all(r["valid"] for r in records), "modes": {}}
++    for mode in modes:
++        rows = [r for r in records if r["mode"] == mode and not r["warmup"]]
++        good = [r for r in rows if r["valid"]]
++        entry = {"measured_runs": len(rows), "valid_runs": len(good), "target_met": False,
++                 "all_certificates_independent": len(good) == len(rows) and all(r["independent_certificate"] for r in good),
++                 "observed_iterations": [r.get("observed_iterations") for r in rows]}
++        if len(good) == len(rows):
++            entry.update(median_solver_seconds=statistics.median(r["solver_seconds"] for r in good),
++                         min_solver_seconds=min(r["solver_seconds"] for r in good),
++                         max_solver_seconds=max(r["solver_seconds"] for r in good),
++                         median_process_seconds=statistics.median(r["process_seconds"] for r in good),
++                         iterations=[r["iterations"] for r in good], objectives=[r["objective"] for r in good])
++            entry["target_met"] = entry["median_solver_seconds"] <= args.target_seconds
++            if mode != "ipopt":
++                entry["median_core_solve_seconds"] = statistics.median(r["lazy_newton_core_solve_seconds"] for r in good)
++                entry["median_cost_seconds"] = {k: statistics.median(r["lazy_newton_cost_seconds"][k] for r in good)
++                                                  for k in good[0]["lazy_newton_cost_seconds"]}
++                entry["atoms_lagrangian"] = [r["dca_filter_atoms_lagrangian"] for r in good]
++                entry["atoms_inequalities"] = [r["dca_filter_atoms_inequalities"] for r in good]
++            if reference is not None:
++                entry["objective_gaps_to_ipopt"] = [r["objective"] - reference for r in good]
++        summary["modes"][mode] = entry
++    write_json(out / "benchmark_summary.json", summary)
++    if args.display_level != 1:
++        print(json.dumps(summary["modes"], indent=2), flush=True)
++    print("CORRECTNESS=" + ("PASS" if summary["all_correct"] else "FAIL"), flush=True)
++    print("SUMMARY=" + str(out / "benchmark_summary.json"), flush=True)
++    return 0 if summary["all_correct"] else 1
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    source = parser.add_mutually_exclusive_group(required=True)
++    source.add_argument("--frozen", "--problem", dest="frozen", choices=("case118", "case300", "case1354", "case2869"))
++    source.add_argument("--qcq", type=Path)
++    source.add_argument("--case", type=Path)
++    parser.add_argument("--binary", type=Path, required=True)
++    parser.add_argument("--base", type=Path, default=Path("/data/projects/IPDCA_QCQP"))
++    parser.add_argument("--output", type=Path)
++    parser.add_argument("--skip-ipopt", action="store_true")
++    parser.add_argument("--scalar-control", action="store_true", help="also run the same DCA with max-atoms=0")
++    parser.add_argument("--reuse-qcq", action="store_true", help="compatibility flag; QCQ inputs are always read without copying")
++    parser.add_argument("--display-level", type=int, choices=range(5), default=0)
++    parser.add_argument("--ipopt-print-level", type=int, choices=range(13), default=0)
++    parser.add_argument("--live-every", type=int, default=1)
++    parser.add_argument("--live-header-every", type=int, default=20)
++    parser.add_argument("--inner-max", "--dca-inner-max", dest="inner_max", type=int, default=8)
++    parser.add_argument("--max-atoms", type=int, default=500)
++    parser.add_argument("--atom-batch-size", type=int, default=2)
++    parser.add_argument("--atom-event-every", type=int, default=1)
++    parser.add_argument("--atom-events", dest="atom_events", action="store_true", default=True)
++    parser.add_argument("--no-atom-events", dest="atom_events", action="store_false")
++    parser.add_argument("--threads", type=int, default=1)
++    parser.add_argument("--warmups", type=int, default=1)
++    parser.add_argument("--repetitions", type=int, default=5)
++    parser.add_argument("--max-iter", type=int, default=1000)
++    parser.add_argument("--time-limit", type=float, default=1800)
++    parser.add_argument("--target-seconds", type=float, default=2)
++    args = parser.parse_args()
++    if min(args.threads, args.repetitions, args.max_iter, args.atom_batch_size, args.atom_event_every,
++           args.live_every, args.live_header_every, args.inner_max) < 1 or args.inner_max > 100 or min(args.max_atoms, args.warmups) < 0:
++        parser.error("invalid step, atom, repetition or display counts")
++    if not all(math.isfinite(v) and v > 0 for v in (args.time_limit, args.target_seconds)):
++        parser.error("time limits must be finite and positive")
++    if args.reuse_qcq and not args.qcq:
++        parser.error("--reuse-qcq requires --qcq")
++    label = args.frozen or (args.qcq or args.case).stem
++    out = (args.output or args.base / "results" / ("R3P28G3_" + label + "_" + str(time.time_ns()))).resolve()
++    out.mkdir(parents=True, exist_ok=False)
++    print("CAMPAIGN=" + str(out), flush=True)
++    try:
++        with tempfile.TemporaryDirectory(prefix="input_", dir=out) as temporary:
++            return campaign(args, out, Path(temporary))
++    except (ValueError, KeyError, OSError, subprocess.SubprocessError) as error:
++        write_json(out / "campaign_error.json", {"correctness": False, "error": str(error)})
++        print("CORRECTNESS=FAIL: " + str(error), file=sys.stderr, flush=True)
++        return 1
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+--- /dev/null
++++ b/release_identity_g3.json
+@@ -0,0 +1,7 @@
++{
++  "version": "0.4.28r3p28g3-filter-dca",
++  "api_version": 4329,
++  "build_id": "v0.4.28r3p28g3-filter-dca-api-4329",
++  "branch": "filter-lazy-dca",
++  "parent": "r3p28g1 atomic graft, repaired archive version 2"
++}
+--- a/src/atomic_newton.cpp
++++ b/src/atomic_newton.cpp
+@@ -1,4 +1,7 @@
+ #include "lazyipdca_qcqp/lazy_newton.hpp"
++#include "lazyipdca_qcqp/dca_filter.hpp"
++#include "dca_curvature.hpp"
++#include "dca_filter_contract.hpp"
+ #include "lazyipdca_qcqp/linear_solver.hpp"
+ #include <chrono>
+ #include "newton_atom_projection.hpp"
+@@ -9,6 +12,7 @@
+ #include <iostream>
+ #include <iomanip>
+ #include <sstream>
++#include <fstream>
+ #include <optional>
+ #include <unordered_map>
+ extern "C" void dsyev_(const char*,const char*,const int*,double*,const int*,double*,double*,const int*,int*);
+@@ -29,6 +33,30 @@
+   int family=0;
+   void note(std::uint64_t NewtonCalls::*field) const {++(ledger->active_calls[family].*field);}
+ 
++  bool model_active=false;
++  const Vec* model_center=nullptr;
++  double model_constant=0;
++  Vec model_gradient;
++  std::vector<SymTriplet> model_hessian;
++  std::vector<LowRankTerm> model_atoms;
++  std::vector<int> model_hi,model_hj,model_hglobal;
++  double model_at(const Vec& point) const {
++    double v=model_constant;
++    for(std::size_t k=0;k<support.size();++k)v+=model_gradient[k]*(point[support[k]]-(*model_center)[support[k]]);
++    for(auto e:model_hessian)v+=(e.i==e.j?0.5:1.0)*e.v*(point[e.i]-(*model_center)[e.i])*(point[e.j]-(*model_center)[e.j]);
++    for(const auto& a:model_atoms){double d=0;for(std::size_t j=0;j<a.direction.size();++j)d+=a.direction[j]*(point[j]-(*model_center)[j]);v+=0.5*a.beta*d*d;}
++    return v;
++  }
++  void set_model(const Vec& center,std::vector<SymTriplet> h,const std::map<Pair,int>& slots) {
++    model_center=&center;model_constant=value;model_gradient=gradient;model_hessian=std::move(h);
++    model_hi.clear();model_hj.clear();model_hglobal.clear();
++    for(auto e:model_hessian) {
++      model_hi.push_back((int)(std::lower_bound(support.begin(),support.end(),e.i)-support.begin()));
++      model_hj.push_back((int)(std::lower_bound(support.begin(),support.end(),e.j)-support.begin()));
++      model_hglobal.push_back(slots.at(upper(e.i,e.j)));
++    }
++    model_active=true;
++  }
+   double constant=0.0,scale=1.0;
+   std::vector<std::pair<int,double>> linear;
+   std::vector<SymTriplet> hessian;
+@@ -64,11 +92,16 @@
+     for(auto e:linear)s.insert(e.first);
+     for(auto e:hessian){s.insert(e.i);s.insert(e.j);}
+     support.assign(s.begin(),s.end());gradient.resize(support.size());
++    linear_pos.clear();hi.clear();hj.clear();
+     auto pos=[&](int j){return (int)(std::lower_bound(support.begin(),support.end(),j)-support.begin());};
+     for(auto e:linear)linear_pos.push_back(pos(e.first));
+     for(auto e:hessian){hi.push_back(pos(e.i));hj.push_back(pos(e.j));}
+   }
+   double at(const Vec& x) const {
++    if(model_active){note(&NewtonCalls::values);note(&NewtonCalls::model_values);return model_at(x);}
++    return original_at(x);
++  }
++  double original_at(const Vec& x) const {
+     note(&NewtonCalls::values);
+     double v=constant;
+     for(auto e:linear)v+=e.second*x[e.first];
+@@ -77,7 +110,15 @@
+   }
+   void evaluate(const Vec& x) {
+     note(&NewtonCalls::gradients);
+-    value=at(x);std::fill(gradient.begin(),gradient.end(),0.0);
++    value=at(x);
++    if(model_active) {
++      note(&NewtonCalls::model_gradients);gradient=model_gradient;
++      for(std::size_t k=0;k<model_hessian.size();++k){auto e=model_hessian[k];gradient[model_hi[k]]+=e.v*(x[e.j]-(*model_center)[e.j]);if(e.i!=e.j)gradient[model_hj[k]]+=e.v*(x[e.i]-(*model_center)[e.i]);}
++      for(const auto& a:model_atoms){double d=0;for(std::size_t j=0;j<a.direction.size();++j)d+=a.direction[j]*(x[j]-(*model_center)[j]);for(std::size_t k=0;k<support.size();++k)gradient[k]+=a.beta*d*a.direction[support[k]];}
++      if(pooled_gradient)std::copy(gradient.begin(),gradient.end(),pooled_gradient);
++      return;
++    }
++    std::fill(gradient.begin(),gradient.end(),0.0);
+     for(std::size_t i=0;i<linear.size();++i)gradient[linear_pos[i]]+=linear[i].second;
+     for(std::size_t i=0;i<hessian.size();++i) {
+       const auto e=hessian[i];gradient[hi[i]]+=e.v*x[e.j];
+@@ -87,6 +128,16 @@
+     if(pooled_gradient)std::copy(gradient.begin(),gradient.end(),pooled_gradient);
+   }
+   void add_gradient_at(const Vec& point,double weight,Vec& g) const {
++    if(model_active) {
++      note(&NewtonCalls::gradients);note(&NewtonCalls::model_gradients);
++      for(std::size_t k=0;k<support.size();++k)g[support[k]]+=weight*model_gradient[k];
++      for(auto e:model_hessian){g[e.i]+=weight*e.v*(point[e.j]-(*model_center)[e.j]);if(e.i!=e.j)g[e.j]+=weight*e.v*(point[e.i]-(*model_center)[e.i]);}
++      for(const auto& a:model_atoms){double d=0;for(std::size_t j=0;j<a.direction.size();++j)d+=a.direction[j]*(point[j]-(*model_center)[j]);axpy(weight*a.beta*d,a.direction,g);}
++      return;
++    }
++    original_gradient_at(point,weight,g);
++  }
++  void original_gradient_at(const Vec& point,double weight,Vec& g) const {
+     note(&NewtonCalls::gradients);
+     const double a=weight*scale;
+     for(auto e:linear)g[e.first]+=a*e.second;
+@@ -238,6 +289,10 @@
+   std::vector<SymmetricTriplet> kkt;
+   std::vector<int> diagonal,dense_diagonal;
+   Vec base_values;
++  std::size_t atom_border_begin=0;
++  bool has_model_borders=false;
++  void strip_model_borders(){if(has_model_borders){kkt.resize(atom_border_begin);base_values.resize(atom_border_begin);dim=nr+mr+ndense;has_model_borders=false;}}
++
+   Vec x,lambda,z,s,rd,rp,h;
+   // All factor objects borrow their settings; these objects must outlive them.
+   Settings factor_settings,pivoted_settings,recovery_settings;
+@@ -304,7 +359,14 @@
+     if(!finite(x))throw std::runtime_error("lazy-newton: nonfinite initial point");
+     if(st.lazy_newton_sparse_certificate)original_linear_support.resize(1+p.equalities.size()+p.inequalities.size());
+     auto original_support=[&](std::size_t i)->std::vector<int>* {return st.lazy_newton_sparse_certificate?&original_linear_support[i]:nullptr;};
+-    objective=Quadratic(p.objective,index,fixed,original_support(0));objective.ledger=&costs;objective.evaluate(x);
++    objective=Quadratic(p.objective,index,fixed,original_support(0));objective.ledger=&costs;
++    if(st.dca_engine=="filter"){
++      // Reserve diagonal curvature and the signed equality Hessian support.
++      // Structural zeros change no original coefficient or certificate.
++      for(int j=0;j<n;++j){objective.linear.push_back({j,0});objective.hessian.push_back({j,j,0});}
++      objective.compile();
++    }
++    objective.evaluate(x);
+     objective.scale=std::min(1.0,st.lazy_newton_objective_gradient_target/std::max(1.0,inf_norm(objective.gradient)));
+     for(std::size_t e=0;e<p.equalities.size();++e)equalities.emplace_back(p.equalities[e],index,fixed,original_support(1+e));
+     for(int i=0;i<(int)p.inequalities.size();++i) {
+@@ -319,6 +381,11 @@
+     for(std::size_t i=0;i<equalities.size();++i){equalities[i].ledger=&costs;equalities[i].family=1;}
+     for(std::size_t i=0;i<inequalities.size();++i){inequalities[i].ledger=&costs;inequalities[i].family=inequality_kind[i]==0?2:3;}
+     for(auto* family:{&equalities,&inequalities})for(auto& q:*family) {
++      if(st.dca_engine=="filter"&&!q.hessian.empty()){
++        std::set<int> diagonal;for(auto e:q.hessian){diagonal.insert(e.i);diagonal.insert(e.j);}
++        for(int j:diagonal)q.hessian.push_back({j,j,0});
++        q.compile();
++      }
+       q.evaluate(x);q.scale=std::min(1.0,st.lazy_newton_constraint_gradient_target/std::max(1.0,inf_norm(q.gradient)));
+     }
+     if(st.lazy_newton_packed_gradients) {
+@@ -479,7 +546,7 @@
+   }
+   void update_matrix() {
+     CostScope cost(costs,NewtonCost::Assembly);
+-    condensation_scanned=false;
++    condensation_scanned=false;strip_model_borders();
+     for(int j=0;j<n;++j)if(pivot_equation[j]>=0)for(int t=tbegin[j];t<tbegin[j+1];++t) {
+       auto [e,k]=tgradient[t];tvalue[t]=-equalities[e].gradient[k]/pivot_coefficient[e];
+     }
+@@ -490,7 +557,10 @@
+     for(int i=0;i<mi;++i)update(jr[i],inequalities[i]);
+     for(int a=0;a<mr;++a)update(ar[a],equalities[eq_retained[a]]);
+     std::fill(hvalue.begin(),hvalue.end(),0.0);
+-    auto add=[&](const Quadratic& q,double weight) {if(!q.hessian.empty())q.note(&NewtonCalls::hessian_assemblies);for(std::size_t j=0;j<q.hessian.size();++j)hvalue[q.hglobal[j]]+=weight*q.scale*q.hessian[j].v;};
++    auto add=[&](const Quadratic& q,double weight) {
++      if(q.model_active){if(!q.model_hessian.empty())q.note(&NewtonCalls::hessian_assemblies);for(std::size_t j=0;j<q.model_hessian.size();++j)hvalue[q.model_hglobal[j]]+=weight*q.model_hessian[j].v;}
++      else {if(!q.hessian.empty())q.note(&NewtonCalls::hessian_assemblies);for(std::size_t j=0;j<q.hessian.size();++j)hvalue[q.hglobal[j]]+=weight*q.scale*q.hessian[j].v;}
++    };
+     add(objective,1.0);for(int e=0;e<me;++e)add(equalities[e],lambda[e]);
+     for(int i=0;i<mi;++i)if(active[i])add(inequalities[i],z[i]);
+     std::fill(base_values.begin(),base_values.end(),0.0);
+@@ -506,6 +576,16 @@
+     }
+     for(int a=0;a<mr;++a)for(int j=0;j<(int)ar[a].values.size();++j)base_values[ar[a].border[j]]=ar[a].values[j];
+     if(!finite(base_values))throw std::runtime_error("lazy-newton: nonfinite KKT coefficients");
++    if(objective.model_active&&!objective.model_atoms.empty()) {
++      atom_border_begin=kkt.size();has_model_borders=true;
++      for(const auto& a:objective.model_atoms){
++        Vec reduced(nr,0);for(int j=0;j<n;++j)for(int t=tbegin[j];t<tbegin[j+1];++t)reduced[tcolumn[t]]+=a.direction[j]*tvalue[t];
++        const int row=dim++;const double weight=std::sqrt(a.beta);
++        for(int j=0;j<nr;++j){kkt.push_back({j,row,0});base_values.push_back(weight*reduced[j]);}
++        kkt.push_back({row,row,0});base_values.push_back(-1);
++      }
++      stats.kkt_dimension=dim;stats.kkt_structural_nnz=kkt.size();
++    }
+     ++stats.numeric_updates;
+     if(atoms){CostScope atom_cost(costs,NewtonCost::Atoms);atoms->project(tbegin,tcolumn,tvalue,retained,kkt,base_values,stats);}
+   }
+@@ -526,6 +606,7 @@
+       if(ratio>st.lazy_newton_condensation_ratio)promote.push_back(i);
+     }
+     if(promote.empty())return false;
++    strip_model_borders();
+     // Append only new borders; all gradient/Hessian maps remain persistent.
+     // Old Gram slots stay structural zeros where no other term uses them.
+     for(int i:promote) {
+@@ -777,7 +858,9 @@
+   }
+   Vec hessian_product(const Vec& d) const {
+     ++stats.lagrangian_hessian_products;
+-    Vec v(n,0.0);for(std::size_t k=0;k<hpattern.size();++k){auto [i,j]=hpattern[k];v[i]+=hvalue[k]*d[j];if(i!=j)v[j]+=hvalue[k]*d[i];}return v;
++    Vec v(n,0.0);for(std::size_t k=0;k<hpattern.size();++k){auto [i,j]=hpattern[k];v[i]+=hvalue[k]*d[j];if(i!=j)v[j]+=hvalue[k]*d[i];}
++    if(objective.model_active)for(const auto& a:objective.model_atoms)axpy(a.beta*dot(a.direction,d),a.direction,v);
++    return v;
+   }
+   Direction direction(const Vec& rc,const Vec& dual,const Vec& eq,const Vec& primal,int depth=0) {
+     CostScope cost(costs,NewtonCost::Direction);
+@@ -925,6 +1008,8 @@
+ bool certify_lazy_newton_original(const QCQPProblem& p,const Settings& st,Result& r) {
+   return st.lazy_newton_sparse_certificate?certify_indexed_original(p,st,r,nullptr):certify_dense_original(p,st,r);
+ }
++
++#include "dca_filter_engine.hpp"
+ 
+ Result solve_atomic_newton(const QCQPProblem& problem,const Settings& requested) {
+   Settings st=requested;
+--- /dev/null
++++ b/src/dca_curvature.hpp
+@@ -0,0 +1,351 @@
++#pragma once
++#include "lazyipdca_qcqp/linear_solver.hpp"
++#include <map>
++#include <numeric>
++extern "C" void dsyev_(const char *, const char *, const int *, double *, const int *, double *,
++                       double *, const int *, int *);
++
++namespace lazyipdca::qcqp::detail {
++// Sparse rank-one atoms are either coordinate or two-coordinate directions.
++// They are admitted by a negative Rayleigh witness, never by a positive probe.
++// The residual scalar is independently certified, including when the atom cap
++// is zero. Symbolic LDL data persist across updates of a matrix family.
++struct DcaAtom {
++  int i = 0, j = 0;
++  double u = 1, v = 0, beta = 0;
++};
++class DcaCurvature {
++  Settings settings_;
++  std::unique_ptr<SymmetricFactorization> factor_;
++  std::vector<SymTriplet> previous_;
++  int dimension_ = -1;
++  double previous_margin_ = 0;
++  std::vector<std::vector<std::pair<int, double>>> previous_normals_;
++
++public:
++  std::vector<DcaAtom> atoms;
++  std::vector<LowRankTerm> spectral_atoms;
++  int inverse_probes = 0;
++  double rho = 0, normal_weight = 0;
++  int small_spectra = 0;
++  int updates = 0, certificates = 0, reuses = 0, probes = 0, additions = 0;
++  explicit DcaCurvature(const Settings &s) : settings_(s) {
++    settings_.kkt_adaptive_regularization = true;
++    settings_.kkt_primal_regularization = 0;
++    settings_.kkt_dual_regularization = 0;
++    settings_.kkt_preserve_structural_zeros = true;
++    settings_.kkt_interleaved_equality_ordering = false;
++    settings_.kkt_primal_first_ordering = false;
++    settings_.native_inertia_relative_zero_tolerance = 0;
++  }
++  static std::vector<SymTriplet> canonical(int n, const std::vector<SymTriplet> &h) {
++    // Contiguous stable reduction avoids one heap allocation per coefficient.
++    // Stability preserves the summation order of duplicate input entries.
++    std::vector<SymTriplet> a;
++    a.reserve(n + h.size());
++    for (int i = 0; i < n; ++i)
++      a.push_back({i, i, 0});
++    for (auto e : h) {
++      if (e.i < 0 || e.j < 0 || e.i >= n || e.j >= n)
++        throw std::runtime_error("invalid DCA curvature index");
++      if (e.i > e.j)
++        std::swap(e.i, e.j);
++      a.push_back(e);
++    }
++    std::stable_sort(a.begin(), a.end(),
++                     [](auto x, auto y) { return x.i < y.i || (x.i == y.i && x.j < y.j); });
++    std::size_t write = 0;
++    for (std::size_t read = 0; read < a.size();) {
++      auto entry = a[read++];
++      while (read < a.size() && a[read].i == entry.i && a[read].j == entry.j)
++        entry.v += a[read++].v;
++      if (!std::isfinite(entry.v))
++        throw std::runtime_error("nonfinite DCA curvature coefficient");
++      a[write++] = entry;
++    }
++    a.resize(write);
++    return a;
++  }
++  std::vector<SymTriplet> corrected(int n, const std::vector<SymTriplet> &h, double shift) const {
++    auto out = h;
++    for (int i = 0; i < n; ++i)
++      out.push_back({i, i, shift});
++    for (auto a : atoms) {
++      out.push_back({a.i, a.i, a.beta * a.u * a.u});
++      if (a.j != a.i) {
++        out.push_back({a.i, a.j, a.beta * a.u * a.v});
++        out.push_back({a.j, a.j, a.beta * a.v * a.v});
++      }
++    }
++    return canonical(n, out);
++  }
++  bool ensure(int n, const std::vector<SymTriplet> &input, double margin, bool atom_event,
++              int &remaining_atoms, int batch, double min_relative_gain,
++              const std::vector<std::vector<std::pair<int, double>>> *normals = nullptr) {
++    const auto h = canonical(n, input);
++    bool same = n == dimension_ && h.size() == previous_.size() && margin == previous_margin_;
++    if (same)
++      for (std::size_t k = 0; k < h.size(); ++k)
++        if (h[k].i != previous_[k].i || h[k].j != previous_[k].j || h[k].v != previous_[k].v) {
++          same = false;
++          break;
++        }
++    const bool hessian_changed = !same;
++    if (same && (!normals || *normals == previous_normals_)) {
++      ++reuses;
++      return false;
++    }
++    if (hessian_changed)
++      ++updates;
++    // Reweight only after an actual Hessian change. A decrease invalidates
++    // the old certificate; the complete corrected matrix is checked below.
++    for (auto &a : atoms) {
++      double ray = 0;
++      for (auto e : h) {
++        double vi = e.i == a.i ? a.u : e.i == a.j ? a.v : 0;
++        double vj = e.j == a.i ? a.u : e.j == a.j ? a.v : 0;
++        ray += (e.i == e.j ? 1 : 2) * e.v * vi * vj;
++      }
++      a.beta = std::max(0.0, -1.05 * ray);
++    }
++    for (auto &a : spectral_atoms) {
++      double ray = 0;
++      for (auto e : h)
++        ray += (e.i == e.j ? 1 : 2) * e.v * a.direction[e.i] * a.direction[e.j];
++      a.beta = std::max(0.0, -1.1 * ray);
++    }
++    auto base = corrected(n, h, 0);
++    auto lower = [&](const std::vector<SymTriplet> &a) {
++      SymMatrix m;
++      m.n = n;
++      m.entries = a;
++      return m.gershgorin_lower_bound();
++    };
++    double lower_bound = lower(base);
++    auto admit_sparse = [&]() {
++      const int additions_before = additions;
++      if (lower_bound < margin && atom_event && hessian_changed && remaining_atoms > 0) {
++        for (int k = 0; k < std::min(batch, remaining_atoms); ++k) {
++          Vec diagonal(n, 0);
++          for (auto e : base)
++            if (e.i == e.j)
++              diagonal[e.i] = e.v;
++          DcaAtom best;
++          double eig = 0;
++          for (int i = 0; i < n; ++i)
++            if (diagonal[i] < eig) {
++              eig = diagonal[i];
++              best = {i, i, 1, 0, 0};
++            }
++          for (auto e : base)
++            if (e.i != e.j && e.v != 0) {
++              const double a = diagonal[e.i], b = diagonal[e.j];
++              const double l = 0.5 * (a + b - std::hypot(a - b, 2 * e.v));
++              if (l < eig) {
++                double u = e.v, v = l - a, norm = std::hypot(u, v);
++                if (norm > 0) {
++                  eig = l;
++                  best = {e.i, e.j, u / norm, v / norm, 0};
++                }
++              }
++            }
++          ++probes;
++          if (eig >= -std::max(1e-12, min_relative_gain * std::max(1.0, -lower_bound)))
++            break;
++          best.beta = -1.05 * eig;
++          atoms.push_back(best);
++          ++additions;
++          base = corrected(n, h, 0);
++          lower_bound = lower(base);
++        }
++        remaining_atoms -= additions - additions_before;
++      }
++    };
++    // Optional normal completion is implicit: B+H+rho*I+gamma*A'A is
++    // globally positive definite iff [B+H+rho*I-margin*I A'; A -I/gamma]
++    // has n positive and m negative eigenvalues. On A*d=-h, its added
++    // objective is the constant gamma*||h||^2/2. Newton uses the row-equivalent
++    // unaugmented system and shifted equality duals, avoiding Gram fill.
++    double upper = std::max(0.0, margin - lower_bound) +
++                   (lower_bound < margin ? 1e-12 * std::max(1.0, std::abs(lower_bound)) : 0.0);
++    auto positive = [&](double shift, double gamma, bool force = false) {
++      if (!force && lower_bound + shift >= margin)
++        return true;
++      if (!factor_) {
++        std::string message;
++        factor_ = make_symmetric_factorization(settings_, message);
++        if (!factor_)
++          return false;
++      }
++      std::vector<SymmetricTriplet> entries;
++      entries.reserve(base.size() + 4 * n);
++      for (auto e : base)
++        entries.push_back({e.i, e.j, e.v + (e.i == e.j ? shift - margin : 0)});
++      int dimension = n;
++      if (gamma > 0 && normals) {
++        dimension += normals->size();
++        for (int e = 0; e < (int)normals->size(); ++e) {
++          entries.push_back({n + e, n + e, -1 / gamma});
++          for (auto a : (*normals)[e])
++            entries.push_back({a.first, n + e, a.second});
++        }
++      }
++      for (const auto &atom : spectral_atoms) {
++        if (!(atom.beta > 0))
++          continue;
++        const int row = dimension++;
++        entries.push_back({row, row, -1.0});
++        const double weight = std::sqrt(atom.beta);
++        for (int j = 0; j < n; ++j)
++          entries.push_back({j, row, weight * atom.direction[j]});
++      }
++      std::string message;
++      ++certificates;
++      return factor_->factor(dimension, n, entries, message);
++    };
++    const double previous_rho = rho, previous_normal_weight = normal_weight;
++    normal_weight = 0;
++    if (!normals && n <= 16 && lower_bound < margin) {
++      admit_sparse();
++      // Small constant inequality blocks are certified once, exactly by LAPACK.
++      Vec dense(n * n, 0), values(n), work(std::max(1, 3 * n));
++      for (auto e : base) {
++        dense[e.i + n * e.j] = e.v;
++        dense[e.j + n * e.i] = e.v;
++      }
++      int info = 0, lwork = work.size();
++      const char no = 'N', upper_triangle = 'U';
++      dsyev_(&no, &upper_triangle, &n, dense.data(), &n, values.data(), work.data(), &lwork, &info);
++      ++small_spectra;
++      if (info != 0 || !std::isfinite(values[0]))
++        throw std::runtime_error("DCA small-block curvature certificate failed");
++      const double padding =
++          64 * std::numeric_limits<double>::epsilon() * std::max(1.0, std::abs(values.back()));
++      rho = std::max(0.0, margin - values[0] + padding);
++    } else if (upper == 0)
++      rho = 0;
++    else {
++      bool zero = false;
++      if (normals && !normals->empty()) {
++        for (double gamma = std::max(1e2, previous_normal_weight); gamma <= 1e6; gamma *= 100) {
++          normal_weight = gamma;
++          if (positive(0, gamma)) {
++            zero = true;
++            break;
++          }
++        }
++      } else
++        zero = positive(0, 0);
++      if (!zero && !normals) {
++        admit_sparse();
++        upper = std::max(0.0, margin - lower_bound) + 1e-12 * std::max(1.0, std::abs(lower_bound));
++        zero = positive(0, normal_weight);
++      }
++      if (zero)
++        rho = 0;
++      else {
++        // Search from a small complement, not from a coarse fraction of a
++        // possibly enormous Gershgorin bound. Reuse/decay the last complement.
++        double trial = std::min(upper, std::max(2 * margin + 1e-12, 0.2 * previous_rho));
++        for (int k = 0; k < 16; ++k) {
++          if (positive(trial, normal_weight)) {
++            rho = trial;
++            break;
++          }
++          trial = std::min(upper, 10 * trial);
++          if (k == 15)
++            rho = upper; // certified Gershgorin completion
++        }
++      }
++    }
++    if (rho > 0 && atom_event && hessian_changed && remaining_atoms > 0 && normals) {
++      const int allowance = std::min(batch, remaining_atoms);
++      for (int attempt = 0; attempt < allowance && rho > 0; ++attempt) {
++        if (!positive(rho, normal_weight, true))
++          break;
++        // Reuse the certified shifted operator. Its largest inverse
++        // eigenvalue targets the MOST NEGATIVE unshifted curvature, whereas
++        // an unshifted inverse can be dominated by tiny positive eigenvalues.
++        // A direct Rayleigh test alone authorizes the new PSD atom.
++        const int dim = n + (normal_weight > 0 ? (int)normals->size() : 0) +
++                        (int)std::count_if(spectral_atoms.begin(), spectral_atoms.end(),
++                                           [](const auto &atom) { return atom.beta > 0; });
++        std::vector<Vec> basis, images;
++        Vec v(n);
++        for (int j = 0; j < n; ++j)
++          v[j] = std::sin((j + 1) * 1.618033988749895);
++        for (int it = 0; it < std::min(n, 18); ++it) {
++          const double length = norm2(v);
++          if (!(length > 1e-12))
++            break;
++          for (double &z : v)
++            z /= length;
++          basis.push_back(v);
++          Vec rhs(dim, 0);
++          std::copy(v.begin(), v.end(), rhs.begin());
++          std::string message;
++          ++inverse_probes;
++          if (!factor_->solve(rhs, message)) {
++            basis.pop_back();
++            break;
++          }
++          images.emplace_back(rhs.begin(), rhs.begin() + n);
++          v = images.back();
++          for (int sweep = 0; sweep < 2; ++sweep)
++            for (const auto &u : basis)
++              axpy(-dot(u, v), u, v);
++        }
++        const int m = basis.size();
++        if (m == 0)
++          break;
++        Vec reduced(m * m), values(m), work(std::max(1, 3 * m));
++        for (int j = 0; j < m; ++j)
++          for (int i = 0; i < m; ++i)
++            reduced[i + m * j] = 0.5 * (dot(basis[i], images[j]) + dot(basis[j], images[i]));
++        int info = 0, lwork = work.size();
++        const char vectors = 'V', triangle = 'U';
++        dsyev_(&vectors, &triangle, &m, reduced.data(), &m, values.data(), work.data(), &lwork,
++               &info);
++        if (info || !(values[m - 1] > 0))
++          break;
++        Vec direction(n, 0);
++        for (int j = 0; j < m; ++j)
++          axpy(reduced[j + m * (m - 1)], basis[j], direction);
++        double length = norm2(direction);
++        if (!(length > 0))
++          break;
++        for (double &x : direction)
++          x /= length;
++        double ray = 0;
++        for (auto e : base)
++          ray += (e.i == e.j ? 1 : 2) * e.v * direction[e.i] * direction[e.j];
++        for (const auto &row : *normals) {
++          double v = 0;
++          for (auto a : row)
++            v += a.second * direction[a.first];
++          ray += normal_weight * v * v;
++        }
++        for (const auto &a : spectral_atoms) {
++          double v = dot(a.direction, direction);
++          ray += a.beta * v * v;
++        }
++        ++probes;
++        if (!std::isfinite(ray) || ray >= -std::max(1e-10, min_relative_gain))
++          break;
++        spectral_atoms.push_back({-1.1 * ray, std::move(direction)});
++        --remaining_atoms;
++        ++additions;
++        if (positive(0, normal_weight))
++          rho = 0;
++      }
++    }
++
++    previous_ = h;
++    dimension_ = n;
++    previous_margin_ = margin;
++    if (normals)
++      previous_normals_ = *normals;
++    return true;
++  }
++};
++} // namespace lazyipdca::qcqp::detail
+--- /dev/null
++++ b/src/dca_filter_contract.hpp
+@@ -0,0 +1,56 @@
++#pragma once
++#include <algorithm>
++#include <cmath>
++#include <limits>
++#include <vector>
++
++namespace lazyipdca::qcqp::detail {
++struct OriginalFilterPoint {
++  double objective = 0, theta = 0, kkt = 0;
++  double lagrangian = std::numeric_limits<double>::quiet_NaN();
++};
++class OriginalDcaFilter {
++  std::vector<OriginalFilterPoint> entries_;
++  double theta_cap_;
++
++public:
++  explicit OriginalDcaFilter(double theta_cap = 1.0) : theta_cap_(theta_cap) {}
++  // All quantities are evaluated on original functions with frozen scaling.
++  // The local progress test is additional to nondomination by filter history.
++  bool acceptable(const OriginalFilterPoint &from, const OriginalFilterPoint &to, double predicted,
++                  double feasibility_tol) const {
++    if (!std::isfinite(to.objective) || !std::isfinite(to.theta) || !std::isfinite(to.kkt))
++      return false;
++    const double noise =
++        32 * std::numeric_limits<double>::epsilon() * std::max(1.0, std::abs(from.objective));
++    const bool feasibility = from.theta > feasibility_tol && to.theta <= (1 - 1e-3) * from.theta;
++    const bool objective = predicted > noise && to.objective <= from.objective - 1e-4 * predicted &&
++                           to.theta <= theta_cap_;
++    // At a stationary feasible point, objective cancellation cannot measure
++    // progress. Require ORIGINAL unperturbed KKT contraction and no increase.
++    const bool terminal =
++        from.theta <= feasibility_tol && to.theta <= feasibility_tol &&
++        (to.objective <= from.objective + noise ||
++         (from.kkt <= 1.0 && std::isfinite(from.lagrangian) && std::isfinite(to.lagrangian) &&
++          to.lagrangian <= from.lagrangian + noise)) &&
++        from.kkt > 0 && to.kkt <= (1 - 1e-3) * from.kkt;
++    if (!(feasibility || objective || terminal))
++      return false;
++    if (terminal)
++      return true;
++    for (const auto &p : entries_)
++      if (!(to.theta <= (1 - 1e-4) * p.theta || to.objective <= p.objective - 1e-4 * p.theta))
++        return false;
++    return true;
++  }
++  void insert(OriginalFilterPoint p) {
++    entries_.erase(std::remove_if(entries_.begin(), entries_.end(),
++                                  [&](const auto &a) {
++                                    return p.theta <= a.theta && p.objective <= a.objective;
++                                  }),
++                   entries_.end());
++    entries_.push_back(p);
++  }
++  std::size_t size() const { return entries_.size(); }
++};
++} // namespace lazyipdca::qcqp::detail
+--- /dev/null
++++ b/src/dca_filter_engine.hpp
+@@ -0,0 +1,709 @@
++// Internal controller compiled beside the shared reduced primal-dual Workspace.
++// This file is intentionally included once by atomic_newton.cpp: numerical
++// assembly, exact affine elimination, refinement and certificate code are shared.
++namespace {
++struct DcaPoint : detail::OriginalFilterPoint {
++  double primal = 0, dual = 0, comp = 0;
++};
++DcaPoint dca_original(Workspace &w, const Vec &x, const Vec &lambda, const Vec &z,
++                      const Vec *anchor_lambda = nullptr, const Vec *anchor_z = nullptr) {
++  DcaPoint p;
++  p.objective = w.objective.original_at(x);
++  p.lagrangian = p.objective;
++  const auto &fixed_lambda = anchor_lambda ? *anchor_lambda : lambda;
++  const auto &fixed_z = anchor_z ? *anchor_z : z;
++  Vec g(w.n, 0);
++  w.objective.original_gradient_at(x, 1, g);
++  for (int e = 0; e < w.me; ++e) {
++    auto &q = w.equalities[e];
++    double h = q.original_at(x);
++    p.lagrangian += fixed_lambda[e] * h;
++    p.theta += std::abs(h);
++    p.primal = std::max(p.primal, std::abs(h) / q.scale);
++    q.original_gradient_at(x, lambda[e], g);
++  }
++  for (int i = 0; i < w.mi; ++i) {
++    auto &q = w.inequalities[i];
++    double h = q.original_at(x);
++    if (w.active[i])
++      p.lagrangian += fixed_z[i] * h;
++    p.theta += std::max(0.0, h);
++    p.primal = std::max(p.primal, std::max(0.0, h) / q.scale);
++    if (w.active[i]) {
++      q.original_gradient_at(x, z[i], g);
++      p.comp = std::max(p.comp, std::abs(z[i] * h) / w.objective.scale);
++    }
++  }
++  p.dual = inf_norm(g) / w.objective.scale;
++  p.kkt = std::max({p.primal, p.dual, p.comp});
++  if (!finite(g) || !std::isfinite(p.objective) || !std::isfinite(p.theta))
++    p.kkt = INFINITY;
++  return p;
++}
++void dca_disable_models(Workspace &w) {
++  w.objective.model_active = false;
++  for (auto *group : {&w.equalities, &w.inequalities})
++    for (auto &q : *group)
++      q.model_active = false;
++}
++struct DcaModels {
++  Workspace &w;
++  DcaFilterStatistics &stats;
++  detail::DcaCurvature lagrangian;
++  std::vector<std::unique_ptr<detail::DcaCurvature>> inequality;
++  std::map<Pair, int> slots;
++  Vec center;
++  int remaining;
++  DcaModels(Workspace &work, DcaFilterStatistics &s)
++      : w(work), stats(s), lagrangian(w.st), inequality(w.mi), center(w.x),
++        remaining(w.st.dca_filter_max_atoms) {
++    for (int i = 0; i < (int)w.hpattern.size(); ++i)
++      slots[w.hpattern[i]] = i;
++  }
++  void build(double extra_proximal = 0, bool restoration = false) {
++    const auto started = Clock::now();
++    dca_disable_models(w);
++    center = w.x;
++    w.evaluate();
++    auto stamp = Clock::now();
++    std::vector<SymTriplet> b;
++    for (auto e : w.objective.hessian)
++      b.push_back({e.i, e.j, w.objective.scale * e.v});
++    for (int j = 0; j < w.me; ++j)
++      for (auto e : w.equalities[j].hessian)
++        b.push_back({e.i, e.j, w.lambda[j] * w.equalities[j].scale * e.v});
++    const bool event = w.st.dca_filter_atom_events &&
++                       ((stats.hessian_updates + 1) % w.st.dca_filter_atom_every == 0) &&
++                       (!restoration || stats.models == 0);
++    const int before = lagrangian.updates;
++    int admission_budget = event ? std::min(remaining, w.st.dca_filter_atom_batch) : 0;
++    const int admission_before = admission_budget;
++    // Exact affine elimination gives d=T*z+P*(-h_E), with E*T=I
++    // for the retained-coordinate selector E. Curvature is certified in z.
++    // The PSD correction is lifted as E'*(H_r+rho*I)*E, never as T*H_r*T'.
++    Vec transform = w.tvalue;
++    for (std::size_t t = 0; t < transform.size(); ++t) {
++      auto [e, j] = w.tgradient[t];
++      if (e >= 0)
++        transform[t] = -w.equalities[e].gradient[j] / w.pivot_coefficient[e];
++    }
++    std::vector<SymTriplet> reduced_b;
++    for (auto e : b)
++      for (int a = w.tbegin[e.i]; a < w.tbegin[e.i + 1]; ++a)
++        for (int c = w.tbegin[e.j]; c < w.tbegin[e.j + 1]; ++c) {
++          if (e.i == e.j && a > c)
++            continue;
++          auto ij = upper(w.tcolumn[a], w.tcolumn[c]);
++          const double weight = e.i != e.j && ij.first == ij.second ? 2 : 1;
++          reduced_b.push_back({ij.first, ij.second, weight * e.v * transform[a] * transform[c]});
++        }
++    std::vector<std::vector<std::pair<int, double>>> normals;
++    for (int e : w.eq_retained) {
++      normals.emplace_back();
++      const auto &q = w.equalities[e];
++      std::map<int, double> row;
++      for (std::size_t j = 0; j < q.support.size(); ++j)
++        for (int t = w.tbegin[q.support[j]]; t < w.tbegin[q.support[j] + 1]; ++t)
++          row[w.tcolumn[t]] += q.gradient[j] * transform[t];
++      for (auto a : row)
++        normals.back().push_back(a);
++    }
++    if (!restoration)
++      lagrangian.ensure(w.nr, reduced_b, 1e-10, event, admission_budget, w.st.dca_filter_atom_batch,
++                        w.st.dca_filter_atom_gain, &normals);
++    if (lagrangian.updates != before || (restoration && stats.models == 0)) {
++      ++stats.hessian_updates;
++      if (event)
++        ++stats.atom_events;
++    }
++    auto obj = b;
++    for (auto e : lagrangian.corrected(w.nr, {}, lagrangian.rho + extra_proximal))
++      obj.push_back({w.retained[e.i], w.retained[e.j], e.v});
++    obj = detail::DcaCurvature::canonical(w.n, obj);
++    // A sufficient full-space normal completion follows by a Schur bound in
++    // coordinates (z, A_E*d). It is NOT assembled: both normal penalties are
++    // constants on the complete affine equality slice. This avoids large
++    // normal-only curvature in every optimization direction.
++    double pnorm2 = 0, tnorm2 = dot(transform, transform), bnorm2 = 0;
++    for (int e = 0; e < w.me; ++e)
++      if (w.pivot_variable[e] >= 0)
++        pnorm2 = std::max(pnorm2, 1 / (w.pivot_coefficient[e] * w.pivot_coefficient[e]));
++    for (auto e : detail::DcaCurvature::canonical(w.n, b))
++      bnorm2 += (e.i == e.j ? 1 : 2) * e.v * e.v;
++    stats.eliminated_normal_completion_weight =
++        pnorm2 * (std::sqrt(bnorm2) + tnorm2 * bnorm2 / 1e-10) + 1e-10;
++    if (!std::isfinite(stats.eliminated_normal_completion_weight))
++      throw std::runtime_error("DCA implicit normal completion overflow");
++    if (restoration || pnorm2 == 0)
++      stats.eliminated_normal_completion_weight = 0;
++    if (restoration) {
++      obj.clear();
++      for (int j = 0; j < w.n; ++j)
++        obj.push_back({j, j, 1.0});
++    }
++    stats.rho_inequalities_max = 0;
++    for (int i = 0; i < w.mi; ++i)
++      if (w.active[i]) {
++        auto &q = w.inequalities[i];
++        std::vector<SymTriplet> hi;
++        if (!q.hessian.empty() && !inequality[i]) {
++          std::set<int> support;
++          for (auto e : q.hessian) {
++            support.insert(e.i);
++            support.insert(e.j);
++          }
++          std::vector<int> indices(support.begin(), support.end());
++          auto local = [&](int j) {
++            return int(std::lower_bound(indices.begin(), indices.end(), j) - indices.begin());
++          };
++          for (auto e : q.hessian)
++            hi.push_back({local(e.i), local(e.j), q.scale * e.v});
++          if (!inequality[i])
++            inequality[i] = std::make_unique<detail::DcaCurvature>(w.st);
++          auto &c = *inequality[i];
++          c.ensure(indices.size(), hi, 0, w.st.dca_filter_atom_events, admission_budget,
++                   w.st.dca_filter_atom_batch, w.st.dca_filter_atom_gain);
++          hi = c.corrected(indices.size(), hi, c.rho);
++          for (auto &e : hi) {
++            e.i = indices[e.i];
++            e.j = indices[e.j];
++          }
++          stats.rho_inequalities_max = std::max(stats.rho_inequalities_max, c.rho);
++        }
++        if (inequality[i] && hi.empty()) {
++          ++inequality[i]->reuses;
++          q.model_center = &center;
++          q.model_constant = q.value;
++          q.model_gradient = q.gradient;
++          q.model_active = true;
++          stats.rho_inequalities_max = std::max(stats.rho_inequalities_max, inequality[i]->rho);
++        } else
++          q.set_model(center, std::move(hi), slots);
++      }
++    remaining -= admission_before - admission_budget;
++    stats.normal_completion_weight = restoration ? 0 : lagrangian.normal_weight;
++    stats.curvature_seconds += seconds(stamp);
++    w.objective.set_model(center, std::move(obj), slots);
++    w.objective.model_atoms.clear();
++    if (!restoration)
++      for (const auto &a : lagrangian.spectral_atoms) {
++        if (!(a.beta > 0))
++          continue;
++        LowRankTerm lifted;
++        lifted.beta = a.beta;
++        lifted.direction.assign(w.n, 0);
++        for (int j = 0; j < w.nr; ++j)
++          lifted.direction[w.retained[j]] = a.direction[j];
++        w.objective.model_atoms.push_back(std::move(lifted));
++      }
++    if (restoration) {
++      w.objective.model_constant = 0;
++      std::fill(w.objective.model_gradient.begin(), w.objective.model_gradient.end(), 0);
++    }
++    for (auto &q : w.equalities)
++      q.set_model(center, {}, slots);
++    ++stats.models;
++    stats.rho_lagrangian = restoration ? 1 : lagrangian.rho + extra_proximal;
++    stats.atoms_lagrangian = lagrangian.atoms.size() + lagrangian.spectral_atoms.size();
++    stats.atoms_inequalities = 0;
++    stats.curvature_factors = lagrangian.certificates;
++    stats.curvature_reuses = lagrangian.reuses;
++    for (const auto &c : inequality)
++      if (c) {
++        stats.atoms_inequalities += c->atoms.size();
++        stats.curvature_factors += c->certificates;
++        stats.curvature_reuses += c->reuses;
++      }
++    stats.spectral_inverse_solves = lagrangian.inverse_probes;
++    stats.small_block_spectra = 0;
++    stats.atoms_active_lagrangian = 0;
++    stats.atoms_active_inequalities = 0;
++    if (!restoration) {
++      for (auto a : lagrangian.atoms)
++        stats.atoms_active_lagrangian += a.beta > 0;
++      for (const auto &a : lagrangian.spectral_atoms)
++        stats.atoms_active_lagrangian += a.beta > 0;
++    }
++    for (const auto &c : inequality)
++      if (c) {
++        stats.small_block_spectra += c->small_spectra;
++        for (auto a : c->atoms)
++          stats.atoms_active_inequalities += a.beta > 0;
++      }
++    stats.model_build_seconds += seconds(started);
++  }
++  void transport_slacks() {
++    // Preserve g+s exactly across recentering. The correction is PSD, hence
++    // the original slack is at least the positive model slack (up to roundoff).
++    for (int i = 0; i < w.mi; ++i)
++      if (w.active[i]) {
++        auto &q = w.inequalities[i];
++        const double delta = q.at(w.x) - q.original_at(w.x);
++        w.s[i] += std::max(0.0, delta);
++      }
++  }
++};
++void dca_display(const Workspace &w, const Result &r, const DcaPoint &p, int level, int inner,
++                 double ap, double ad, int ls, double elapsed) {
++  const int k = r.outer_iterations;
++  if (level == 0)
++    return;
++  if (k % w.st.live_iteration_header_every == 0) {
++    std::cout << "\n iter      objective     inf_pr     inf_du   lg(mu)      ||d||   alpha_du   "
++                 "alpha_pr   ls";
++    if (level >= 2)
++      std::cout << " | aOE rOE<=      rhoOE   aI rI<=       rhoI    WS";
++    if (level >= 3)
++      std::cout << " | nInt  nFac   curvFac   time(s)";
++    std::cout << '\n';
++  }
++  double mu = 0;
++  int count = 0;
++  for (int i = 0; i < w.mi; ++i)
++    if (w.active[i]) {
++      mu += w.s[i] * w.z[i];
++      ++count;
++    }
++  mu = count ? mu / count : 0;
++  std::cout << std::setw(5) << k << ' ' << std::scientific << std::setprecision(7) << std::setw(15)
++            << p.objective / w.objective.scale << std::setprecision(2) << ' ' << std::setw(10)
++            << p.primal << ' ' << std::setw(10) << p.dual << std::fixed << std::setprecision(1)
++            << ' ' << std::setw(8) << std::log10(std::max(mu, 1e-300)) << std::scientific
++            << std::setprecision(2) << ' ' << std::setw(10) << r.step_inf << ' ' << std::setw(10)
++            << ad << ' ' << std::setw(10) << ap << ' ' << std::setw(4) << ls;
++  auto &d = r.dca_filter;
++  if (level >= 2)
++    std::cout << " | " << std::setw(3) << d.atoms_lagrangian << ' ' << std::setw(5)
++              << std::min(w.nr, d.atoms_active_lagrangian) << ' ' << std::setw(10)
++              << d.rho_lagrangian << ' ' << std::setw(4) << d.atoms_inequalities << ' '
++              << std::setw(4) << d.atoms_active_inequalities << ' ' << std::setw(10)
++              << d.rho_inequalities_max << ' ' << std::setw(5) << count;
++  if (level >= 3)
++    std::cout << " | " << std::setw(4) << inner << ' ' << std::setw(5)
++              << r.lazy_newton.factor_attempts << ' ' << std::setw(9) << d.curvature_factors
++              << std::fixed << std::setprecision(3) << ' ' << std::setw(9) << elapsed;
++  std::cout << std::defaultfloat << std::endl;
++}
++} // namespace
++
++Result solve_filter_dca(const QCQPProblem &problem, const Settings &requested) {
++  Settings st = requested;
++  if (st.dca_filter_inner_max < 1 || st.dca_filter_inner_max > 100 || st.dca_filter_max_atoms < 0 ||
++      st.dca_filter_atom_every < 1 || st.dca_filter_atom_batch < 1 ||
++      st.dca_filter_model_retries < 0)
++    throw std::invalid_argument("invalid DCA step/atom/retry limits");
++  const int level =
++      st.live_display_level < 0 ? (st.live_iterations ? 1 : 0) : st.live_display_level;
++  if (level < 0 || level > 4 || st.live_iteration_header_every < 1 || st.live_iteration_every < 1)
++    throw std::invalid_argument("invalid DCA display level/period");
++  st.dca_engine = "filter";
++  st.lazy_newton_atomic_regularization = false;
++  st.verbose = false;
++  st.live_curvature = level >= 4;
++  st.lazy_newton_predictor_corrector = true;
++  problem.validate();
++  Result result;
++  result.x = problem.x0;
++  result.effective_outer_algorithm = "lazy-dca";
++  result.lazy_dca_equality_model = "affine-partial-lagrangian-dc";
++  result.linear_solver_backend = "filter-dca/" + st.linear_backend;
++  result.dca_filter.used = true;
++  result.lazy_newton.display_level = level;
++  auto start = Clock::now();
++  detail::NewtonCostLedger costs(result.lazy_newton, start);
++  std::unique_ptr<Workspace> owner;
++  Vec committed_x, committed_s, committed_z, committed_lambda;
++  bool have_committed_state = false;
++  try {
++    bool all_fixed = true;
++    for (int j = 0; j < problem.n; ++j)
++      all_fixed = all_fixed && std::isfinite(problem.lb[j]) && problem.lb[j] == problem.ub[j];
++    if (all_fixed) {
++      result.x = problem.lb;
++      result.certificate_equality_multipliers.assign(problem.equalities.size(), 0);
++      result.certificate_inequality_multipliers.assign(problem.inequalities.size(), 0);
++      result.certificate_lower_multipliers.assign(problem.n, 0);
++      result.certificate_upper_multipliers.assign(problem.n, 0);
++      bool ok;
++      {
++        CostScope certificate(costs, NewtonCost::Certificate);
++        ok = certify_lazy_newton_original(problem, st, result);
++      }
++      result.status = ok ? Status::Solved : Status::RestorationFailure;
++      result.message = ok ? "fixed point satisfies the original QCQP certificate"
++                          : "fixed point violates original constraints";
++      result.termination_multiplier_source = "filter-dca-original-primal-dual-state";
++      costs.finish();
++      result.elapsed_seconds = seconds(start);
++      return result;
++    }
++    {
++      CostScope preparation(costs, NewtonCost::Preparation);
++      owner = std::make_unique<Workspace>(problem, st, result.lazy_newton, costs);
++    }
++    auto &w = *owner;
++    auto &stats = result.dca_filter;
++    // A small feasibility defect does not justify a terminal barrier when
++    // the cold start has a large dual residual. Center the INITIAL state only.
++    const double initial_mu =
++        std::max(st.lazy_newton_initial_mu, std::min(1.0, 0.01 * inf_norm(w.rd)));
++    for (int i = 0; i < w.mi; ++i)
++      if (w.active[i])
++        w.z[i] = initial_mu / w.s[i];
++    w.evaluate();
++    DcaModels models(w, stats);
++    auto outer = dca_original(w, w.x, w.lambda, w.z);
++    detail::OriginalDcaFilter filter(std::max(1.0, 10.0 * outer.theta));
++    bool corrector_enabled = result.lazy_newton.initial_barrier > st.lazy_newton_initial_mu;
++    bool phase_one = outer.primal > 1e-2;
++    if (level) {
++      CostScope display(costs, NewtonCost::Diagnostics);
++      std::cout << "LazyIPDCA  |  DC majorants · original filter\n";
++      dca_display(w, result, outer, level, 0, 0, 0, 0, seconds(start));
++    }
++    result.status = Status::MaxOuterIterations;
++    result.message = "Lazy-DCA outer iteration limit";
++    bool stop = false;
++    for (int k = 0; k < st.max_outer_iterations && !stop; ++k) {
++      if (phase_one && outer.primal <= 1e-4) {
++        phase_one = false;
++        dca_disable_models(w);
++        w.lambda.assign(w.me, 0);
++        for (int i = 0; i < w.mi; ++i)
++          if (w.active[i]) {
++            w.s[i] = std::max(0.01, -w.inequalities[i].original_at(w.x));
++            w.z[i] = initial_mu / w.s[i];
++          }
++        w.evaluate();
++        outer = dca_original(w, w.x, w.lambda, w.z);
++        corrector_enabled = false;
++      }
++      if (outer.primal <= st.feasibility_tolerance &&
++          outer.dual <= st.dual_infeasibility_tolerance &&
++          outer.comp <= st.complementarity_tolerance) {
++        CostScope certificate(costs, NewtonCost::Certificate);
++        w.export_state(result);
++        if (w.certify(result)) {
++          result.status = Status::Solved;
++          result.message = "original QCQP KKT certificate satisfied by filter Lazy-DCA";
++          break;
++        }
++      }
++      outer = dca_original(w, w.x, w.lambda, w.z);
++      committed_x = w.x;
++      committed_s = w.s;
++      committed_z = w.z;
++      committed_lambda = w.lambda;
++      have_committed_state = true;
++      const Vec &accepted_x = committed_x;
++      const Vec &accepted_s = committed_s;
++      const Vec &accepted_z = committed_z;
++      const Vec &accepted_lambda = committed_lambda;
++      bool accepted = false, expanded = false;
++      int performed = 0, accepted_ls = 0;
++      double accepted_ap = 0, accepted_ad = 0;
++      for (int rebuild = 0; rebuild <= st.dca_filter_model_retries && !accepted; ++rebuild) {
++        if (seconds(start) >= st.time_limit_seconds) {
++          stop = true;
++          result.status = Status::TimeLimit;
++          result.message = "Lazy-DCA time limit";
++          break;
++        }
++        w.x = accepted_x;
++        w.s = accepted_s;
++        w.z = accepted_z;
++        w.lambda = accepted_lambda;
++        if (expanded)
++          for (int i = 0; i < w.mi; ++i)
++            if (w.active[i] && !(w.z[i] > 0)) {
++              w.s[i] = std::max(0.01, -w.inequalities[i].original_at(w.x));
++              w.z[i] = st.lazy_newton_initial_mu / w.s[i];
++            }
++        const bool restoration =
++            phase_one || (rebuild == st.dca_filter_model_retries && rebuild > 0 &&
++                          outer.primal > st.feasibility_tolerance);
++        if (rebuild > 0)
++          ++stats.model_retries;
++        if (restoration)
++          ++stats.restorations;
++        {
++          CostScope curvature(costs, NewtonCost::Atoms);
++          models.build(rebuild > 0 ? std::pow(10.0, rebuild - 1) * 1e-3 : 0, restoration);
++        }
++        expanded = false;
++        for (int inner = 0; inner < st.dca_filter_inner_max && !accepted; ++inner) {
++          try {
++            if (seconds(start) >= st.time_limit_seconds) {
++              stop = true;
++              result.status = Status::TimeLimit;
++              result.message = "Lazy-DCA time limit";
++              break;
++            }
++            w.evaluate();
++            w.update_matrix();
++            if (!w.factorize(0)) {
++              result.message = "DCA majorant KKT factorization: " + w.message;
++              break;
++            }
++            double mu = 0;
++            int count = 0;
++            Vec rc(w.mi, 0);
++            for (int i = 0; i < w.mi; ++i)
++              if (w.active[i]) {
++                rc[i] = w.s[i] * w.z[i];
++                mu += rc[i];
++                ++count;
++              }
++            mu = count ? mu / count : 0;
++            Direction affine = w.direction(rc, w.rd, w.h, w.rp), direction = affine;
++            double target = 0;
++            if (count) {
++              const double ap = w.fraction(affine, 1, 1), ad = w.fraction(affine, 1, 2);
++              double amu = 0;
++              for (int i = 0; i < w.mi; ++i)
++                if (w.active[i])
++                  amu += (w.s[i] + ap * affine.s[i]) * (w.z[i] + ad * affine.z[i]);
++              amu /= count;
++              const double sigma =
++                  std::clamp(std::pow(std::max(0.0, amu) / std::max(mu, 1e-300), 3), 1e-8, 0.95);
++              target =
++                  std::max(0.001 * w.objective.scale *
++                               std::min(st.complementarity_tolerance, st.stationarity_tolerance),
++                           sigma * mu);
++              for (int i = 0; i < w.mi; ++i)
++                if (w.active[i])
++                  rc[i] = w.s[i] * w.z[i] - target +
++                          (corrector_enabled ? affine.s[i] * affine.z[i] : 0);
++              direction = w.direction(rc, w.rd, w.h, w.rp);
++            }
++            Vec tx(w.n), ts(w.mi), tz(w.mi), tl(w.me);
++            bool private_ok = false;
++            int line_steps = 0;
++            double ap = 0, ad = 0;
++            for (int correction = 0; correction < 2 && !private_ok; ++correction) {
++              const double apmax = w.fraction(direction, st.lazy_newton_fraction_to_boundary, 1);
++              const double admax = w.fraction(direction, st.lazy_newton_fraction_to_boundary, 2);
++              const double theta = w.theta(w.x, w.s);
++              double slope = w.objective.directional(direction.x);
++              for (int i = 0; i < w.mi; ++i)
++                if (w.active[i])
++                  slope -= target * direction.s[i] / w.s[i];
++              w.penalty = std::max(w.penalty, 1.1 * std::max(inf_norm(w.lambda), inf_norm(w.z)));
++              if (theta > 1e-14 && slope - w.penalty * theta >= -1e-8 * theta)
++                w.penalty = std::max(w.penalty, (slope + std::abs(slope) + 1) / theta);
++              slope -= w.penalty * theta;
++              const double merit = w.merit(w.x, w.s, target),
++                           before = w.perturbed_residual(w.x, w.lambda, w.s, w.z, target);
++              for (int ls = 0; ls < st.line_search_max_steps; ++ls) {
++                double tau = std::pow(st.line_search_contraction, ls);
++                ap = apmax * tau;
++                ad = admax * tau;
++                line_steps = ls;
++                for (int j = 0; j < w.n; ++j)
++                  tx[j] = w.x[j] + ap * direction.x[j];
++                for (int e = 0; e < w.me; ++e)
++                  tl[e] = w.lambda[e] + ad * direction.lambda[e];
++                bool positive = true;
++                for (int i = 0; i < w.mi; ++i) {
++                  ts[i] = w.s[i] + ap * direction.s[i];
++                  tz[i] = w.z[i] + ad * direction.z[i];
++                  if (w.active[i] && (!(ts[i] > 0) || !(tz[i] > 0)))
++                    positive = false;
++                }
++                const double trial = positive ? w.merit(tx, ts, target) : INFINITY;
++                const double noise =
++                    16 * std::numeric_limits<double>::epsilon() * std::max(1.0, std::abs(merit));
++                private_ok = std::isfinite(trial) && finite(tx) && finite(tl) && finite(tz) &&
++                             ((ap >= 1e-6 && slope < 0 &&
++                               trial <= merit + st.line_search_armijo * ap * slope + noise) ||
++                              (trial <= merit + noise && before > 0 &&
++                               w.perturbed_residual(tx, tl, ts, tz, target) <=
++                                   (1 - 1e-4 * std::min(ap, ad)) * before));
++                if (private_ok)
++                  break;
++              }
++              if (!private_ok && count && correction == 0 && corrector_enabled) {
++                for (int i = 0; i < w.mi; ++i)
++                  if (w.active[i])
++                    rc[i] = w.s[i] * w.z[i] - target;
++                direction = w.direction(rc, w.rd, w.h, w.rp);
++                ++result.lazy_newton.predictor_corrector_fallbacks;
++              }
++            }
++            if (!private_ok)
++              break;
++            ++performed;
++            ++stats.inner_steps;
++            result.inner_iterations = stats.inner_steps;
++            ++result.lazy_newton.accepted_steps;
++            const auto gate_start = Clock::now();
++            CostScope globalization(costs, NewtonCost::Globalization);
++            for (int i = 0; i < w.mi; ++i)
++              if (!w.active[i] && w.inequalities[i].original_at(tx) >
++                                      st.feasibility_tolerance * w.inequalities[i].scale) {
++                w.active[i] = 1;
++                expanded = true;
++                ++result.lazy_newton.constraint_activations;
++              }
++            if (expanded) {
++              ++result.lazy_newton.working_set_retries;
++              break;
++            }
++            DcaPoint candidate = dca_original(w, tx, tl, tz, &accepted_lambda, &accepted_z);
++            const double predicted =
++                restoration ? 0 : w.objective.model_constant - w.objective.at(tx);
++            ++stats.filter_trials;
++            accepted = (restoration || candidate.kkt <= std::max(1.0, 10 * outer.kkt)) &&
++                       filter.acceptable(outer, candidate, predicted, st.feasibility_tolerance);
++            if (!accepted) {
++              ++stats.filter_rejections;
++              // Bounded second-order normal correction. The Jacobian remains
++              // the frozen outer Jacobian, so the existing KKT factor is valid.
++              // Every corrected endpoint is checked on original functions.
++              if (!w.equalities.empty() && candidate.theta > 1e-14) {
++                auto soc_start = Clock::now();
++                ++stats.soc_attempts;
++                Vec eq(w.me), zero_dual(w.n, 0), zero_primal(w.mi, 0), zero_comp(w.mi, 0);
++                for (int e = 0; e < w.me; ++e)
++                  eq[e] = w.equalities[e].original_at(tx);
++                Direction normal = w.direction(zero_comp, zero_dual, eq, zero_primal);
++                double radius = 0;
++                for (int j = 0; j < w.n; ++j)
++                  radius = std::max(radius, std::abs(tx[j] - accepted_x[j]));
++                if (inf_norm(normal.x) <= std::max(1e-8, 0.5 * radius)) {
++                  Vec cx = tx, cs = ts, cz = tz, cl = tl;
++                  bool positive = true;
++                  axpy(1, normal.x, cx);
++                  axpy(1, normal.lambda, cl);
++                  axpy(1, normal.s, cs);
++                  axpy(1, normal.z, cz);
++                  for (int i = 0; i < w.mi; ++i)
++                    if (w.active[i] && (!(cs[i] > 0) || !(cz[i] > 0)))
++                      positive = false;
++                  if (positive && finite(cx) && finite(cl) && finite(cz)) {
++                    auto corrected = dca_original(w, cx, cl, cz, &accepted_lambda, &accepted_z);
++                    ++stats.filter_trials;
++                    if ((restoration || corrected.kkt <= std::max(1.0, 10 * outer.kkt)) &&
++                        filter.acceptable(
++                            outer, corrected,
++                            restoration ? 0 : w.objective.model_constant - w.objective.at(cx),
++                            st.feasibility_tolerance)) {
++                      tx.swap(cx);
++                      ts.swap(cs);
++                      tz.swap(cz);
++                      tl.swap(cl);
++                      candidate = corrected;
++                      accepted = true;
++                      ++stats.soc_acceptances;
++                    }
++                  }
++                }
++                stats.soc_seconds += seconds(soc_start);
++              }
++            }
++            if (level >= 4) {
++              CostScope display(costs, NewtonCost::Diagnostics);
++              std::cout << "  DCA k=" << k << " inner=" << inner + 1 << " model=" << stats.models
++                        << " original_filter=" << (accepted ? "accept" : "continue")
++                        << " theta=" << candidate.theta << " kkt=" << candidate.kkt
++                        << " df=" << candidate.objective - outer.objective
++                        << " dL=" << candidate.lagrangian - outer.lagrangian
++                        << " rho=" << stats.rho_lagrangian << std::endl;
++            }
++            stats.original_filter_seconds += seconds(gate_start);
++            w.x.swap(tx);
++            w.s.swap(ts);
++            w.z.swap(tz);
++            w.lambda.swap(tl);
++            if (accepted) {
++              if (inner == 0)
++                ++stats.first_step_acceptances;
++              if (candidate.theta > st.feasibility_tolerance)
++                filter.insert(outer);
++              outer = candidate;
++              accepted_ap = ap;
++              accepted_ad = ad;
++              accepted_ls = line_steps;
++              models.transport_slacks();
++              result.step_inf = 0;
++              for (int j = 0; j < w.n; ++j)
++                result.step_inf = std::max(result.step_inf, std::abs(w.x[j] - accepted_x[j]));
++            } else
++              ++stats.private_continuations;
++          } catch (const std::runtime_error &failure) {
++            const std::string reason = failure.what();
++            if (reason.find("Newton residual rejected") == std::string::npos &&
++                reason.find("linear solve:") == std::string::npos)
++              throw;
++            w.message = reason;
++            break; // reject the numerical transaction, rebuild at the accepted point
++          }
++        }
++        if (stop)
++          break;
++      }
++      if (!accepted) {
++        w.x = accepted_x;
++        w.s = accepted_s;
++        w.z = accepted_z;
++        w.lambda = accepted_lambda;
++        if (!stop) {
++          result.status = Status::LineSearchFailure;
++          result.message =
++              "Lazy-DCA exhausted bounded majorant steps/rebuilds; original filter did not accept";
++        }
++        break;
++      }
++      ++result.outer_iterations;
++      if (level && result.outer_iterations % st.live_iteration_every == 0) {
++        CostScope display(costs, NewtonCost::Diagnostics);
++        dca_display(w, result, outer, level, performed, accepted_ap, accepted_ad, accepted_ls,
++                    seconds(start));
++      }
++    }
++    {
++      CostScope certificate(costs, NewtonCost::Certificate);
++      w.export_state(result);
++      if (w.certify(result)) {
++        result.status = Status::Solved;
++        result.message = "original QCQP KKT certificate satisfied by filter Lazy-DCA";
++      }
++    }
++  } catch (const std::exception &e) {
++    result.status = Status::NumericalError;
++    result.message = e.what();
++    if (owner) {
++      if (have_committed_state) {
++        owner->x = committed_x;
++        owner->s = committed_s;
++        owner->z = committed_z;
++        owner->lambda = committed_lambda;
++      }
++      dca_disable_models(*owner);
++      CostScope certificate(costs, NewtonCost::Certificate);
++      owner->export_state(result);
++      owner->certify(result);
++    }
++  }
++  if (owner) {
++    result.lazy_newton.symbolic_analyses = owner->factor->symbolic_analyses();
++    result.lazy_newton.symbolic_reuses = owner->factor->symbolic_reuses();
++    result.lazy_newton.scatter_builds = owner->factor->numeric_scatter_builds();
++    result.lazy_newton.scatter_reuses = owner->factor->numeric_scatter_reuses();
++  }
++  result.termination_multiplier_source = "filter-dca-original-primal-dual-state";
++  result.kkt_factorizations =
++      result.lazy_newton.factor_attempts + result.dca_filter.curvature_factors;
++  result.objective_rank = result.dca_filter.atoms_lagrangian;
++  if (level) {
++    CostScope display(costs, NewtonCost::Diagnostics);
++    std::cout << "\nEXIT: " << result.message << std::endl;
++  }
++  {
++    CostScope cleanup(costs, NewtonCost::Cleanup);
++    owner.reset();
++  }
++  costs.finish();
++  result.elapsed_seconds = seconds(start);
++  return result;
++}
+--- a/src/io.cpp
++++ b/src/io.cpp
+@@ -562,7 +562,7 @@
+   o << "  \"terminal_kkt_skipped_unstable\": " << r.terminal_kkt_skipped_unstable << ",\n";
+   o << "  \"terminal_kkt_active_stability\": " << r.terminal_kkt_active_stability << ",\n";
+   o << "  \"terminal_kkt_multiplier_cutoff\": "; json_number(o, r.terminal_kkt_multiplier_cutoff); o << ",\n";
+-  if(r.atomic_engine_used) {
++  if(r.atomic_engine_used||r.dca_filter.used) {
+   o << "  \"lazy_newton_dual_only_acceptances\": " << r.lazy_newton.dual_only_acceptances << ",\n";
+   o << "  \"lazy_newton_structure_builds\": " << r.lazy_newton.structure_builds << ",\n";
+   o << "  \"lazy_newton_reduced_variables\": " << r.lazy_newton.reduced_variables << ",\n";
+@@ -779,7 +779,7 @@
+   const char* families[]={"objective","equalities","inequalities","bound_rows"};
+   for(int phase=0;phase<4;++phase){if(phase)o<<", ";o<<"\""<<phases[phase]<<"\": {";
+     for(int family=0;family<4;++family){if(family)o<<", ";const auto& c=r.lazy_newton.calls[phase][family];
+-      o<<"\""<<families[family]<<"\": {\"values\": "<<c.values<<", \"gradients\": "<<c.gradients
++      o<<"\""<<families[family]<<"\": {\"values\": "<<c.values<<", \"gradients\": "<<c.gradients<<", \"model_values\": "<<c.model_values<<", \"model_gradients\": "<<c.model_gradients
+        <<", \"cached_gradient_accumulations\": "<<c.cached_gradient_accumulations<<", \"jacobian_products\": "<<c.jacobian_products
+        <<", \"hessian_assemblies\": "<<c.hessian_assemblies<<", \"hessian_products\": "<<c.hessian_products<<"}";
+     }o<<"}";
+@@ -829,6 +829,35 @@
+   o << "  \"lazy_newton_line_search_seconds\": "; json_number(o, r.lazy_newton_line_search_seconds); o << ",\n";
+   o << "  \"lazy_newton_certificate_seconds\": "; json_number(o, r.lazy_newton_certificate_seconds); o << ",\n";
+   }
++  o << "  \"dca_filter_spectral_inverse_solves\": " << r.dca_filter.spectral_inverse_solves << ",\n";
++  o << "  \"dca_filter_small_block_spectra\": " << r.dca_filter.small_block_spectra << ",\n";
++  o << "  \"dca_filter_atoms_active_lagrangian\": " << r.dca_filter.atoms_active_lagrangian << ",\n";
++  o << "  \"dca_filter_atoms_active_inequalities\": " << r.dca_filter.atoms_active_inequalities << ",\n";
++  o << "  \"dca_filter_used\": " << (r.dca_filter.used?"true":"false") << ",\n";
++  o << "  \"dca_filter_models\": " << r.dca_filter.models << ",\n";
++  o << "  \"dca_filter_hessian_updates\": " << r.dca_filter.hessian_updates << ",\n";
++  o << "  \"dca_filter_inner_steps\": " << r.dca_filter.inner_steps << ",\n";
++  o << "  \"dca_filter_filter_trials\": " << r.dca_filter.filter_trials << ",\n";
++  o << "  \"dca_filter_filter_rejections\": " << r.dca_filter.filter_rejections << ",\n";
++  o << "  \"dca_filter_private_continuations\": " << r.dca_filter.private_continuations << ",\n";
++  o << "  \"dca_filter_model_retries\": " << r.dca_filter.model_retries << ",\n";
++  o << "  \"dca_filter_soc_attempts\": " << r.dca_filter.soc_attempts << ",\n";
++  o << "  \"dca_filter_soc_acceptances\": " << r.dca_filter.soc_acceptances << ",\n";
++  o << "  \"dca_filter_restorations\": " << r.dca_filter.restorations << ",\n";
++  o << "  \"dca_filter_atom_events\": " << r.dca_filter.atom_events << ",\n";
++  o << "  \"dca_filter_atoms_lagrangian\": " << r.dca_filter.atoms_lagrangian << ",\n";
++  o << "  \"dca_filter_atoms_inequalities\": " << r.dca_filter.atoms_inequalities << ",\n";
++  o << "  \"dca_filter_curvature_factors\": " << r.dca_filter.curvature_factors << ",\n";
++  o << "  \"dca_filter_curvature_reuses\": " << r.dca_filter.curvature_reuses << ",\n";
++  o << "  \"dca_filter_first_step_acceptances\": " << r.dca_filter.first_step_acceptances << ",\n";
++  o << "  \"dca_filter_eliminated_normal_completion_weight\": "; json_number(o,r.dca_filter.eliminated_normal_completion_weight); o << ",\n";
++  o << "  \"dca_filter_normal_completion_weight\": "; json_number(o,r.dca_filter.normal_completion_weight); o << ",\n";
++  o << "  \"dca_filter_rho_lagrangian\": "; json_number(o,r.dca_filter.rho_lagrangian); o << ",\n";
++  o << "  \"dca_filter_rho_inequalities_max\": "; json_number(o,r.dca_filter.rho_inequalities_max); o << ",\n";
++  o << "  \"dca_filter_model_build_seconds\": "; json_number(o,r.dca_filter.model_build_seconds); o << ",\n";
++  o << "  \"dca_filter_original_filter_seconds\": "; json_number(o,r.dca_filter.original_filter_seconds); o << ",\n";
++  o << "  \"dca_filter_curvature_seconds\": "; json_number(o,r.dca_filter.curvature_seconds); o << ",\n";
++  o << "  \"dca_filter_soc_seconds\": "; json_number(o,r.dca_filter.soc_seconds); o << ",\n";
+   o << "  \"atomic_engine_used\": " << (r.atomic_engine_used?"true":"false") << ",\n";
+   o << "  \"elapsed_seconds\": "; json_number(o, r.elapsed_seconds); o << ",\n";
+   const auto emit_vector=[&](const char* name,const Vec& v) {
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -24,6 +24,10 @@
+     << "  --algorithm NAME               lazy-dca (default); lazy-newton (v0.4.28r3p28 curvature route); auto is an alias; legacy-sqp is comparison only\n"
+     << "  --inner-backend lazyqp-sparse  v0.4.28r3p28: Lazy-DCA envelope with the sparse single-loop kernel (lazy-newton machinery)\n"
+     << "  --newton-engine legacy|atomic      choose original filter engine or compact atomic engine\n"
++    << "  --dca-engine legacy|filter    select the fixed-majorant original-filter DCA engine\n"
++    << "  --dca-inner-max N             maximum private Newton steps per majorant (8)\n"
++    << "  --max-atoms N                 total DCA atom storage cap, including inequalities (500)\n"
++    << "  --atom-event-every N          admission period in Hessian updates (1)\n"
+     << "  --display-level 0..4           atomic engine: quiet, outer, work, atoms, trace\n"
+     << "  --ln-mu-init X                 lazy-newton initial barrier parameter (default 0.1)\n"
+     << "  --ln-mu-kappa X                lazy-newton linear barrier decrease factor (default 0.2)\n"
+@@ -327,6 +331,13 @@
+       };
+       if (a == "--problem") problem_path = need("--problem");
+       else if (a == "--algorithm") st.outer_algorithm = need("--algorithm");
++      else if(a=="--dca-engine") st.dca_engine=need("--dca-engine");
++      else if(a=="--dca-inner-max") st.dca_filter_inner_max=parse_num<int>(need("--dca-inner-max"));
++      else if(a=="--max-atoms") st.dca_filter_max_atoms=parse_num<int>(need("--max-atoms"));
++      else if(a=="--atom-events") st.dca_filter_atom_events=true;
++      else if(a=="--no-atom-events") st.dca_filter_atom_events=false;
++      else if(a=="--atom-event-every") st.dca_filter_atom_every=parse_num<int>(need("--atom-event-every"));
++      else if(a=="--atom-batch-size") st.dca_filter_atom_batch=parse_num<int>(need("--atom-batch-size"));
+       else if(a=="--newton-engine") st.ln_engine=need("--newton-engine");
+       else if (a == "--lazy-newton-reduction") st.lazy_newton_reduction = true;
+       else if (a == "--no-lazy-newton-reduction") st.lazy_newton_reduction = false;
+@@ -956,10 +967,12 @@
+     if (st.inner_backend != "ipopt" && !linear_backend_compiled(st.linear_backend))
+       throw std::runtime_error("linear backend '" + st.linear_backend + "' not compiled; available: " + compiled_linear_backends());
+ 
++    if(st.dca_engine!="legacy"&&st.dca_engine!="filter") throw std::runtime_error("dca-engine must be legacy or filter");
++    if(st.dca_engine=="filter"&&st.outer_algorithm!="lazy-dca"&&st.outer_algorithm!="auto") throw std::runtime_error("dca-engine filter requires outer-algorithm lazy-dca");
+     if(st.ln_engine!="legacy"&&st.ln_engine!="atomic") throw std::runtime_error("ln-engine must be legacy or atomic");
+     if(st.live_display_level < -1 || st.live_display_level>4) throw std::runtime_error("display-level must be 0..4");
+     const auto read_start=std::chrono::steady_clock::now();
+-    QCQPProblem p = st.outer_algorithm=="lazy-newton"&&compact_qcq_input?read_qcq_compact(problem_path):read_qcq(problem_path);
++    QCQPProblem p = (st.outer_algorithm=="lazy-newton"||st.dca_engine=="filter")&&compact_qcq_input?read_qcq_compact(problem_path):read_qcq(problem_path);
+     const auto read_end=std::chrono::steady_clock::now();
+     Solver solver(st);
+     Result r = solver.solve(p);
+@@ -967,8 +980,20 @@
+     r.cli_read_seconds=std::chrono::duration<double>(read_end-read_start).count();
+     r.cli_arguments_seconds=std::chrono::duration<double>(read_start-process_start).count();
+     r.cli_solver_call_seconds=std::chrono::duration<double>(solver_end-read_end).count();
+-    if(r.atomic_engine_used) {
+-      print_newton_report(r);
++    if(r.atomic_engine_used||r.dca_filter.used) {
++      if(r.atomic_engine_used)print_newton_report(r);
++      else if(st.live_display_level>=2){
++        std::cout<<"\nTiming (seconds, exclusive)\n";
++        for(std::size_t i=0;i<newton_cost_names.size();++i)std::cout<<"  "<<newton_cost_names[i]<<": "<<r.lazy_newton.cost_seconds[i]<<"\n";
++        std::cout<<"  core_solve: "<<r.lazy_newton.core_solve_seconds<<"\n  solver_wall: "<<r.elapsed_seconds<<"\n  input_read: "<<r.cli_read_seconds<<"\n";
++        std::cout<<"\nCore evaluations (individual functions)\n"
++                 <<"  family             original values / gradients     majorant values / gradients\n";
++        const char* names[]={"objective","equalities","inequalities","bound rows"};
++        for(int i=0;i<4;++i){const auto& c=r.lazy_newton.calls[1][i];std::cout<<"  "<<std::left<<std::setw(17)<<names[i]<<std::right
++          <<std::setw(12)<<c.values-c.model_values<<" / "<<std::setw(10)<<c.gradients-c.model_gradients
++          <<std::setw(17)<<c.model_values<<" / "<<std::setw(10)<<c.model_gradients<<"\n";}
++
++      }
+       const auto summary_end=std::chrono::steady_clock::now();
+       if(!json_path.empty()) {
+         const auto write_start=std::chrono::steady_clock::now();write_result_json(r,p.name,json_path);
+--- a/src/solver.cpp
++++ b/src/solver.cpp
+@@ -1,5 +1,6 @@
+ #include "lazyipdca_qcqp/solver.hpp"
+ #include "lazyipdca_qcqp/lazy_newton.hpp"
++#include "lazyipdca_qcqp/dca_filter.hpp"
+ #include "lazyipdca_qcqp/inner_sparse_single_loop.hpp"
+ #include "lazyipdca_qcqp/condensed_retraction.hpp"
+ #include "lazyipdca_qcqp/linear_solver.hpp"
+@@ -3975,7 +3976,7 @@
+ 
+ Result Solver::solve(const QCQPProblem& problem) {
+   problem.validate();
+-  if(st_.outer_algorithm!="lazy-newton") {
++  if(st_.outer_algorithm!="lazy-newton"&&st_.dca_engine!="filter") {
+     bool compact=problem.objective.has_compact_linear();
+     for(const auto& q:problem.equalities)compact=compact||q.has_compact_linear();
+     for(const auto& q:problem.inequalities)compact=compact||q.has_compact_linear();
+@@ -4028,6 +4029,9 @@
+   }
+   if (st_.inner_backend != "ipopt" && !linear_backend_compiled(st_.linear_backend))
+     throw std::runtime_error("linear backend not compiled: " + st_.linear_backend);
++
++  if ((st_.outer_algorithm=="lazy-dca"||st_.outer_algorithm=="auto")&&st_.dca_engine=="filter")
++    return solve_filter_dca(problem,st_);
+ 
+   if (st_.outer_algorithm == "lazy-newton") {
+     // v0.4.28r3p28: lazy primal-dual Newton route (curvature-aware equalities).
+--- a/tests/test_exporter_pglib_contract_r3p22.py
++++ b/tests/test_exporter_pglib_contract_r3p22.py
+@@ -535,7 +535,8 @@
+                                     R3P27_BANNER,
+                                     "LazyIPDCA-QCQP 0.4.28r3p27a1-lazy-equality-curvature (API 4311, v0.4.28r3p27a1-lazy-equality-curvature-api-4311)",
+                                     "LazyIPDCA-QCQP 0.4.28r3p27a2-socp-equality-routes (API 4312, v0.4.28r3p27a2-socp-equality-routes-api-4312)",
+-                                    "LazyIPDCA-QCQP 0.4.28r3p28g1-atomic-graft (API 4327, v0.4.28r3p28g1-atomic-graft-api-4327)"))
++                                    "LazyIPDCA-QCQP 0.4.28r3p28g1-atomic-graft (API 4327, v0.4.28r3p28g1-atomic-graft-api-4327)",
++                                    "LazyIPDCA-QCQP 0.4.28r3p28g3-filter-dca (API 4329, v0.4.28r3p28g3-filter-dca-api-4329)"))
+         except Exception as exc:  # contract failure must be reported cleanly
+             failures.append(f"r3p22 invocation failed: {exc}")
+         else:
+@@ -546,7 +547,8 @@
+                     R3P27_VERSION not in version and
+                     "0.4.28r3p27a1-lazy-equality-curvature" not in version and
+                     "0.4.28r3p27a2-socp-equality-routes" not in version and
+-                    "0.4.28r3p28g1-atomic-graft" not in version):
++                    "0.4.28r3p28g1-atomic-graft" not in version and
++                    "0.4.28r3p28g3-filter-dca" not in version):
+                 failures.append(f"wrong solver version: {version}")
+             if rc != 0 or result.get("status") != "solved":
+                 failures.append(
+--- /dev/null
++++ b/tests/test_g3_campaign_contract.py
+@@ -0,0 +1,92 @@
++#!/usr/bin/env python3
++"""Exercise the real CLI, campaign, original audit and timing/display contract."""
++import json
++from pathlib import Path
++import subprocess
++import sys
++import tempfile
++
++ROOT = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(ROOT / "python"))
++from benchmark_pglib_r3p29r8 import validate_endpoint
++from qcq_model_r3p23 import read_qcq
++
++MODEL = """LAZYIPDCA_QCQP_V1
++name g3_campaign_nonconvex
++n 2
++x0 0.2 0.2
++lb -1 -1
++ub 1 1
++objective
++quadratic
++name objective
++constant 0
++linear 0 0
++hessian_nnz 2
++0 0 -2
++1 1 -2
++end_quadratic
++equalities 1
++quadratic
++name affine
++constant 0
++linear 1 -1
++hessian_nnz 0
++end_quadratic
++inequalities 0
++end_problem
++"""
++
++
++def main():
++    binary = Path(sys.argv[1]).resolve(strict=True)
++    with tempfile.TemporaryDirectory() as temporary:
++        directory = Path(temporary)
++        problem = directory / "nonconvex.qcq"
++        problem.write_text(MODEL)
++        for level, cap in ((1, 0), (3, 1)):
++            out = directory / ("campaign" + str(level))
++            command = [sys.executable, str(ROOT / "python/benchmark_filter_dca_g3.py"),
++                       "--qcq", str(problem), "--binary", str(binary), "--output", str(out),
++                       "--skip-ipopt", "--warmups", "0", "--repetitions", "1",
++                       "--display-level", str(level), "--max-atoms", str(cap),
++                       "--atom-event-every", "1", "--time-limit", "20"]
++            process = subprocess.run(command, capture_output=True, text=True, timeout=30)
++            assert process.returncode == 0, process.stdout + process.stderr
++            data = json.loads((out / "run_1_filter-dca.json").read_text())
++            summary = json.loads((out / "benchmark_summary.json").read_text())
++            assert summary["all_correct"] and summary["modes"]["filter-dca"]["all_certificates_independent"]
++            assert data["objective"] < -1.99999
++            assert data["dca_filter_atoms_lagrangian"] + data["dca_filter_atoms_inequalities"] <= cap
++            assert data["dca_filter_inner_steps"] <= data["dca_filter_models"] * 8
++            assert " iter " in process.stdout
++            if level == 1:
++                assert "aOE" not in process.stdout and "Timing (seconds" not in process.stdout
++            else:
++                assert "aOE" in process.stdout and "rOE<=" in process.stdout and "Core evaluations" in process.stdout
++            costs = data["lazy_newton_cost_seconds"]
++            assert all(v >= 0 for v in costs.values())
++            assert abs(sum(costs.values()) - data["elapsed_seconds"]) < 1e-3
++            core = sum(v for k, v in costs.items() if k not in ("preparation", "certificate", "diagnostics", "cleanup"))
++            assert abs(core - data["lazy_newton_core_solve_seconds"]) < 1e-9
++            calls = data["lazy_newton_evaluation_calls"]["core"]
++            for family in calls.values():
++                assert family["values"] >= family["model_values"]
++                assert family["gradients"] >= family["model_gradients"]
++            assert calls["objective"]["model_values"] > 0
++            timing = json.loads((out / "run_1_filter-dca.json.timing.json").read_text())
++            assert timing
++            # A stale/incorrect multiplier must fail the separate coefficient audit.
++            data["certificate_lower_multipliers"][0] += 10
++            try:
++                validate_endpoint(read_qcq(problem), data, "filter-dca")
++            except ValueError:
++                pass
++            else:
++                raise AssertionError("altered multiplier passed the independent certificate")
++        assert problem.read_text() == MODEL, "input mutated"
++    print("PASS G3 campaign, displays, cap, cost accounting and independent rejection")
++
++
++if __name__ == "__main__":
++    main()
+--- /dev/null
++++ b/tests/test_g3_filter_dca.cpp
+@@ -0,0 +1,173 @@
++#include "lazyipdca_qcqp/dca_filter.hpp"
++#include "../src/dca_filter_contract.hpp"
++#include "../src/dca_curvature.hpp"
++#include <iostream>
++#include <stdexcept>
++using namespace lazyipdca::qcqp;
++void require(bool v, const char *message) {
++  if (!v)
++    throw std::runtime_error(message);
++}
++QuadraticFunction q(int n, Vec g, std::vector<SymTriplet> h, double c = 0) {
++  QuadraticFunction f;
++  f.linear = g;
++  f.hessian.n = n;
++  f.hessian.entries = h;
++  f.constant = c;
++  return f;
++}
++Settings settings() {
++  Settings s;
++  s.dca_engine = "filter";
++  s.linear_backend = "native";
++  s.max_outer_iterations = 500;
++  s.live_display_level = 0;
++  s.dca_filter_atom_every = 2;
++  s.dca_filter_max_atoms = 5;
++  s.feasibility_tolerance = s.stationarity_tolerance = s.dual_infeasibility_tolerance =
++      s.complementarity_tolerance = 1e-6;
++  return s;
++}
++int main() {
++  try {
++    detail::OriginalDcaFilter filter;
++    detail::OriginalFilterPoint base{2, 1, 1};
++    require(!filter.acceptable(base, {3, 1, 0.1}, 1, 1e-6), "model-only progress accepted");
++    require(filter.acceptable(base, {3, 0.5, 1}, 0, 1e-6),
++            "original feasibility progress rejected");
++    require(!filter.acceptable({1, 0, 1}, {1, 0, 1}, 0, 1e-6), "unchanged feasible point accepted");
++    require(filter.acceptable({1, 0, 1}, {1, 0, 0.1}, 0, 1e-6),
++            "terminal original KKT contraction rejected");
++    require(filter.acceptable({1, 0, 0.1, 1}, {1.00000001, 1e-9, 0.01, 0.99999999}, 0, 1e-6),
++            "fixed-multiplier original Lagrangian safeguard rejected");
++    require(!filter.acceptable({1, 0, 0.1, 1}, {1.00000001, 1e-9, 0.2, 0.99999999}, 0, 1e-6),
++            "terminal safeguard accepted worse original KKT");
++    Settings s = settings();
++    detail::DcaCurvature c(s);
++    int available = 1;
++    std::vector<SymTriplet> h = {{0, 0, 1}, {0, 1, 2}, {1, 1, 1}};
++    c.ensure(2, h, 1e-8, true, available, 2, 1e-6);
++    require(available == 0 && c.atoms.size() == 1, "atom cap not enforced");
++    auto a = c.corrected(2, h, c.rho);
++    double d0 = 0, d1 = 0, o = 0;
++    for (auto e : a) {
++      if (e.i == 0 && e.j == 0)
++        d0 = e.v;
++      else if (e.i == 1 && e.j == 1)
++        d1 = e.v;
++      else
++        o = e.v;
++    }
++    require(d0 > 0 && d1 > 0 && d0 * d1 > o * o, "corrected objective not positive definite");
++    int calls = c.certificates;
++    c.ensure(2, h, 1e-8, true, available, 2, 1e-6);
++    require(c.certificates == calls && c.reuses == 1, "constant Hessian refactorized");
++    c.ensure(2, {{0, 0, 1}, {1, 1, 1}}, 1e-8, false, available, 2, 1e-6);
++    require(c.rho == 0 && c.atoms[0].beta == 0, "unnecessary curvature not retired");
++    detail::DcaCurvature noatoms(s);
++    available = 0;
++    noatoms.ensure(2, h, 1e-8, true, available, 2, 1e-6);
++    require(noatoms.atoms.empty() && noatoms.rho > 1, "scalar completion missing at zero atom cap");
++    detail::DcaCurvature normal(s);
++    available = 0;
++    std::vector<std::vector<std::pair<int, double>>> arows = {{{0, 1}}};
++    normal.ensure(2, {{0, 0, -2}, {1, 1, 1}}, 1e-8, true, available, 2, 1e-6, &arows);
++    require(normal.rho == 0 && normal.normal_weight > 2,
++            "normal-only negative curvature damped tangent space");
++    require(-2 + normal.normal_weight > 0,
++            "implicit normal completion not globally positive definite");
++    auto changed = arows;
++    changed[0][0].second = 0;
++    normal.ensure(2, {{0, 0, -2}, {1, 1, 1}}, 1e-8, false, available, 2, 1e-6, &changed);
++    require(normal.rho > 2, "changed equality Jacobian reused stale normal certificate");
++    detail::DcaCurvature spectral(s);
++    available = 2;
++    std::vector<SymTriplet> diagonal = {{0, 0, -2}, {1, 1, -1}, {2, 2, 3}, {3, 3, 0.1}};
++    std::vector<std::vector<std::pair<int, double>>> normal4 = {{{3, 1}}};
++    spectral.ensure(4, diagonal, 1e-8, true, available, 2, 1e-6, &normal4);
++    require(spectral.inverse_probes > 0 && spectral.spectral_atoms.size() == 2 && available == 0,
++            "shifted inverse atom admission did not run");
++    require(spectral.rho == 0, "two negative directions left an unnecessary scalar complement");
++    // Independent dense eigenspectrum of the completed model, including borders.
++    Vec matrix(16, 0), eigenvalues(4), work(12);
++    for (auto e : diagonal)
++      matrix[e.i + 4 * e.j] = e.v;
++    for (const auto &atom : spectral.spectral_atoms)
++      for (int j = 0; j < 4; ++j)
++        for (int i = 0; i < 4; ++i)
++          matrix[i + 4 * j] += atom.beta * atom.direction[i] * atom.direction[j];
++    matrix[15] += spectral.normal_weight;
++    int n4 = 4, lwork = 12, info = 0;
++    const char no = 'N', upper = 'U';
++    dsyev_(&no, &upper, &n4, matrix.data(), &n4, eigenvalues.data(), work.data(), &lwork, &info);
++    require(info == 0 && eigenvalues[0] > 1e-8,
++            "bordered atomic curvature certificate is incorrect");
++    bool rejected = false;
++    try {
++      detail::DcaCurvature invalid(s);
++      invalid.ensure(1, {{0, 0, std::numeric_limits<double>::infinity()}}, 0, false, available, 2,
++                     1e-6);
++    } catch (const std::runtime_error &) {
++      rejected = true;
++    }
++    require(rejected, "nonfinite curvature was accepted");
++    QCQPProblem p;
++    p.n = 2;
++    p.name = "g3_box_qp";
++    p.x0 = {0.2, 0.3};
++    p.lb = {0, 0};
++    p.ub = {3, 3};
++    p.objective = q(2, {-2, -4}, {{0, 0, 2}, {1, 1, 2}}, 5);
++    auto r = solve_filter_dca(p, s);
++    require(r.status == Status::Solved, r.message.c_str());
++    require(std::abs(r.x[0] - 1) < 1e-5 && std::abs(r.x[1] - 2) < 1e-5,
++            "convex QP minimizer wrong");
++    require(r.dca_filter.used && r.effective_outer_algorithm == "lazy-dca" && !r.atomic_engine_used,
++            "algorithm identity incorrect");
++    require(r.dca_filter.first_step_acceptances > 0, "first acceptable private step not exercised");
++    p.name = "g3_curved_equality";
++    p.x0 = {0.3, 0.09};
++    p.lb = {0.1, 0.01};
++    p.ub = {3, 9};
++    p.objective = q(2, {-1, -1}, {{0, 0, 1}, {1, 1, 1}}, 1);
++    p.equalities = {q(2, {0, -1}, {{0, 0, 2}})};
++    r = solve_filter_dca(p, s);
++    require(r.status == Status::Solved, r.message.c_str());
++    require(std::abs(r.x[0] - 1) < 2e-5 && std::abs(r.x[1] - 1) < 2e-5,
++            "curved equality optimum wrong");
++    require(r.feasibility.equality_inf < 1e-6 && r.dual_infeasibility_inf < 1e-6,
++            "original equality KKT failure");
++    p.name = "g3_nonconvex_qp";
++    p.x0 = {0.2, 0.2};
++    p.lb = {-1, -1};
++    p.ub = {1, 1};
++    p.equalities = {q(2, {1, -1}, {})};
++    p.objective = q(2, {0, 0}, {{0, 0, -2}, {1, 1, -2}});
++    r = solve_filter_dca(p, s);
++    require(r.status == Status::Solved, r.message.c_str());
++    require(r.objective < -1.99999, "nonconvex QP did not improve original objective");
++    require(r.dca_filter.atoms_lagrangian + r.dca_filter.atoms_inequalities <=
++                s.dca_filter_max_atoms,
++            "global atom storage cap exceeded");
++    p.n = 4;
++    p.name = "g3_reduced_atomic_border";
++    p.x0 = {0.2, 0.3, 0.1, 0};
++    p.lb = Vec(4, -1);
++    p.ub = Vec(4, 1);
++    p.equalities = {q(4, {0, 0, 0, 1}, {})};
++    p.objective = q(4, {0, 0, 0, 0}, {{0, 0, -2}, {1, 1, -2}, {2, 2, 3}});
++    s.dca_filter_atom_every = 1;
++    r = solve_filter_dca(p, s);
++    require(r.status == Status::Solved, r.message.c_str());
++    require(r.objective < -1.99999 && r.dca_filter.spectral_inverse_solves > 0,
++            "reduced atomic border did not solve nonconvex QP");
++    require(r.lazy_newton.maximum_direction_residual <= 1e-7,
++            "expanded atomic direction failed residual audit");
++    std::cout << "PASS original filter, atomic/scalar certificates, cache, curved equalities and "
++                 "nonconvex QP\n";
++    return 0;
++  } catch (const std::exception &e) {
++    std::cerr << e.what() << '\n';
++    return 1;
++  }
++}
+--- a/tests/test_lazy_newton_regression.py
++++ b/tests/test_lazy_newton_regression.py
+@@ -22,7 +22,9 @@
+ ROOT = Path(__file__).resolve().parents[1]
+ sys.path.insert(0, str(ROOT / 'python'))
+ from qcq_model_r3p23 import read_qcq  # noqa: E402
+-from benchmark_case118_r3p28 import independent_kkt, TOL, VERSION, API_VERSION  # noqa: E402
++from benchmark_case118_r3p28 import independent_kkt, TOL  # noqa: E402
++IDENTITY = json.loads((ROOT / 'release_identity_g3.json').read_text())
++VERSION, API_VERSION = IDENTITY['version'], IDENTITY['api_version']
+ 
+ SOLVED = {'BT1': (-1.0, 1e-6), 'HS116': (97.5875096, 1e-5)}
+ OUT_OF_SCOPE = ('DISCS', 'HIMMELBD')
+--- /dev/null
++++ b/tools/build_g3.sh
+@@ -0,0 +1,25 @@
++#!/usr/bin/env bash
++# Activate the chosen Conda environment before calling this script.
++set -Eeuo pipefail
++SRC=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
++BUILD_DIR=${BUILD_DIR:-$SRC/build_pf_gpu}
++BUILD_JOBS=${BUILD_JOBS:-4}
++TEST_JOBS=${TEST_JOBS:-2}
++CMAKE=${CMAKE:-cmake}
++CTEST=${CTEST:-ctest}
++args=(
++  -S "$SRC" -B "$BUILD_DIR" -DCMAKE_BUILD_TYPE=Release
++  -DLAZYIPDCA_NATIVE_ARCH=ON -DLAZYIPDCA_BUILD_TESTS=ON
++  -DLAZYIPDCA_WITH_IPOPT=OFF -DLAZYIPDCA_WITH_QDLDL=OFF
++  -DLAZYIPDCA_WITH_MUMPS=OFF -DLAZYIPDCA_WITH_LDL=ON
++  -DLAZYIPDCA_REQUIRE_HISTORICAL_LDL=ON
++)
++if [[ -n ${CONDA_PREFIX:-} ]]; then
++  args+=("-DCMAKE_PREFIX_PATH=$CONDA_PREFIX" "-DLDL_ROOT=$CONDA_PREFIX" "-DMETIS_ROOT=$CONDA_PREFIX")
++fi
++"$CMAKE" "${args[@]}" "$@"
++"$CMAKE" --build "$BUILD_DIR" --parallel "$BUILD_JOBS"
++OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 BLIS_NUM_THREADS=1 \
++  "$CTEST" --test-dir "$BUILD_DIR" --output-on-failure --parallel "$TEST_JOBS"
++"$BUILD_DIR/lazyipdca_qcqp_cli" --version
++printf 'BINARY=%s\nBUILD=PASS\n' "$BUILD_DIR/lazyipdca_qcqp_cli"
+--- /dev/null
++++ b/tools/run_g3.sh
+@@ -0,0 +1,5 @@
++#!/usr/bin/env bash
++set -Eeuo pipefail
++SRC=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
++export PYTHONUNBUFFERED=1
++exec "${PYTHON:-python}" "$SRC/python/benchmark_filter_dca_g3.py" "$@"

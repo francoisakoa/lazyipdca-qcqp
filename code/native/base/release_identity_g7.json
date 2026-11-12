@@ -1,0 +1,10 @@
+{
+  "version": "0.4.28r3p28g7-local-active-dca",
+  "api_version": 4333,
+  "build_id": "v0.4.28r3p28g7-local-active-dca-api-4333",
+  "branch": "filter-lazy-dca-research",
+  "parent": "0.4.28r3p28g6-research-dca",
+  "performance_target_met": false,
+  "package_revision": 1,
+  "package_repair": "restore build scripts and validation provenance omitted by the original packaging filter"
+}

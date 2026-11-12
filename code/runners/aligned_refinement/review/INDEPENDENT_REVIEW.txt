@@ -1,0 +1,116 @@
+REVUE INDEPENDANTE DU DISPOSITIF DE RAFFINEMENT — 9 NOVEMBRE 2026
+
+Portee
+Cette revue examine la separation causale du raffinement, les constructions
+natives isolees, les traces et les controles d'admission. Aucun solveur ni
+aucune qualification de la machine TRX n'a ete lance par le relecteur.
+Les tests C++ ci-dessous compilent le vrai en-tete de configuration et
+l'observateur SHA, pas un solveur numerique complet.
+
+1. Experience causale
+Le temoin pertinent est hybrid_frozen contre hybrid_adaptive : les deux
+partagent construct_hybrid, le support initial, l'objectif exact et le meme
+moteur. Cela evite de confondre initialisation scalaire/spectrale et evolution
+de la correction. Les quatre cellules utilisent les gardes R3 communes;
+les huit options du facteur G restent distinctes, dont l'initialisation duale.
+L'effet de C a G fixe est identifiable par ce contraste. G ne doit pas etre
+presente comme le seul filtre lineaire: il comprend la strategie de controle
+explicitement declaree. Les effets sont conditionnels au cadre commun retenu.
+Les profils R3/HH anterieurs servent uniquement aux tests d'identite.
+
+2. Construction native
+Les premieres remarques ont conduit aux corrections suivantes dans le builder:
+- sortie separee des sources, installations, binaires et runtime HSL;
+- activation de l'environnement declare avant chargement dynamique, et ldd
+  avec cet environnement;
+- chemin HSL/MUMPS explicite = relogement aux memes empreintes, pas un runtime
+  inconnu admis silencieusement;
+- verification des sources et dependances apres les trois compilations.
+Les trois binaires utilisent la meme configuration de compilation. Les deux
+backends selectionnent le meme executable par role, non deux versions du noyau.
+Aucune bibliotheque Ipopt n'entre dans la selection des liens natifs.
+
+Sept tests adversariaux Python passent: drapeaux dangereux refuses, macros
+MUMPS/HSL uniques, MUMPS obligatoire, METIS ambigu refuse, exclusion du lien
+Ipopt, protection des chemins ancetres/descendants, detection de mutation source.
+
+3. Noyau et observateur
+Le diff independant identifie neuf fichiers modifies par rapport au socle
+factoriel MA27 admis. Le compteur de backend primaire est place immediatement
+avant l'appel effectif factor->factor, apres validation et assemblage; il
+compte les reprises reelles, sans assimiler construction de M0 et factorisation.
+Lecture des points d'ecriture: le mode frozen bloque eager, accepted_step,
+note_rejection, begin_trial, commit et rollback. L'empreinte M0 encode les
+coefficients mathematiques des corrections (rho, support, matrices, atomes,
+echelles) avant toute adaptation. Les empreintes des etats acceptes sont
+conservees apres la globalisation; les evenements hors pas primaire restent
+separes. La finalisation recalcule la metrique gelee et refuse une mutation.
+Le calcul des empreintes se fait par construction/changement/finalisation,
+pas a chaque scalaire du systeme Newton.
+
+Un test C++ independant compile et verifie les quatre cellules: objectif
+exact, initialisation/moteur communs, predicates R3 constants, empreinte de
+gardes commune a backend fixe, options G distinctes, legacy inchange.
+L'implementation SHA256 est recalculee contre hashlib sur un message encode
+avec prefixe de longueur. Douze controles des vraies methodes d'observation,
+compilees dans une fixture typee, passent aussi, avec le digest de metrique
+recalcule en Python. Ces controles passent sans bibliotheque HSL factice.
+
+4. Points de controle soumis aux auteurs pendant la revue
+- Le parseur de production doit verifier la meme richesse de trace que celui
+  de qualification (SHA d'etat, indices de phase, metrique gelee, compteurs).
+- Une violation d'intervention persistante ne doit jamais etre oubliee par
+  une reprise qui reinitialise sa liste interne; il faut refuser ou revalider.
+- Les routes natives resolues avant M0 exigent une preuve explicite de ce
+  non-usage; elles ne doivent pas usurper une factorisation MA27/MUMPS.
+- Les audits effectues directement dans les threads de qualification doivent
+  heriter d'une affinite globale 0..21, meme hors du lanceur recommande.
+Ces points ont ete fermes dans les fichiers relus : parseur complet partage,
+violation persistante bloquant la reprise, preuve native avant M0 et affinite
+CPU23 du processus et de chaque worker. Les acceptations exigent un M0 deja
+construit; les quatre compteurs sont monotones et reconcilies avec le sidecar.
+Le controle du temps processus est conjoint au temps natif, y compris
+en reprise; les correctifs de runtime et qualification et leurs tests
+adversariaux passent. Les temps de lecture, facteurs, resolutions et audits
+restent disponibles separement dans les preuves de ressources et le ledger.
+
+5. Limites et resultat attendu
+Les controles de mecanisme ne constituent pas une preuve de benefice.
+Le benefice ne peut etre annonce qu'apres les 14 672 executions et l'analyse
+preenregistree. Les controles de trajectoire admettent une fin deterministe
+au plafond d'iterations si l'endpoint et les traces concordent integralement;
+une limite de temps ou une interruption ne prouve pas cette identite et ne
+permet pas de promouvoir le dispositif. Le lancement doit rester bloque tant
+que la qualification complete des 50 cas et des 48 controles n'est pas acquise.
+
+6. Analyse preenregistree
+Lecture des contrastes apparies, du blocage par backend, de la regle de
+decision et des bornes conservatrices en presence d'incidents. Les signes et
+coefficients du plan 2x2 sont coherents. Le contraste primaire est adaptive
+moins frozen sous GHS, separement pour chaque backend; la revendication
+generale demande que les deux blocs passent la regle preenregistree. Les
+backends ne sont pas traites comme des observations independantes. La borne
+de concentration conserve la dependance entre gain d'une collection et gain
+total, et le signe macro-family conserve les denominateurs fixes.
+
+Verdict de revue
+Les suites Python relancees par le relecteur comptent 7 tests du builder,
+24 du runtime, 29 de qualification et 30 de l'analyse, tous reussis.
+
+Favorable pour le code et les controles locaux dans le perimetre relu, sous
+reserve des SHA de INDEPENDENT_REVIEW.json. Cette revue ne promeut pas le kit
+en production, ne remplace pas les 748 executions de qualification sur TRX et
+ne demontre aucun benefice du raffinement. La compilation complete avec les
+dependances reelles MA27/MUMPS reste a effectuer sur la cible.
+
+Mise a jour du perimetre d'execution
+L'ablation est desormais reservee au CPU23, un seul travail a la fois,
+y compris compilation, qualification et production. Ipopt conserve son pool
+disjoint CPU0..21/22 travaux. Les verrous et pilotes sont distincts.
+La qualification comporte700 executions de fidelite : 400 MA27 (reference
+installee, reference recompilee, observateur, experience) et300 MUMPS
+(reference recompilee, observateur, experience), plus48 controles generiques.
+Les100 executions de reference MA27 installee sont obligatoires ; leurs
+vecteurs, compteurs et audits sont compares, sans trajectoire instrumentee
+inventee pour ce binaire. La revue des deux pilotes, de la reprise et des
+exports ne demontre aucune execution distante ni disponibilite de MA27 locale.

@@ -1,0 +1,50 @@
+CONSTRUCTION ISOLÉE DE L'ABLATION DE PERSISTANCE
+
+BUILD_PERSISTANCE.py construit la référence authentifiée et la source de
+recherche dans un nouveau dossier. Il ne remplace aucun binaire installé,
+ne copie aucun problème et ne lance aucune résolution QCQP. Les seules
+invocations des nouveaux binaires pendant la construction sont --version
+et --linear-backends.
+
+Les deux compilations utilisent le même compilateur, les mêmes options et
+les mêmes dépendances. Chaque binaire contient MA27 et MUMPS. Les commandes
+de compilation et de liaison normalisées, les cartes de sources, les
+empreintes des bibliothèques et les backends sont comparés. Le lancement
+refuse une sortie dans le kit ou les installations historiques, une sortie
+déjà existante, un verrou CPU occupé ou une dépendance absente/modifiée.
+
+Commande sur la TRX conservant les installations historiques :
+
+python3 BUILD_PERSISTANCE.py \
+  --out /extra/LAZYQCQP_PERSISTANCE_RESULTS/ETUDE_PERSISTANCE_R1/build
+
+Cette construction est séquentielle sur le cœur 0. --cpu peut sélectionner
+un autre cœur libre. --boost-include, --hsl-library et
+--mumps-reference-binary permettent de préciser des chemins ; les pièces
+authentifiées doivent conserver exactement leurs empreintes historiques.
+La bibliothèque HSL n'est pas redistribuée. Une construction interrompue
+reste intacte : utiliser un nouveau dossier pour une autre tentative.
+
+Sorties principales : DEPENDENCIES.json, PATCH_RECEIPT.json,
+build_reference/BUILD_NATIVE.json, build/BUILD_NATIVE.json et
+BUILD_PERSISTANCE.json. La preuve de construction ne remplace pas la
+qualification numérique référence/réutilisation/reconstruction.
+
+Tests de preuves sans résolution :
+
+python3 TEST_BUILD_PERSISTANCE.py
+
+Contrôle fonctionnel natif EXPLICITE sur deux QCQP génériques :
+
+python3 TEST_NATIVE_PERSISTANCE.py \
+  --reference-binary /chemin/build_reference/lazyipdca_qcqp_cli \
+  --binary /chemin/build/lazyipdca_qcqp_cli \
+  --out /chemin/neuf/CONTROLE_FONCTIONNEL
+
+Ce dernier contrôle lance réellement six résolutions MUMPS et leurs audits
+originaux indépendants. Un cas possède une inégalité non convexe qui exige
+plusieurs centres ; le second possède une inégalité convexe, sans correction
+positive. Il compare exactement les trajectoires, les matrices et les
+champs non temporels, en isolant les deux compteurs de réutilisation dont
+la variation est l'intervention attendue. Il ne mesure aucun gain de vitesse
+et ne constitue ni la qualification MA27 ni l'étude des 24 couples retenus.

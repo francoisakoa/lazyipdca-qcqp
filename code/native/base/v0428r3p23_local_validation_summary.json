@@ -1,0 +1,64 @@
+{
+  "schema": "lazyipdca-r3p23-local-validation-v1",
+  "version": "0.4.28r3p23-exact-ipopt-same-qcqp",
+  "api_version": 4306,
+  "build_id": "v0.4.28r3p23-exact-ipopt-same-qcqp-api-4306",
+  "source_parent_sha256": "bb59ee7ee0b85668f028a0fa2896f51b351da8365751cd05115bf0c4111e8e05",
+  "tests": {
+    "registered": 99,
+    "passed": 99,
+    "failed": 0,
+    "configuration": "Release, native architecture, OpenMP, LDL+METIS validation prefix"
+  },
+  "shared_qcqp": {
+    "sha256": "d60ea7005d72605c2b33c587b574c390076e56246f27e41924ee5bf0f259aef6",
+    "bytes": 4701861,
+    "variables": 1088,
+    "equalities": 980,
+    "inequalities": 979
+  },
+  "strict_native_ipopt": {
+    "status": "solved",
+    "iterations": 23,
+    "objective": 97213.6073951398,
+    "equality_violation": 2.5481006193928124e-13,
+    "inequality_violation": 0.0,
+    "bound_violation": 0.0,
+    "dual_infeasibility_inf": 7.768011239428094e-10,
+    "complementarity_inf": 1.8221737512115769e-09,
+    "solver_seconds": 0.225844636,
+    "jacobian_nnz": 8434,
+    "lagrangian_hessian_nnz": 1696,
+    "kkt_passed_at_1e-8": true
+  },
+  "same_physical_file_pair_at_1e-6": {
+    "execution_order": ["ipopt", "lazyipdca"],
+    "integrity_hashes_equal": true,
+    "pair_passed": true,
+    "objective_absolute_difference": 1.4778925105929375e-07,
+    "ipopt": {
+      "iterations": 22,
+      "objective": 97213.60739522372,
+      "solver_seconds": 0.199617149,
+      "certificate_passed": true
+    },
+    "lazyipdca": {
+      "outer_iterations": 49,
+      "inner_iterations": 711,
+      "reduced_kkt_factorizations": 653,
+      "objective": 97213.60739507593,
+      "solver_seconds": 13.393595285,
+      "certificate_passed": true
+    }
+  },
+  "numeric_reuse_experiment": {
+    "enabled_by_default": false,
+    "unit_factorizations_reuse_vs_fresh": [10, 17],
+    "case118_solver_seconds_reuse_vs_fresh": [14.764208464, 13.393595285],
+    "case118_attempts": 609,
+    "case118_acceptances": 26,
+    "case118_fallbacks": 583,
+    "release_profile_enables_feature": false
+  },
+  "claim_boundary": "Local correctness evidence only; target-host pf_gpu timings must be measured independently."
+}

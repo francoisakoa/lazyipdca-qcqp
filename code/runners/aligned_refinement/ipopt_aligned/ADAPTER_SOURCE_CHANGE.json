@@ -1,0 +1,36 @@
+{
+  "schema": "isolated-ipopt-aligned-source-change-v1",
+  "changed_adapter_files": [
+    {
+      "path": "include/lazyipdca_qcqp/direct_ipopt.hpp",
+      "before_sha256": "2b5387cbc58dedb3d5862fdd64e44ac625018a4e74eb56c7e250819a225c66ef",
+      "after_sha256": "6019e9d198f0169884462f8260121585348abb36c2f67c8f235ac97c70482d4d"
+    },
+    {
+      "path": "src/direct_ipopt.cpp",
+      "before_sha256": "c0b13ed0eb3f0c6ff868c400d09cabbbecea5ff57bde7a34d6fc6d7a24e579fd",
+      "after_sha256": "4a454ab3ff41511c261057653b39e0534b008dca6c4ffb55c459320306e44c1b"
+    },
+    {
+      "path": "src/ipopt_qcqp_main.cpp",
+      "before_sha256": "27b2e7eb222594a3471a2be9625ab3e3c1e2262982bda9d5df640465982b532a",
+      "after_sha256": "c78160b4f5d166081d0c60017dd312ca1a0deeb0de692530cbad1532d265cf37"
+    }
+  ],
+  "base_adapter_untouched": true,
+  "native_ablation_untouched": true,
+  "ipopt_version": "3.14.11",
+  "local_compilation": true,
+  "local_actual_mumps_smokes": 2,
+  "local_actual_ma27_smokes": 0,
+  "production_four_smoke_qualification": "mandatory on TRX before controller starts; not established locally",
+  "local_smoke_scope": "same audited Ipopt library SHA; no HSL available locally",
+  "API_checks": 20,
+  "CLI_negative_checks": 7,
+  "Python_optimization_fail_closed": true,
+  "source_directory": "adapter",
+  "patch_sha256": "cfe57c718d284f489202a1817b02b82450283d180988538819c898efe5d495ec",
+  "total_local_ipopt_optimizations": 6,
+  "local_validation_rounds": 3,
+  "local_actual_mumps_smokes_scope": "final strengthened validation pair; earlier rounds also used MUMPS only"
+}

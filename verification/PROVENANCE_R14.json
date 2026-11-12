@@ -1,0 +1,29 @@
+{
+  "schema": "jogo-r14-source-provenance-v1",
+  "canonical_analysis_input": {
+    "path": "analyses/pairs/OBSERVATIONS_16_CONFIGS.jsonl.gz",
+    "sha256": "7b18eecc19859ce779aa8f9713908b88b5dc619e71241eb89e604e1cf23734d5",
+    "records": 65248,
+    "configurations": 16
+  },
+  "default_sensitivity_input": {
+    "path": "analyses/data/DEFAULT_STOPPING_2_CONFIGS.jsonl.gz",
+    "sha256": "0edff9a9e76910d8b225df4d65f2401d6288d292aa10605822a0d8077b52ba7a",
+    "records": 8156
+  },
+  "new_optimizer_invocations": 0,
+  "new_endpoint_audits": 0,
+  "archived_audit_scope": "Independent archived RESULT/AUDIT/command/budget/route bindings; no fresh evaluation from raw QCQP coefficients and endpoints.",
+  "user_supplied_archives": [
+    {
+      "name": "IPOPT_ALIGNE_A_TRANSMETTRE_20261110T015338_235cbb1c.zip",
+      "bytes": 164856191,
+      "sha256": "8efc0cdd2d3596833c1dff20570cbcf2f1b660766bd88a1dca3b8b4848cbc01f"
+    },
+    {
+      "name": "DIAGNOSTIC_RAFFINEMENT_20261110T044335017765Z.zip",
+      "bytes": 5187660,
+      "sha256": "72f1be5f191777afa5f78e2253f9f364da0a0f969c6ec061803267eb08b3142f"
+    }
+  ]
+}

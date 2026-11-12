@@ -1,0 +1,24 @@
+PERSISTANCE timing — pair_reuse_rep1 ; attente de calme
+CHARGE ÉTRANGÈRE — tentative conservée ; même répétition à reprendre après retour au calme
+PERSISTANCE timing — pair_reuse_rep1 ; attente de calme
+PERSISTANCE timing — 1/1 ; nonstrict ; 0.200000 s
+PERSISTANCE timing — pair_reuse_rep1 ; attente de calme
+test_bad_or_misbound_audit_never_becomes_certificate (__main__.PersistenceTests.test_bad_or_misbound_audit_never_becomes_certificate) ... ok
+test_completed_malformed_endpoint_is_finalized_indeterminate (__main__.PersistenceTests.test_completed_malformed_endpoint_is_finalized_indeterminate) ... ok
+test_contaminated_attempt_preserved_same_repetition_retried (__main__.PersistenceTests.test_contaminated_attempt_preserved_same_repetition_retried) ... ok
+test_exact_core_preserves_signed_zero_and_numerical_work (__main__.PersistenceTests.test_exact_core_preserves_signed_zero_and_numerical_work) ... ok
+test_fixed_cohort_schedule_balanced_unique (__main__.PersistenceTests.test_fixed_cohort_schedule_balanced_unique) ... ok
+test_qualification_exact_trace_and_counter_parity (__main__.PersistenceTests.test_qualification_exact_trace_and_counter_parity) ... ok
+test_qualification_receipt_mutation_is_refused (__main__.PersistenceTests.test_qualification_receipt_mutation_is_refused) ... ok
+test_qualification_refuses_work_trace_origin_or_model_mutation (__main__.PersistenceTests.test_qualification_refuses_work_trace_origin_or_model_mutation) ... ok
+test_reports_reject_missing_closure_wrong_mode_missing_build (__main__.PersistenceTests.test_reports_reject_missing_closure_wrong_mode_missing_build) ... ok
+test_resume_recovers_finalized_clean_numeric_failure_no_rerun (__main__.PersistenceTests.test_resume_recovers_finalized_clean_numeric_failure_no_rerun) ... ok
+test_same_binary_and_command_intervention_only (__main__.PersistenceTests.test_same_binary_and_command_intervention_only) ... ok
+test_summary_requires_qualification_for_existing_timed_results (__main__.PersistenceTests.test_summary_requires_qualification_for_existing_timed_results) ... ok
+test_summary_retains_strict_but_numerically_different_pair (__main__.PersistenceTests.test_summary_retains_strict_but_numerically_different_pair) ... ok
+test_zero_models_requires_explicit_completion_and_native_zero (__main__.PersistenceTests.test_zero_models_requires_explicit_completion_and_native_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.571s
+
+OK

@@ -1,0 +1,1370 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0535f0e..9e7e6f1 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,5 +1,5 @@
+ cmake_minimum_required(VERSION 3.18)
+-project(lazyipdca_qcqp VERSION 0.4.5 LANGUAGES CXX)
++project(lazyipdca_qcqp VERSION 0.4.6 LANGUAGES CXX)
+ 
+ set(CMAKE_CXX_STANDARD 17)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+@@ -272,4 +272,24 @@ if(LAZYIPDCA_BUILD_TESTS)
+   add_executable(test_lazyqp_curvature_wall tests/test_lazyqp_curvature_wall.cpp)
+   target_link_libraries(test_lazyqp_curvature_wall PRIVATE lazyipdca_qcqp)
+   add_test(NAME lazyqp_curvature_wall COMMAND test_lazyqp_curvature_wall)
++
++  add_executable(test_lazy_dca_affine_full_majorant tests/test_lazy_dca_affine_full_majorant.cpp)
++  target_link_libraries(test_lazy_dca_affine_full_majorant PRIVATE lazyipdca_qcqp)
++  add_test(NAME lazy_dca_affine_full_majorant COMMAND test_lazy_dca_affine_full_majorant)
++
++  add_executable(test_lazy_dca_affine_full_shape tests/test_lazy_dca_affine_full_shape.cpp)
++  target_link_libraries(test_lazy_dca_affine_full_shape PRIVATE lazyipdca_qcqp)
++  add_test(NAME lazy_dca_affine_full_shape_130_1_384 COMMAND test_lazy_dca_affine_full_shape)
++
++  add_executable(test_lazyqp_dual_step_coupling tests/test_lazyqp_dual_step_coupling.cpp)
++  target_link_libraries(test_lazyqp_dual_step_coupling PRIVATE lazyipdca_qcqp)
++  add_test(NAME lazyqp_dual_step_coupling COMMAND test_lazyqp_dual_step_coupling)
++
++  add_executable(test_lazyqp_fixed_native_shift tests/test_lazyqp_fixed_native_shift.cpp)
++  target_link_libraries(test_lazyqp_fixed_native_shift PRIVATE lazyipdca_qcqp)
++  add_test(NAME lazyqp_fixed_native_shift COMMAND test_lazyqp_fixed_native_shift)
++
++  add_executable(test_lazyqp_lowrank_condensation tests/test_lazyqp_lowrank_condensation.cpp)
++  target_link_libraries(test_lazyqp_lowrank_condensation PRIVATE lazyipdca_qcqp)
++  add_test(NAME lazyqp_lowrank_condensation COMMAND test_lazyqp_lowrank_condensation)
+ endif()
+diff --git a/README.md b/README.md
+index a8e0639..fc90267 100644
+--- a/README.md
++++ b/README.md
+@@ -1,4 +1,6 @@
+-# LazyIPDCA-QCQP v0.4.5
++# LazyIPDCA-QCQP v0.4.6
+ 
+-Current branch: nonlinear-residual LazyQP kernel for already-convex QCQP majorants.
+-See `README_V045.md` and `VALIDATION_v0.4.5.md`.
++Current branch: full-majorant safeguard for moderate affine-objective QCQPs,
++with coupled nonlinear-residual LazyQP steps.
++
++See `README_V046.md` and `VALIDATION_v0.4.6.md`.
+diff --git a/README_V046.md b/README_V046.md
+new file mode 100644
+index 0000000..7bd75aa
+--- /dev/null
++++ b/README_V046.md
+@@ -0,0 +1,77 @@
++# LazyIPDCA-QCQP v0.4.6 — full affine-objective majorant
++
++The v0.4.5 A4X12 run did not enter the outer optimization. Phase I returned a
++feasible point, but the first Lazy-DCA master contained only the three initially
++near-active inequalities while the objective was affine. The omitted
++inequalities were therefore allowed to contain the directions that bound the
++objective. The resulting first Newton direction was enormous: its exact
++quadratic trial residual reached approximately `3.85e15`, the accepted primal
++step was about `4.66e-10`, and the dual step was `0.5`. The second Newton system
++then suffered a complementarity-product explosion and the inner solve stopped
++with `outer_iterations = 0`.
++
++v0.4.6 corrects the model and the primal-dual step together.
++
++## Complete majorant for moderate affine-objective QCQPs
++
++When the original objective Hessian is zero and the number of nonlinear
++inequalities is at most `dca_affine_full_constraint_limit` (default `4096`),
++Lazy-DCA retains every inequality majorant for the whole solve. Working-set
++activation and dropping are disabled in this mode. This is necessary because a
++restricted master with an affine objective need not be bounded even when the
++complete convex majorant is bounded.
++
++The inner solver still receives an already-convex QCQP. It performs no DC
++convexification or curvature discovery. Negative curvature in an original
++constraint is handled once by the outer Lazy-DCA majorant construction.
++
++The mode is reported as
++
++```text
++[LAZY-DCA] ... constraint_set=full-affine-objective ws=<number of inequalities>
++```
++
++It can be controlled with
++
++```text
++--dca-affine-full-limit N
++--no-dca-affine-full
++```
++
++## Coupled nonlinear-residual LazyQP step
++
++The primal and dual parts of one Newton direction now use the common step
++
++```text
++alpha = min(alpha_primal_max, alpha_dual_max).
++```
++
++This prevents a rejected or heavily damped primal displacement from being
++combined with an almost full multiplier displacement. Verbose output reports
++`a`, `apmax`, and `admax`.
++
++The slack remains an independent primal variable. The exact quadratic remainder
++is absorbed into the slack only as far as strict positivity permits; any
++remaining defect is evaluated in the exact nonlinear primal residual and
++corrected at subsequent Newton steps.
++
++## KKT representation and regularization
++
++For `n <= exact_eigen_threshold`, retained rank-one objective and constraint
++corrections are condensed exactly into the primal Hessian block. This avoids a
++large bordered system when a complete majorant contains many corrected rows.
++For a 130-variable, one-equality, 384-inequality model, the resulting KKT
++system has dimension `515`, independently of the number of retained rank-one
++corrections.
++
++The representation is reported as
++
++```text
++[LAZYQP-KKT] n=... eq=... ineq=... lowrank=... representation=condensed dimension=...
++```
++
++Fixed primal and dual KKT shifts are now assembled consistently by `native`,
++`ldl`, `qdldl`, and `mumps`. In adaptive mode, the caller inserts the current
++shifts exactly once. Failed solves, failed globalization, or extremely short
++coupled steps may increase the numerical primal shift and retry the same inner
++iteration.
+diff --git a/VALIDATION_v0.4.6.md b/VALIDATION_v0.4.6.md
+new file mode 100644
+index 0000000..2f42764
+--- /dev/null
++++ b/VALIDATION_v0.4.6.md
+@@ -0,0 +1,71 @@
++# Validation — v0.4.6 full affine-objective majorant
++
++## Local release gate
++
++- version: `LazyIPDCA-QCQP 0.4.6-lazyqp-full-majorant (API 460)`;
++- native Release build: PASS without compiler warnings;
++- native Release CTest: **28/28 PASS**;
++- AddressSanitizer + UndefinedBehaviorSanitizer CTest: **28/28 PASS**;
++- existing restoration, SQP, KKT-stop, working-set, backend, curvature-wall,
++  and convex-QCQP regressions: PASS.
++
++## New failure-specific contracts
++
++### Affine master bounded only by an omitted constraint
++
++`lazy_dca_affine_full_majorant` minimizes an affine objective with no finite
++variable bounds and one initially inactive quadratic ball constraint. A lazy
++master that omits the ball is singular/unbounded and never completes the first
++outer subproblem. The full-majorant mode solves it in one outer iteration and
++returns the boundary minimizer.
++
++### A4X12-shaped structural surrogate
++
++`lazy_dca_affine_full_shape_130_1_384` uses:
++
++- 130 variables;
++- one equality;
++- 384 quadratic inequalities;
++- an affine objective;
++- 192 negative-curvature constraint directions.
++
++The exact low-rank corrections are condensed into the primal block. The test
++solves in one outer iteration, enters the optimization, retains all constraints,
++and returns the known feasible minimizer.
++
++This is a structural regression, not the CUTEst A4X12 data set.
++
++### Coupled primal-dual step
++
++`lazyqp_dual_step_coupling` reproduces a large primal Newton component together
++with many barrier rows. It requires the coupled-step path to converge rather
++than applying a large multiplier update after the primal step is backtracked.
++
++### Exact low-rank condensation
++
++`lazyqp_lowrank_condensation` solves the same convex QCQP with the rank-one
++terms represented once by explicit KKT borders and once by exact condensation.
++The two primal solutions agree to the test tolerance.
++
++### Fixed native KKT shifts
++
++`lazyqp_fixed_native_shift` verifies that a flat native KKT system is singular
++when both fixed shifts are zero and is factorizable when the configured primal
++and dual shifts are nonzero.
++
++## External A4X12 gate
++
++The exact exported `A4X12.qcq` is not included in the source-only release, so
++this local validation does not claim final A4X12 convergence. Run
++`tools/run_a4x12_v046_lazyqp.sh` in the `pf_gpu` CUTEst environment.
++
++The first required diagnostics are
++
++```text
++[LAZY-DCA] ... constraint_set=full-affine-objective ws=384
++[LAZYQP-KKT] n=130 eq=1 ineq=384 ... representation=condensed dimension=515
++```
++
++The decisive first gate is `outer_iterations > 0`. Only after that gate passes
++should objective progress and the final original-QCQP KKT certificate be
++assessed.
+diff --git a/include/lazyipdca_qcqp/inner_lazyqp.hpp b/include/lazyipdca_qcqp/inner_lazyqp.hpp
+index 165a4e0..09c1786 100644
+--- a/include/lazyipdca_qcqp/inner_lazyqp.hpp
++++ b/include/lazyipdca_qcqp/inner_lazyqp.hpp
+@@ -4,12 +4,11 @@
+ namespace lazyipdca::qcqp {
+ 
+ // Solver for an already-convex QCQP majorant.  No DC convexification occurs
+-// here.  This is the primal-dual LazyIPDCA-QP kernel extended to quadratic
+-// inequalities by an exact second-order slack transport:
+-//   q_i(alpha d)=g_i(y+alpha d)-g_i(y)-alpha grad g_i(y)^T d,
+-//   s_i^+=s_i+alpha ds_i-q_i(alpha d).
+-// Therefore g_i(y^+)+s_i^+=(1-alpha)(g_i(y)+s_i) exactly for quadratic g_i.
+-// This removes the affine-row assumption that invalidated v0.4.1--v0.4.3.
++// here.  The slack remains an independent primal variable.  At a trial point,
++// the exact quadratic remainder is absorbed into the slack only while strict
++// positivity is preserved; the unabsorbed part remains in the nonlinear
++// primal residual and is corrected by later Newton steps.  One common
++// primal-dual step length preserves the coupling of the KKT direction.
+ class ConvexQCQPLazyQPKernel {
+  public:
+   explicit ConvexQCQPLazyQPKernel(const Settings& settings) : st_(settings) {}
+diff --git a/include/lazyipdca_qcqp/settings.hpp b/include/lazyipdca_qcqp/settings.hpp
+index 3f3d175..32c9f11 100644
+--- a/include/lazyipdca_qcqp/settings.hpp
++++ b/include/lazyipdca_qcqp/settings.hpp
+@@ -4,9 +4,10 @@
+ namespace lazyipdca::qcqp {
+ 
+ struct Settings {
+-  // Convex-subproblem backend. "lazyqp" is the v0.4.2 Mehrotra extension of
+-  // LazyIPDCA-QP to already-convex QCQPs; "legacy-ipm" preserves the older
+-  // experimental QCQP IPM and "ipopt" is an independent reference backend.
++  // Convex-subproblem backend. "lazyqp" is the coupled nonlinear-residual
++  // extension of the LazyIPDCA-QP primal-dual kernel to already-convex QCQPs;
++  // "legacy-ipm" preserves the older experimental QCQP IPM and "ipopt" is an
++  // independent reference backend.
+   std::string inner_backend = "lazyqp";
+   // Linear KKT factorization used by the native convex-subproblem solver.
+   // native = dense LAPACK symmetric-indefinite, ldl = historical SuiteSparse LDL + METIS,
+@@ -51,7 +52,7 @@ struct Settings {
+   double inner_tolerance = 1e-7;
+   double inner_iteration_limit_mu_fallback = 1e-6;
+ 
+-  // v0.4.1 direct LazyIPDCA-QP kernel for already-convex QCQP subproblems.
++  // Direct LazyIPDCA-QP kernel for already-convex QCQP subproblems.
+   // There is no DC/curvature logic at this level: only barrier continuation
+   // and Newton solves of the exact convex QCQP KKT equations.
+   double lazyqp_barrier_mu0 = 1e-4;
+@@ -87,6 +88,13 @@ struct Settings {
+   int max_objective_rank = 64;
+   int max_lagrangian_rank = 64; // legacy-SQP only
+   double dca_extra_proximal_regularization = 0.0; // optional extra term; default exact DC majorant
++  // A restricted working-set master can be unbounded when the original
++  // objective is affine: omitted convex constraints may be the only objects
++  // that bound the descent direction.  For moderate affine-objective QCQPs,
++  // solve the complete constraint majorant.  Large models
++  // retain the historical lazy working set through the explicit size limit.
++  bool dca_full_constraints_for_affine_objective = true;
++  int dca_affine_full_constraint_limit = 4096;
+   int lanczos_steps = 40;
+   int lanczos_starts = 2;
+   int exact_eigen_threshold = 256;
+diff --git a/include/lazyipdca_qcqp/version.hpp b/include/lazyipdca_qcqp/version.hpp
+index 229bd68..cc0d3af 100644
+--- a/include/lazyipdca_qcqp/version.hpp
++++ b/include/lazyipdca_qcqp/version.hpp
+@@ -1,8 +1,8 @@
+ #pragma once
+ namespace lazyipdca::qcqp {
+ inline constexpr const char* kSolverName = "LazyIPDCA-QCQP";
+-inline constexpr const char* kVersion = "0.4.5-lazyqp-nonlinear-residual";
+-inline constexpr int kApiVersion = 450;
+-inline constexpr const char* kBuildId = "v0.4.5-lazyqp-nonlinear-residual-api-450";
++inline constexpr const char* kVersion = "0.4.6-lazyqp-full-majorant";
++inline constexpr int kApiVersion = 460;
++inline constexpr const char* kBuildId = "v0.4.6-lazyqp-full-majorant-api-460";
+ inline constexpr const char* kLinearSolverBackend = "runtime_selectable";
+ }
+diff --git a/python/run_cutest_qcqp.py b/python/run_cutest_qcqp.py
+index 9630a71..6a018b5 100755
+--- a/python/run_cutest_qcqp.py
++++ b/python/run_cutest_qcqp.py
+@@ -73,6 +73,8 @@ def main():
+     ap.add_argument("--restoration-minimax-prox", type=float, default=1e-6)
+     ap.add_argument("--prox", type=float, default=1e-6)
+     ap.add_argument("--dca-extra-prox", type=float, default=0.0)
++    ap.add_argument("--dca-affine-full-limit", type=int, default=4096)
++    ap.add_argument("--no-dca-affine-full", action="store_true")
+     ap.add_argument("--no-restoration", action="store_true")
+     ap.add_argument("--activation", type=float, default=1e-4)
+     ap.add_argument("--max-rank", type=int, default=None,
+@@ -150,7 +152,10 @@ def main():
+         "restoration_restart_iters": args.restoration_restart_iters,
+         "restoration_minimax_iters": args.restoration_minimax_iters,
+         "restoration_minimax_prox": args.restoration_minimax_prox,
+-        "prox": args.prox, "dca_extra_prox": args.dca_extra_prox, "verbose": args.verbose,
++        "prox": args.prox, "dca_extra_prox": args.dca_extra_prox,
++        "dca_affine_full_limit": args.dca_affine_full_limit,
++        "dca_affine_full": not args.no_dca_affine_full,
++        "verbose": args.verbose,
+         "max_constraint_rank": args.max_constraint_rank,
+         "max_objective_rank": args.max_objective_rank,
+         "max_lagrangian_rank": args.max_lagrangian_rank,
+@@ -247,6 +252,7 @@ def main():
+         "--restoration-minimax-prox", str(args.restoration_minimax_prox),
+         "--prox", str(args.prox),
+         "--dca-extra-prox", str(args.dca_extra_prox),
++        "--dca-affine-full-limit", str(args.dca_affine_full_limit),
+         "--activation", str(args.activation),
+         "--max-constraint-rank", str(args.max_constraint_rank),
+         "--max-objective-rank", str(args.max_objective_rank),
+@@ -300,6 +306,8 @@ def main():
+         cmd.append("--strict-scalar-certificate")
+     if args.kkt_adaptive_reg:
+         cmd.append("--kkt-adaptive-reg")
++    if args.no_dca_affine_full:
++        cmd.append("--no-dca-affine-full")
+     cmd.append({"equality":"--inner-equality-warm-start", "full":"--inner-full-dual-warm-start", "off":"--no-inner-warm-start"}[args.inner_warm_start_mode])
+     if args.no_restoration:
+         cmd.append("--no-restoration")
+diff --git a/src/inner_ipm.cpp b/src/inner_ipm.cpp
+index 7d69a4c..21fe5f2 100644
+--- a/src/inner_ipm.cpp
++++ b/src/inner_ipm.cpp
+@@ -197,7 +197,8 @@ InnerResult ConvexQCQPInteriorPoint::solve(const ConvexSubproblem& p) const {
+   }
+ 
+   const bool adaptive_kkt = st_.kkt_adaptive_regularization &&
+-      (st_.linear_backend=="native" || st_.linear_backend=="ldl" || st_.linear_backend=="mumps");
++      (st_.linear_backend=="native" || st_.linear_backend=="ldl" ||
++       st_.linear_backend=="qdldl" || st_.linear_backend=="mumps");
+   double rho_x = adaptive_kkt
+       ? std::max(st_.kkt_rho_x_floor,st_.kkt_primal_regularization)
+       : st_.kkt_primal_regularization;
+diff --git a/src/inner_lazyqp.cpp b/src/inner_lazyqp.cpp
+index 264ae86..d283528 100644
+--- a/src/inner_lazyqp.cpp
++++ b/src/inner_lazyqp.cpp
+@@ -167,6 +167,11 @@ InnerResult ConvexQCQPLazyQPKernel::solve(const ConvexSubproblem& p) const {
+     // cap initial multipliers so an active slack push does not create z=O(1/s).
+     const double gscale=std::max(1e-2,std::min(1.0,max_abs(p.objective.gradient(y))));
+     const double target_mu=std::max({st_.lazyqp_barrier_mu0,gscale,100.0*st_.inner_tolerance});
++    // Keep the validated v0.4.5 initialization.  The failure on A4X12 was not
++    // caused by this centering rule but by solving an underconstrained affine
++    // master and then accepting nearly independent primal/dual step lengths.
++    // Changing the initialization at the same time perturbs otherwise stable
++    // small QCQP trajectories and obscures the actual correction.
+     const double slack_push=std::max(1e-4,10.0*st_.inner_tolerance);
+     for(int i=0;i<mi;++i) {
+       const double phi=p.inequalities[i].value(y);
+@@ -239,10 +244,27 @@ InnerResult ConvexQCQPLazyQPKernel::solve(const ConvexSubproblem& p) const {
+   if(!factor) { out.message="linear factorization backend unavailable ["+st_.linear_backend+"]: "+msg; return out; }
+ 
+   const bool adaptive=st_.kkt_adaptive_regularization &&
+-      (st_.linear_backend=="native"||st_.linear_backend=="ldl"||st_.linear_backend=="mumps");
++      (st_.linear_backend=="native"||st_.linear_backend=="ldl"||
++       st_.linear_backend=="qdldl"||st_.linear_backend=="mumps");
+   double rho_x=adaptive?std::max(st_.kkt_rho_x_floor,st_.kkt_primal_regularization):st_.kkt_primal_regularization;
+   double delta_boost=1.0;
+-  int tiny_primal_steps=0;
++  auto grow_regularization = [&](const char* reason,int iteration,double alpha) {
++    if(!adaptive || rho_x>=st_.kkt_rho_x_max) return false;
++    const double old=rho_x;
++    const double growth=std::max(1.1,st_.kkt_rho_x_growth);
++    rho_x=std::min(st_.kkt_rho_x_max,
++        std::max(st_.kkt_rho_x_floor,std::max(old*growth,st_.kkt_rho_x_floor*growth)));
++    if(!(rho_x>old)) return false;
++    delta_boost=std::min(1e12,delta_boost*growth);
++    ++out.kkt_regularization_retries;
++    if(st_.verbose)
++      std::cout << "[LAZYQP-REG] it="<<iteration
++                << " reason="<<reason
++                << " alpha="<<std::scientific<<alpha
++                << " rho="<<old<<"->"<<rho_x
++                << " delta_boost="<<delta_boost<<"\n"<<std::defaultfloat;
++    return true;
++  };
+ 
+   for(int iter=0;iter<st_.max_inner_iterations;++iter) {
+     e=evaluate_state(p,y,lambda,z,s);
+@@ -275,9 +297,17 @@ InnerResult ConvexQCQPLazyQPKernel::solve(const ConvexSubproblem& p) const {
+         const double g=z[i]*t.beta; if(g>1e-18) borders.push_back({g,&t.direction});
+       }
+ 
+-    const int nb=(int)borders.size(), eq0=n, in0=n+me, b0=n+me+mi, N=n+me+mi+nb;
++    const int raw_nb=(int)borders.size();
++    // For small/medium primal blocks, condense all retained rank-one Hessian
++    // corrections exactly into H.  A4X12 has n=130 but potentially hundreds
++    // of corrected constraint rows; representing every correction as a KKT
++    // border would make the first full-majorant system unnecessarily large.
++    const bool condense_low_rank = n<=std::max(1,st_.exact_eigen_threshold);
++    const int nb=condense_low_rank?0:raw_nb;
++    const int eq0=n, in0=n+me, b0=n+me+mi, N=n+me+mi+nb;
+     std::vector<SymmetricTriplet> K;
+-    K.reserve(p.objective.base_hessian.entries.size()+(std::size_t)N*8);
++    K.reserve(p.objective.base_hessian.entries.size()+(std::size_t)N*8+
++              (condense_low_rank?(std::size_t)n*(n+1)/2:0));
+     add_sym_triplets(K,p.objective.base_hessian,1.0);
+     for(int j=0;j<p.objective.shift_dimension;++j) K.push_back({j,j,p.objective.scalar_shift});
+     for(int i=0;i<mi;++i) if(z[i]>1e-18) {
+@@ -285,6 +315,20 @@ InnerResult ConvexQCQPLazyQPKernel::solve(const ConvexSubproblem& p) const {
+       for(int j=0;j<p.inequalities[i].shift_dimension;++j)
+         K.push_back({j,j,z[i]*p.inequalities[i].scalar_shift});
+     }
++    if(condense_low_rank && raw_nb>0) {
++      std::vector<double> dense_lr((std::size_t)n*n,0.0);
++      for(const auto& b:borders) {
++        const Vec& u=*b.u;
++        for(int j=0;j<n;++j) if(u[j]!=0.0)
++          for(int k=j;k<n;++k) if(u[k]!=0.0)
++            dense_lr[j+(std::size_t)k*n]+=b.gamma*u[j]*u[k];
++      }
++      for(int k=0;k<n;++k)
++        for(int j=0;j<=k;++j) {
++          const double v=dense_lr[j+(std::size_t)k*n];
++          if(std::abs(v)>1e-30) K.push_back({j,k,v});
++        }
++    }
+     for(int r=0;r<me;++r)
+       for(const auto& [j,a]:p.equalities.rows[r].entries) if(a!=0.0) K.push_back({j,eq0+r,a});
+     for(int i=0;i<mi;++i) {
+@@ -292,10 +336,18 @@ InnerResult ConvexQCQPLazyQPKernel::solve(const ConvexSubproblem& p) const {
+       const double zi=std::max(z[i],st_.minimum_positive);
+       K.push_back({in0+i,in0+i,-s[i]/zi});
+     }
+-    for(int b=0;b<nb;++b) {
+-      const Vec& u=*borders[b].u;
+-      for(int j=0;j<n;++j) if(u[j]!=0.0) K.push_back({j,b0+b,u[j]});
+-      K.push_back({b0+b,b0+b,-1.0/borders[b].gamma});
++    if(!condense_low_rank) {
++      for(int b=0;b<nb;++b) {
++        const Vec& u=*borders[b].u;
++        for(int j=0;j<n;++j) if(u[j]!=0.0) K.push_back({j,b0+b,u[j]});
++        K.push_back({b0+b,b0+b,-1.0/borders[b].gamma});
++      }
++    }
++    if(st_.verbose && iter==0) {
++      std::cout << "[LAZYQP-KKT] n="<<n<<" eq="<<me<<" ineq="<<mi
++                << " lowrank="<<raw_nb
++                << " representation="<<(condense_low_rank?"condensed":"bordered")
++                << " dimension="<<N<<"\n";
+     }
+ 
+     double dual_scale=std::max(max_abs(lambda),max_abs(z));
+@@ -353,7 +405,10 @@ InnerResult ConvexQCQPLazyQPKernel::solve(const ConvexSubproblem& p) const {
+ 
+     Vec rcent_aff(mi,0.0); for(int i=0;i<mi;++i) rcent_aff[i]=s[i]*z[i];
+     auto [ok_aff,aff]=solve_step(rcent_aff);
+-    if(!ok_aff) return fallback_legacy_nonlazy("LazyQP affine predictor solve failed");
++    if(!ok_aff) {
++      if(grow_regularization("affine-solve",iter+1,0.0)) continue;
++      return fallback_legacy_nonlazy("LazyQP affine predictor solve failed");
++    }
+     const double aap=mi?max_step_positive(s,aff.ds,1.0):1.0;
+     const double aad=mi?max_step_positive(z,aff.dz,1.0):1.0;
+     double mu_aff=0.0;
+@@ -367,17 +422,22 @@ InnerResult ConvexQCQPLazyQPKernel::solve(const ConvexSubproblem& p) const {
+       sigma=std::min(sigma,std::clamp(st_.lazyqp_barrier_r,0.0,0.95));
+     }
+     Vec rcent(mi,0.0);
+-    for(int i=0;i<mi;++i) rcent[i]=s[i]*z[i]+aff.ds[i]*aff.dz[i]-sigma*e.mu;
++    for(int i=0;i<mi;++i)
++      rcent[i]=s[i]*z[i]+aff.ds[i]*aff.dz[i]-sigma*e.mu;
+     auto [ok,d]=solve_step(rcent);
+-    if(!ok) return fallback_legacy_nonlazy("LazyQP corrector solve failed");
++    if(!ok) {
++      if(grow_regularization("corrector-solve",iter+1,0.0)) continue;
++      return fallback_legacy_nonlazy("LazyQP corrector solve failed");
++    }
+ 
+-    double ap=mi?max_step_positive(s,d.ds,st_.fraction_to_boundary):1.0;
+-    double ad=mi?max_step_positive(z,d.dz,st_.fraction_to_boundary):1.0;
++    const double ap_max=mi?max_step_positive(s,d.ds,st_.fraction_to_boundary):1.0;
++    const double ad_max=mi?max_step_positive(z,d.dz,st_.fraction_to_boundary):1.0;
++    // A Newton direction is a coupled primal-dual object.  v0.4.5 could accept
++    // ap=4.7e-10 together with ad=0.5, changing almost only the multipliers and
++    // destroying the next complementarity equation.  Use one common step for
++    // y,s,lambda,z; independent fraction-to-boundary values only bound it.
++    double alpha=std::min(ap_max,ad_max);
+ 
+-    // v0.4.5 globalization: keep the primal and dual fraction-to-boundary
+-    // steps independent, but evaluate the *exact nonlinear* QCQP residual at
+-    // every trial.  We no longer shrink y merely because the exact slack
+-    // projection would become negative; slacks are independent IPM variables.
+     const double beta=std::clamp(st_.lazyqp_line_search_beta,0.05,0.95);
+     const double primal_now=std::max(e.eq_inf,e.pri_inf);
+     const double primal_limit=std::max({100.0*st_.inner_tolerance,
+@@ -391,48 +451,44 @@ InnerResult ConvexQCQPLazyQPKernel::solve(const ConvexSubproblem& p) const {
+     const double mu_limit=centrality_phase
+         ? std::max(st_.inner_iteration_limit_mu_fallback,0.95*e.mu)
+         : std::max(100.0*st_.inner_tolerance,10.0*std::max(e.mu,st_.inner_tolerance));
+-
+     TrialState trial;
+-    int bt=0, pbt=0, dbt=0;
++    int bt=0;
+     for(;bt<=st_.lazyqp_line_search_max;++bt) {
+-      trial=make_trial(p,y,lambda,z,s,e,d,ap,ad,st_.minimum_positive,
++      trial=make_trial(p,y,lambda,z,s,e,d,alpha,alpha,st_.minimum_positive,
+                        st_.fraction_to_boundary);
+-      if(!trial.ok) {
+-        ap*=beta; ad*=beta; ++pbt; ++dbt;
+-      } else {
++      if(trial.ok) {
+         const double primal_trial=std::max(trial.eval.eq_inf,trial.eval.pri_inf);
+         const bool primal_bad=primal_trial>primal_limit;
+         const bool dual_bad=trial.eval.dual_inf>dual_limit;
+         const bool mu_bad=trial.eval.mu>mu_limit;
+         if(st_.verbose && iter<5 && (primal_bad||dual_bad||mu_bad)) {
+           std::cout << "[LAZYQP-LS] it="<<iter+1<<" bt="<<bt
+-                    << " ap="<<std::scientific<<ap<<" ad="<<ad
++                    << " a="<<std::scientific<<alpha
+                     << " pri="<<primal_trial<<"/"<<primal_limit
+                     << " dual="<<trial.eval.dual_inf<<"/"<<dual_limit
+                     << " mu="<<trial.eval.mu<<"/"<<mu_limit
+-                    << " bad="<<(primal_bad?"P":"-")<<(dual_bad?"D":"-")<<(mu_bad?"M":"-")
++                    << " bad="<<(primal_bad?"P":"-")<<(dual_bad?"D":"-")
++                    <<(mu_bad?"M":"-")
+                     << "\n"<<std::defaultfloat;
+         }
+         if(!primal_bad && !dual_bad && !mu_bad) break;
+-        if(primal_bad || mu_bad) { ap*=beta; ++pbt; }
+-        if(dual_bad || mu_bad) { ad*=beta; ++dbt; }
+-        // Primal nonlinearity damps only the primal step; stationarity damps
+-        // only the dual step. Complementarity couples s and z, so a rejected
+-        // mu trial damps both steps together.
+       }
+-      if(ap<1e-14 || ad<1e-14) break;
++      alpha*=beta;
++      if(alpha<1e-14) break;
+     }
+-    if(!trial.ok || std::max(trial.eval.eq_inf,trial.eval.pri_inf)>primal_limit ||
+-       trial.eval.dual_inf>dual_limit || trial.eval.mu>mu_limit) {
+-      return fallback_legacy_nonlazy("LazyQP nonlinear-residual globalization failed");
++    const bool globalization_ok=trial.ok &&
++        std::max(trial.eval.eq_inf,trial.eval.pri_inf)<=primal_limit &&
++        trial.eval.dual_inf<=dual_limit && trial.eval.mu<=mu_limit;
++    if(!globalization_ok) {
++      if(grow_regularization("globalization",iter+1,alpha)) continue;
++      return fallback_legacy_nonlazy("LazyQP coupled nonlinear-residual globalization failed");
+     }
++    if(adaptive && alpha<1e-8 && grow_regularization("tiny-coupled-step",iter+1,alpha))
++      continue;
+ 
+     y=std::move(trial.y); lambda=std::move(trial.lambda); z=std::move(trial.z); s=std::move(trial.s);
+-    if(ap<1e-10) ++tiny_primal_steps; else tiny_primal_steps=0;
+-    if(tiny_primal_steps>=12)
+-      return fallback_legacy_nonlazy("LazyQP nonlinear-residual primal step stagnation");
+ 
+-    if(adaptive && ap>=0.5 && rho_x>st_.kkt_rho_x_floor)
++    if(adaptive && alpha>=0.5 && rho_x>st_.kkt_rho_x_floor)
+       rho_x=std::max(st_.kkt_rho_x_floor,st_.kkt_rho_x_decay*rho_x);
+ 
+     if(st_.verbose && (iter<5 || (iter+1)%20==0)) {
+@@ -443,9 +499,9 @@ InnerResult ConvexQCQPLazyQPKernel::solve(const ConvexSubproblem& p) const {
+                 << " pri="<<trial.eval.pri_inf
+                 << " ineq="<<trial.eval.ineq_inf
+                 << " sigma="<<sigma
+-                << " ap="<<ap<<" ad="<<ad
++                << " a="<<alpha
++                << " apmax="<<ap_max<<" admax="<<ad_max
+                 << " bt="<<bt
+-                << " pbt="<<pbt<<" dbt="<<dbt
+                 << " qdef="<<trial.nonlinear_defect_inf
+                 << " scorr="<<trial.slack_correction_min
+                 << "\n"<<std::defaultfloat;
+diff --git a/src/linear_solver.cpp b/src/linear_solver.cpp
+index 1193b0a..decbc3e 100644
+--- a/src/linear_solver.cpp
++++ b/src/linear_solver.cpp
+@@ -94,7 +94,7 @@ inline double symmetric_inf_norm(int n, const EntryList& a) {
+   return m;
+ }
+ 
+-inline Vec symmetric_residual(int n, const EntryList& a, const Vec& x, const Vec& b) {
++inline Vec symmetric_residual(const EntryList& a, const Vec& x, const Vec& b) {
+   Vec r=b;
+   for(const auto& e:a){
+     r[e.i]-=e.value*x[e.j];
+@@ -103,9 +103,9 @@ inline Vec symmetric_residual(int n, const EntryList& a, const Vec& x, const Vec
+   return r;
+ }
+ 
+-inline double backward_error(int n, const EntryList& a, double ainf,
++inline double backward_error(const EntryList& a, double ainf,
+                              const Vec& x, const Vec& b, double* rinf=nullptr) {
+-  const Vec r=symmetric_residual(n,a,x,b);
++  const Vec r=symmetric_residual(a,x,b);
+   const double ri=inf_norm(r);
+   if(rinf) *rinf=ri;
+   const double den=ainf*inf_norm(x)+inf_norm(b);
+@@ -121,7 +121,11 @@ class DenseLapackFactor final : public SymmetricFactorization {
+     n_ = n;
+     a_.assign(static_cast<std::size_t>(n)*n, 0.0);
+     piv_.assign(n, 0);
+-    matrix_ = aggregate_upper(n, entries);
++    matrix_ = st_.kkt_adaptive_regularization
++        ? aggregate_upper(n, entries)
++        : aggregate_upper(n, entries, primal_dimension,
++                          st_.kkt_primal_regularization,
++                          st_.kkt_dual_regularization);
+     matrix_inf_norm_ = symmetric_inf_norm(n, matrix_);
+     for (const auto& e : matrix_) {
+       const int i=e.i, j=e.j; const double v=e.value;
+@@ -209,15 +213,15 @@ class DenseLapackFactor final : public SymmetricFactorization {
+     Vec x=b;
+     if(!solve_raw(x,message)) return false;
+     double rinf=0.0;
+-    double berr=backward_error(n_,matrix_,matrix_inf_norm_,x,b,&rinf);
++    double berr=backward_error(matrix_,matrix_inf_norm_,x,b,&rinf);
+     int refinement=0;
+     while(berr>st_.kkt_backward_error_tolerance &&
+           refinement<st_.kkt_iterative_refinement_steps) {
+-      Vec corr=symmetric_residual(n_,matrix_,x,b);
++      Vec corr=symmetric_residual(matrix_,x,b);
+       if(!solve_raw(corr,message)) return false;
+       axpy(1.0,corr,x);
+       ++refinement;
+-      berr=backward_error(n_,matrix_,matrix_inf_norm_,x,b,&rinf);
++      berr=backward_error(matrix_,matrix_inf_norm_,x,b,&rinf);
+     }
+     rhs=std::move(x);
+     last_backward_error_=berr;
+@@ -268,10 +272,9 @@ class DenseLapackFactor final : public SymmetricFactorization {
+ #if defined(LAZYIPDCA_HAVE_LDL) && defined(LAZYIPDCA_HAVE_METIS)
+ // Historical LazyIPDCA-QP style sparse LDL^T backend: SuiteSparse LDL with
+ // METIS nested-dissection ordering.  This is a no-numerical-pivot LDL factorization.
+-// The historical QP implementation therefore stabilized the assembled KKT matrix
+-// itself (positive primal / negative dual diagonal shifts) before factorization.
+-// Reproduce that contract here: LDL and QDLDL both need a strongly quasi-definite
+-// KKT matrix; pivoting backends may solve the unshifted system.
++// Fixed regularization is applied uniformly by every backend when adaptive
++// regularization is disabled.  In adaptive mode the caller inserts the current
++// primal/dual shifts explicitly, preventing backend-dependent double shifts.
+ class SuiteSparseLdlMetisFactor final : public SymmetricFactorization {
+  public:
+   explicit SuiteSparseLdlMetisFactor(const Settings& st) : st_(st) {}
+@@ -415,15 +418,15 @@ class SuiteSparseLdlMetisFactor final : public SymmetricFactorization {
+     Vec x=b;
+     if(!solve_raw(x,message)) return false;
+     double rinf=0.0;
+-    double berr=backward_error(n_,matrix_,matrix_inf_norm_,x,b,&rinf);
++    double berr=backward_error(matrix_,matrix_inf_norm_,x,b,&rinf);
+     int refinement=0;
+     while(berr>st_.kkt_backward_error_tolerance &&
+           refinement<st_.kkt_iterative_refinement_steps){
+-      Vec corr=symmetric_residual(n_,matrix_,x,b);
++      Vec corr=symmetric_residual(matrix_,x,b);
+       if(!solve_raw(corr,message)) return false;
+       axpy(1.0,corr,x);
+       ++refinement;
+-      berr=backward_error(n_,matrix_,matrix_inf_norm_,x,b,&rinf);
++      berr=backward_error(matrix_,matrix_inf_norm_,x,b,&rinf);
+     }
+     rhs=std::move(x);
+     last_backward_error_=berr;
+@@ -487,9 +490,11 @@ class QdldlMetisFactor final : public SymmetricFactorization {
+     // Numerical values change at every IPM iteration, but the KKT sparsity
+     // pattern is normally fixed for the whole convex subproblem.  Keep METIS
+     // and QDLDL's elimination tree until the pattern actually changes.
+-    EntryList M = aggregate_upper(n, entries, primal_dimension,
+-                                  st_.kkt_primal_regularization,
+-                                  st_.kkt_dual_regularization);
++    EntryList M = st_.kkt_adaptive_regularization
++        ? aggregate_upper(n, entries)
++        : aggregate_upper(n, entries, primal_dimension,
++                          st_.kkt_primal_regularization,
++                          st_.kkt_dual_regularization);
+     const auto pattern=entry_pattern(M);
+     const bool same_pattern = symbolic_valid_ && n==n_ && pattern==input_pattern_;
+ 
+@@ -621,7 +626,11 @@ class MumpsMetisFactor final : public SymmetricFactorization {
+ 
+   bool factor(int n, int primal_dimension, const std::vector<SymmetricTriplet>& entries,
+               std::string& message) override {
+-    const EntryList M=aggregate_upper(n,entries);
++    const EntryList M=st_.kkt_adaptive_regularization
++        ? aggregate_upper(n,entries)
++        : aggregate_upper(n,entries,primal_dimension,
++                          st_.kkt_primal_regularization,
++                          st_.kkt_dual_regularization);
+     matrix_=M;
+     matrix_inf_norm_=symmetric_inf_norm(n,M);
+     const auto pattern=entry_pattern(M);
+@@ -691,15 +700,15 @@ class MumpsMetisFactor final : public SymmetricFactorization {
+     Vec x=b;
+     if(!solve_raw(x,message)) return false;
+     double rinf=0.0;
+-    double berr=backward_error(n_,matrix_,matrix_inf_norm_,x,b,&rinf);
++    double berr=backward_error(matrix_,matrix_inf_norm_,x,b,&rinf);
+     int refinement=0;
+     while(berr>st_.kkt_backward_error_tolerance &&
+           refinement<st_.kkt_iterative_refinement_steps){
+-      Vec corr=symmetric_residual(n_,matrix_,x,b);
++      Vec corr=symmetric_residual(matrix_,x,b);
+       if(!solve_raw(corr,message)) return false;
+       axpy(1.0,corr,x);
+       ++refinement;
+-      berr=backward_error(n_,matrix_,matrix_inf_norm_,x,b,&rinf);
++      berr=backward_error(matrix_,matrix_inf_norm_,x,b,&rinf);
+     }
+     rhs=std::move(x);
+     last_backward_error_=berr;
+diff --git a/src/main.cpp b/src/main.cpp
+index f9ebfd1..c3d9be9 100644
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -66,6 +66,8 @@ void usage(const char* exe) {
+     << "  --restoration-minimax-prox X   terminal minimax proximal weight (default 1e-6)\n"
+     << "  --prox X                       legacy-SQP proximal regularization\n"
+     << "  --dca-extra-prox X             optional extra convex term in F_{0,k}; default 0\n"
++    << "  --dca-affine-full-limit N      full-majorant size limit for affine objectives\n"
++    << "  --no-dca-affine-full           disable full-majorant affine-objective safeguard\n"
+     << "  --activation X                 lazy inequality activation threshold\n"
+     << "  --max-rank N                   compatibility: set both rank caps\n"
+     << "  --max-constraint-rank N        max retained directions per inequality Qi\n"
+@@ -169,6 +171,9 @@ int main(int argc, char** argv) {
+       else if (a == "--restoration-minimax-prox") st.restoration_minimax_proximal = parse_num<double>(need("--restoration-minimax-prox"));
+       else if (a == "--prox") st.proximal_regularization = parse_num<double>(need("--prox"));
+       else if (a == "--dca-extra-prox") st.dca_extra_proximal_regularization = parse_num<double>(need("--dca-extra-prox"));
++      else if (a == "--dca-affine-full-limit") st.dca_affine_full_constraint_limit = parse_num<int>(need("--dca-affine-full-limit"));
++      else if (a == "--dca-affine-full") st.dca_full_constraints_for_affine_objective = true;
++      else if (a == "--no-dca-affine-full") st.dca_full_constraints_for_affine_objective = false;
+       else if (a == "--activation") st.working_set_activation = parse_num<double>(need("--activation"));
+       else if (a == "--max-rank") {
+         const int r=parse_num<int>(need("--max-rank"));
+diff --git a/src/solver.cpp b/src/solver.cpp
+index d4d6e50..6f6a076 100644
+--- a/src/solver.cpp
++++ b/src/solver.cpp
+@@ -592,7 +592,8 @@ InnerResult solve_equality_qp(const ConvexSubproblem& p, const Settings& st) {
+   for (int r=0;r<me;++r) rhs[n+r] = p.equalities.rhs[r];
+ 
+   const bool adaptive_kkt=st.kkt_adaptive_regularization &&
+-      (st.linear_backend=="native" || st.linear_backend=="ldl" || st.linear_backend=="mumps");
++      (st.linear_backend=="native" || st.linear_backend=="ldl" ||
++       st.linear_backend=="qdldl" || st.linear_backend=="mumps");
+   double rho_x=adaptive_kkt ? std::max(st.kkt_rho_x_floor,st.kkt_primal_regularization)
+                             : st.kkt_primal_regularization;
+   double delta_d=adaptive_kkt
+@@ -646,7 +647,8 @@ InnerResult solve_equality_qp(const ConvexSubproblem& p, const Settings& st) {
+   out.dual_inf=inf_norm(grad);
+   out.primal_residual_inf=out.equality_inf;
+   out.complementarity=0.0;
+-  const bool no_pivot_regularized = st.linear_backend=="ldl";
++  const bool no_pivot_regularized = st.linear_backend=="ldl" ||
++                                    st.linear_backend=="qdldl";
+   const double reg_relax = no_pivot_regularized
+       ? 100.0*std::max(rho_x,delta_d)
+       : 0.0;
+@@ -674,7 +676,7 @@ InnerResult solve_inner(const ConvexSubproblem& p, const Settings& st) {
+     ConvexQCQPInteriorPoint ipm(st);
+     return ipm.solve(p);
+   }
+-  // v0.4.1 default: direct extension of the LazyIPDCA-QP numerical kernel.
++  // Default: direct extension of the LazyIPDCA-QP numerical kernel.
+   // "ipm" and "native" remain user-facing aliases for this kernel.
+   ConvexQCQPLazyQPKernel qp(st);
+   return qp.solve(p);
+@@ -1696,17 +1698,27 @@ Result Solver::solve(const QCQPProblem& problem) {
+       curvature.ensure_convex(problem.objective.hessian,objective_cvx,0.0,st_.max_objective_rank);
+     std::vector<Convexification> ineq_cvx(problem.inequalities.size());
+     std::set<int> working_set;
++    bool objective_is_affine=true;
++    for(const auto& e:problem.objective.hessian.entries)
++      if(std::abs(e.v)>st_.curvature_tolerance) { objective_is_affine=false; break; }
++    const bool full_affine_majorant = st_.outer_algorithm=="lazy-dca" &&
++        st_.dca_full_constraints_for_affine_objective && objective_is_affine &&
++        st_.dca_affine_full_constraint_limit>=0 &&
++        static_cast<int>(problem.inequalities.size())<=st_.dca_affine_full_constraint_limit;
+     for (int i = 0; i < static_cast<int>(problem.inequalities.size()); ++i) {
+-      if (problem.inequalities[i].value(x) >= -st_.working_set_activation) {
++      if (full_affine_majorant ||
++          problem.inequalities[i].value(x) >= -st_.working_set_activation) {
+         working_set.insert(i);
+-        curvature.ensure_convex(problem.inequalities[i].hessian, ineq_cvx[i], 0.0, st_.max_rank_per_quadratic);
++        curvature.ensure_convex(problem.inequalities[i].hessian, ineq_cvx[i], 0.0,
++                                st_.max_rank_per_quadratic);
+       }
+     }
+ 
+     std::vector<FilterEntry> filter;
+     double proximal = st_.proximal_regularization;
+     const bool adaptive_kkt = st_.kkt_adaptive_regularization &&
+-        (st_.linear_backend=="native" || st_.linear_backend=="ldl" || st_.linear_backend=="mumps");
++        (st_.linear_backend=="native" || st_.linear_backend=="ldl" ||
++         st_.linear_backend=="qdldl" || st_.linear_backend=="mumps");
+     double numerical_rho_x = adaptive_kkt
+         ? std::max(st_.kkt_rho_x_floor,st_.kkt_primal_regularization)
+         : st_.kkt_primal_regularization;
+@@ -1752,6 +1764,8 @@ Result Solver::solve(const QCQPProblem& problem) {
+                   <<" shift="<<std::scientific<<objective_cvx.scalar_shift
+                   <<" inner="<<st_.inner_backend
+                   <<" nonlinear_eq="<<(has_quadratic_equality?1:0)
++                  <<" constraint_set="<<(full_affine_majorant?"full-affine-objective":"lazy")
++                  <<" ws="<<working_set.size()
+                   <<"\n"<<std::defaultfloat;
+       }
+ 
+@@ -1780,7 +1794,7 @@ Result Solver::solve(const QCQPProblem& problem) {
+         // convex-subproblem multiplier is negligible.  Any dropped constraint
+         // is still checked globally on the candidate and is re-added before
+         // acceptance if it becomes violated.
+-        if(st_.working_set_dropping && warm_mult_valid) {
++        if(!full_affine_majorant && st_.working_set_dropping && warm_mult_valid) {
+           std::vector<int> drop;
+           for(int i:working_set) {
+             const double mu=(i<(int)warm_mult.inequality.size())
+@@ -1800,13 +1814,15 @@ Result Solver::solve(const QCQPProblem& problem) {
+ 
+         // Activate near-active inequalities.  Omitted constraints remain
+         // globally checked on every candidate before acceptance.
+-        for(int i=0;i<(int)problem.inequalities.size();++i) {
+-          if(working_set.count(i)) continue;
+-          if(problem.inequalities[i].value(x)>=-st_.working_set_activation) {
+-            working_set.insert(i);
+-            curvature.ensure_convex(problem.inequalities[i].hessian,ineq_cvx[i],0.0,
+-                                    st_.max_rank_per_quadratic);
+-            ++result.working_set_additions;
++        if(!full_affine_majorant) {
++          for(int i=0;i<(int)problem.inequalities.size();++i) {
++            if(working_set.count(i)) continue;
++            if(problem.inequalities[i].value(x)>=-st_.working_set_activation) {
++              working_set.insert(i);
++              curvature.ensure_convex(problem.inequalities[i].hessian,ineq_cvx[i],0.0,
++                                      st_.max_rank_per_quadratic);
++              ++result.working_set_additions;
++            }
+           }
+         }
+ 
+@@ -2391,7 +2407,6 @@ Result Solver::solve(const QCQPProblem& problem) {
+           // Hard safety envelope only.  A feasible Phase-II iterate may use the
+           // configured 1e-7 tolerance, but feasibility loss is charged in the
+           // merit ratio above; this prevents the r5 Delta collapse at theta=0.
+-          const double theta_floor=theta_deadband;
+           const double theta_cap=(fk_feas.total_inf<=st_.feasibility_tolerance)
+               ? st_.feasibility_tolerance
+               : std::max(st_.feasibility_tolerance,fk_feas.total_inf);
+diff --git a/tests/test_lazy_dca_affine_full_majorant.cpp b/tests/test_lazy_dca_affine_full_majorant.cpp
+new file mode 100644
+index 0000000..d4a2058
+--- /dev/null
++++ b/tests/test_lazy_dca_affine_full_majorant.cpp
+@@ -0,0 +1,86 @@
++#include "lazyipdca_qcqp/solver.hpp"
++
++#include <cmath>
++#include <iostream>
++#include <limits>
++#include <stdexcept>
++
++using namespace lazyipdca::qcqp;
++
++int main() {
++  try {
++    const double inf=std::numeric_limits<double>::infinity();
++
++    // The affine objective is unbounded if the initially inactive convex row
++    // is omitted.  This is the small exact analogue of A4X12's first v0.4.5
++    // master: an affine objective and constraints that are responsible for
++    // bounding the descent direction.
++    QCQPProblem p;
++    p.name="affine_full_majorant";
++    p.n=1;
++    p.x0={0.0};
++    p.lb={-inf};
++    p.ub={inf};
++    p.objective.name="f";
++    p.objective.linear={-1.0};
++    p.objective.hessian.n=1;
++
++    QuadraticFunction ball;
++    ball.name="ball";
++    ball.constant=-1.0;
++    ball.linear={0.0};
++    ball.hessian.n=1;
++    ball.hessian.entries={{0,0,2.0}}; // x^2-1 <= 0
++    p.inequalities={ball};
++    p.validate();
++
++    Settings st;
++    st.outer_algorithm="lazy-dca";
++    st.inner_backend="lazyqp";
++    st.linear_backend="native";
++    st.verbose=false;
++    st.max_outer_iterations=20;
++    st.max_inner_iterations=200;
++    st.feasibility_tolerance=1e-6;
++    st.stationarity_tolerance=1e-5;
++    st.dual_infeasibility_tolerance=1e-5;
++    st.complementarity_tolerance=1e-5;
++    st.inner_tolerance=1e-8;
++    st.inner_iteration_limit_mu_fallback=1e-6;
++    // First reproduce the defective restricted master explicitly.  With the
++    // safeguard disabled, the only bounding row is omitted at x0=0 and the
++    // first convex subproblem cannot deliver an outer step.
++    Settings restricted=st;
++    restricted.dca_full_constraints_for_affine_objective=false;
++    restricted.max_inner_iterations=8;
++    const Result broken=Solver(restricted).solve(p);
++    if(broken.status==Status::Solved || broken.outer_iterations!=0)
++      throw std::runtime_error("restricted affine master unexpectedly entered optimization");
++
++    st.dca_full_constraints_for_affine_objective=true;
++    st.dca_affine_full_constraint_limit=16;
++
++    const Result r=Solver(st).solve(p);
++    if(r.status!=Status::Solved)
++      throw std::runtime_error("affine full-majorant master failed: "+r.message);
++    if(r.outer_iterations<1)
++      throw std::runtime_error("solver never entered the outer optimization");
++    if(r.x.size()!=1 || std::abs(r.x[0]-1.0)>5e-5)
++      throw std::runtime_error("wrong affine full-majorant solution");
++    if(r.feasibility.total_inf>st.feasibility_tolerance)
++      throw std::runtime_error("affine full-majorant solution is infeasible");
++    if(r.working_set_additions!=0)
++      throw std::runtime_error("full-majorant mode unexpectedly used lazy activation");
++    if(r.active_inequalities<1)
++      throw std::runtime_error("bounding constraint was not retained");
++
++    std::cout << "[PASS] affine-objective full majorant enters optimization"
++              << " outer="<<r.outer_iterations
++              << " inner="<<r.inner_iterations
++              << " x="<<r.x[0]<<"\n";
++    return 0;
++  } catch(const std::exception& e) {
++    std::cerr << "[FAIL] "<<e.what()<<"\n";
++    return 1;
++  }
++}
+diff --git a/tests/test_lazy_dca_affine_full_shape.cpp b/tests/test_lazy_dca_affine_full_shape.cpp
+new file mode 100644
+index 0000000..7eb0244
+--- /dev/null
++++ b/tests/test_lazy_dca_affine_full_shape.cpp
+@@ -0,0 +1,109 @@
++#include "lazyipdca_qcqp/solver.hpp"
++
++#include <cmath>
++#include <iostream>
++#include <limits>
++#include <stdexcept>
++#include <string>
++
++using namespace lazyipdca::qcqp;
++
++int main() {
++  try {
++    constexpr int n=130;
++    constexpr int mi=384;
++    const double inf=std::numeric_limits<double>::infinity();
++
++    // A structural first-subproblem surrogate for A4X12: affine objective,
++    // 130 variables, one equality, 384 quadratic inequalities, and many
++    // negative-curvature rows.  The optimum is deliberately simple so this
++    // test isolates model assembly, full affine-objective retention, low-rank
++    // condensation, and the coupled LazyQP step rather than benchmark data.
++    QCQPProblem p;
++    p.name="affine_full_shape_130_1_384";
++    p.n=n;
++    p.x0.assign(n,0.0);
++    p.lb.assign(n,-inf);
++    p.ub.assign(n,inf);
++    p.objective.name="f";
++    p.objective.linear.assign(n,0.0);
++    p.objective.linear[0]=-1.0;
++    p.objective.hessian.n=n;
++
++    QuadraticFunction equality;
++    equality.name="fixed_tail";
++    equality.linear.assign(n,0.0);
++    equality.linear[n-1]=1.0;
++    equality.hessian.n=n;
++    p.equalities.push_back(equality);
++
++    QuadraticFunction bounding_ball;
++    bounding_ball.name="x0_ball";
++    bounding_ball.constant=-1.0;
++    bounding_ball.linear.assign(n,0.0);
++    bounding_ball.hessian.n=n;
++    bounding_ball.hessian.entries={{0,0,2.0}}; // x_0^2 <= 1
++    p.inequalities.push_back(bounding_ball);
++
++    for(int i=1;i<mi;++i) {
++      QuadraticFunction g;
++      g.name="g"+std::to_string(i);
++      g.constant=-4.0;
++      g.linear.assign(n,0.0);
++      g.hessian.n=n;
++      const int j=1+(i%128);
++      const int k=1+((i+37)%128);
++      if(i%2==0) {
++        g.hessian.entries={{j,j,2.0}};
++      } else if(j<k) {
++        g.hessian.entries={{j,j,2.0},{k,k,-2.0}};
++      } else {
++        g.hessian.entries={{k,k,-2.0},{j,j,2.0}};
++      }
++      p.inequalities.push_back(std::move(g));
++    }
++    p.validate();
++
++    Settings st;
++    st.outer_algorithm="lazy-dca";
++    st.inner_backend="lazyqp";
++    st.linear_backend="native";
++    st.verbose=false;
++    st.max_outer_iterations=20;
++    st.max_inner_iterations=200;
++    st.feasibility_tolerance=1e-6;
++    st.stationarity_tolerance=1e-5;
++    st.dual_infeasibility_tolerance=1e-5;
++    st.complementarity_tolerance=1e-5;
++    st.inner_tolerance=1e-7;
++    st.inner_iteration_limit_mu_fallback=1e-6;
++    st.dca_full_constraints_for_affine_objective=true;
++    st.dca_affine_full_constraint_limit=4096;
++    st.exact_eigen_threshold=256;
++    st.max_rank_per_quadratic=24;
++
++    const Result r=Solver(st).solve(p);
++    if(r.status!=Status::Solved)
++      throw std::runtime_error("130/1/384 full-majorant surrogate failed: "+r.message);
++    if(r.outer_iterations<1)
++      throw std::runtime_error("130/1/384 surrogate never entered outer optimization");
++    if(r.x.size()!=n || std::abs(r.x[0]-1.0)>1e-4)
++      throw std::runtime_error("130/1/384 surrogate returned wrong minimizer");
++    if(r.feasibility.total_inf>st.feasibility_tolerance)
++      throw std::runtime_error("130/1/384 surrogate is infeasible");
++    if(r.inequality_total_rank<100)
++      throw std::runtime_error("negative-curvature rows were not retained/condensed");
++    if(r.working_set_additions!=0)
++      throw std::runtime_error("full-majorant surrogate unexpectedly used lazy activation");
++
++    std::cout << "[PASS] affine full-majorant shape 130/1/384"
++              << " outer="<<r.outer_iterations
++              << " inner="<<r.inner_iterations
++              << " rank="<<r.inequality_total_rank
++              << " x0="<<r.x[0]<<"\n";
++    return 0;
++  } catch(const std::exception& e) {
++    std::cerr << "[FAIL] "<<e.what()<<"\n";
++    return 1;
++  }
++}
+diff --git a/tests/test_lazyqp_dual_step_coupling.cpp b/tests/test_lazyqp_dual_step_coupling.cpp
+new file mode 100644
+index 0000000..63e8afb
+--- /dev/null
++++ b/tests/test_lazyqp_dual_step_coupling.cpp
+@@ -0,0 +1,88 @@
++#include "lazyipdca_qcqp/inner_lazyqp.hpp"
++
++#include <cmath>
++#include <iostream>
++#include <stdexcept>
++
++using namespace lazyipdca::qcqp;
++
++static ConvexSubproblem make_dual_jump_problem() {
++  ConvexSubproblem p;
++  p.nvar=2;
++  p.original_dimension=2;
++  p.prefer_feasible_centered_start=true;
++
++  // A nearly flat objective direction creates a very large primal Newton
++  // component.  Its dual component must be damped whenever that primal
++  // component is backtracked by the exact nonlinear residual test.
++  p.objective.constant=0.0;
++  p.objective.linear={-0.9,-0.0945696};
++  p.objective.base_hessian.n=2;
++  p.objective.base_hessian.entries={{1,1,1e-16}};
++
++  // x + 0.5e-14 y^2 <= 0 and x >= -1.  The optimum is
++  // x=-1, y=sqrt(2e14).  The problem is convex and strictly feasible.
++  ConvexQuadraticModel curved;
++  curved.constant=0.0;
++  curved.linear={1.0,0.0};
++  curved.base_hessian.n=2;
++  curved.base_hessian.entries={{1,1,1e-14}};
++  p.inequalities.push_back(curved);
++
++  ConvexQuadraticModel x_lower;
++  x_lower.constant=-1.0;
++  x_lower.linear={-1.0,0.0};
++  x_lower.base_hessian.n=2;
++  p.inequalities.push_back(x_lower);
++
++  // Reproduce the many-row barrier scaling of the failure without adding
++  // curvature or changing the minimizer.  These rows are strictly inactive.
++  for(int i=0;i<100;++i) {
++    ConvexQuadraticModel redundant;
++    redundant.constant=-1e-4;
++    redundant.linear={0.0,0.0};
++    redundant.base_hessian.n=2;
++    p.inequalities.push_back(redundant);
++  }
++
++  p.equalities.nvar=2;
++  return p;
++}
++
++int main() {
++  try {
++    Settings st;
++    st.verbose=false;
++    st.max_inner_iterations=100;
++    st.inner_tolerance=1e-7;
++    st.inner_iteration_limit_mu_fallback=1e-6;
++
++    const InnerResult r=ConvexQCQPLazyQPKernel(st).solve(make_dual_jump_problem());
++    if(!r.success)
++      throw std::runtime_error("coupled-step LazyQP failed: "+r.message);
++    if(r.message.find("nonlinear-residual")==std::string::npos)
++      throw std::runtime_error("dual-step regression did not use nonlinear-residual LazyQP");
++    if(r.y.size()!=2 || !std::isfinite(r.y[0]) || !std::isfinite(r.y[1]))
++      throw std::runtime_error("dual-step regression returned invalid primal variables");
++
++    const double expected_y=std::sqrt(2.0e14);
++    if(std::abs(r.y[0]+1.0)>1e-5 ||
++       std::abs(r.y[1]-expected_y)>2e-5*expected_y)
++      throw std::runtime_error("dual-step regression converged to the wrong minimizer");
++    if(r.dual_inf>5e-6 || r.primal_residual_inf>5e-6 ||
++       r.inequality_inf>5e-6 || r.complementarity>2e-6)
++      throw std::runtime_error("dual-step regression KKT residual is too large");
++    if(r.iterations>=60)
++      throw std::runtime_error("dual-step regression lost the coupled-step escape");
++
++    std::cout << "[PASS] LazyQP coupled-step regression it="<<r.iterations
++              << " dual="<<r.dual_inf
++              << " pri="<<r.primal_residual_inf
++              << " mu="<<r.complementarity
++              << " y="<<r.y[1]<<"\n";
++    return 0;
++  } catch(const std::exception& e) {
++    std::cerr << "[FAIL] "<<e.what()<<"\n";
++    return 1;
++  }
++}
+diff --git a/tests/test_lazyqp_fixed_native_shift.cpp b/tests/test_lazyqp_fixed_native_shift.cpp
+new file mode 100644
+index 0000000..8546346
+--- /dev/null
++++ b/tests/test_lazyqp_fixed_native_shift.cpp
+@@ -0,0 +1,69 @@
++#include "lazyipdca_qcqp/inner_lazyqp.hpp"
++
++#include <cmath>
++#include <iostream>
++#include <stdexcept>
++#include <string>
++
++using namespace lazyipdca::qcqp;
++
++static ConvexSubproblem make_flat_problem() {
++  ConvexSubproblem p;
++  p.nvar=1;
++  p.original_dimension=1;
++  p.prefer_feasible_centered_start=true;
++
++  // With no objective Hessian and no constraint Jacobian, the primal KKT row
++  // is identically zero unless the Settings-level primal shift is assembled.
++  p.objective.constant=0.0;
++  p.objective.linear={-1.0};
++  p.objective.base_hessian.n=1;
++
++  ConvexQuadraticModel inactive;
++  inactive.constant=-1.0;
++  inactive.linear={0.0};
++  inactive.base_hessian.n=1;
++  p.inequalities.push_back(inactive);
++
++  p.equalities.nvar=1;
++  return p;
++}
++
++int main() {
++  try {
++    Settings no_shift;
++    no_shift.verbose=false;
++    no_shift.linear_backend="native";
++    no_shift.kkt_adaptive_regularization=false;
++    no_shift.kkt_primal_regularization=0.0;
++    no_shift.kkt_dual_regularization=0.0;
++    no_shift.max_inner_iterations=1;
++
++    const InnerResult singular=ConvexQCQPLazyQPKernel(no_shift).solve(make_flat_problem());
++    if(singular.message.find("KKT factorization failed")==std::string::npos)
++      throw std::runtime_error("unshifted flat KKT did not expose the singular native system");
++
++    Settings shifted=no_shift;
++    shifted.kkt_primal_regularization=1e-6;
++    shifted.kkt_dual_regularization=1e-8;
++    const InnerResult regularized=ConvexQCQPLazyQPKernel(shifted).solve(make_flat_problem());
++
++    if(regularized.message.find("KKT factorization failed")!=std::string::npos)
++      throw std::runtime_error("fixed native KKT shifts were not assembled");
++    if(regularized.factorizations<1)
++      throw std::runtime_error("regularized native KKT was not factored");
++    if(std::abs(regularized.final_kkt_rho_x-shifted.kkt_primal_regularization)>1e-18)
++      throw std::runtime_error("reported rho_x does not match the assembled fixed shift");
++    if(std::abs(regularized.final_kkt_delta_d-shifted.kkt_dual_regularization)>1e-18)
++      throw std::runtime_error("reported delta_d does not match the assembled fixed shift");
++
++    std::cout << "[PASS] LazyQP native fixed KKT shift rho_x="
++              << regularized.final_kkt_rho_x
++              << " delta_d=" << regularized.final_kkt_delta_d
++              << " fact=" << regularized.factorizations << "\n";
++    return 0;
++  } catch(const std::exception& e) {
++    std::cerr << "[FAIL] " << e.what() << "\n";
++    return 1;
++  }
++}
+diff --git a/tests/test_lazyqp_lowrank_condensation.cpp b/tests/test_lazyqp_lowrank_condensation.cpp
+new file mode 100644
+index 0000000..7a0513f
+--- /dev/null
++++ b/tests/test_lazyqp_lowrank_condensation.cpp
+@@ -0,0 +1,74 @@
++#include "lazyipdca_qcqp/inner_lazyqp.hpp"
++
++#include <cmath>
++#include <iostream>
++#include <stdexcept>
++
++using namespace lazyipdca::qcqp;
++
++static ConvexSubproblem make_problem() {
++  ConvexSubproblem p;
++  p.nvar=2;
++  p.original_dimension=2;
++  p.prefer_feasible_centered_start=true;
++
++  p.objective.linear={-1.0,-0.2};
++  p.objective.base_hessian.n=2;
++  p.objective.base_hessian.entries={{0,0,0.2},{1,1,0.2}};
++  p.objective.low_rank.push_back({1.0,{1.0,1.0}});
++
++  ConvexQuadraticModel curved;
++  curved.constant=-1.0;
++  curved.linear={0.0,0.0};
++  curved.base_hessian.n=2;
++  curved.low_rank.push_back({2.0,{1.0,0.0}}); // x_0^2 <= 1
++  p.inequalities.push_back(curved);
++
++  ConvexQuadraticModel lower;
++  lower.constant=-1.0;
++  lower.linear={0.0,-1.0};
++  lower.base_hessian.n=2;
++  p.inequalities.push_back(lower);
++
++  ConvexQuadraticModel upper;
++  upper.constant=-1.0;
++  upper.linear={0.0,1.0};
++  upper.base_hessian.n=2;
++  p.inequalities.push_back(upper);
++
++  p.equalities.nvar=2;
++  return p;
++}
++
++int main() {
++  try {
++    Settings condensed;
++    condensed.verbose=false;
++    condensed.max_inner_iterations=200;
++    condensed.inner_tolerance=1e-8;
++    condensed.inner_iteration_limit_mu_fallback=1e-6;
++    condensed.exact_eigen_threshold=256;
++
++    Settings bordered=condensed;
++    bordered.exact_eigen_threshold=0;
++
++    const InnerResult rc=ConvexQCQPLazyQPKernel(condensed).solve(make_problem());
++    const InnerResult rb=ConvexQCQPLazyQPKernel(bordered).solve(make_problem());
++    if(!rc.success || !rb.success)
++      throw std::runtime_error("condensed/bordered low-rank solve failed");
++    if(rc.y.size()!=2 || rb.y.size()!=2)
++      throw std::runtime_error("condensed/bordered low-rank dimension mismatch");
++    if(std::abs(rc.y[0]-rb.y[0])>1e-7 || std::abs(rc.y[1]-rb.y[1])>1e-7)
++      throw std::runtime_error("condensed and bordered low-rank KKT solutions differ");
++    if(std::abs(rc.y[0]-1.0)>5e-5 || std::abs(rc.y[1]+2.0/3.0)>5e-5)
++      throw std::runtime_error("low-rank condensation returned wrong minimizer");
++
++    std::cout << "[PASS] exact low-rank condensation matches bordered KKT"
++              << " y="<<rc.y[0]<<","<<rc.y[1]
++              << " it="<<rc.iterations<<"\n";
++    return 0;
++  } catch(const std::exception& e) {
++    std::cerr << "[FAIL] "<<e.what()<<"\n";
++    return 1;
++  }
++}
+diff --git a/tools/run_a4x12_v046_lazy_dca.sh b/tools/run_a4x12_v046_lazy_dca.sh
+new file mode 100755
+index 0000000..094121c
+--- /dev/null
++++ b/tools/run_a4x12_v046_lazy_dca.sh
+@@ -0,0 +1,50 @@
++#!/usr/bin/env bash
++set -u
++ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
++INNER="${INNER:-lazyqp}"
++BACKEND="${BACKEND:-native}"
++CACHE="${PYCUTEST_CACHE:-/data/projects/IPDCA_QCQP/pycutest_cache}"
++OUT="/data/projects/IPDCA_QCQP/results/v046_lazy_dca_${INNER}_${BACKEND}/A4X12"
++LOGDIR="/data/projects/IPDCA_QCQP/logs/v046_lazy_dca_${INNER}_${BACKEND}"
++mkdir -p "$OUT" "$LOGDIR"
++
++export OMP_NUM_THREADS=1
++export OPENBLAS_NUM_THREADS=1
++export MKL_NUM_THREADS=1
++export BLIS_NUM_THREADS=1
++export PYCUTEST_CACHE="$CACHE"
++
++printf '[RUNNER] version='; "$ROOT/build/lazyipdca_qcqp_cli" --version
++printf '[RUNNER] algorithm=lazy-dca inner=%s linear=%s\n' "$INNER" "$BACKEND"
++printf '[RUNNER] work=%s\n' "$OUT"
++
++python -u "$ROOT/python/run_cutest_qcqp.py" A4X12 \
++  --binary "$ROOT/build/lazyipdca_qcqp_cli" \
++  --work-dir "$OUT" --cache "$CACHE" \
++  --algorithm lazy-dca \
++  --inner-backend "$INNER" --linear-backend "$BACKEND" --linear-metis 1 \
++  --kkt-adaptive-reg \
++  --max-outer "${MAX_OUTER:-1000}" --max-inner "${MAX_INNER:-1000}" \
++  --time-limit "${TIME_LIMIT:-900}" \
++  --feas-tol "${FEAS_TOL:-1e-6}" \
++  --opt-tol "${OPT_TOL:-1e-5}" \
++  --dual-inf-tol "${DUAL_TOL:-1e-5}" \
++  --compl-inf-tol "${COMP_TOL:-1e-5}" \
++  --inner-tol "${INNER_TOL:-1e-7}" \
++  --inner-mu-fallback-tol "${INNER_MU_FALLBACK_TOL:-1e-6}" \
++  --lazyqp-mu0 "${LAZYQP_MU0:-1e-4}" \
++  --lazyqp-mu-r "${LAZYQP_MU_R:-0.1}" \
++  --lazyqp-mu-theta "${LAZYQP_MU_THETA:-0.1}" \
++  --lazyqp-mu-inner-max "${LAZYQP_MU_INNER_MAX:-0}" \
++  --no-inner-warm-start \
++  --dca-extra-prox "${DCA_EXTRA_PROX:-0}" \
++  --dca-affine-full-limit "${DCA_AFFINE_FULL_LIMIT:-4096}" \
++  --activation "${ACTIVATION:-1e-4}" \
++  --working-set-drop-slack "${WS_DROP_SLACK:-2e-4}" \
++  --working-set-drop-mu "${WS_DROP_MU:-1e-9}" \
++  --max-objective-rank "${MAX_OBJECTIVE_RANK:-64}" \
++  --max-constraint-rank "${MAX_CONSTRAINT_RANK:-24}" \
++  --lanczos-steps "${LANCZOS_STEPS:-40}" \
++  --lanczos-starts "${LANCZOS_STARTS:-2}" \
++  --exact-eigen-threshold "${EXACT_EIGEN_THRESHOLD:-256}" \
++  --verbose 1 2>&1 | tee "$LOGDIR/A4X12.log"
+diff --git a/tools/run_a4x12_v046_lazyqp.sh b/tools/run_a4x12_v046_lazyqp.sh
+new file mode 100755
+index 0000000..22b6b49
+--- /dev/null
++++ b/tools/run_a4x12_v046_lazyqp.sh
+@@ -0,0 +1,3 @@
++#!/usr/bin/env bash
++set -u
++INNER="lazyqp" BACKEND="${BACKEND:-native}" bash "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/run_a4x12_v046_lazy_dca.sh"

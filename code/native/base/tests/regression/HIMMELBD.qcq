@@ -1,0 +1,31 @@
+LAZYIPDCA_QCQP_V1
+name HIMMELBD
+n 2
+x0 1 1
+lb -INF -INF
+ub INF INF
+objective
+quadratic
+name objective
+constant 0
+linear 0 0
+hessian_nnz 0
+end_quadratic
+equalities 2
+quadratic
+name G1
+constant -1
+linear 0 12
+hessian_nnz 1
+0 0 2
+end_quadratic
+quadratic
+name G2
+constant -681
+linear 84 2324
+hessian_nnz 2
+0 0 98
+1 1 98
+end_quadratic
+inequalities 0
+end_problem

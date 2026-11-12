@@ -1,0 +1,26 @@
+LAZYIPDCA_QCQP_V1
+name BT1
+n 2
+x0 0.080000000000000002 0.059999999999999998
+lb -INF -INF
+ub INF INF
+objective
+quadratic
+name objective
+constant -100
+linear -1 0
+hessian_nnz 2
+0 0 200
+1 1 200
+end_quadratic
+equalities 1
+quadratic
+name CON1
+constant -1
+linear 0 0
+hessian_nnz 2
+0 0 2
+1 1 2
+end_quadratic
+inequalities 0
+end_problem

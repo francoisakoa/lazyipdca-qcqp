@@ -1,0 +1,24 @@
+[SOLVER-ROUTE] stage=primary optimizer=Lazy fallback_policy=off full_primary_budget=1 global_seconds=30 input_x0_unchanged=1
+[STANDARD-AUTO] policy=off mode=historical reason=explicit-standard-policy-off requested_engine=majorants effective_engine=majorants configuration=R3 stabilization=0 GR=0 source_barrier=0 short_prox=0 positive_bound_product=0 consistent_bound_repair=0 consistent_bound_trigger=always exact_global_faces=0 atomic_regularization=1 initial_mu=0.0001 startup=legacy requested_startup=legacy rank_presolve=0 requested_rank_presolve=0 free_epigraph_presolve=0 requested_free_epigraph_presolve=0 checkpoint_requested=0 checkpoint_effective=0 builtin_checkpoint_skipped=0 full_source_rows=0 input_x0_unchanged=1 warm_initializer=0
+[GR-ADJUSTMENTS] active=0 constraint_increments=coefficients proximal_policy=historical fixed_centering_steps=0 residual_components=1 equality_Hessian=exact Armijo_unchanged=1 original_KKT_unchanged=1
+[MAJORANT-LINEAR] requested=mumps metis=1 factory=mumps_sym_indef_metis_persistent_symbolic_envelope_refined cross_backend_fallback=0
+LazyIPDCA | outer inequality majorants · original filter · original KKT
+[MAJORANTS] outer_only=1 predictor_corrector=0 auxiliary_completion=0 inner_rule=historical-single-Newton original_filter=1 slack_transport=0 slack_policy=historical-unchanged objective_convexification=off initial_mu=0.0001 initialization=actual-complementarity-mean predictor_corrector_requested=0
+[MAJORANT-SPECTRAL] rows=1 envelope_unchanged=1 primal_dual_barrier_gate=1
+[MAJORANT-ITER] iter=0 objective=2.08 original_primal=0 original_dual=0.999853 original_compl=0.0001 mu=0.0001 atomsO=0 rhoO=0 rhoO_floor=0 rhoO_excess=0 rhoI=2.02971 rhoKKT=0 seconds=0.000352773
+[MUMPS-ORDERING] phase=initial requested_ordering=5 requested_analysis=1 actual_ordering=5 actual_analysis=1
+[MAJORANT-ITER] iter=1 objective=1.3921 original_primal=0 original_dual=0.999774 original_compl=0.0001 mu=0.0001 atomsO=0 rhoO=0 rhoO_floor=0 rhoO_excess=0 rhoI=2.02971 rhoKKT=0 seconds=0.00102994
+[MAJORANT-ITER] iter=2 objective=1.38665 original_primal=0 original_dual=0.999586 original_compl=0.0001 mu=0.0001 atomsO=0 rhoO=0 rhoO_floor=0 rhoO_excess=0 rhoI=2.02971 rhoKKT=0 seconds=0.00114689
+[MAJORANT-ITER] iter=3 objective=1.12255 original_primal=0 original_dual=0.480912 original_compl=0.0596844 mu=0.0001 atomsO=0 rhoO=0 rhoO_floor=0 rhoO_excess=0 rhoI=2.02971 rhoKKT=0 seconds=0.00125807
+[MAJORANT-ITER] iter=4 objective=0.962282 original_primal=0.0651868 original_dual=0.127538 original_compl=0.0293127 mu=0.0001 atomsO=0 rhoO=0 rhoO_floor=0 rhoO_excess=0 rhoI=2.02971 rhoKKT=0 seconds=0.00133708
+[MAJORANT-ITER] iter=5 objective=0.993258 original_primal=0.00337108 original_dual=0.0249129 original_compl=0.00172701 mu=0.0001 atomsO=0 rhoO=0 rhoO_floor=0 rhoO_excess=0 rhoI=2.02971 rhoKKT=0 seconds=0.00141738
+[MAJORANT-ITER] iter=6 objective=0.995041 original_primal=0 original_dual=0.00180595 original_compl=0.0001 mu=0.0001 atomsO=0 rhoO=0 rhoO_floor=0 rhoO_excess=0 rhoI=2.02971 rhoKKT=0 seconds=0.00159984
+[MAJORANT-ITER] iter=7 objective=0.995042 original_primal=0 original_dual=1.57367e-06 original_compl=0.0001 mu=2e-05 atomsO=0 rhoO=0 rhoO_floor=0 rhoO_excess=0 rhoI=2.02971 rhoKKT=0 seconds=0.00170804
+[MAJORANT-ITER] iter=8 objective=0.994962 original_primal=0 original_dual=8.04944e-05 original_compl=2.00072e-05 mu=4e-06 atomsO=0 rhoO=0 rhoO_floor=0 rhoO_excess=0 rhoI=2.02971 rhoKKT=0 seconds=0.00178455
+[MAJORANT-ITER] iter=9 objective=0.994946 original_primal=0 original_dual=1.61233e-05 original_compl=4.00029e-06 mu=8e-07 atomsO=0 rhoO=0 rhoO_floor=0 rhoO_excess=0 rhoI=2.02971 rhoKKT=0 seconds=0.00185511
+[MAJORANT-ITER] iter=10 objective=0.994942 original_primal=0 original_dual=3.22314e-06 original_compl=8.00012e-07 mu=1.6e-07 atomsO=0 rhoO=0 rhoO_floor=0 rhoO_excess=0 rhoI=2.02971 rhoKKT=0 seconds=0.00192032
+[MAJORANT-OPTIONS] restoration=0 retraction=0 hybrid_soc=0 gr_defined_soc=0 gr_kkt_soc=0 consistent_bound_master=0 consistent_bound_trigger=always soc_attempts=0 soc_accepted=0 soc_rejected=0
+
+EXIT: filter-accepted point satisfies independent original QCQP KKT
+[NATIVE-AL-FALLBACK] attempted=0 accepted=0 reason="primary-original-KKT-no-fallback" primary_status=solved fallback_status=not-run primary_seconds=0.00226294 preflight_seconds=0 AL_seconds=0 final_audit_seconds=0 total_seconds=0.002277 primary_outer_iterations=11 AL_accepted_Newton_steps=0 total_factorizations=11
+[SOLVER-ROUTE] endpoint=lazy fallback_accepted=0 original_QCQP_KKT=1 primary_retained=1

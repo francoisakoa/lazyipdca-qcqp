@@ -1,0 +1,68 @@
+{
+  "schema": "independent-persistence-controller-review-v1",
+  "utc": "2026-11-10T13:48:58.207071+00:00",
+  "status": "passed_after_targeted_corrections",
+  "read_only_source_review": true,
+  "qcqp_solver_invocations": 0,
+  "sources": {
+    "PERSISTANCE.py": "00157a8fde9f966cb3baa70e3a8bd354f2be0a1e406649e81f91f49b67b213cf",
+    "TEST_PERSISTANCE.py": "8ba8c6342952aa020209125b4529388b46fd64c385e848de2e4a9939dc32120e",
+    "support_chronos/CHRONO_CALME.py": "042a19462fa16bd0dd8d52036a39e454c22866bf175774ada273e40df694f98a",
+    "ETUDE_PERSISTANCE.py": "f78a1b758b0d95b55e79d3d225db7217448f207224bb081d3ed63ea40e66baa2",
+    "LANCER_PERSISTANCE.sh": "c2128b195358894b24a23d5b6c810d1c2283de12929e6a05e0b7b745c8984715",
+    "SUIVRE_PERSISTANCE.py": "2afd06a8fdff5fb53b5d2d91be4446430ad71f8c8ea45ce7549d09bf34148e16",
+    "COMMANDES.txt": "4cf58842e7b44aa36b24bcea3e28909b6ec0625ff2ca7f7634aab7591502fba8"
+  },
+  "validation": {
+    "controller_tests": 14,
+    "quiet_monitor_tests": 12,
+    "all_passed": true,
+    "independently_rerun": true,
+    "bash_syntax": "passed",
+    "additional_isolated_checks": [
+      "work mutation rejected independently of valid audit binding",
+      "direction origin mutation rejected with otherwise matching endpoints/work"
+    ]
+  },
+  "verified": [
+    "Frozen 24 backend pairs, 72 reference/reuse/rebuild controls and 144 timed runs, using fresh processes and raw starts.",
+    "Original inputs, raw starts, binaries, compiled source, dependencies and runtime are pinned by SHA256; preparation and summary invoke no optimizer.",
+    "A single numerical thread on CPU 0; foreign work is monitored on all CPU cores; termination targets only owned process groups.",
+    "Resume validates immutable raw artifacts, recovers the first finalized clean attempt including numerical failure, and checks for previously owned live solver/audit processes in both phase directories.",
+    "Qualification checks actual commands, threads, budgets, backend routes, original audit input/endpoint hashes, all nonclock numerical/work fields, and every ordered trace field except mode.",
+    "A native final session plus complete model summaries bind construction and reuse counts; the legitimate zero-model path requires explicit native zero.",
+    "Pure cache-cost ratios require three certified repetitions per mode, endpoint/work parity, repetition stability and actual cache exercise; every mismatch and inactive pair remains reported.",
+    "Study wrapper APIs, historical default paths and the 216-run count agree; the plan and selected build are pinned, partial builds are retained, and completion requires all 144 measurements plus valid qualification."
+  ],
+  "findings": [
+    {
+      "id": "incomplete-cache-evidence",
+      "state": "corrected_and_regression_verified",
+      "problem": "Empty JSONL and complete=False model rows were accepted.",
+      "resolution": "Complete model rows plus final session footer and explicit native zero-model proof now required."
+    },
+    {
+      "id": "trace-fields-dropped",
+      "state": "corrected_and_regression_verified",
+      "problem": "Initial trace reader omitted outer/origin and did not accept controller event.",
+      "resolution": "All declared trace fields except intervention mode compared; schema/mode/per-instance event counts and order checked."
+    },
+    {
+      "id": "timed-numerical-parity",
+      "state": "corrected_and_regression_verified",
+      "problem": "Strict success alone could qualify different numerical endpoints for pure cache-cost speed summary.",
+      "resolution": "Timed endpoint/work parity and repeat stability gate ratios; differences retained without rerun; valid native qualification required."
+    },
+    {
+      "id": "completed-malformed-endpoint",
+      "state": "corrected_and_regression_verified",
+      "problem": "Final hash parsing of malformed completed endpoint could raise after initial error handling and allow numerical rerun on resume.",
+      "resolution": "Malformed endpoint/audit becomes finalized indeterminate outcome; no unguarded final parsing; audit input/endpoint hashes checked."
+    }
+  ],
+  "limits": [
+    "This independent review used synthetic controller processes and fixtures; no QCQP solver was run by this reviewer.",
+    "Full native MUMPS validation is a separate build-agent task; production MA27/MUMPS qualification on the 24 pairs remains to be run on TRX.",
+    "The CPU quiet threshold does not certify absence of memory, I/O, thermal or frequency contention."
+  ]
+}

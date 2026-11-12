@@ -1,0 +1,61 @@
+{
+  "schema": "lazyqcqp-bundled-inputs-r24-v1",
+  "count": 9,
+  "bytes": 6395435,
+  "cases": [
+    {
+      "case_id": "CUTEst__CORE2",
+      "relative": "bundled_frozen/CUTEst__CORE2/input.qcq",
+      "sha256": "6d54ef837f9c2ed2738860daefc658310332272853856391cec19dbbe8f58b04",
+      "bytes": 108294
+    },
+    {
+      "case_id": "mitt_boundary_cont6_n0070",
+      "relative": "bundled_frozen/mitt_boundary_cont6_n0070/input.qcq",
+      "sha256": "6da943a4ca12c70cee96e6087ca23983feb3a0c86c65fb9b8e66ef4a6ef4239f",
+      "bytes": 1000360
+    },
+    {
+      "case_id": "mitt_boundary_cont6_n0069",
+      "relative": "bundled_frozen/mitt_boundary_cont6_n0069/input.qcq",
+      "sha256": "147646f0c47d96c932da63261ac1af96f799ede838fa3ff2de9118e3afec7011",
+      "bytes": 968358
+    },
+    {
+      "case_id": "mitt_boundary_cont6_n0071",
+      "relative": "bundled_frozen/mitt_boundary_cont6_n0071/input.qcq",
+      "sha256": "fc65d933e0f1cce2d4a705cf0e699a9db7c8869b648c536cdfad6cb44758ff09",
+      "bytes": 1024212
+    },
+    {
+      "case_id": "mitt_boundary_cont6_n0072",
+      "relative": "bundled_frozen/mitt_boundary_cont6_n0072/input.qcq",
+      "sha256": "465ab07c1c76088dbfe2a4b2d37e1c5a115d86f8921f647b69d20634f9a20845",
+      "bytes": 1056267
+    },
+    {
+      "case_id": "mitt_boundary_cont6_n0004",
+      "relative": "bundled_frozen/mitt_boundary_cont6_n0004/input.qcq",
+      "sha256": "67751749bc17bfa9da0e103ded86f1d5d306dd2956870cddbb4fd6472b69664e",
+      "bytes": 7349
+    },
+    {
+      "case_id": "mitt_boundary_cont6_n0103",
+      "relative": "bundled_frozen/mitt_boundary_cont6_n0103/input.qcq",
+      "sha256": "887b4406337177e57c2e2506574ea4715a131015540ab5eb11a5bfe3466f32b6",
+      "bytes": 2124245
+    },
+    {
+      "case_id": "cops_minsurf_epi_nx0010_ny0010",
+      "relative": "bundled_frozen/cops_minsurf_epi_nx0010_ny0010/input.qcq",
+      "sha256": "9b0718c777c3399329777e21ce44c86e1cb5e0d7f069f87a927781d3e8c68bf2",
+      "bytes": 58394
+    },
+    {
+      "case_id": "cops_minsurf_epi_nx0010_ny0008",
+      "relative": "bundled_frozen/cops_minsurf_epi_nx0010_ny0008/input.qcq",
+      "sha256": "1e70f17fdf1f34956de6ae02662015159c77cb69aa39d0363648fa442a6cd0c1",
+      "bytes": 47956
+    }
+  ]
+}

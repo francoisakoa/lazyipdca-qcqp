@@ -1,0 +1,132 @@
+{
+  "schema": "jogo-r15-validation-v1",
+  "documents": {
+    "Akoa_LazyQCQP_20261110_R15": {
+      "pages": 34,
+      "pdf_sha256": "210f0fdc8b9f86410819e52f9ace6317642091fa5f86c2e0e1e5c67f53e22271",
+      "source_sha256": "651e6037aae82a798578c0487fb767008992660eba61622e63a96de412cc0cfb"
+    },
+    "Akoa_LazyQCQP_20261110_R15_Supplement": {
+      "pages": 61,
+      "pdf_sha256": "351c53987d13ddc2d2b8d06a8127b0e1540ebb7bb6f84091d96c4a804a359488",
+      "source_sha256": "089333875f0465ba43607f622cb68d0057b7cec89c9df80ad6d412d36a527bd4"
+    }
+  },
+  "warnings": {
+    "main": [],
+    "si": []
+  },
+  "formal_blocks_and_proofs_unchanged": 40,
+  "formal_preservation": [
+    {
+      "file": "Akoa_LazyQCQP_20261108.tex",
+      "blocks": 15,
+      "identical": true
+    },
+    {
+      "file": "Akoa_LazyQCQP_supplement_20261108.tex",
+      "blocks": 17,
+      "identical": true
+    },
+    {
+      "file": "pont_global_local.tex",
+      "blocks": 8,
+      "identical": true
+    }
+  ],
+  "all_preexisting_figures_unchanged": true,
+  "empirical_figures_retained_from_R14": [
+    "aligned_core_performance_profiles",
+    "aligned_equality_performance_profiles"
+  ],
+  "official_springer_class_unmodified": true,
+  "independent_manuscript_numeric_cells": 864,
+  "independent_archived_summary_numeric_cells": 11340,
+  "paired_analysis_portable_tables": 19,
+  "package_portable_tables": 28,
+  "pair_summaries_reproduced": 630,
+  "optimizer_invocations": 0,
+  "new_endpoint_audits": 0,
+  "archived_audit_scope": "Independent archived audit/result reports and bindings; raw QCQP coefficients, solver endpoints and logs are not present, so no new residual evaluation is claimed.",
+  "pending": [
+    "Controlled refinement outcomes not supplied for this revision; no new factorial conclusion.",
+    "Fixed-policy implied-bound removal ablation."
+  ],
+  "refinement_recovery_kit_included": false,
+  "requested_abstract_verbatim_except_TeX_typography": true,
+  "analysis_files_identical_to_R14": 91,
+  "analyses_unchanged": true,
+  "linear_algebra_documentation_audit": {
+    "schema": "r15-linear-algebra-documentation-audit-v1",
+    "version": "5.4.1",
+    "same_library_sha256": "d334646f4f00745fc543013e8928fe9a71193089abb773bae91717b8a9d4b75a",
+    "native_binary_sha256": "a8abc39c23d28ad6ca48f71f53f9eb98a3659b9a7e15f1b608faf420121c8ab8",
+    "ipopt_binary_sha256": "7f063a00de81fbbfcd8b95a969bbd0a6dda9a4a11bff155fe7942b76a260f256",
+    "ipopt_version": "3.14.11",
+    "archive_sha256": "8efc0cdd2d3596833c1dff20570cbcf2f1b660766bd88a1dca3b8b4848cbc01f",
+    "native_build_receipt_sha256": "7d3826255de03cf1b40db10475552afd52bd738d70a916d806a0d947f08ee40c",
+    "native_dependencies_receipt_sha256": "d22ef5d20148bc12278acd1ec015ac2c5053d30d9df412041880533d2e86fc84",
+    "native_source_sha256": {
+      "src/linear_solver.cpp": "e85e1faef46ae32128338adba14eec1dcfdc056f880e7931dc9ceabf896a5506",
+      "src/main.cpp": "de5b5191a4d59575a31d74524501e495ac3069c9ee4c3e1c7e4723c201726daa",
+      "src/mumps_memory_recovery.hpp": "64839cec4e484b2542ad4faf7978fd874577a16c0bd73cd5b6cc80161f2a9fd6",
+      "src/bounded_pivot_recovery.hpp": "fda7918acbcf1d820f427160fb7e3874f3f9bc5e5d0c746fec42d8f5af383772",
+      "src/hsl_ma27_factorization.hpp": "e89cc276cfc5ee5a12706ecdb12c9dcdfe8b6502c37ba7dcddc32230011c387f",
+      "include/lazyipdca_qcqp/settings.hpp": "465b2c82a505e579ad7d1c36f0b3eb8762cdae99e8a3fe77b6a6720818188f41"
+    },
+    "native_mumps": {
+      "ordering": 5,
+      "matching": 7,
+      "scaling": 77,
+      "pivot_initial": 0.01,
+      "pivot_maximum": 0.1,
+      "memory_margin_initial_percent": 20,
+      "memory_margin_maximum_percent": 6400,
+      "ICNTL_13": 1,
+      "ICNTL_28": 1,
+      "ICNTL_10": 0,
+      "recovery_preconditioner": {
+        "ICNTL_6": 5,
+        "ICNTL_12": 2
+      }
+    },
+    "ipopt_mumps": {
+      "ordering": 7,
+      "matching": 7,
+      "scaling": 77,
+      "pivot_initial": 1e-06,
+      "pivot_maximum": 0.1,
+      "memory_margin_initial_percent": 1000,
+      "memory_growth": 2,
+      "memory_retries": 20,
+      "ICNTL_13": 1,
+      "ICNTL_28": 1,
+      "ICNTL_10": 0
+    },
+    "evidence_scope": {
+      "version_and_ipopt_ordering": "campaign records",
+      "native_controls": "source bound to native build",
+      "other_ipopt_controls": "official release 3.14.11 defaults, no explicit overrides and ambient option file disabled",
+      "local_library_probe": "initialization/finalization only, performed by audit agent; no factorization or solve"
+    },
+    "ma27": {
+      "native_pivot_initial": 1e-08,
+      "native_workspace_factor": 1.5,
+      "separate_control_initialization": "MA27ID",
+      "inherits_mumps_controls": false
+    },
+    "editorial_decisions": {
+      "default_cli_verified": true,
+      "pre_campaign_reference_preregistration_independently_proven": false,
+      "less_mature_claim_established": false,
+      "fewer_tested_classes_claim_established": false,
+      "reference_paragraph": "verified default and observed sensitivity; no maturity or inherited-setting claims"
+    },
+    "optimizer_invocations": 0,
+    "native_factorizations": 0,
+    "native_solves": 0
+  },
+  "timing_quartiles_added": true,
+  "MUMPS_version": "5.4.1",
+  "same_library_different_interface_controls": true
+}

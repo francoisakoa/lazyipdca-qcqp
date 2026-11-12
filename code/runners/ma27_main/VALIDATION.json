@@ -1,0 +1,352 @@
+{
+  "schema": "mega-ma27-defaults-delivery-v1",
+  "main_cases": 4078,
+  "main_datasets": 28,
+  "main_tasks": 32624,
+  "native_backend": "ma27",
+  "historical_native_methods": [
+    "R3",
+    "HH",
+    "HS",
+    "SH",
+    "SS",
+    "SS_legacy"
+  ],
+  "ipopt_default_backends": [
+    "ma27",
+    "mumps"
+  ],
+  "with_factorial_tasks": 39960,
+  "cpus": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+  ],
+  "solver_threads": 1,
+  "seconds": 7200,
+  "max_outer": 5000,
+  "shared_restoration": 600,
+  "frozen_data_modified": false,
+  "prior_installation_modified": false,
+  "prior_numeric_results_reused": false,
+  "actual_MA27_numerical_qualification_completed_locally": false,
+  "full_4078_input_check_completed_on_TRX": false,
+  "actual_1834_and50_factorial_gates_completed": false,
+  "remote_campaign_launched": false,
+  "native_build_evidence": {
+    "schema": "native-ma27-local-build-fail-closed-validation-v1",
+    "source_bound": true,
+    "homogeneous_compilation": true,
+    "translation_units": 20,
+    "binary": "/workspace/scratch/da3e31fd0a48/mega_ma27/validation/native_hsl_final_compile/lazyipdca_qcqp_cli",
+    "binary_sha256": "a543ca276f56b603187a2de33b670a60156a402be6e76c345e73e97bd1e06a83",
+    "build_proof": "/workspace/scratch/da3e31fd0a48/mega_ma27/validation/native_hsl_final_compile/BUILD_NATIVE.json",
+    "build_proof_sha256": "9e79cfc83e4b1ae2c773c1ec37c76b6eefce271a85f08241130b267348d84540",
+    "compiled_backends": [
+      "native",
+      "ma27"
+    ],
+    "mumps_linked": false,
+    "missing_hsl_returncode": 2,
+    "missing_hsl_produced_endpoint": false,
+    "missing_hsl_error_explicit": true,
+    "actual_hsl_numerical_qualification": false,
+    "licensed_hsl_available": false,
+    "production_authorized": false,
+    "scope": "Compilation of final backend-support overlay and rejection of missing real HSL; no MA27 optimizer success is claimed"
+  },
+  "source_of_previous_controller": {
+    "schema": "previous-mega-runtime-recovery-audit-v1",
+    "archive_library_file_id": "libfile_30df940a100c819197682f7b9b765d44",
+    "archive_filename": "LAZYQCQP_MEGA_PROPRE_20261105_API4390_R2.zip",
+    "source_root": "/workspace/scratch/da3e31fd0a48/repair_R2/previous_runtime/extracted/LAZYQCQP_MEGA_PROPRE_20261105_API4390_R2",
+    "published_runtime_comparison": [
+      {
+        "path": "campaign/CAMPAIGN_RUNTIME_MANIFEST.json",
+        "published_sha256": "3b19bec471bc52ea0a1425e2cd27ffe5c011a1836112f414c0e38d7777cff2bb",
+        "recovered_sha256": "3b19bec471bc52ea0a1425e2cd27ffe5c011a1836112f414c0e38d7777cff2bb",
+        "same": true
+      },
+      {
+        "path": "campaign/CANONICALISER_QCQ_V2.py",
+        "published_sha256": "33fc479d29672c610a91206890554cc24485d27eeac80a764fc4f9c8a8c2d249",
+        "recovered_sha256": "33fc479d29672c610a91206890554cc24485d27eeac80a764fc4f9c8a8c2d249",
+        "same": true
+      },
+      {
+        "path": "campaign/LOCAL_DATA_AVAILABILITY.json",
+        "published_sha256": "be3faf2159c263ee9a58ba7605fda507c7e87302b451305b27792c68f602f01a",
+        "recovered_sha256": "be3faf2159c263ee9a58ba7605fda507c7e87302b451305b27792c68f602f01a",
+        "same": true
+      },
+      {
+        "path": "campaign/MEGA.py",
+        "published_sha256": "e76aa45da847f62a88ef694d2a8311b63685ee932bde70d304983c6db7ff4e7d",
+        "recovered_sha256": "e76aa45da847f62a88ef694d2a8311b63685ee932bde70d304983c6db7ff4e7d",
+        "same": true
+      },
+      {
+        "path": "campaign/OBSERVATION_TEST.log",
+        "published_sha256": "37ccc758f537439753bbe68bb7398839cf1837dd2cf7358c4bf6ce3d0fc2cf29",
+        "recovered_sha256": "37ccc758f537439753bbe68bb7398839cf1837dd2cf7358c4bf6ce3d0fc2cf29",
+        "same": true
+      },
+      {
+        "path": "campaign/PARSE_QCQ_ONLY.cpp",
+        "published_sha256": "7e20a34e25ed02e2836bc6eaa346cf29791bee96f7faed29d9a1a02bfb034892",
+        "recovered_sha256": "7e20a34e25ed02e2836bc6eaa346cf29791bee96f7faed29d9a1a02bfb034892",
+        "same": true
+      },
+      {
+        "path": "campaign/audit_worker.py",
+        "published_sha256": "122ef63ca7b679cbc0cc69517b0f1380288d1ba160a0d0e30b0a64d482abfd79",
+        "recovered_sha256": "122ef63ca7b679cbc0cc69517b0f1380288d1ba160a0d0e30b0a64d482abfd79",
+        "same": true
+      },
+      {
+        "path": "campaign/canonical_inputs.py",
+        "published_sha256": "78056de002f11bfee7f900200c2abbffc62e4769b8279a02834dcae07de826ac",
+        "recovered_sha256": "78056de002f11bfee7f900200c2abbffc62e4769b8279a02834dcae07de826ac",
+        "same": true
+      },
+      {
+        "path": "campaign/classify_qcqp.py",
+        "published_sha256": "a0da634e13b2de8208c6eb5a3b04b0794ab71a9d0486a6f85ec7d75a0e99818a",
+        "recovered_sha256": "a0da634e13b2de8208c6eb5a3b04b0794ab71a9d0486a6f85ec7d75a0e99818a",
+        "same": true
+      },
+      {
+        "path": "campaign/common/original_auditor.py",
+        "published_sha256": "d500ff62371d7409180245e6f946c011f5b973537c600789d1c3b4671be3df8a",
+        "recovered_sha256": "d500ff62371d7409180245e6f946c011f5b973537c600789d1c3b4671be3df8a",
+        "same": true
+      },
+      {
+        "path": "campaign/dataset_schedule.py",
+        "published_sha256": "028863f4155686bb999629487c60a66324eab3b2044ab9645d3510d2ed6b4daf",
+        "recovered_sha256": "028863f4155686bb999629487c60a66324eab3b2044ab9645d3510d2ed6b4daf",
+        "same": true
+      },
+      {
+        "path": "campaign/executor.py",
+        "published_sha256": "787ccb60e2b5412d743010b49c533ff2e806c3287d60ff7a9d3626672dfb824d",
+        "recovered_sha256": "787ccb60e2b5412d743010b49c533ff2e806c3287d60ff7a9d3626672dfb824d",
+        "same": true
+      },
+      {
+        "path": "campaign/ipopt_worker.py",
+        "published_sha256": "0b63aa5f4b6aa33feb7cda1c267ac53589695a34d05e63a1b7cc8c0a2782a5bb",
+        "recovered_sha256": "0b63aa5f4b6aa33feb7cda1c267ac53589695a34d05e63a1b7cc8c0a2782a5bb",
+        "same": true
+      },
+      {
+        "path": "campaign/metadata/CANDIDATES.json",
+        "published_sha256": "34481d10ccc24fc29925dce982eac288cddcde8478de1ccf28aabba8507a94cf",
+        "recovered_sha256": "34481d10ccc24fc29925dce982eac288cddcde8478de1ccf28aabba8507a94cf",
+        "same": true
+      },
+      {
+        "path": "campaign/metadata/CUTEST_136_PANEL_CONTRACTS.json",
+        "published_sha256": "b7fddab6e529165959103ab98eee0534f1c6daf1447b209b7b32219fd84fe595",
+        "recovered_sha256": "b7fddab6e529165959103ab98eee0534f1c6daf1447b209b7b32219fd84fe595",
+        "same": true
+      },
+      {
+        "path": "campaign/metadata/FAMILY_CATALOGUE.json",
+        "published_sha256": "44b0feafdad6c868e3068bb707273bea4daf527462d611b30534835e70adf31b",
+        "recovered_sha256": "44b0feafdad6c868e3068bb707273bea4daf527462d611b30534835e70adf31b",
+        "same": true
+      },
+      {
+        "path": "campaign/metadata/OLD_STRUCTURE_INDEX.json.gz",
+        "published_sha256": "db732e3d24f83dff029b46cab8070b2cc2c4c3dcb1fc21dfad2204c712846c3e",
+        "recovered_sha256": "db732e3d24f83dff029b46cab8070b2cc2c4c3dcb1fc21dfad2204c712846c3e",
+        "same": true
+      },
+      {
+        "path": "campaign/metadata/PLAN_3103.json",
+        "published_sha256": "9e4dac75c188ac70f0696744322645f4bf35471c04bce911f0c476b72800bce3",
+        "recovered_sha256": "9e4dac75c188ac70f0696744322645f4bf35471c04bce911f0c476b72800bce3",
+        "same": true
+      },
+      {
+        "path": "campaign/metadata/QUALIFIED_COEFFICIENTS.json.gz",
+        "published_sha256": "8109f12380362564adafb9b4e0ccd06da1dabbcc7948538b8ae478d9f51a76ef",
+        "recovered_sha256": "8109f12380362564adafb9b4e0ccd06da1dabbcc7948538b8ae478d9f51a76ef",
+        "same": true
+      },
+      {
+        "path": "campaign/observation_contract.py",
+        "published_sha256": "014379f47b1a95f435ca17762c85579e8ac724916b3a3dd7a787b198b2748d7d",
+        "recovered_sha256": "014379f47b1a95f435ca17762c85579e8ac724916b3a3dd7a787b198b2748d7d",
+        "same": true
+      },
+      {
+        "path": "campaign/prepare_inventory.py",
+        "published_sha256": "2f31c38605533e47adba9e3becdfea59175f3c3bb5bcdad42734c2c3f5122e04",
+        "recovered_sha256": "2f31c38605533e47adba9e3becdfea59175f3c3bb5bcdad42734c2c3f5122e04",
+        "same": true
+      },
+      {
+        "path": "campaign/profiles.json",
+        "published_sha256": "cf298319ec2b9897f24846098af90ebfe517af0b5f347e45c0fe3861e49fe736",
+        "recovered_sha256": "cf298319ec2b9897f24846098af90ebfe517af0b5f347e45c0fe3861e49fe736",
+        "same": true
+      },
+      {
+        "path": "campaign/progress.py",
+        "published_sha256": "9bd002673eb9a394aab413e79a2b31397e50bb6d6876f656fd1fa450be2ac934",
+        "recovered_sha256": "9bd002673eb9a394aab413e79a2b31397e50bb6d6876f656fd1fa450be2ac934",
+        "same": true
+      },
+      {
+        "path": "campaign/resource_worker.py",
+        "published_sha256": "43f8c2bbdce2d7bae5513ef6e7bf5abe00b8f2c647f560ab222d770732c569f4",
+        "recovered_sha256": "43f8c2bbdce2d7bae5513ef6e7bf5abe00b8f2c647f560ab222d770732c569f4",
+        "same": true
+      },
+      {
+        "path": "campaign/stop_campaign.py",
+        "published_sha256": "87260f1ca4b0862229b8d22ce389121173153818e8cbaadbbd95a78a846ceb6e",
+        "recovered_sha256": "87260f1ca4b0862229b8d22ce389121173153818e8cbaadbbd95a78a846ceb6e",
+        "same": true
+      },
+      {
+        "path": "campaign/test_continuous_22.py",
+        "published_sha256": "6e33eb48fd7cf994085f4a0591e06c09ab98ee162a467d396c84aed32a2829a5",
+        "recovered_sha256": "6e33eb48fd7cf994085f4a0591e06c09ab98ee162a467d396c84aed32a2829a5",
+        "same": true
+      },
+      {
+        "path": "campaign/test_inventory_import.py",
+        "published_sha256": "3039d4ade7a04d2bff9df3a047b51b067057ceccabdff7083e02ef6438ce7f5b",
+        "recovered_sha256": "3039d4ade7a04d2bff9df3a047b51b067057ceccabdff7083e02ef6438ce7f5b",
+        "same": true
+      },
+      {
+        "path": "campaign/test_native_executor.py",
+        "published_sha256": "45c145ec22ec63b40e61cd49b7b1bf468c06c4e801c1e6a2baffe8d8a2ca5658",
+        "recovered_sha256": "45c145ec22ec63b40e61cd49b7b1bf468c06c4e801c1e6a2baffe8d8a2ca5658",
+        "same": true
+      },
+      {
+        "path": "campaign/test_observation_contract.py",
+        "published_sha256": "904d9057b05c330a6866968805f6ab67464fadc5ad0922b759230338fd155273",
+        "recovered_sha256": "904d9057b05c330a6866968805f6ab67464fadc5ad0922b759230338fd155273",
+        "same": true
+      },
+      {
+        "path": "campaign/test_progress.py",
+        "published_sha256": "49db5103d23710583b0e25315178a9b34e9728cacff1586a64bbc73b7ebffff6",
+        "recovered_sha256": "49db5103d23710583b0e25315178a9b34e9728cacff1586a64bbc73b7ebffff6",
+        "same": true
+      },
+      {
+        "path": "campaign/test_publication_finalization.py",
+        "published_sha256": "eb1ff898b27ca60b08b949e8e446be1df44edae521e12066fd8176e19ebbf32c",
+        "recovered_sha256": "eb1ff898b27ca60b08b949e8e446be1df44edae521e12066fd8176e19ebbf32c",
+        "same": true
+      },
+      {
+        "path": "setup_runtime.py",
+        "published_sha256": "8058b3dc95be41e9f36f43aba4e37bbb21f602538f8ea5aa7b72abdc0fbfc639",
+        "recovered_sha256": "8058b3dc95be41e9f36f43aba4e37bbb21f602538f8ea5aa7b72abdc0fbfc639",
+        "same": true
+      }
+    ],
+    "all_recovered_runtime_files_match_published_20261107": true,
+    "files_compared": 32,
+    "root_files_edited": false,
+    "optimizers_invoked": 0,
+    "cause_of_first_relaunch_refusal": {
+      "stage": "PREPARER canonical path assumption",
+      "raw_import_path": "ROOT/data/frozen/CASE/input.qcq",
+      "published_execution_path": "PREPARATION.json cases[].input",
+      "beamforming_canonical_path": "ROOT/canonical_inputs/CASE/input.qcq",
+      "operation": "canonical_inputs._remap replaces input path and input_sha256 after exact sparse linear entry ordering; raw bounds and x0 line are preserved",
+      "case_failed": "multicast_rayleigh_lifted__N10_K20_r00",
+      "expected_published_sha256": "a3be4fcea77e02ea30748f1aeebcb2992b89138262f58897d969e29fb992bd49"
+    },
+    "launch_interface": [
+      "PYTHON",
+      "ROOT/campaign/MEGA.py",
+      "--root",
+      "ROOT",
+      "lancer",
+      "--cpus",
+      "0-21",
+      "--jobs",
+      "22",
+      "--out",
+      "FRESH_RUN"
+    ],
+    "follow_interface": [
+      "PYTHON",
+      "ROOT/campaign/MEGA.py",
+      "--root",
+      "ROOT",
+      "suivre",
+      "--out",
+      "RUN",
+      "--interval",
+      "10"
+    ],
+    "method_matrix": [
+      "R3",
+      "HH",
+      "HS",
+      "SH",
+      "SS",
+      "SS_legacy",
+      "ipopt_qcqp",
+      "ipopt_mumps"
+    ],
+    "new_requested_backend_matrix": {
+      "native_six": "ma27",
+      "ipopt_qcqp": "ma27 library defaults",
+      "ipopt_mumps": "mumps library defaults"
+    },
+    "required_general_changes": [
+      "executor.native_command uses installation native backend instead of literal mumps, plus HSL path for MA27",
+      "MEGA.verify_installation delegates new default receipts instead of requiring forced MUMPS order5",
+      "setup_runtime.validate_ipopt_runtime/backend_evidence recognize default comparator actual effective options; no ordering5 assertion",
+      "ipopt_worker.command_for omits prior numerical option overrides and uses qualified defaults adapter",
+      "fresh PREPARATION rebuilt with actual unchanged cases/input paths and new installation/runtime hashes; no raw input import or recanonicalization"
+    ],
+    "dependencies": [
+      "campaign/MEGA.py",
+      "campaign/executor.py",
+      "campaign/dataset_schedule.py",
+      "campaign/progress.py",
+      "campaign/stop_campaign.py",
+      "campaign/observation_contract.py",
+      "campaign/resource_worker.py",
+      "campaign/audit_worker.py",
+      "campaign/common/original_auditor.py",
+      "setup_runtime.py",
+      "validation_tools/precise_original_auditor.py",
+      "campaign/profiles.json",
+      "INSTALLATION.json",
+      "PREPARATION.json"
+    ]
+  }
+}

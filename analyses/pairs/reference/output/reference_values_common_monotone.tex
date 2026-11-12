@@ -1,0 +1,22 @@
+\begin{tabular}{@{}llrrr@{}}
+\toprule
+Policy & Linear solver & Certified/$50$ & Median gap (\%) & Within $0.1\%$\\
+\midrule
+R3 & MA27 & 50/50 & 0.014985 & 33\\
+HH & MA27 & 50/50 & 0.026189 & 34\\
+HS & MA27 & 50/50 & 0.017885 & 35\\
+SH & MA27 & 50/50 & 0.017885 & 33\\
+SS & MA27 & 50/50 & 0.014985 & 34\\
+$SS_0$ & MA27 & 35/50 & 0.053076 & 19\\
+R3 & MUMPS & 50/50 & 0.014985 & 33\\
+HH & MUMPS & 50/50 & 0.026189 & 34\\
+HS & MUMPS & 50/50 & 0.017885 & 35\\
+SH & MUMPS & 50/50 & 0.017885 & 33\\
+SS & MUMPS & 50/50 & 0.014985 & 34\\
+$SS_0$ & MUMPS & 35/50 & 0.053076 & 19\\
+Ipopt, monotone & MA27 & 50/50 & 0.00016214 & 36\\
+Ipopt, monotone & MUMPS & 50/50 & 0.00016227 & 36\\
+Ipopt, adaptive & MA27 & 49/50 & 2.1082e-05 & 36\\
+Ipopt, adaptive & MUMPS & 48/50 & 2.474e-05 & 35\\
+\bottomrule
+\end{tabular}

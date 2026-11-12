@@ -1,0 +1,12 @@
+{
+  "passed": false,
+  "intervention_integrity_verified": true,
+  "expected_tasks": 14672,
+  "finalized_observations": 14672,
+  "verified_native_interventions": 14483,
+  "incomplete_native_interventions": 189,
+  "failures": [],
+  "finished": true,
+  "case_matrix_sha256": "c6dff8271ec1ec829f6d382aeada395d32e323f2e4d03cb4bdbfe959938de8af",
+  "study_contract_sha256": "1594f649957921bb1ca890ebacc117638e6051dc0a1a5302bac1607d3dbbc480"
+}

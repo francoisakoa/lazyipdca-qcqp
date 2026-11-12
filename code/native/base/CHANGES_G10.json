@@ -1,0 +1,125 @@
+{
+  "parent": "G9",
+  "files": [
+    {
+      "path": "src/main.cpp",
+      "new": false,
+      "sha256": "5f92605ea5aff977a8f8854b109070a2173d01a203a62b5fc70b220b490383a8"
+    },
+    {
+      "path": "src/dca_filter_engine.hpp",
+      "new": false,
+      "sha256": "fcca53d9022e7ed2ff830df3d1bca4e84a5c09119f472f265a8c2b05e2dbb59f"
+    },
+    {
+      "path": "src/io.cpp",
+      "new": false,
+      "sha256": "59fe85fac64575187f4e295d40e4ca8e4262076118a0e1c22144e6997b1604b4"
+    },
+    {
+      "path": "src/dca_aggregate.hpp",
+      "new": true,
+      "sha256": "586284f61c735a46eee615727a65662d7f5e8b8b5d936260f86c0ec0bbd86b50"
+    },
+    {
+      "path": "include/lazyipdca_qcqp/result.hpp",
+      "new": false,
+      "sha256": "98d9ed4ba4e4796800bc33dc628bd9839d4086ee231582713e4d5143dc2d6b6f"
+    },
+    {
+      "path": "include/lazyipdca_qcqp/version.hpp",
+      "new": false,
+      "sha256": "28f1033f16e748fdc2f4e37b8bbc285a4b8c0f2f0341c3847c19da0026fc90c7"
+    },
+    {
+      "path": "include/lazyipdca_qcqp/settings.hpp",
+      "new": false,
+      "sha256": "9c94e656ba0f4550b63dfbca89265a52fa70ad12e3f8a8dd4aa44b473c139d21"
+    },
+    {
+      "path": "tests/test_lazy_newton_regression.py",
+      "new": false,
+      "sha256": "7e7fa89244fa715400ff0a78bd9e639197f7f558bfc50f0b508077e7a1fce69d"
+    },
+    {
+      "path": "tests/test_g10_aggregate_rollback.cpp",
+      "new": true,
+      "sha256": "ce5a6ab587be838ec7262375ca36000617b89c68771c5fafc773f991834d7373"
+    },
+    {
+      "path": "tests/test_g10_aggregate.cpp",
+      "new": true,
+      "sha256": "f7b947848807889c26b91caf698301eed1835120ea3f6649569424949fa7cf3b"
+    },
+    {
+      "path": "tests/test_g3_campaign_contract.py",
+      "new": false,
+      "sha256": "eeb74f6ded73df4834d36d77c58d1dd1555808781c895dfe0048931d4a7e6ce5"
+    },
+    {
+      "path": "tests/test_g10_runner_contract.py",
+      "new": true,
+      "sha256": "3cf68b632a9a67b0f7059d1890c95d4acfd053fe74af364d5d4666cac47200f6"
+    },
+    {
+      "path": "tests/test_exporter_pglib_contract_r3p22.py",
+      "new": false,
+      "sha256": "74bdd5b5e63558cb1215744e3da35750029ad28aea6fad064631f195d166356f"
+    },
+    {
+      "path": "tests/test_g9_runner_contract.py",
+      "new": false,
+      "sha256": "8292faae589b7745bb7e249cede77007de5e0680cbc49109974f0639358b2f2a"
+    },
+    {
+      "path": "python/benchmark_filter_dca_g10.py",
+      "new": true,
+      "sha256": "83f2034f0932883b4125d67fcbdace5a6581c7f09ce2ce42060dfdcf71af7374"
+    },
+    {
+      "path": "tools/package_g10.py",
+      "new": true,
+      "sha256": "7607ccd3359ddcdeab16cd303bbc2df9bf1f9de53a407139b72b1893b208ee0d"
+    },
+    {
+      "path": "tools/build_g10.sh",
+      "new": true,
+      "sha256": "3af3169b55992b19914b317ce907aa83bd0be087093069bde53d1f5e83abdf79"
+    },
+    {
+      "path": "tools/install_and_test_g10.sh",
+      "new": true,
+      "sha256": "45dd6f35a73df80ebb2a523ecbc54016e6135aa7a20c10e5e8b6f7b02ed0cf21"
+    },
+    {
+      "path": "tools/run_g10.sh",
+      "new": true,
+      "sha256": "604a289b713d8de077f8183bf5c1a7a8f65e995586c3fb562da3f97a345c5e1c"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "new": false,
+      "sha256": "6d8cee0fb8b4f4050036b58266f02a508d05032bbedd5e36dffb50610b883b19"
+    },
+    {
+      "path": "release_identity_g10.json",
+      "new": true,
+      "sha256": "c5b477e0f8ac42e634c86ec063f05b862fc848b6c434660cd7dc86300d407b23"
+    },
+    {
+      "path": "METHOD_G10.md",
+      "new": true,
+      "sha256": "2dff5868439b834a845b489d61d757d9a22ceed313b7eaec655e0281a19f135f"
+    },
+    {
+      "path": "INSTALL_AND_TEST_G10.md",
+      "new": true,
+      "sha256": "217c3cf5964f4d8873f6a5874a17e2be76541ca1d9297e994683e604f840fe2e"
+    },
+    {
+      "path": "VALIDATION_G10.md",
+      "new": true,
+      "sha256": "0da99f7aebcd0faefa1e26b49fe8de0cda1289f61ef45daf59508428d4bb85a9"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "api": 4160,
+  "external_v0415_core2_diagnosis": {
+    "accepted_outer_steps_observed": 477,
+    "alpha_frequencies_after_outer_20": {
+      "1.192092895508000e-07": 200,
+      "1.220703125000000e-04": 1,
+      "1.907348632812000e-06": 6,
+      "2.384185791016000e-07": 184,
+      "3.814697265625000e-06": 1,
+      "4.768371582031000e-07": 40,
+      "5.960464477539000e-08": 2,
+      "6.103515625000000e-05": 1,
+      "7.629394531250000e-06": 1,
+      "9.536743164062000e-07": 21
+    },
+    "corrector_acceptances": 0,
+    "corrector_rejections": 476,
+    "early_soc_acceptances": 5,
+    "median_alpha_after_outer_20": 2.384185791016e-07,
+    "median_theta_after_outer_20": 9.99999906881e-07,
+    "minimum_alpha_after_outer_20": 5.960464477539e-08,
+    "objective_decrease_from_outer_4": 0.003067352900004039,
+    "objective_last_observed": 75.9419622555,
+    "objective_outer_4": 75.9450296084,
+    "warm_start_failures": 476
+  },
+  "local_validation": {
+    "asan_ubsan_ctest": "46/46 PASS",
+    "exact_pycutest_core2_executed_locally": false,
+    "iterated_soc_regression": {
+      "enlargement_factor": 32.0,
+      "final_equality_residual": 0.0,
+      "iterated_alpha": 1.0,
+      "objective": 0.0138296,
+      "one_shot_alpha": 0.03125,
+      "route": "lazy-dca"
+    },
+    "release_ctest": "46/46 PASS",
+    "single_route_regressions": {
+      "BT1": {
+        "corrector_acceptances": 19,
+        "dual": 8.88739e-08,
+        "feasibility": 7.99361e-15,
+        "inner": 45,
+        "objective": -1.0,
+        "outer": 21,
+        "status": "solved"
+      },
+      "DISCS": {
+        "corrector_acceptances": 75,
+        "dual": 1.0966e-07,
+        "feasibility": 1.56913e-07,
+        "inner": 11312,
+        "objective": 16.6416,
+        "outer": 77,
+        "status": "solved"
+      },
+      "HS116": {
+        "corrector_acceptances": 204,
+        "dual": 5.30065e-12,
+        "feasibility": 2.84217e-14,
+        "inner": 4088,
+        "objective": 97.5875,
+        "outer": 206,
+        "status": "solved"
+      }
+    }
+  },
+  "version": "0.4.16-single-route-iterated-soc"
+}

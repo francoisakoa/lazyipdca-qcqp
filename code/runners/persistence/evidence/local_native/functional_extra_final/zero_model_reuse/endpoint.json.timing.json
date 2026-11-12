@@ -1,0 +1,10 @@
+{
+  "schema": "lazy-newton-cli-timing-v1",
+  "arguments_seconds": 0.00023637699999999999,
+  "qcqp_read_seconds": 3.8989000000000002e-05,
+  "solver_call_seconds": 0.00056877000000000002,
+  "summary_output_seconds": 1.2629000000000001e-05,
+  "result_json_write_seconds": 0.00037165199999999998,
+  "process_until_result_written_seconds": 0.001228717,
+  "excludes": ["writing this timing sidecar", "process teardown"]
+}

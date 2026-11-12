@@ -1,0 +1,31 @@
+{
+  "release": "LazyQCQP GitHub submission R24",
+  "date": "2026-11-11",
+  "paper_title": "Tangent Excess and Persistent Difference-of-Convex Regularization for Nonconvex QCQPs",
+  "canonical_source_bundle": {
+    "filename": "LazyQCQP_JOGO_R24.zip",
+    "library_version": 16,
+    "sha256": "b4500750b7426c24341930fe273fc3f7629b5837ef4a5b03ec8d55eb32f0fe9e"
+  },
+  "paper_files_preserved": [
+    "fig_radial_scaling_common_kkt.pdf",
+    "fig_favorable_geometry.pdf",
+    "Akoa_LazyQCQP_20261111_R24.pdf",
+    "Akoa_LazyQCQP_20261111_R24_Supplement.pdf",
+    "build.sh",
+    "fig_toy_pair_geometry.pdf",
+    "fig_toy_pair_convergence.pdf",
+    "fig_current_regime_coverage.pdf",
+    "fig_core_performance_profiles_both_backends.pdf",
+    "fig_aligned_core_performance_profiles.pdf",
+    "fig_aligned_equality_performance_profiles.pdf",
+    "fig_favorable_convergence.pdf",
+    "Akoa_LazyQCQP_20261111_R24.tex",
+    "Akoa_LazyQCQP_20261111_R24_Supplement.tex",
+    "sn-mathphys-num.bst",
+    "fig_controlled_reference_shape.pdf",
+    "sn-jnl.cls",
+    "LazyQCQP_references.bib"
+  ],
+  "version_note": "R24 paper, figures, bibliography and frozen numerical observation records are unchanged."
+}

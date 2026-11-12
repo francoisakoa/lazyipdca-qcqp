@@ -1,0 +1,292 @@
+--- qualified/src/main.cpp
++++ ma27/src/main.cpp
+@@ -1592,7 +1592,7 @@
+       if(!modes.count(st.convexification_study))throw std::runtime_error("unknown convexification-study");
+       if(st.convexification_schedule!="lazy"&&st.convexification_schedule!="eager")throw std::runtime_error("convexification-schedule must be lazy or eager");
+       if((st.convexification_study=="U"||st.convexification_study=="F")&&st.convexification_schedule!="eager")throw std::runtime_error("fixed U/F require --convexification-schedule eager");
+-      if((st.dca_engine!="majorants"&&st.dca_engine!="auto")||st.linear_backend!="mumps"||!st.linear_metis||st.inner_backend=="ipopt")throw std::runtime_error("convexification study requires native dca-engine majorants/auto and MUMPS+METIS");
++      if((st.dca_engine!="majorants"&&st.dca_engine!="auto")||(st.linear_backend!="mumps"&&st.linear_backend!="ma27")||!st.linear_metis||st.inner_backend=="ipopt")throw std::runtime_error("convexification study requires native dca-engine majorants/auto and MUMPS+METIS or MA27+METIS");
+       const bool hybrid_study=st.convexification_study=="HH"||st.convexification_study=="HS"||st.convexification_study=="SH"||st.convexification_study=="SS";
+       if(hybrid_study &&
+           (st.study_hybrid_max_atoms<0 || st.study_hybrid_max_atoms>256 || st.study_hybrid_total_atoms<0 || st.study_hybrid_total_atoms>512 ||
+@@ -1607,7 +1607,7 @@
+         throw std::runtime_error("invalid hybrid controller or inexact-solve parameters");
+       if(hybrid_study) {
+         if(st.dca_pair_elimination)
+-          throw std::runtime_error("HH/HS/SH/SS require direct bordered MUMPS; optional pair elimination is unsupported");
++          throw std::runtime_error("HH/HS/SH/SS require a direct bordered native solver; optional pair elimination is unsupported");
+         if(st.study_hybrid_candidates<1||st.study_hybrid_candidates>64||
+            st.study_hybrid_lanczos_steps<2||st.study_hybrid_lanczos_steps>200||
+            st.study_hybrid_lanczos_starts<1||st.study_hybrid_lanczos_starts>8||
+--- qualified/src/dca_inequality_majorant_engine.hpp
++++ ma27/src/dca_inequality_majorant_engine.hpp
+@@ -1781,8 +1781,8 @@
+       throw std::invalid_argument("invalid convexification study mode/schedule");
+     if((st.convexification_study=="U"||st.convexification_study=="F")&&st.convexification_schedule!="eager")
+       throw std::invalid_argument("fixed U/F require eager construction");
+-    if(st.linear_backend!="mumps"||!st.linear_metis||st.inner_backend=="ipopt")
+-      throw std::invalid_argument("study requires native MUMPS+METIS");
++    if((st.linear_backend!="mumps"&&st.linear_backend!="ma27")||!st.linear_metis||st.inner_backend=="ipopt")
++      throw std::invalid_argument("study requires native MUMPS+METIS or MA27+METIS");
+     if(problem.has_signed_square())throw std::invalid_argument("convexification study supports true QCQP, not signed-square piecewise functions");
+     st.objective_lazy_convexification=true;
+     st.majorant_curvature_corrections=0;
+--- qualified/include/lazyipdca_qcqp/standard_auto.hpp
++++ ma27/include/lazyipdca_qcqp/standard_auto.hpp
+@@ -43,7 +43,7 @@
+   if(!std::all_of(p.inequalities.begin(),p.inequalities.end(),affine))return fallback("source-inequality-not-affine");
+   if(std::none_of(p.equalities.begin(),p.equalities.end(),[&](const auto& q){return !affine(q);}))
+     return fallback("no-quadratic-source-equality");
+-  if(st.linear_backend!="mumps"||!st.linear_metis||st.inner_backend=="ipopt")return fallback("native-MUMPS-METIS-required");
++  if((st.linear_backend!="mumps"&&st.linear_backend!="ma27")||!st.linear_metis||st.inner_backend=="ipopt")return fallback("native-MUMPS-or-MA27-METIS-required");
+   if(st.native_augmented_repair||st.product_definition_presolve||st.power2_scaling)
+     return fallback("explicit-alternate-presolve-or-repair-preserved");
+   if(st.rank_presolve_context)return fallback("existing-rank-reduction-context-unsupported");
+--- qualified/include/lazyipdca_qcqp/majorant_equality_stabilization.hpp
++++ ma27/include/lazyipdca_qcqp/majorant_equality_stabilization.hpp
+@@ -88,8 +88,8 @@
+       (!affine(problem.objective)&&!original_quadratic_equality_domain(problem))||
+       !std::all_of(problem.inequalities.begin(),problem.inequalities.end(),affine))
+     throw std::invalid_argument("equality stabilization requires original R3 affine objective/inequalities or a signed quadratic objective with bound-free pure equalities");
+-  if(st.linear_backend!="mumps"||!st.linear_metis||st.inner_backend=="ipopt")
+-    throw std::invalid_argument("equality stabilization requires native MUMPS+METIS");
++  if((st.linear_backend!="mumps"&&st.linear_backend!="ma27")||!st.linear_metis||st.inner_backend=="ipopt")
++    throw std::invalid_argument("equality stabilization requires native MUMPS+METIS or MA27+METIS");
+ }
+ 
+ // V2: algorithmic dual stabilization of ALL source constraint equations,
+--- qualified/src/dca_convexification_study_models.hpp
++++ ma27/src/dca_convexification_study_models.hpp
+@@ -58,7 +58,7 @@
+   void study_classify_large(study::Correction& c) {
+     if(c.classification_known||c.support.size()<=16)return;
+     Settings cert=w.factor_settings;
+-    cert.linear_backend="mumps";cert.linear_metis=true;
++    cert.linear_backend=w.factor_settings.linear_backend=="ma27"?"ma27":"mumps";cert.linear_metis=true;
+     cert.kkt_adaptive_regularization=false;cert.cholesk_adaptive_regularization=false;
+     cert.kkt_primal_regularization=cert.kkt_dual_regularization=0;
+     std::vector<SymmetricTriplet> matrix;
+@@ -72,7 +72,7 @@
+     const int n=c.support.size();const bool ok=factor->factor(n,n,matrix,message);
+     if(ok&&factor->last_positive_pivots()==n&&factor->last_negative_pivots()==0) {
+       c.rho=0;c.atoms=c.rank_upper=0;c.correction.clear();c.hessian=c.original;
+-      c.original_convex=c.classification_known=true;c.certificate="unregularized-MUMPS-positive-inertia";
++      c.original_convex=c.classification_known=true;c.certificate=cert.linear_backend=="ma27"?"unregularized-MA27-positive-inertia":"unregularized-MUMPS-positive-inertia";
+     } else if(factor->last_negative_pivots()>0) {
+       c.original_convex=false;c.classification_known=true;
+     } else throw std::runtime_error("study original curvature undecidable without regularization: "+message);
+--- qualified/src/hsl_ma27_factorization.hpp
++++ ma27/src/hsl_ma27_factorization.hpp
+@@ -90,7 +90,7 @@
+  public:
+   explicit HslFactorBase(const Settings& s):st_(s),library_(s) {}
+   bool factor(int n,int primal,const std::vector<SymmetricTriplet>& input,std::string& message) final {
+-    ready_=probe_ready_=false;defect_=0;
++    ready_=probe_ready_=false;defect_=0;reported_negative_=-1;
+     try {
+       if(n<1||primal<0||primal>n)throw std::runtime_error("invalid HSL dimensions");
+       for(const auto& e:input)
+@@ -129,6 +129,7 @@
+       int negative=0;
+       if(!numeric(negative,message))return false;
+       if(negative<0||negative>n_)throw std::runtime_error("HSL returned invalid inertia");
++      reported_negative_=negative;
+       probe_ready_=true;defect_=std::max(0,negative-(n-primal));
+       if(negative!=n-primal) {
+         message=st_.linear_backend+" inertia mismatch: negative pivots="+std::to_string(negative)+
+@@ -145,6 +146,9 @@
+     if(!probe_ready_||defect_<=0){message="HSL curvature probe unavailable";return false;}
+     return audited_solve(rhs,message);
+   }
++  int last_negative_pivots()const final{return reported_negative_;}
++  int last_positive_pivots()const final{return reported_negative_>=0?n_-reported_negative_:-1;}
++  int last_zero_pivots()const final{return reported_negative_>=0?0:-1;}
+   int curvature_defect() const final{return defect_;}
+   int symbolic_analyses()const final{return analyses_;}
+   int symbolic_reuses()const final{return reuses_;}
+@@ -193,7 +197,7 @@
+     rhs=x;return true;
+   }
+   bool ready_=false,probe_ready_=false,analyzed_=false,reused_=false;
+-  int defect_=0,analyses_=0,reuses_=0,invalidations_=0;
++  int defect_=0,reported_negative_=-1,analyses_=0,reuses_=0,invalidations_=0;
+   std::vector<std::uint64_t> pattern_;
+   EntryList matrix_;
+   detail::StableUpperAssemblyCache scatter_;
+@@ -209,7 +213,8 @@
+   using Factor=void(*)(int*,int*,const int*,const int*,double*,int*,int*,int*,int*,int*,int*,int*,int*,double*,int*);
+   using Solve=void(*)(int*,double*,int*,int*,int*,double*,int*,double*,int*,int*,int*,int*);
+  public:
+-  explicit Ma27Factor(const Settings& s):HslFactorBase(s) {
++  explicit Ma27Factor(const Settings& s,int maximum_workspace_mb=0):HslFactorBase(s),workspace_cap_mb_(maximum_workspace_mb) {
++    if(workspace_cap_mb_<0||workspace_cap_mb_>128)throw std::invalid_argument("MA27 bounded workspace cap must be in 1..128 MB or zero for the ordinary path");
+     auto init=library_.symbol<Init>("ma27id",true);
+     analyze_=library_.symbol<Analyze>("ma27ad",true);
+     factor_=library_.symbol<Factor>("ma27bd",true);
+@@ -220,6 +225,58 @@
+     ?"ma27_metis_pivoted_persistent_symbolic_refined"
+     :"ma27_internal_pivoted_persistent_symbolic_refined";}
+  private:
++  int workspace_cap_mb_=0;bool workspace_failed_=false;
++
++  // Bounded restoration caps the numerical real/integer MA27 work arrays.
++  // It does not claim to cap symbolic auxiliary arrays or total process RSS.
++  // Integer growth preserves the analyzed factor data; real factor input is
++  // reloaded from values_ before every numeric attempt, so it can be released.
++  bool workspace_allowed(std::size_t real_count,std::size_t integer_count,
++                         std::string& message) {
++    if(workspace_cap_mb_<=0)return true;
++    const long double bytes=sizeof(double)*static_cast<long double>(real_count)+
++        sizeof(int)*static_cast<long double>(integer_count);
++    if(bytes<=static_cast<long double>(workspace_cap_mb_)*1024*1024)return true;
++    workspace_failed_=true;
++    message="MA27 bounded numerical A/IW workspace exceeds "+std::to_string(workspace_cap_mb_)+" MB";
++    return false;
++  }
++  bool resize_integer_workspace(int count,std::string& message) {
++    if(workspace_cap_mb_<=0){iw_.resize(count);return true;}
++    if(count<0){workspace_failed_=true;message="invalid MA27 bounded integer workspace";return false;}
++    const auto wanted=static_cast<std::size_t>(count);
++    if(wanted<=iw_.capacity()){iw_.resize(wanted);return true;}
++    // During replacement the previous integer array remains live. Account
++    // for BOTH arrays before allocating; free the obsolete real input first.
++    Vec().swap(a_);
++    if(!workspace_allowed(0,iw_.capacity()+wanted,message))return false;
++    std::vector<int> next;
++    try{next.resize(wanted);}catch(const std::exception& error){
++      workspace_failed_=true;message=std::string("MA27 bounded integer allocation failed: ")+error.what();return false;
++    }
++    if(!workspace_allowed(0,iw_.capacity()+next.capacity(),message))return false;
++    std::copy_n(iw_.begin(),std::min(iw_.size(),wanted),next.begin());
++    iw_.swap(next);
++    return true;
++  }
++  bool resize_real_workspace(int count,std::string& message) {
++    if(workspace_cap_mb_<=0){a_.resize(count);return true;}
++    if(count<0){workspace_failed_=true;message="invalid MA27 bounded real workspace";return false;}
++    const auto wanted=static_cast<std::size_t>(count);
++    if(wanted<=a_.capacity()){a_.resize(wanted);return true;}
++    // No numeric factor input survives a growth retry: values_ is reloaded
++    // before the next call to MA27BD. Releasing avoids an uncounted copy peak.
++    Vec().swap(a_);
++    if(!workspace_allowed(wanted,iw_.capacity(),message))return false;
++    Vec next;
++    try{next.resize(wanted);}catch(const std::exception& error){
++      workspace_failed_=true;message=std::string("MA27 bounded real allocation failed: ")+error.what();return false;
++    }
++    if(!workspace_allowed(next.capacity(),iw_.capacity(),message))return false;
++    a_.swap(next);
++    return true;
++  }
++
+   bool metis_order(std::string& message) {
+ #ifndef LAZYIPDCA_HAVE_METIS
+     message="MA27 METIS ordering requested but METIS is not compiled; rebuild with "
+@@ -283,7 +340,7 @@
+ #endif
+   }
+   bool analyze(std::string& message)final {
+-    liw_=hsl_size(2LL*(2LL*ne_+3LL*n_+1));iw_.resize(liw_);
++    liw_=hsl_size(2LL*(2LL*ne_+3LL*n_+1));if(!resize_integer_workspace(liw_,message))return false;
+     keep_.resize(hsl_size(3LL*n_));iw1_.resize(hsl_size(2LL*n_));
+     int flag=0;double ops=0;
+     if(st_.linear_metis) {
+@@ -296,9 +353,13 @@
+     if(info_[0]!=0){message="MA27 analysis INFO(1)="+std::to_string(info_[0]);return false;}
+     la_=hsl_grow(std::max(ne_,info_[4]),st_.hsl_memory_factor);
+     liw_=hsl_grow(info_[5],st_.hsl_memory_factor);
+-    a_.resize(la_);iw_.resize(liw_);return true;
++    if(workspace_cap_mb_>0){
++      if(!resize_integer_workspace(liw_,message)||!resize_real_workspace(la_,message))return false;
++    }else{a_.resize(la_);iw_.resize(liw_);}
++    return true;
+   }
+   bool numeric(int& negative,std::string& message)final {
++    if(workspace_failed_){message="MA27 bounded workspace unavailable after failed allocation";return false;}
+     for(int retry=0;retry<=4;++retry) {
+       std::copy(values_.begin(),values_.end(),a_.begin());
+       {LinearPhaseTime phase(numeric_seconds_);
+@@ -306,8 +367,16 @@
+                 &steps_,&maxfront_,iw1_.data(),icntl_,cntl_,info_);}
+       if(info_[0]==0){negative=info_[14];return true;}
+       if(retry==4||(info_[0]!=-3&&info_[0]!=-4))break;
+-      if(info_[0]==-3){liw_=hsl_grow(std::max(liw_,info_[1]),st_.hsl_memory_factor);iw_.resize(liw_);}
+-      else{la_=hsl_grow(std::max(la_,info_[1]),st_.hsl_memory_factor);a_.resize(la_);}
++      if(info_[0]==-3){
++        liw_=hsl_grow(std::max(liw_,info_[1]),st_.hsl_memory_factor);
++        if(workspace_cap_mb_>0){
++          if(!resize_integer_workspace(liw_,message)||!resize_real_workspace(la_,message))return false;
++        }else iw_.resize(liw_);
++      }else{
++        la_=hsl_grow(std::max(la_,info_[1]),st_.hsl_memory_factor);
++        if(workspace_cap_mb_>0){if(!resize_real_workspace(la_,message))return false;}
++        else a_.resize(la_);
++      }
+     }
+     message="MA27 factor INFO(1)="+std::to_string(info_[0])+" INFO(2)="+std::to_string(info_[1]);return false;
+   }
+@@ -316,7 +385,7 @@
+     solve_(&n_,a_.data(),&la_,iw_.data(),&liw_,work_.data(),&maxfront_,rhs.data(),iw1_.data(),&steps_,icntl_,info_);
+     if(info_[0]!=0){message="MA27 solve INFO(1)="+std::to_string(info_[0]);return false;}return true;
+   }
+-  void clear_numeric()final{iw_.clear();keep_.clear();a_.clear();}
++  void clear_numeric()final{iw_.clear();keep_.clear();a_.clear();if(workspace_cap_mb_>0){std::vector<int>().swap(iw_);Vec().swap(a_);workspace_failed_=false;}}
+   Analyze analyze_=nullptr;Factor factor_=nullptr;Solve solve_=nullptr;
+   int icntl_[30]{},info_[20]{},la_=0,liw_=0,steps_=0,maxfront_=0;
+   double cntl_[5]{};
+--- qualified/src/linear_solver.cpp
++++ ma27/src/linear_solver.cpp
+@@ -2333,12 +2333,19 @@
+ 
+ std::unique_ptr<SymmetricFactorization> make_memory_bounded_symmetric_factorization(
+     const Settings& settings,std::string& message,int maximum_workspace_mb) {
++#ifdef LAZYIPDCA_HAVE_HSL
++  if(settings.linear_backend=="ma27"&&settings.linear_metis&&
++      maximum_workspace_mb>0&&maximum_workspace_mb<=128) {
++    try{return trace_native_restoration_factor(std::make_unique<Ma27Factor>(settings,maximum_workspace_mb));}
++    catch(const std::exception& error){message=error.what();return {};}
++  }
++#endif
+ #ifdef LAZYIPDCA_HAVE_MUMPS
+   if(settings.linear_backend=="mumps"&&settings.linear_metis&&
+       maximum_workspace_mb>0&&maximum_workspace_mb<=128)
+     return trace_native_restoration_factor(std::make_unique<MumpsMetisFactor>(settings,maximum_workspace_mb));
+ #endif
+-  message="bounded sparse restoration requires MUMPS+METIS and workspace cap in 1..128 MB";
++  message="bounded sparse restoration requires MUMPS+METIS or MA27+METIS and workspace cap in 1..128 MB";
+   return {};
+ }
+ 
+--- qualified/src/positive_square_epigraph_restoration.hpp
++++ ma27/src/positive_square_epigraph_restoration.hpp
+@@ -28,7 +28,7 @@
+   auto finish=[&](const std::string& reason){out.reason=reason;out.seconds=std::chrono::duration<double>(Clock::now()-began).count();return out;};
+   if(!requested.restoration_enabled||requested.restoration_max_iterations<1||
+       p.equalities.empty()||p.inequalities.empty()||p.has_signed_square()||
+-      requested.linear_backend!="mumps"||!requested.linear_metis||
++      (requested.linear_backend!="mumps"&&requested.linear_backend!="ma27")||!requested.linear_metis||
+       requested.rank_presolve_context||expired())return finish("outside-domain-or-budget");
+   auto affine=[](const QuadraticFunction& q){return std::all_of(q.hessian.entries.begin(),q.hessian.entries.end(),[](const auto& h){return h.v==0.;});};
+   if(!affine(p.objective))return finish("objective-not-affine");
+--- qualified/src/restoration.cpp
++++ ma27/src/restoration.cpp
+@@ -2429,7 +2429,7 @@
+   constexpr long double auxiliary_limit=384.0L*1024*1024;
+   // Check linear-size bookkeeping BEFORE allocating structural work arrays.
+   if(!st.restoration_failed_linearization_context||!st.restoration_shared_iteration_budget||
+-      st.linear_backend!="mumps"||!st.linear_metis||p.n<512||
++      (st.linear_backend!="mumps"&&st.linear_backend!="ma27")||!st.linear_metis||p.n<512||
+       !p.inequalities.empty()||p.equalities.size()<8||
+       p.equalities.size()>=static_cast<std::size_t>(p.n)||p.has_signed_square()||
+       2048.0L*p.n+256.0L*p.equalities.size()>auxiliary_limit)return out;
+--- qualified/src/solver.cpp
++++ ma27/src/solver.cpp
+@@ -5111,7 +5111,7 @@
+               : "suitesparse_ldl_metis") :
+       (st_.linear_backend == "qdldl" ? "qdldl_metis" :
+        (st_.linear_backend == "cholesk" ? "cholesk_qdldlt_metis" :
+-       (st_.linear_backend == "mumps" ? "mumps_sym_indef_metis" : "native_dense_lapack"))));
++       (st_.linear_backend == "mumps" ? "mumps_sym_indef_metis" : (st_.linear_backend == "ma27" ? "ma27_sym_indef_metis" : "native_dense_lapack")))));
+ 
+   result.linear_solver_backend = (st_.inner_backend == "ipopt") ? "ipopt" :
+       (st_.inner_backend + "/" + linear_label);

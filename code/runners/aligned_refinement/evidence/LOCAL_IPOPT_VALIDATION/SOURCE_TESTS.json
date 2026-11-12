@@ -1,0 +1,92 @@
+{
+  "schema": "aligned-ipopt-local-source-tests-v1",
+  "passed": true,
+  "api_cpp_checks": 20,
+  "cli_rejection_checks": 7,
+  "optimized_python_refused": true,
+  "exact_option_setter_allowlist": [
+    "acceptable_iter",
+    "bound_relax_factor",
+    "compl_inf_tol",
+    "constr_viol_tol",
+    "dual_inf_tol",
+    "hsllib",
+    "linear_solver",
+    "max_cpu_time",
+    "max_iter",
+    "max_wall_time",
+    "mu_strategy",
+    "nlp_lower_bound_inf",
+    "nlp_upper_bound_inf",
+    "option_file_name",
+    "print_level",
+    "print_user_options",
+    "tol"
+  ],
+  "algorithmic_ordering_override": false,
+  "actual_optimizer_smokes": 2,
+  "backend": "mumps",
+  "ma27_actual_qualification": "pending: real HSL dependency absent locally",
+  "test_cases": [
+    {
+      "arguments": [
+        "--mu-strategy",
+        "invalid"
+      ],
+      "returncode": 2,
+      "stderr": "error: mu_strategy must be adaptive or monotone"
+    },
+    {
+      "arguments": [
+        "--linear-solver",
+        "ma57"
+      ],
+      "returncode": 2,
+      "stderr": "error: linear_solver must be ma27 or mumps"
+    },
+    {
+      "arguments": [
+        "--max-iter",
+        "1"
+      ],
+      "returncode": 2,
+      "stderr": "error: aligned Ipopt fixed tolerance/budget contract violated"
+    },
+    {
+      "arguments": [
+        "--time-limit",
+        "nan"
+      ],
+      "returncode": 2,
+      "stderr": "error: aligned Ipopt fixed tolerance/budget contract violated"
+    },
+    {
+      "arguments": [
+        "--tol",
+        "1e-4"
+      ],
+      "returncode": 2,
+      "stderr": "error: Aligned comparator rejects unsupported override: --tol"
+    },
+    {
+      "arguments": [
+        "--mu-strategy",
+        "adaptive",
+        "--nlp-scaling-method",
+        "none"
+      ],
+      "returncode": 2,
+      "stderr": "error: Aligned comparator rejects unsupported override: --nlp-scaling-method"
+    },
+    {
+      "arguments": [
+        "--linear-solver",
+        "mumps",
+        "--hsl-library",
+        "irrelevant"
+      ],
+      "returncode": 2,
+      "stderr": "error: hsllib is only admitted for ma27"
+    }
+  ]
+}

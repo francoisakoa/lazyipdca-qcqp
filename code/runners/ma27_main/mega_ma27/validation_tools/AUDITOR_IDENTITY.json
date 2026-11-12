@@ -1,0 +1,21 @@
+{
+  "schema": "original-qcqp-scalar-and-decimal150-bound-contract-r1",
+  "scalar_sha256": "d500ff62371d7409180245e6f946c011f5b973537c600789d1c3b4671be3df8a",
+  "precise_sha256": "45f40c1ac6e63da8b7e66da02a91832bce64565e88fb8539bc5fbe21207891e6",
+  "scalar_numerics_unchanged": true,
+  "precise_numerics_unchanged": false,
+  "precise_coefficient_and_interval_arithmetic_unchanged": true,
+  "precise_only_change": "Absent V1/V2 bound sides use finiteness, matching native readers and scalar auditor; compare order only when both finite; reject NaN and finite inversions",
+  "arithmetic": "uniform scalar and outward-rounded Decimal150 intervals on exact binary64 input/endpoint values",
+  "original_qcqp_tolerance": 1e-06,
+  "required_residuals": [
+    "primal",
+    "dual",
+    "complementarity"
+  ],
+  "coefficient_or_start_rewriting": false,
+  "multiplier_refitting": false,
+  "qualification_gate": "validation_tools/audit_certificate_gate.py",
+  "qualification_scope": "168 synthetic certificate audit checks across all8method endpoint aliases plus full4078frozen input/header/hash preflight at installation; not full numerical/profile campaign qualification",
+  "full_six_profile_campaign_qualification": false
+}

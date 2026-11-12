@@ -1,0 +1,376 @@
+{
+  "schema": "controlled-refinement-campaign-status-v1",
+  "timestamp": "2026-11-10T12:02:02.205397+00:00",
+  "state": "completed",
+  "started_utc": "2026-11-10T06:41:09.781139+00:00",
+  "controller_pid": 1546607,
+  "controller_start_ticks": "156097392",
+  "total": 14672,
+  "done": 14672,
+  "strict": 12970,
+  "nonstrict": 1513,
+  "indeterminate": 189,
+  "ipopt_own_success": 0,
+  "active_slots": 0,
+  "active_solver": 0,
+  "active_audit": 0,
+  "active": [],
+  "queued": 0,
+  "by_method": {
+    "FROZEN_GR3_ma27": {
+      "planned": 1834,
+      "done": 1834,
+      "strict": 1610,
+      "nonstrict": 201,
+      "indeterminate": 23,
+      "ipopt_own_success": 0
+    },
+    "FROZEN_GHS_ma27": {
+      "planned": 1834,
+      "done": 1834,
+      "strict": 1598,
+      "nonstrict": 213,
+      "indeterminate": 23,
+      "ipopt_own_success": 0
+    },
+    "REFINED_GR3_ma27": {
+      "planned": 1834,
+      "done": 1834,
+      "strict": 1613,
+      "nonstrict": 198,
+      "indeterminate": 23,
+      "ipopt_own_success": 0
+    },
+    "REFINED_GHS_ma27": {
+      "planned": 1834,
+      "done": 1834,
+      "strict": 1598,
+      "nonstrict": 213,
+      "indeterminate": 23,
+      "ipopt_own_success": 0
+    },
+    "FROZEN_GR3_mumps": {
+      "planned": 1834,
+      "done": 1834,
+      "strict": 1637,
+      "nonstrict": 172,
+      "indeterminate": 25,
+      "ipopt_own_success": 0
+    },
+    "FROZEN_GHS_mumps": {
+      "planned": 1834,
+      "done": 1834,
+      "strict": 1637,
+      "nonstrict": 173,
+      "indeterminate": 24,
+      "ipopt_own_success": 0
+    },
+    "REFINED_GR3_mumps": {
+      "planned": 1834,
+      "done": 1834,
+      "strict": 1639,
+      "nonstrict": 171,
+      "indeterminate": 24,
+      "ipopt_own_success": 0
+    },
+    "REFINED_GHS_mumps": {
+      "planned": 1834,
+      "done": 1834,
+      "strict": 1638,
+      "nonstrict": 172,
+      "indeterminate": 24,
+      "ipopt_own_success": 0
+    }
+  },
+  "by_regime": {
+    "I": {
+      "planned": 8296,
+      "done": 8296,
+      "strict": 7811,
+      "nonstrict": 461,
+      "indeterminate": 24,
+      "ipopt_own_success": 0
+    },
+    "M": {
+      "planned": 6376,
+      "done": 6376,
+      "strict": 5159,
+      "nonstrict": 1052,
+      "indeterminate": 165,
+      "ipopt_own_success": 0
+    }
+  },
+  "by_dataset": {
+    "CUTEst": {
+      "planned": 456,
+      "done": 456,
+      "strict": 406,
+      "nonstrict": 42,
+      "indeterminate": 8,
+      "ipopt_own_success": 0
+    },
+    "multicast_beamforming": {
+      "planned": 1032,
+      "done": 1032,
+      "strict": 1014,
+      "nonstrict": 18,
+      "indeterminate": 0,
+      "ipopt_own_success": 0
+    },
+    "PGLIB": {
+      "planned": 1584,
+      "done": 1584,
+      "strict": 1579,
+      "nonstrict": 4,
+      "indeterminate": 1,
+      "ipopt_own_success": 0
+    },
+    "CBLIB_SOC_reference": {
+      "planned": 48,
+      "done": 48,
+      "strict": 32,
+      "nonstrict": 0,
+      "indeterminate": 16,
+      "ipopt_own_success": 0
+    },
+    "COPS_camshape": {
+      "planned": 832,
+      "done": 832,
+      "strict": 741,
+      "nonstrict": 91,
+      "indeterminate": 0,
+      "ipopt_own_success": 0
+    },
+    "COPS_minimal_surface": {
+      "planned": 800,
+      "done": 800,
+      "strict": 718,
+      "nonstrict": 82,
+      "indeterminate": 0,
+      "ipopt_own_success": 0
+    },
+    "IJOC_partition_QCQP": {
+      "planned": 1200,
+      "done": 1200,
+      "strict": 1200,
+      "nonstrict": 0,
+      "indeterminate": 0,
+      "ipopt_own_success": 0
+    },
+    "MINLPLIB": {
+      "planned": 32,
+      "done": 32,
+      "strict": 16,
+      "nonstrict": 16,
+      "indeterminate": 0,
+      "ipopt_own_success": 0
+    },
+    "Mittelmann_boundary_cont6": {
+      "planned": 800,
+      "done": 800,
+      "strict": 672,
+      "nonstrict": 128,
+      "indeterminate": 0,
+      "ipopt_own_success": 0
+    },
+    "Mittelmann_distributed_dist2": {
+      "planned": 800,
+      "done": 800,
+      "strict": 756,
+      "nonstrict": 44,
+      "indeterminate": 0,
+      "ipopt_own_success": 0
+    },
+    "QPLIB_reference": {
+      "planned": 392,
+      "done": 392,
+      "strict": 368,
+      "nonstrict": 24,
+      "indeterminate": 0,
+      "ipopt_own_success": 0
+    },
+    "beam_safety": {
+      "planned": 24,
+      "done": 24,
+      "strict": 0,
+      "nonstrict": 4,
+      "indeterminate": 20,
+      "ipopt_own_success": 0
+    },
+    "beam_structural": {
+      "planned": 4024,
+      "done": 4024,
+      "strict": 2996,
+      "nonstrict": 1028,
+      "indeterminate": 0,
+      "ipopt_own_success": 0
+    },
+    "controlled_kappa": {
+      "planned": 480,
+      "done": 480,
+      "strict": 480,
+      "nonstrict": 0,
+      "indeterminate": 0,
+      "ipopt_own_success": 0
+    },
+    "gas_power": {
+      "planned": 24,
+      "done": 24,
+      "strict": 24,
+      "nonstrict": 0,
+      "indeterminate": 0,
+      "ipopt_own_success": 0
+    },
+    "gas_transport": {
+      "planned": 8,
+      "done": 8,
+      "strict": 0,
+      "nonstrict": 8,
+      "indeterminate": 0,
+      "ipopt_own_success": 0
+    },
+    "obstacle_path_smoothing": {
+      "planned": 720,
+      "done": 720,
+      "strict": 720,
+      "nonstrict": 0,
+      "indeterminate": 0,
+      "ipopt_own_success": 0
+    },
+    "packing_equal_disks": {
+      "planned": 480,
+      "done": 480,
+      "strict": 480,
+      "nonstrict": 0,
+      "indeterminate": 0,
+      "ipopt_own_success": 0
+    },
+    "pooling_MINLPLIB": {
+      "planned": 32,
+      "done": 32,
+      "strict": 18,
+      "nonstrict": 6,
+      "indeterminate": 8,
+      "ipopt_own_success": 0
+    },
+    "pooling_reduced": {
+      "planned": 16,
+      "done": 16,
+      "strict": 0,
+      "nonstrict": 16,
+      "indeterminate": 0,
+      "ipopt_own_success": 0
+    },
+    "robot_arm": {
+      "planned": 32,
+      "done": 32,
+      "strict": 30,
+      "nonstrict": 2,
+      "indeterminate": 0,
+      "ipopt_own_success": 0
+    },
+    "two_ellipsoid_qcqp": {
+      "planned": 720,
+      "done": 720,
+      "strict": 720,
+      "nonstrict": 0,
+      "indeterminate": 0,
+      "ipopt_own_success": 0
+    },
+    "water_networks": {
+      "planned": 136,
+      "done": 136,
+      "strict": 0,
+      "nonstrict": 0,
+      "indeterminate": 136,
+      "ipopt_own_success": 0
+    }
+  },
+  "by_regime_method": {
+    "I": {
+      "FROZEN_GR3_ma27": {
+        "planned": 1037,
+        "done": 1037,
+        "strict": 965
+      },
+      "FROZEN_GHS_ma27": {
+        "planned": 1037,
+        "done": 1037,
+        "strict": 953
+      },
+      "REFINED_GR3_ma27": {
+        "planned": 1037,
+        "done": 1037,
+        "strict": 970
+      },
+      "REFINED_GHS_ma27": {
+        "planned": 1037,
+        "done": 1037,
+        "strict": 952
+      },
+      "FROZEN_GR3_mumps": {
+        "planned": 1037,
+        "done": 1037,
+        "strict": 993
+      },
+      "FROZEN_GHS_mumps": {
+        "planned": 1037,
+        "done": 1037,
+        "strict": 990
+      },
+      "REFINED_GR3_mumps": {
+        "planned": 1037,
+        "done": 1037,
+        "strict": 997
+      },
+      "REFINED_GHS_mumps": {
+        "planned": 1037,
+        "done": 1037,
+        "strict": 991
+      }
+    },
+    "M": {
+      "FROZEN_GR3_ma27": {
+        "planned": 797,
+        "done": 797,
+        "strict": 645
+      },
+      "FROZEN_GHS_ma27": {
+        "planned": 797,
+        "done": 797,
+        "strict": 645
+      },
+      "REFINED_GR3_ma27": {
+        "planned": 797,
+        "done": 797,
+        "strict": 643
+      },
+      "REFINED_GHS_ma27": {
+        "planned": 797,
+        "done": 797,
+        "strict": 646
+      },
+      "FROZEN_GR3_mumps": {
+        "planned": 797,
+        "done": 797,
+        "strict": 644
+      },
+      "FROZEN_GHS_mumps": {
+        "planned": 797,
+        "done": 797,
+        "strict": 647
+      },
+      "REFINED_GR3_mumps": {
+        "planned": 797,
+        "done": 797,
+        "strict": 642
+      },
+      "REFINED_GHS_mumps": {
+        "planned": 797,
+        "done": 797,
+        "strict": 647
+      }
+    }
+  },
+  "intervention_failures": 0
+}

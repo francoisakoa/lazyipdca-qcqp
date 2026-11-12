@@ -1,0 +1,280 @@
+--- R23
++++ R24
+@@ -36,7 +36,7 @@
+ \newcommand{\eps}{\varepsilon}
+ \hypersetup{pdftitle={Tangent Excess and Persistent Difference-of-Convex Regularization for Nonconvex QCQPs},pdfauthor={Francois Akoa}}
+ 
+-\externaldocument[][nocite]{Akoa_LazyQCQP_20261111_R23_Supplement}[Akoa_LazyQCQP_20261111_R23_Supplement.pdf]
++\externaldocument[][nocite]{Akoa_LazyQCQP_20261111_R24_Supplement}[Akoa_LazyQCQP_20261111_R24_Supplement.pdf]
+ 
+ \usepackage{xcolor}
+ \newenvironment{scaledtable}[1][tbp]{\begin{tableorg}[#1]\centering}{\end{tableorg}}
+@@ -50,11 +50,12 @@
+ \title{Tangent Excess and Persistent Difference-of-Convex Regularization for Nonconvex QCQPs}
+ \author*[1]{\fnm{Fran\c{c}ois} \sur{Akoa}}\email{francois.akoa@maatai-lab.com}
+ \affil[1]{\orgname{MAATAI-LAB}, \orgaddress{\country{France}}}
+-\abstract{Valid componentwise convexification can impose a local convergence cost
++\abstract{Componentwise convexification can impose a local convergence cost
+ on nonconvex quadratically constrained quadratic programs (QCQPs).
+-We prove a sharp lower bound on the relative tangent excess forced by
+-negatively curved components with positive Lagrangian weights and
+-characterize corrections confined to normal directions. Established
++We derive a lower bound on the relative tangent excess forced by
++negatively curved components with positive Lagrangian weights.
++QCQP examples attain this bound. We characterize corrections confined
++to normal directions. Established
+ sensitivity formulas convert this excess $\kappa$ into the factor
+ $\kappa/(1+\kappa)$, reproduced by controlled trajectories. LazyQCQP reuses
+ difference-of-convex corrections, refines components and preserves signed
+@@ -74,8 +75,8 @@
+ time to Ipopt process time with MUMPS is 0.34 in the first class and
+ 0.48 in the mixed class. A controlled radio-beamforming ablation shows
+ that removing quadratically implied bounds lowers attained objectives
+-but can reduce certificate counts. On 12 selected instances, reuse
+-preserves numerical trajectories and reduces median paired process times
++but can reduce certificate counts. On 12 instances, reuse
++preserves trajectories and reduces median paired process times
+ by approximately 15\% with either linear solver.}
+ \keywords{nonconvex QCQP, difference of convex programming,
+ structured regularization, persistent curvature, quadratic equalities,
+@@ -88,7 +89,7 @@
+ Componentwise convexification can change the local geometry even when
+ the original constrained second-order curvature is favourable. Feasible
+ motion depends on the multiplier-weighted excess on the active tangent
+-space. We derive a sharp lower bound on the excess forced by componentwise
++space. We derive a lower bound on the excess forced by componentwise
+ convexity, attain it within the class of quadratically constrained
+ quadratic programs (QCQPs), and characterize corrections confined to
+ normal directions.
+@@ -125,16 +126,16 @@
+ convexifications. At a stationary point with independent active gradients, strict
+ complementarity and positive definite reduced Lagrangian Hessian,
+ let $H_*$ be the original Lagrangian Hessian. For each nonzero
+-active tangent direction $v$, convexified components $q_j$ with
+-nonnegative Lagrangian weights $w_j$ force
++active tangent direction $v$, convexified components $q_i$ with
++nonnegative Lagrangian weights $w_i$ force
+ \[
+  \kappa\geq
+- \frac{\sum_j w_j[-v^T\nabla^2q_j(x_*)v]_+}{v^TH_*v}.
++ \frac{\sum_i w_i[-v^T\nabla^2q_i(x_*)v]_+}{v^TH_*v}.
+ \]
+ Here $\kappa$ is the largest tangent ratio of weighted correction to
+ original curvature; the objective has weight one. Established
+ sensitivity formulas for the model solution map convert this excess into the spectral
+-factor $\kappa/(1+\kappa)$. The bound is sharp within QCQPs. A
++factor $\kappa/(1+\kappa)$. A QCQP example attains the bound. A
+ complementary necessary and sufficient criterion determines whether
+ convexification can leave tangent motion unchanged. It includes a
+ range condition when the tangent restriction is singular. Correction
+@@ -160,8 +161,7 @@
+ 
+ LazyQCQP denotes the persistent-correction framework: R3 is the
+ benchmark reference with reusable support-based corrections, HH, HS, SH and SS are complete
+-alternative policies, and $SS_0$ is a scalar control. Their relative
+-merits are assessed within each regime through coverage, attained
++alternative policies, and $SS_0$ is a scalar control. Within each regime, we compare their certificate counts, attained
+ objectives and computational cost.
+ 
+ The experiments test the geometric predictions on controlled
+@@ -206,8 +206,8 @@
+ The local sensitivity relation is established for majorization--minimization
+ \citep[Section~6.1]{HunterLange2004} and constrained sequential convex
+ programming \citep[Theorem~4.5]{MessererBaumgaertnerDiehl2021}.
+-The contribution here is the excess forced by convexity, its sharpness,
+-and the normal-space criterion. The global analysis uses the filter
++The contribution is a lower bound on the excess forced by convexity,
++QCQP examples attaining this bound, and the normal-space criterion. The global analysis uses the filter
+ framework of \citet{WachterBiegler2005Global}, connecting bounded
+ persistent corrections to a lower bound on tangent curvature and determining
+ when additional diagonal regularization becomes unnecessary. These results connect model
+@@ -259,15 +259,16 @@
+ the common final-point test.
+ 
+ \subsection{Tangent and normal curvature}
+-Let $x_*$ be a KKT point and $\cA_*=\{i:g_i(x_*)=0\}$. Let $A_*$
+-collect the gradients of its active inequalities and equalities. Under
++Let $x_*$ be a KKT point and let $\cA_*=\{i:g_i(x_*)=0\}$ denote
++the active inequality indices. Let $A_*$ contain the gradients of these
++inequalities and of all equality constraints as rows. Under
+ linear independence of these gradients (LICQ), take an orthonormal basis
+ $Z$ of $\ker A_*$. Under strict complementarity, the second order
+ sufficient condition is
+ \begin{equation}\label{eq:sosc}
+  H_T:=Z^TH_L(\lambda_*,\nu_*)Z\succ0.
+ \end{equation}
+-The tangent space is the space relevant to feasible first order motion.
++Tangent directions leave the active constraint values unchanged to first order.
+ An ambient-space correction may be large while its restriction to this
+ space is zero. Conversely, even a small-rank correction may strongly
+ affect the only tangent direction. This distinction will determine the
+@@ -292,7 +293,7 @@
+ iteration or a model-solution map. Write $q_0=f$, $q_i=g_i$,
+ $w_0=1$ and $w_i=\lambda_{i,*}\geq0$ for
+ $i\in\mathcal A_*$. For positive semidefinite component corrections
+-$M_j$, $j\in\{0\}\cup\mathcal A_*$, define their weighted excess by
++$M_i$, $i\in\{0\}\cup\mathcal A_*$, define their weighted excess by
+ \begin{equation}\label{eq:tangent-excess-definition}
+  \begin{split}
+  E_*&=M_0+\sum_{i\in\mathcal A_*}\lambda_{i,*}M_i,\\
+@@ -302,22 +303,22 @@
+           \frac{v^TE_*v}{v^TH_*v}.
+  \end{split}
+ \end{equation}
+-Thus $\kappa$ measures the retained tangent correction relative to the
+-original reduced Lagrangian curvature.
+-
+-\begin{theorem}[A sharp lower bound on tangent excess]
++Thus, $\kappa$ is the largest ratio of added DC curvature to original
++Lagrangian curvature over nonzero tangent directions.
++
++\begin{theorem}[A lower bound on tangent excess]
+ \label{cor:smooth-convexification-obstruction}
+ With the preceding definitions, let
+ $\mathcal C\subseteq\{0\}\cup\mathcal A_*$ be any set of components
+ whose corrected Hessians are positive semidefinite:
+ \[
+- \nabla^2q_j(x_*)+M_j\succeq0\qquad(j\in\mathcal C).
++ \nabla^2q_i(x_*)+M_i\succeq0\qquad(i\in\mathcal C).
+ \]
+ For every nonzero $v\in\ker A_*$,
+ \begin{equation}\label{eq:smooth-convexification-obstruction}
+  \kappa\geq
+- \frac{\displaystyle\sum_{j\in\mathcal C}
+-          w_j[-v^T\nabla^2q_j(x_*)v]_+}{v^TH_*v}.
++ \frac{\displaystyle\sum_{i\in\mathcal C}
++          w_i[-v^T\nabla^2q_i(x_*)v]_+}{v^TH_*v}.
+ \end{equation}
+ In particular, negative component curvature along a tangent direction,
+ with a positive corresponding weight, forces $\kappa>0$ whenever
+@@ -325,17 +326,17 @@
+ class for every prescribed positive value of $\kappa$.
+ \end{theorem}
+ \begin{proof}
+-For $j\in\mathcal C$, positive semidefiniteness of $M_j$ and
+-$\nabla^2q_j(x_*)+M_j$ gives
+-\[
+- v^TM_jv\geq[-v^T\nabla^2q_j(x_*)v]_+.
++For $i\in\mathcal C$, positive semidefiniteness of $M_i$ and
++$\nabla^2q_i(x_*)+M_i$ gives
++\[
++ v^TM_iv\geq[-v^T\nabla^2q_i(x_*)v]_+.
+ \]
+ All other contributions to $v^TE_*v$ are nonnegative. Multiplying by
+-$w_j$, summing and using the Rayleigh quotient in
++$w_i$, summing and using the Rayleigh quotient in
+ \eqref{eq:tangent-excess-definition} proves the bound.
+ 
+-For sharpness, fix $a,c>0$ and consider
+-\begin{equation}\label{eq:sharp-qcqp}
++To show that the bound is attained, choose $a,c>0$ and consider
++\begin{equation}\label{eq:attainment-qcqp}
+  \min_{s,t}\;s+\frac{a+c}{2}t^2
+  \quad\text{subject to}\quad -s-\frac c2t^2\leq0.
+ \end{equation}
+@@ -348,8 +349,8 @@
+ $c/a$. Choosing $c/a$ gives any prescribed positive $\kappa$.
+ \end{proof}
+ 
+-Sharpness here means attainability over the QCQP class, not minimality
+-of the bound for each fixed instance. The pointwise argument also applies
++The construction attains the bound within the QCQP class by choosing
++the instance and its correction. The pointwise argument also applies
+ to $C^2$ components, using their Hessians at $x_*$. The statement concerns curvature. Under the additional regularity and
+ first-order model consistency hypotheses of Theorem~\ref{thm:smooth-anchored-map}, the
+ established sensitivity formula converts $\kappa$ into the local
+@@ -523,9 +524,9 @@
+  =\begin{bmatrix}b\\0\end{bmatrix}.
+ \end{equation}
+ Indeed the second row gives $w=W^Td$, and substitution yields the first
+-equation. Reuse of curvature need not therefore require forming a dense
+-outer-product matrix. The representation and elimination identity are
+-self-contained; the unpublished manuscript is not needed.
++equation. Thus curvature corrections can be reused through a bordered system,
++without forming a dense outer-product matrix. The representation and
++elimination identity are given explicitly here.
+ 
+ \subsection{Quadratic equalities and signed curvature}\label{sec:equalities}
+ For $h(x)=0$, the two inequalities $h\leq0$ and $-h\leq0$ are
+@@ -609,8 +610,7 @@
+ This identity also holds for primal--dual Newton on the original functions. At the current iterate, the corrections enter
+ through $E_{0,k}+\sum_i\lambda_{i,k}M_{i,k}$ in
+ \eqref{eq:primal-block}; solving the curved model to feasibility would
+-be a further requirement. The inner-region figures below depict these
+-fully enforced reference models.
++be a further requirement. The figures below show the feasible regions of these exact reference models.
+ 
+ 
+ 
+@@ -798,8 +798,8 @@
+ Its proof and the stage-continuation details are in the same supplement.
+ 
+ \subsection{Local rates for smooth models}
+-The sensitivity argument has established MM and sequential-convex-programming
+-precedents. At a nondegenerate smooth unconstrained fixed point,
++Related local sensitivity formulas are available for MM and sequential
++convex programming. At a nondegenerate smooth unconstrained fixed point,
+ \citet[Section~6.1, equations~(19)--(20)]{HunterLange2004} relate the
+ original Hessian to the surrogate Hessian and the update derivative.
+ Writing these Hessians in minimization notation as $H$ and $B=H+E$
+@@ -808,10 +808,10 @@
+ an exact surrogate update with one undamped Newton update of the
+ unconstrained surrogate. For constrained SCP, SCQP and SQCQP,
+ \citet[Theorem~4.5]{MessererBaumgaertnerDiehl2021} determine local
+-spectral rates through reduced Hessian approximation errors. Their
+-reduced model Hessian and original-minus-model error correspond here to
+-$\widetilde B_*=H_T+E_T$ and $\widetilde E_*=-E_T$: their rate criterion
+-therefore yields the same tangent factor $\kappa/(1+\kappa)$.
++spectral rates through reduced Hessian approximation errors. In our notation, their reduced model Hessian is
++$\widetilde B_*=H_T+E_T$, and their error, defined as original minus model
++curvature, is $\widetilde E_*=-E_T$. Their rate criterion therefore gives
++the same tangent factor $\kappa/(1+\kappa)$.
+ The formulation below retains the original nonlinear equalities and
+ isolates a positive semidefinite excess weighted by active-inequality
+ multipliers. The new geometric bound in
+@@ -991,7 +991,8 @@
+ 
+ 
+ 
+-The nonquadratic extension of the sharp QCQP is developed in Supplementary Section~\ref{supp:smooth-sharp}.
++Supplementary Section~\ref{supp:smooth-attainment} extends the QCQP example
++in \eqref{eq:attainment-qcqp} to nonquadratic functions.
+ 
+ \begin{corollary}[Conditions for faster local rates]
+ Along a sequence $x_k\to x_*$ with varying model corrections,
+@@ -1049,8 +1050,8 @@
+ $K_*=K(w_*)=[\begin{smallmatrix}H_*&J_*^T\\J_*&0\end{smallmatrix}]$,
+ where $J_*$ is the active constraint Jacobian and $H_*$ the original
+ Lagrangian Hessian. Let $Z$ span
+-the active tangent space orthonormally. The component excess $E_k$ is
+-kept distinct from numerical or stabilization perturbations $\Delta_k$.
++the active tangent space orthonormally. The matrix $E_k$ denotes the component excess, and $\Delta_k$ collects
++numerical or stabilization perturbations.
+ \begin{corollary}[Newton iteration under vanishing perturbations]
+ \label{cor:newton-realization}
+ Suppose $F$ has a Lipschitz continuous Jacobian near $w_*$,
+@@ -1402,9 +1403,9 @@
+ removes none. R3 likewise removes none in the 503 available ASU MA27
+ observations, with unchanged variable dimensions. The MUMPS implementation uses the same mode-dependent rule.
+ Thus comparisons involving SS combine curvature and preprocessing.
+-The HH/HS and HH/SH comparisons retain common preprocessing, globalization
+-and safeguards within each backend implementation and permit narrower
+-conditional comparisons.
++HH/HS and HH/SH share preprocessing, globalization and safeguards within
++each linear-solver implementation. These comparisons therefore focus on
++their component-correction choices.
+ MUMPS--METIS is the default linear solver of LazyQCQP and serves as its
+ native reference backend. The MA27 implementation uses the same native
+ policies and accuracy safeguards
+@@ -1670,8 +1671,9 @@
+ and timing protocol.
+ \FloatBarrier
+ \section{Discussion and conclusion}
+-The sharp tangent-excess bound identifies a local convergence cost forced
+-by valid componentwise convexification. The normal-space criterion
++The tangent-excess bound quantifies the local convergence cost forced
++by valid componentwise convexification. The examples show that this bound
++can be attained. The normal-space criterion
+ characterizes when corrections can avoid that cost. Established
+ sensitivity formulas give the spectral factor $\kappa/(1+\kappa)$, which
+ the controlled QCQPs reproduce.

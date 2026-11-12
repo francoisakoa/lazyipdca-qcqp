@@ -1,0 +1,7 @@
+{
+  "archived_strict_ASU_observations": 2996,
+  "reported_iterations_equal_internal_outer_iterations": 2996,
+  "reported_iterations_equal_dca_filter_majorant_outer_iterations": 2996,
+  "interpretation": "ASU iteration differences are differences in recorded outer cycles, not linear solves or hidden inner iterations.",
+  "new_solver_runs": 0
+}

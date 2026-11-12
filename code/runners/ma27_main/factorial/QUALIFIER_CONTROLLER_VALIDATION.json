@@ -1,0 +1,20 @@
+{
+  "schema": "factorial50-controller-validation-v1",
+  "at_utc": "2026-11-08T07:57:20.152515+00:00",
+  "unit_checks": 15,
+  "passed": true,
+  "corpus_50_case_qualification_passed": false,
+  "production_authorized": false,
+  "scope": "Controller tests only; actual fixed 50-case three-way parity must run on TRX against installed original binary and frozen inputs.",
+  "bindings": {
+    "QUALIFIER_50.py": "3afd787c24e839e83a4f17e896ee6d195914e0b1c4da6fd46acc1880f2af6197",
+    "TEST_QUALIFIER_50.py": "bd2e39503553ba56635c5d2a2b707ec6b2bd15cc3185ff0cb93579ae655f0ed8",
+    "PROFILES.py": "540b3a33c4d19d2472a0a2afa7e157bcd021c2f679f762092f6d83d18f227485",
+    "profile_evidence/PUBLISHED_CONTEXT.json": "de32c4f51979f5844b110a9e2cd8ea10d1c60aa108e606fff6d3f62cccdbba20"
+  },
+  "required_native_executions": 306,
+  "required_diagonal_trajectories": 100,
+  "source_blocker_at_validation": "Actual full-corpus coefficient coupling receipt plus actual fixed 50-case diagonal gate are mandatory before production; neither has been produced by controller unit tests.",
+  "coupling_receipt_schema": "factorial-corpus-coupling-gate-v1",
+  "coupling_rows_inspected_by_qualifier": 1834
+}

@@ -1,0 +1,41 @@
+{
+  "schema": "lazyipdca-qcqp-local-validation-v1",
+  "date": "2026-09-05",
+  "version": "0.4.28r3p21-partial-spectrum-sparse-kernels",
+  "api_version": 4304,
+  "build_id": "v0.4.28r3p21-partial-spectrum-sparse-kernels-api-4304",
+  "compiler": "g++ 13.3.0",
+  "local_linear_backend": "native_dense_lapack",
+  "registered_tests": {
+    "total": 92,
+    "passed": 92,
+    "failed": 0,
+    "cpp": 74,
+    "cli": 3,
+    "python": 15
+  },
+  "sanitizers": {
+    "address": "pass",
+    "undefined_behavior": "pass",
+    "focused_executables": 7
+  },
+  "focused_contracts": {
+    "partial_spectrum_vs_full_spectrum": "pass",
+    "partial_spectrum_workspace_reuse": "pass",
+    "lazyqp_reduced_kkt": "pass",
+    "lazyqp_exact_affine_reduction": "pass",
+    "condensed_multiplier_refit": "pass",
+    "pglib_structural_hotpaths": "pass",
+    "single_algorithm_route": "pass",
+    "catenary_multiplier_transport": "pass"
+  },
+  "conditional_compile_checks": {
+    "suitesparse_ldl_metis_branch": "pass_with_temporary_api_declarations"
+  },
+  "target_case118_ldl_benchmark": {
+    "status": "not_run_in_local_environment",
+    "required_target_seconds": 10.0,
+    "metric": "median_solver_elapsed_seconds",
+    "repetitions": 5
+  }
+}

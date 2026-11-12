@@ -1,0 +1,24 @@
+{
+  "schema": "refinement-runtime-synthetic-validation-v1",
+  "passed": true,
+  "synthetic_tests": 24,
+  "failed": 0,
+  "native_solver_invocations": 0,
+  "new_endpoint_audits": 0,
+  "production_authorized": false,
+  "target_qualification_still_required": true,
+  "source_sha256": {
+    "PROFILES_EXPERIENCE.py": "63710b2884bf3e3585d1f497daf75a4578b8c370275a4b247a37113821d755a7",
+    "REFERENCE_PROFILES.json": "6a4bd3efc2a18efb949710cf830232b41d9050e7cbb18cca8a2e747afeaea8eb",
+    "PREPARER_EXPERIENCE.py": "fe816246cb59a733ecbfb1598aa90ac632895dc2d7d11f682e2eecea1519ef32",
+    "CONTROLEUR_EXPERIENCE.py": "df3a0291721b36b7d259d856995c565d31ed5d37e2fbb793c92cb6bae9bf03ba",
+    "TEST_RUNTIME_EXPERIENCE.py": "384d2b95eeb6ccaa70ab0cb755ab3e16fbc474fe2e5110c56570493dcce63872",
+    "README_RUNTIME.txt": "2f493d92fcd5babe38a8156a6dfd01b92ebfb3a011c09a80f70d84a52ef9c711"
+  },
+  "log": "TEST_RUNTIME_EXPERIENCE.log",
+  "shared_trace_parser_sha256": "360978b2c8ef9138c65f0f8ffe27c98049804520d439cfd0a938051597fc4427",
+  "production_cpus": [
+    23
+  ],
+  "jobs": 1
+}

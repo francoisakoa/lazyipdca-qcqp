@@ -1,0 +1,88 @@
+QUALITÉ DES OBJECTIFS — RÉGIME M, ARCHIVE IPOPT PAR DÉFAUT
+797 cas : 503 ASU (beam_structural) et 294 autres. Chaque comparaison utilise sa propre intersection de certificats originaux stricts, mêmes QCQP et départs par empreinte.
+Les 12 variantes Lazy sont toutes incluses. Les archives ne permettent aucune attribution causale à la stratégie de barrière ni au backend seul.
+Écart signé relatif = (f_Lazy-f_Ipopt)/max(1,|f_Lazy|,|f_Ipopt|), négatif en faveur de Lazy. Quartiles calculés sur toutes les paires communes ; les médianes conditionnelles ne concernent que les objectifs effectivement plus élevés au seuil.
+
+M_all : 797 cas
+Lazy | Ipopt | N | quartiles signés q25/médiane/q75 | inférieur/équivalent/supérieur à 1e-3 | à 1e-2 | médiane conditionnelle supérieure, 1e-3
+R3_ma27 | ipopt_ma27_default | 408 | 4.474%/15.37%/23.05% | 10/56/342 | 4/75/329 | 17.64%
+R3_ma27 | ipopt_mumps_default | 423 | 5.373%/15.7%/23.02% | 13/55/355 | 6/73/344 | 18.31%
+HH_ma27 | ipopt_ma27_default | 406 | -0.2218%/1.829e-05%/0.3236% | 118/162/126 | 44/310/52 | 0.7297%
+HH_ma27 | ipopt_mumps_default | 421 | -0.1551%/1.939e-05%/0.3352% | 119/167/135 | 39/328/54 | 0.7663%
+HS_ma27 | ipopt_ma27_default | 381 | -0.1906%/1.779e-05%/0.3465% | 105/142/134 | 50/279/52 | 0.618%
+HS_ma27 | ipopt_mumps_default | 387 | -0.1252%/1.868e-05%/0.3632% | 105/148/134 | 39/293/55 | 0.7188%
+SH_ma27 | ipopt_ma27_default | 406 | -0.2218%/1.829e-05%/0.3236% | 118/162/126 | 44/310/52 | 0.7297%
+SH_ma27 | ipopt_mumps_default | 421 | -0.1551%/1.939e-05%/0.3352% | 119/167/135 | 39/328/54 | 0.7663%
+SS_ma27 | ipopt_ma27_default | 406 | 4.482%/14.18%/22.37% | 13/53/340 | 4/75/327 | 16.76%
+SS_ma27 | ipopt_mumps_default | 421 | 5.091%/14.96%/22.69% | 19/48/354 | 7/71/343 | 17.14%
+SS_legacy_ma27 | ipopt_ma27_default | 40 | 4.855e-06%/5.754e-05%/0.8326% | 3/23/14 | 0/30/10 | 1.84%
+SS_legacy_ma27 | ipopt_mumps_default | 40 | 4.855e-06%/5.754e-05%/0.8326% | 5/21/14 | 2/28/10 | 1.84%
+R3_mumps | ipopt_ma27_default | 407 | 4.519%/15.44%/23.06% | 9/56/342 | 3/75/329 | 17.64%
+R3_mumps | ipopt_mumps_default | 422 | 5.487%/15.78%/23.06% | 12/55/355 | 5/73/344 | 18.31%
+HH_mumps | ipopt_ma27_default | 405 | -0.2211%/1.835e-05%/0.3298% | 117/161/127 | 43/309/53 | 0.731%
+HH_mumps | ipopt_mumps_default | 420 | -0.1545%/1.948e-05%/0.3382% | 118/166/136 | 38/327/55 | 0.7685%
+HS_mumps | ipopt_ma27_default | 380 | -0.1898%/1.792e-05%/0.3624% | 104/141/135 | 49/278/53 | 0.6219%
+HS_mumps | ipopt_mumps_default | 386 | -0.1217%/1.873e-05%/0.3812% | 104/147/135 | 38/292/56 | 0.7284%
+SH_mumps | ipopt_ma27_default | 405 | -0.2211%/1.835e-05%/0.3298% | 117/161/127 | 43/309/53 | 0.731%
+SH_mumps | ipopt_mumps_default | 420 | -0.1545%/1.948e-05%/0.3382% | 118/166/136 | 38/327/55 | 0.7685%
+SS_mumps | ipopt_ma27_default | 405 | 4.701%/14.22%/22.41% | 12/53/340 | 3/74/328 | 16.76%
+SS_mumps | ipopt_mumps_default | 420 | 5.228%/14.99%/22.71% | 18/48/354 | 6/70/344 | 17.14%
+SS_legacy_mumps | ipopt_ma27_default | 41 | 2.85e-06%/4.55e-05%/0.7284% | 3/24/14 | 0/31/10 | 1.84%
+SS_legacy_mumps | ipopt_mumps_default | 41 | 2.85e-06%/4.55e-05%/0.7284% | 5/22/14 | 2/29/10 | 1.84%
+
+M_ASU : 503 cas
+Lazy | Ipopt | N | quartiles signés q25/médiane/q75 | inférieur/équivalent/supérieur à 1e-3 | à 1e-2 | médiane conditionnelle supérieure, 1e-3
+R3_ma27 | ipopt_ma27_default | 324 | 11.18%/18.13%/24.93% | 0/3/321 | 0/7/317 | 18.27%
+R3_ma27 | ipopt_mumps_default | 341 | 11.95%/18.54%/24.72% | 0/5/336 | 0/7/334 | 18.79%
+HH_ma27 | ipopt_ma27_default | 324 | -0.2978%/1.882e-05%/0.4007% | 105/112/107 | 40/243/41 | 0.7091%
+HH_ma27 | ipopt_mumps_default | 341 | -0.22%/2.044e-05%/0.4018% | 103/120/118 | 33/263/45 | 0.7579%
+HS_ma27 | ipopt_ma27_default | 299 | -0.2727%/1.844e-05%/0.4032% | 92/92/115 | 46/212/41 | 0.581%
+HS_ma27 | ipopt_mumps_default | 307 | -0.2006%/1.958e-05%/0.456% | 89/101/117 | 33/228/46 | 0.6941%
+SH_ma27 | ipopt_ma27_default | 324 | -0.2978%/1.882e-05%/0.4007% | 105/112/107 | 40/243/41 | 0.7091%
+SH_ma27 | ipopt_mumps_default | 341 | -0.22%/2.044e-05%/0.4018% | 103/120/118 | 33/263/45 | 0.7579%
+SS_ma27 | ipopt_ma27_default | 324 | 10.26%/17.21%/23.68% | 0/3/321 | 0/8/316 | 17.23%
+SS_ma27 | ipopt_mumps_default | 341 | 11.47%/17.35%/23.89% | 3/1/337 | 1/6/334 | 17.57%
+SS_legacy_ma27 | ipopt_ma27_default | 0 | —/—/— | 0/0/0 | 0/0/0 | —
+SS_legacy_ma27 | ipopt_mumps_default | 0 | —/—/— | 0/0/0 | 0/0/0 | —
+R3_mumps | ipopt_ma27_default | 324 | 11.18%/18.13%/24.93% | 0/3/321 | 0/7/317 | 18.27%
+R3_mumps | ipopt_mumps_default | 341 | 11.95%/18.54%/24.72% | 0/5/336 | 0/7/334 | 18.79%
+HH_mumps | ipopt_ma27_default | 324 | -0.2978%/1.882e-05%/0.4007% | 105/112/107 | 40/243/41 | 0.7091%
+HH_mumps | ipopt_mumps_default | 341 | -0.22%/2.04e-05%/0.4018% | 103/120/118 | 33/263/45 | 0.7579%
+HS_mumps | ipopt_ma27_default | 299 | -0.2727%/1.844e-05%/0.4032% | 92/92/115 | 46/212/41 | 0.581%
+HS_mumps | ipopt_mumps_default | 307 | -0.2006%/1.958e-05%/0.456% | 89/101/117 | 33/228/46 | 0.6941%
+SH_mumps | ipopt_ma27_default | 324 | -0.2978%/1.882e-05%/0.4007% | 105/112/107 | 40/243/41 | 0.7091%
+SH_mumps | ipopt_mumps_default | 341 | -0.22%/2.04e-05%/0.4018% | 103/120/118 | 33/263/45 | 0.7579%
+SS_mumps | ipopt_ma27_default | 324 | 10.26%/17.21%/23.68% | 0/4/320 | 0/8/316 | 17.29%
+SS_mumps | ipopt_mumps_default | 341 | 11.47%/17.35%/23.89% | 3/2/336 | 1/6/334 | 17.67%
+SS_legacy_mumps | ipopt_ma27_default | 0 | —/—/— | 0/0/0 | 0/0/0 | —
+SS_legacy_mumps | ipopt_mumps_default | 0 | —/—/— | 0/0/0 | 0/0/0 | —
+
+M_outside_ASU : 294 cas
+Lazy | Ipopt | N | quartiles signés q25/médiane/q75 | inférieur/équivalent/supérieur à 1e-3 | à 1e-2 | médiane conditionnelle supérieure, 1e-3
+R3_ma27 | ipopt_ma27_default | 84 | 1.39e-06%/1.84e-05%/0.06545% | 10/53/21 | 4/68/12 | 1.595%
+R3_ma27 | ipopt_mumps_default | 82 | 5.153e-07%/1.84e-05%/0.0413% | 13/50/19 | 6/66/10 | 1.145%
+HH_ma27 | ipopt_ma27_default | 82 | 1.566e-06%/1.279e-05%/0.0141% | 13/50/19 | 4/67/11 | 1.595%
+HH_ma27 | ipopt_mumps_default | 80 | -0.008823%/1.279e-05%/0.009963% | 16/47/17 | 6/65/9 | 1.145%
+HS_ma27 | ipopt_ma27_default | 82 | 1.566e-06%/1.279e-05%/0.0141% | 13/50/19 | 4/67/11 | 1.595%
+HS_ma27 | ipopt_mumps_default | 80 | -0.008823%/1.279e-05%/0.009963% | 16/47/17 | 6/65/9 | 1.145%
+SH_ma27 | ipopt_ma27_default | 82 | 1.566e-06%/1.279e-05%/0.0141% | 13/50/19 | 4/67/11 | 1.595%
+SH_ma27 | ipopt_mumps_default | 80 | -0.008823%/1.279e-05%/0.009963% | 16/47/17 | 6/65/9 | 1.145%
+SS_ma27 | ipopt_ma27_default | 82 | 1.566e-06%/1.279e-05%/0.0141% | 13/50/19 | 4/67/11 | 1.595%
+SS_ma27 | ipopt_mumps_default | 80 | -0.008823%/1.279e-05%/0.009963% | 16/47/17 | 6/65/9 | 1.145%
+SS_legacy_ma27 | ipopt_ma27_default | 40 | 4.855e-06%/5.754e-05%/0.8326% | 3/23/14 | 0/30/10 | 1.84%
+SS_legacy_ma27 | ipopt_mumps_default | 40 | 4.855e-06%/5.754e-05%/0.8326% | 5/21/14 | 2/28/10 | 1.84%
+R3_mumps | ipopt_ma27_default | 83 | 1.884e-06%/2.631e-05%/0.08556% | 9/53/21 | 3/68/12 | 1.595%
+R3_mumps | ipopt_mumps_default | 81 | 1.431e-06%/2.631e-05%/0.04533% | 12/50/19 | 5/66/10 | 1.145%
+HH_mumps | ipopt_ma27_default | 81 | 1.431e-06%/1.291e-05%/0.04602% | 12/49/20 | 3/66/12 | 1.84%
+HH_mumps | ipopt_mumps_default | 79 | -0.001871%/1.291e-05%/0.01311% | 15/46/18 | 5/64/10 | 1.37%
+HS_mumps | ipopt_ma27_default | 81 | 1.431e-06%/1.291e-05%/0.04602% | 12/49/20 | 3/66/12 | 1.84%
+HS_mumps | ipopt_mumps_default | 79 | -0.001871%/1.291e-05%/0.01311% | 15/46/18 | 5/64/10 | 1.37%
+SH_mumps | ipopt_ma27_default | 81 | 1.431e-06%/1.291e-05%/0.04602% | 12/49/20 | 3/66/12 | 1.84%
+SH_mumps | ipopt_mumps_default | 79 | -0.001871%/1.291e-05%/0.01311% | 15/46/18 | 5/64/10 | 1.37%
+SS_mumps | ipopt_ma27_default | 81 | 1.431e-06%/1.291e-05%/0.04602% | 12/49/20 | 3/66/12 | 1.84%
+SS_mumps | ipopt_mumps_default | 79 | -0.001871%/1.291e-05%/0.01311% | 15/46/18 | 5/64/10 | 1.37%
+SS_legacy_mumps | ipopt_ma27_default | 41 | 2.85e-06%/4.55e-05%/0.7284% | 3/24/14 | 0/31/10 | 1.84%
+SS_legacy_mumps | ipopt_mumps_default | 41 | 2.85e-06%/4.55e-05%/0.7284% | 5/22/14 | 2/29/10 | 1.84%
+
+Les petits résidus KKT ne garantissent pas l’identité des minima locaux. Les résidus finaux sont livrés pour chaque cohorte appariée ; aucune correction de précision n’est imputée sans mesure. Les preuves archivées ont deux niveaux : projection authentifiée pour une campagne et audits complets pour l’autre ; aucun audit vectoriel original n’est recréé à partir de ce fichier compact.
+Les échecs de certificat, le nombre de paires et les collections doivent être lus ensemble : une faible différence sur les seuls succès communs ne mesure pas la couverture. La nouvelle expérience Ipopt alignée est distincte et nécessite de nouveaux endpoints pour ses quatre cellules.

@@ -1,0 +1,232 @@
+EXPÉRIENCE DÉCISIVE : ISOLER LE RAFFINEMENT ADAPTATIF
+Projet LazyQCQP — protocole proposé le 9 novembre 2026
+
+La question est précise : à corrections initiales identiques, leur adaptation
+pendant la résolution améliore-t-elle l'acquisition d'un certificat KKT
+original ? La globalisation est croisée séparément et les garde-fous restent
+fixes. Les deux backends constituent deux blocs de la même expérience.
+
+1. Ce qui change et ce qui reste fixe
+
+Les quatre cellules, à répéter avec MA27 puis MUMPS :
+
+  FROZEN_GR3   initialisation hybride commune, corrections gelées, globalisation R3
+  FROZEN_GHS   initialisation hybride commune, corrections gelées, globalisation H/S
+  REFINED_GR3  même initialisation, mises à jour adaptatives, globalisation R3
+  REFINED_GHS  même initialisation, mises à jour adaptatives, globalisation H/S
+
+Le mot « gelées » porte sur les matrices de correction ; leurs valeurs et
+leurs gradients sont réancrés normalement aux itérés. Le raffinement peut
+changer les matrices d'inégalités, selon les règles natives déclarées.
+L'objectif reste exact partout : E0=0. Les égalités quadratiques conservent
+le même traitement signé dans toutes les cellules.
+
+Le facteur G désigne un paquet de huit contrôles : rétraction conditionnelle,
+globalisation adaptative, équilibrage dual initial, correction SOC non
+linéaire, SOC avec résidu primal complet, arc SOC, contrôle du défaut SOC
+et patience de petit pas (0 ou 4). Son effet n'est pas celui du seul filtre
+ou de la seule recherche linéaire.
+
+Les garde-fous structurels et de récupération R3 forment un vecteur commun
+fixé dans les quatre cellules, indépendamment de la globalisation. Les
+contrôles d'inertie, de précision des directions de Newton et d'acceptation
+sur le QCQP original restent identiques. Leurs options et leur éligibilité
+ne doivent dépendre ni du niveau frozen/adaptive ni de la globalisation.
+Le code doit prouver cette séparation ; un nom d'option ne suffit pas.
+
+La représentation est fixée uniformément à original_qcqp : la réduction
+SignedSquareReduction est désactivée dans les huit cellules. Les cartes
+affines et réductions de rang exactes qui conservent un QCQP restent
+déclarées et comptées. Ce réglage ne modifie pas les profils historiques.
+
+Les deux niveaux de correction utilisent la même construction initiale.
+Un cache support R3 scalaire/spectral comparé à une hybridation initiale
+différente mesurerait deux politiques de correction complètes. Il ne
+permettrait pas d'attribuer le résultat à la seule adaptation. Ce contrôle
+peut être ajouté comme étude secondaire déclarée ; il n'entre pas dans
+l'estimation primaire ci-dessus.
+
+Les cellules expérimentales ne sont pas rebaptisées R3 ou HH : le premier
+emploie un autre cache initial, le second a un traitement d'objectif et des
+garde-fous propres. Les profils publics restent inchangés et servent aux
+contrôles de fidélité de l'implémentation.
+
+2. Périmètre, ressources et ordre des tâches
+
+Toutes les 1 834 instances I et M sont incluses : 1 037 en I, 797 en M.
+Même QCQP gelé et même départ brut pour les huit configurations. Aucun
+endpoint d'une autre résolution ne devient un warm start.
+
+  1 834 instances × 4 cellules × 2 backends = 14 672 résolutions de production.
+
+Chaque tâche dispose de 7 200 secondes, 5 000 itérations extérieures et
+600 restaurations partagées entre toutes les phases natives. Les travaux
+internes, factorisations, résolutions et temps sont comptés séparément.
+Un seul binaire homogène, avec les deux backends qualifiés, est utilisé.
+Tout le pipeline de l’ablation — compilation, qualification et production —
+est fixé sur le cœur 23, avec un seul travail natif à la fois et un seul
+thread numérique. La file continue n’attend pas la fin d’un dataset. Les
+quatre Ipopt alignés utilisent séparément les cœurs 0 à 21, avec 22 tâches ;
+les affinités ne se recouvrent pas. L'ordre des cellules est fixé et équilibré
+par instance ; il n'est pas adapté aux résultats observés.
+
+Les deux Ipopt par défaut déjà dépouillés sont des références externes à
+cette ablation. Aucune nouvelle exécution Ipopt sur les 4 078 cas n'est
+nécessaire pour identifier les effets du raffinement. Les temps de ces
+références ne sont pas utilisés pour décider l'effet causal des facteurs.
+
+Les contrôles de qualification sont distincts des 14 672 résolutions.
+Le plan d'exécution doit annoncer séparément leur nombre exact et leur
+consommation. Le coût maximal théorique de production est de 29 344 heures
+CPU ; ce plafond de budget n'est pas une prévision de durée réelle.
+
+3. Portes de validation avant toute production
+
+La proposition fournit une sélection de 50 cas, effectuée sans lire les
+résultats : 25 cas I et 25 cas M, sélectionnés par parcours de collections
+dans chaque régime. Le seul échantillon de fidélité est borné par la règle
+générique n≤10 000. Les candidats éligibles sont triés par dimension,
+nombre de contraintes, puis empreinte de l’identifiant. La sélection
+couvre 26 des 27 strates (régime, collection). La strate beam_safety,
+dont les trois dimensions valent 41 473, reste hors de ce contrôle de
+fidélité ; elle reste intégralement dans la production de 1 834 cas.
+Les effectifs sources, éligibles et retenus par strate sont enregistrés. La liste et son algorithme sont enregistrés.
+
+Sur ces cas, les profils publics R3 et HH sont exécutés dans leurs versions
+originales — dont la référence MA27 réellement installée — et à travers le dispositif d'observation et d'adaptation. Pour
+chaque backend, les états acceptés doivent coïncider en binary64, ainsi que
+les compteurs et la qualification originale finale. Cela n'exige pas que
+les 50 problèmes soient résolus par ces profils : un résultat non strict
+identique constitue aussi un contrôle valide de fidélité.
+
+Une exécution interrompue par le temps peut confirmer un préfixe de trace,
+mais pas une identité de trajectoire complète. Elle reste un contrôle
+incomplet, sans remplacement silencieux du cas. Les contrôles ne deviennent
+pas des résultats de production et ne peuvent être substitués aux nouvelles
+cellules exact-objective.
+
+Sur six contrôles structurels synthétiques déterministes, les quatre
+cellules et les deux backends ajoutent 48 exécutions. Pour MA27, les deux profils sur 50 cas comparent le binaire actuellement
+installé aux trois binaires reconstruits : 400 résolutions. Pour MUMPS,
+les trois binaires reconstruits depuis la même source courante donnent
+300 résolutions ; l’ancienne implémentation MUMPS numériquement différente
+ne sert pas de référence. Avec les 48 contrôles synthétiques, on obtient
+donc 748 résolutions de qualification, hors production. Il faut en outre vérifier sur les contrôles,
+puis automatiquement sur chaque groupe apparié de production :
+- la même première correction initiale dans chaque paire frozen/adaptive
+  à globalisation fixée, par construction et empreinte native ; les
+  séquences de phases ultérieures peuvent diverger et restent enregistrées ;
+  un modèle non construit à cause d’une résolution structurelle préalable
+  est déclaré « not_reached », avec zéro appel d’initialisation et zéro
+  raffinement ; aucune fausse empreinte de matrice n’est créée ;
+- E0=0 et la même courbure signée des égalités ;
+- le même vecteur d'options hors facteurs, sorties d'observation et backend ;
+- les mêmes garde-fous et la même éligibilité structurelle ;
+- zéro modification de correction pour les cellules FROZEN ;
+- les budgets uniques partagés et les compteurs complets ;
+- la provenance de chaque direction finalement acceptée, après SOC/rétraction.
+
+Un échec de porte bloque la production entière. Il ne conduit pas à exclure
+une instance de la comparaison. Toute modification du code après validation
+invalide les reçus liés à son empreinte et demande une nouvelle validation.
+
+4. Critère principal écrit avant les résultats
+
+La comparaison primaire est REFINED_GHS moins FROZEN_GHS sur I∪M, dans
+chaque backend séparément. Le raffinement satisfait la règle annoncée si :
+
+1) le gain net atteint au moins 20 certificats ;
+2) les victoires appariées sont au moins deux fois plus nombreuses que les
+   défaites appariées ;
+3) aucune collection ne représente plus de 50 % du gain net total ;
+4) le signe reste positif en donnant le même poids à chaque famille.
+
+La conclusion générale « bénéfice établi sur les deux backends » exige les
+quatre conditions dans les deux blocs. Si un seul backend satisfait la règle,
+ce résultat est rapporté avec son périmètre. L'échec de cette règle ne prouve
+pas une inutilité universelle du raffinement.
+
+Ces seuils sont des critères de décision technique préannoncés, pas des
+seuils de significativité. Les 1 834 problèmes forment un corpus fixe ;
+répéter chacun avec deux backends ne crée pas 3 668 observations indépendantes.
+
+Pour la concentration, on applique exactement la condition
+  2 Δ_collection ≤ Δ_total,
+aux gains nets, y compris les collections défavorables. On ne remplace pas
+le dénominateur par la somme des seuls gains positifs. Les partitions de
+famille et de collection sont celles du contrat gelé, sans regroupement
+après lecture des résultats.
+
+Les autres effets sont également publiés, même s'ils sont défavorables :
+- raffinement moyen = moitié de la somme des effets sous les deux globalisations ;
+- globalisation moyenne = moitié de la somme des effets sous les deux évolutions ;
+- interaction = effet du raffinement sous GHS moins cet effet sous GR3.
+
+Les moyennes entre backends donnent un poids égal aux deux blocs. Les
+résultats I et M séparés, les pondérations de groupe et l'omission de la
+collection dominante complètent le bilan ; I∪M seul est confirmatoire.
+
+5. Critère original, incidents techniques et mesures secondaires
+
+La réussite exige les trois résidus du QCQP original complet ≤1e-6 et des
+preuves valides de données, départ, backend et budget. Chaque cas prévu
+reste au dénominateur. Le tableau destiné à l'article est binaire : réussite
+ou échec à produire le certificat demandé.
+
+Les dossiers bruts distinguent néanmoins un endpoint audité non strict,
+un arrêt censuré, un endpoint absent et une preuve invalide. Un incident
+technique n'est pas qualifié d'échec numérique. En complément du bilan
+binaire, l'analyse calcule les bornes des contrastes lorsque ces résultats
+numériques restent inconnus. Une conclusion positive confirmatoire doit
+résister à toutes leurs complétions possibles.
+
+Mesures secondaires :
+- temps par paires de certificats communs, avec les deux temps de processus
+  >1 seconde ; médiane des rapports individuels et effectif explicite ;
+- objectifs sur certificats communs, avec l'écart symétrique
+  (fA−fB)/max(1,|fA|,|fB|), aux seuils 1e-3 et 1e-2 ;
+- origine finale des directions acceptées, après tous les post-traitements ;
+- mises à jour de correction effectivement acceptées et nombre de composantes
+  modifiées, afin de savoir si l'adaptation s'est réellement activée ;
+- répartition des effets par collection, famille et régime ;
+- travail interne et clocks séparés, sans addition de durées qui se recouvrent.
+
+Une direction SOC issue d'une direction majorante garde son origine de base,
+mais sa catégorie finale reste « descendant SOC ». Elle n'est pas comptée
+comme une direction majorante pure. Les événements de restauration ou de
+réinitialisation sont distincts des mises à jour primaires acceptées.
+
+6. État de ce dossier et scellement
+
+STUDY_CONTRACT.json contient le plan scientifique statique, ses critères,
+les 1 834 entrées et départs et les 50 cas de qualification. Son empreinte
+est enregistrée par les contrôles de qualification. Cette spécification
+reste inchangée après ces contrôles.
+
+PRE_ENREGISTREMENT_RAFFINEMENT.json est un modèle de reçu de production,
+à l’état draft_not_sealed. Il référence STUDY_CONTRACT.json par empreinte,
+puis doit lier les empreintes concrètes du code, du binaire homogène, des
+portes de validation, du schéma de direction et du vecteur commun de
+garde-fous. Il peut devenir sealed_before_production seulement après PASS
+des portes et avant toute exécution de production. Le plan de production
+et les observations référencent l’empreinte de ce reçu final.
+
+Cette séparation évite le cycle où un reçu de qualification inclurait
+l’empreinte d’un document contenant sa propre empreinte. Le reçu de
+qualification est lié au contrat statique ; le reçu de production lie
+ensuite le contrat et la qualification. Aucun fichier ne prétend à ce
+stade qu’une compilation, qualification TRX ou séparation de code aurait
+déjà réussi.
+
+ANALYSER_RAFFINEMENT.py est autonome avec Python 3.11+. Il ne lance pas de
+solveur et refuse une proposition non scellée. Il accepte les observations
+JSONL (éventuellement gzip) et produit les contrastes, les décisions par
+backend, les mesures secondaires et les problèmes de preuve.
+
+python3 ANALYSER_RAFFINEMENT.py \
+  --preregistration PRE_ENREGISTREMENT_RAFFINEMENT.json \
+  --observations OBSERVATIONS_FACTORIELLES.jsonl \
+  --out DEPOUILLEMENT_FACTORIEL
+
+La commande ci-dessus est destinée au protocole finalement scellé. Le code
+n'invente pas de résultats pour rendre une proposition analysable.

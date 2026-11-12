@@ -1,0 +1,95 @@
+{
+  "schema": "lazyipdca-r3p24-local-validation-v1",
+  "date": "2026-09-06",
+  "release": {
+    "version": "0.4.28r3p24-guarded-continuation",
+    "api": 4307,
+    "build_identifier": "v0.4.28r3p24-guarded-continuation-api-4307"
+  },
+  "model": {
+    "format": "LAZYIPDCA_QCQP_V1",
+    "sha256": "d60ea7005d72605c2b33c587b574c390076e56246f27e41924ee5bf0f259aef6",
+    "bytes": 4701861,
+    "variables": 1088,
+    "equalities": 980,
+    "inequalities": 979,
+    "immutable_export_contract_count": 1,
+    "export_count_during_ipopt_and_ab_validation": 0
+  },
+  "tests": {
+    "registered": 102,
+    "passed": 102,
+    "failed": 0,
+    "elapsed_seconds": 23.07
+  },
+  "ipopt_first_reference": {
+    "evidence": "/workspace/scratch/fd83a80bcbed/work/r3p24_ipopt_first_pair/summary.json",
+    "summary_schema": "lazyipdca-ipopt-same-qcqp-run-v1",
+    "summary_sha256": "b7c5f9bc7077f7e2c5d8848bcd7c24f0ec6b82fa676ec6a4a3d8952906fcb0b4",
+    "execution_order": [
+      "ipopt",
+      "lazyipdca"
+    ],
+    "model_integrity_passed": true,
+    "kkt_certificate_passed": true,
+    "status": "solved",
+    "iterations": 22,
+    "objective": 97213.60739522372,
+    "elapsed_seconds": 0.199244577,
+    "equality_violation": 7.701134174808999e-11,
+    "inequality_violation": 0.0,
+    "bound_violation": 0.0,
+    "dual_infeasibility_inf": 2.459966845846425e-7,
+    "complementarity_inf": 1.7010114668223678e-7
+  },
+  "lazyipdca_same_qcqp_ab": {
+    "evidence": "/workspace/scratch/fd83a80bcbed/work/r3p24_release_ab_3_release/benchmark.json",
+    "evidence_sha256": "24ec2b8393f3b43e3d55163ee96ce595af98ef58c9cf83d772b63add089f9f91",
+    "repetitions": 3,
+    "pairs_passed": 3,
+    "protocol_passed": true,
+    "model_integrity_passed": true,
+    "ipopt_first_reference_passed": true,
+    "candidate_feature": {
+      "name": "lazyqp_zero_dual_continuation",
+      "engaged_runs": 3,
+      "attempts_median": 54.0,
+      "acceptances_median": 32.0,
+      "fallbacks_median": 22.0
+    },
+    "baseline": {
+      "outer_iterations_median": 49.0,
+      "inner_iterations_median": 711.0,
+      "lazyqp_kkt_factorizations_median": 653.0,
+      "reported_disjoint_numeric_factorizations_median": 769.0,
+      "solver_elapsed_seconds_median": 13.438627154,
+      "objective_median": 97213.60739507593,
+      "kkt_certificate_passed": true
+    },
+    "candidate": {
+      "outer_iterations_median": 46.0,
+      "inner_iterations_median": 654.0,
+      "lazyqp_kkt_factorizations_median": 599.0,
+      "reported_disjoint_numeric_factorizations_median": 709.0,
+      "solver_elapsed_seconds_median": 12.456945187,
+      "objective_median": 97213.60739507605,
+      "kkt_certificate_passed": true
+    },
+    "comparison": {
+      "solver_speedup_baseline_over_candidate": 1.078805995552142,
+      "outer_iterations_saved": 3.0,
+      "inner_iterations_saved": 57.0,
+      "lazyqp_kkt_factorizations_saved": 54.0,
+      "reported_disjoint_numeric_factorizations_saved": 60.0,
+      "objective_absolute_difference_median": 1.1641532182693481e-10,
+      "solver_time_reduction_percent": 7.304927473
+    }
+  },
+  "local_performance_gates": {
+    "historical_under_10_seconds": false,
+    "competitive_under_0_5_seconds": false,
+    "reported_numeric_factorizations_at_most_45": false,
+    "benchmark_passed": false
+  },
+  "claim_boundary": "r3p24 demonstrates a guarded and reproducible reduction in LazyIPDCA work; it does not reach or claim 0.5-second competitiveness with direct Ipopt."
+}

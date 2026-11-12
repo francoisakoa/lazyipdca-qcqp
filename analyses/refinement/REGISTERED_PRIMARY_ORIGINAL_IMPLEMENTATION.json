@@ -1,0 +1,380 @@
+[
+  {
+    "backend": "ma27",
+    "scope": "I+M confirmatory; I and M descriptive only",
+    "contrast": "REFINED_GHS minus FROZEN_GHS",
+    "minimum_net_certificates": 20,
+    "net_gain_bounds": [
+      -23,
+      23
+    ],
+    "known_wins": 5,
+    "known_losses": 5,
+    "possible_wins_upper": 28,
+    "possible_losses_upper": 28,
+    "technical_or_missing_pairs": 23,
+    "family_macro_delta_bounds": [
+      -0.03726974611542192,
+      0.03750069221742178
+    ],
+    "collection_contributions": {
+      "CUTEst": {
+        "net_lower": 1,
+        "net_upper": 3,
+        "planned": 57,
+        "twice_group_minus_total_lower": -19,
+        "twice_group_minus_total_upper": 27
+      },
+      "multicast_beamforming": {
+        "net_lower": 1,
+        "net_upper": 1,
+        "planned": 129,
+        "twice_group_minus_total_lower": -21,
+        "twice_group_minus_total_upper": 25
+      },
+      "PGLIB": {
+        "net_lower": 1,
+        "net_upper": 1,
+        "planned": 198,
+        "twice_group_minus_total_lower": -21,
+        "twice_group_minus_total_upper": 25
+      },
+      "CBLIB_SOC_reference": {
+        "net_lower": -2,
+        "net_upper": 2,
+        "planned": 6,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 23
+      },
+      "COPS_camshape": {
+        "net_lower": -1,
+        "net_upper": -1,
+        "planned": 104,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 21
+      },
+      "COPS_minimal_surface": {
+        "net_lower": -3,
+        "net_upper": -3,
+        "planned": 100,
+        "twice_group_minus_total_lower": -29,
+        "twice_group_minus_total_upper": 17
+      },
+      "IJOC_partition_QCQP": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 150,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 23
+      },
+      "MINLPLIB": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 4,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 23
+      },
+      "Mittelmann_boundary_cont6": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 100,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 23
+      },
+      "Mittelmann_distributed_dist2": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 100,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 23
+      },
+      "QPLIB_reference": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 49,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 23
+      },
+      "beam_safety": {
+        "net_lower": -2,
+        "net_upper": 2,
+        "planned": 3,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 23
+      },
+      "beam_structural": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 503,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 23
+      },
+      "controlled_kappa": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 60,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 23
+      },
+      "gas_power": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 3,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 23
+      },
+      "gas_transport": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 1,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 23
+      },
+      "obstacle_path_smoothing": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 90,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 23
+      },
+      "packing_equal_disks": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 60,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 23
+      },
+      "pooling_MINLPLIB": {
+        "net_lower": -1,
+        "net_upper": 1,
+        "planned": 4,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 23
+      },
+      "robot_arm": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 4,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 23
+      },
+      "two_ellipsoid_qcqp": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 90,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 23
+      },
+      "pooling_reduced": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 2,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 23
+      },
+      "water_networks": {
+        "net_lower": -17,
+        "net_upper": 17,
+        "planned": 17,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 23
+      }
+    },
+    "conditions": {
+      "net_certificates_at_least_minimum_robust": false,
+      "paired_discordances_at_least_two_to_one_robust": false,
+      "no_collection_above_half_net_gain_robust": false,
+      "family_macro_sign_positive_robust": false
+    },
+    "decision": "not_identified_due_to_technical_or_missing_outcomes"
+  },
+  {
+    "backend": "mumps",
+    "scope": "I+M confirmatory; I and M descriptive only",
+    "contrast": "REFINED_GHS minus FROZEN_GHS",
+    "minimum_net_certificates": 20,
+    "net_gain_bounds": [
+      -23,
+      25
+    ],
+    "known_wins": 5,
+    "known_losses": 4,
+    "possible_wins_upper": 29,
+    "possible_losses_upper": 28,
+    "technical_or_missing_pairs": 24,
+    "family_macro_delta_bounds": [
+      -0.03649770626652505,
+      0.0384874164802302
+    ],
+    "collection_contributions": {
+      "CUTEst": {
+        "net_lower": 1,
+        "net_upper": 3,
+        "planned": 57,
+        "twice_group_minus_total_lower": -21,
+        "twice_group_minus_total_upper": 27
+      },
+      "multicast_beamforming": {
+        "net_lower": 1,
+        "net_upper": 1,
+        "planned": 129,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 25
+      },
+      "PGLIB": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 198,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      },
+      "CBLIB_SOC_reference": {
+        "net_lower": -2,
+        "net_upper": 2,
+        "planned": 6,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      },
+      "COPS_camshape": {
+        "net_lower": 1,
+        "net_upper": 1,
+        "planned": 104,
+        "twice_group_minus_total_lower": -23,
+        "twice_group_minus_total_upper": 25
+      },
+      "COPS_minimal_surface": {
+        "net_lower": -3,
+        "net_upper": -3,
+        "planned": 100,
+        "twice_group_minus_total_lower": -31,
+        "twice_group_minus_total_upper": 17
+      },
+      "IJOC_partition_QCQP": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 150,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      },
+      "MINLPLIB": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 4,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      },
+      "Mittelmann_boundary_cont6": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 100,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      },
+      "Mittelmann_distributed_dist2": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 100,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      },
+      "QPLIB_reference": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 49,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      },
+      "beam_safety": {
+        "net_lower": -3,
+        "net_upper": 3,
+        "planned": 3,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      },
+      "beam_structural": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 503,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      },
+      "controlled_kappa": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 60,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      },
+      "gas_power": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 3,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      },
+      "gas_transport": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 1,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      },
+      "obstacle_path_smoothing": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 90,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      },
+      "packing_equal_disks": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 60,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      },
+      "pooling_MINLPLIB": {
+        "net_lower": -1,
+        "net_upper": 1,
+        "planned": 4,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      },
+      "robot_arm": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 4,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      },
+      "two_ellipsoid_qcqp": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 90,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      },
+      "pooling_reduced": {
+        "net_lower": 0,
+        "net_upper": 0,
+        "planned": 2,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      },
+      "water_networks": {
+        "net_lower": -17,
+        "net_upper": 17,
+        "planned": 17,
+        "twice_group_minus_total_lower": -25,
+        "twice_group_minus_total_upper": 23
+      }
+    },
+    "conditions": {
+      "net_certificates_at_least_minimum_robust": false,
+      "paired_discordances_at_least_two_to_one_robust": false,
+      "no_collection_above_half_net_gain_robust": false,
+      "family_macro_sign_positive_robust": false
+    },
+    "decision": "not_identified_due_to_technical_or_missing_outcomes"
+  }
+]

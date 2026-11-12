@@ -1,0 +1,2840 @@
+--- /dev/null
++++ b/CHANGES_G6.json
+@@ -0,0 +1,29 @@
++{
++  "identity": {
++    "version": "0.4.28r3p28g6-research-dca",
++    "api_version": 4332,
++    "build_id": "v0.4.28r3p28g6-research-dca-api-4332",
++    "branch": "filter-lazy-dca-research",
++    "parent": "0.4.28r3p28g5-adaptive-dca",
++    "performance_target_met": false
++  },
++  "default_cli_research_flags": false,
++  "runner_default_research_profile": "block",
++  "implemented": [
++    "active inequality gradient evaluation",
++    "exact support atom operations",
++    "deferred merit evaluation",
++    "block inverse Ritz admissions",
++    "guarded local Anderson",
++    "tangent curvature certificate option",
++    "sufficient certificate transport option",
++    "symmetric LDL equilibration option",
++    "MUMPS curvature and pivoted recovery options",
++    "independent comparison runner and diagnostics"
++  ],
++  "not_implemented": [
++    "strong-active inequality DCA local mode",
++    "additional partial sparse equality elimination"
++  ],
++  "performance_target_met": false
++}
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -775,7 +775,7 @@
+            COMMAND lazyipdca_qcqp_cli --version)
+   set_tests_properties(r3p28_version_identity PROPERTIES
+     PASS_REGULAR_EXPRESSION
+-      "0.4.28r3p28g5-adaptive-dca.*API 4331.*r3p28g5-adaptive-dca-api-4331")
++      "0.4.28r3p28g6-research-dca.*API 4332.*r3p28g6-research-dca-api-4332")
+   set_tests_properties(benchmark_same_qcqp_r3p24 PROPERTIES
+     ENVIRONMENT "OMP_NUM_THREADS=1;OPENBLAS_NUM_THREADS=1;MKL_NUM_THREADS=1;BLIS_NUM_THREADS=1"
+     TIMEOUT 60)
+@@ -934,3 +934,12 @@
+   target_link_libraries(test_g5_adaptive_dca PRIVATE lazyipdca_qcqp)
+   add_test(NAME g5_adaptive_dca_original_certificates COMMAND test_g5_adaptive_dca)
+ endif()
++
++if(LAZYIPDCA_BUILD_TESTS)
++  foreach(case_name IN ITEMS g6_block_curvature g6_anderson g6_equilibration g6_certificate_transport g6_tangent_curvature)
++    add_executable(test_${case_name} tests/test_${case_name}.cpp)
++    target_link_libraries(test_${case_name} PRIVATE lazyipdca_qcqp)
++    add_test(NAME ${case_name} COMMAND test_${case_name})
++    set_tests_properties(${case_name} PROPERTIES ENVIRONMENT "OMP_NUM_THREADS=1;OPENBLAS_NUM_THREADS=1")
++  endforeach()
++endif()
+--- /dev/null
++++ b/FILTER_DCA_G6.md
+@@ -0,0 +1,162 @@
++# G6 — Contrat des prototypes Lazy-DCA
++
++G6 est une branche de recherche issue de G5. Aucun résultat ne valide 4 s sur
++case2869. Les mesures répétées sont dans `VALIDATION_G6.md`. La réflexion sur
++le prochain changement de modèle est dans `RESEARCH_DIRECTION_G6.md` ; le mode
++DCA sur les contraintes fortement actives et l'élimination supplémentaire qui
++y sont proposés ne sont pas implémentés ici.
++
++## Sélection et contrôles
++
++Le binaire conserve les réglages G5 par défaut. Le runner G6 choisit
++explicitement son profil `block` : évaluations actives, produits atomiques sur
++support, mérite évalué à la demande, sonde de Ritz par bloc et accélération
++locale d'Anderson. Chaque option dispose de son inverse `--no-...`. Les autres
++profils sont explicites dans `INSTALL_AND_TEST_G6.md` ; aucune variable
++`LAZY_DCA_*` expérimentale ne sélectionne le moteur livré.
++
++Tous les profils du runner utilisent `--algorithm lazy-dca --dca-engine filter`.
++Les paramètres de budget et d'événement restent ceux de G5 : plafond global de
++500 directions stockées, batch maximal 2, événements aux mises à jour du
++Hessien selon la période CLI. Un événement autorise une recherche ; il n'impose
++pas une admission. Le complément scalaire est recalculé selon le certificat
++retenu même lorsqu'aucune admission n'a lieu. Le nombre de pas privés reste
++borné par `--dca-inner-max` et l'acceptation par le filtre original.
++
++## Travail supprimé dans le noyau
++
++`--dca-active-evaluation` conserve la valeur des inégalités inactives mais ne
++calcule pas leur gradient pour un KKT qui ne les utilise pas. Une activation
++provoque une nouvelle évaluation avant assemblage. Le test d'activation continue
++d'utiliser les contraintes originales. Le nombre de gradients doit donc
++baisser ; le nombre de contraintes du QCQP ne change pas.
++
++`--dca-packed-atoms` utilise le support exact des coordonnées retenues pour les
++produits et gradients des corrections. La projection réduite lit directement
++ces coordonnées. Les vecteurs sources ne sont pas tous comprimés en mémoire :
++le nom de l'option décrit les opérations restreintes au support, pas une
++réduction générale du stockage.
++
++`--dca-lazy-merit` réutilise les résidus disponibles pour la violation courante
++et diffère l'évaluation du mérite et du résidu perturbé jusqu'au premier rejet
++par le filtre original. La mise à jour de pénalité et la pente sont conservées
++avant la recherche linéaire, car elles influencent les pas suivants.
++
++## Une exploration spectrale pour plusieurs admissions
++
++`--dca-block-ritz` extrait jusqu'au budget restant de directions candidates
++à partir d'une seule exploration de Krylov inverse, au plus 18 résolutions.
++Il remplace la répétition d'une exploration complète après chaque admission.
++Chaque candidat est revérifié par un quotient de Rayleigh exact contre la
++courbure et la correction courantes. Les directions déjà traitées ne sont pas
++supposées encore négatives après modification des poids.
++
++L'orthogonalisation fournit une base du sous-espace enrichi ; son résidu n'a
++pas à être lui-même une direction négative. Le témoin négatif original reste
++dans le sous-espace. Le calcul collectif des poids positifs et la certification
++finale sont donc indispensables. Il n'y a pas de factorisation complète entre
++deux candidats du même bloc, mais une certification après correction. Une
++sonde sans témoin utilisable laisse travailler le complément scalaire.
++
++## Accélération locale contrôlée
++
++`--dca-anderson` conserve au plus quatre sorties de pas DCA acceptés. Les
++coefficients proviennent d'un petit problème régularisé avec bornes de mélange.
++L'essai reste tardif : premier pas d'un modèle recentré, résidus originaux
++faibles, progrès KKT, absence de restauration et ensemble actif compatible.
++L'historique est invalidé lorsque ces conditions cessent de tenir.
++
++Les slacks sont mémorisés dans la représentation des contraintes originales,
++puis ramenés au modèle courant après mélange. Un candidat non fini, non
++strictement positif dans les variables de barrière, ou violant une inégalité
++originale précédemment inactive est rejeté. Au plus deux mélanges sont essayés.
++Il faut améliorer suffisamment le KKT original du candidat DCA standard,
++ne pas dégrader sa faisabilité au-delà du seuil admis, et passer le même filtre
++original. Le candidat standard reste disponible si l'accélération échoue.
++
++Une acceptation accélérée invalide le modèle et impose son recentrage. Aucune
++factorisation Newton supplémentaire n'est requise, mais les évaluations et
++audits des candidats coûtent du temps et sont comptés. Les champs
++`dca_filter_anderson_trials` et `dca_filter_anderson_acceptances` isolent les
++essais Anderson ; les compteurs historiques d'extrapolation les incluent aussi.
++Une certification du point final ne constitue pas un théorème de convergence
++globale de cette accélération à modèles variables.
++
++## Certificat tangent expérimental
++
++Avec `--dca-tangent-curvature`, le test d'inertie porte sur le système bordé
++avec bloc d'égalité nul. Sous plein rang, l'inertie attendue certifie la marge
++positive du Hessien corrigé sur le noyau des égalités restantes. La correction
++atomique et scalaire est PSD ; le Lagrangien partiel corrigé, restreint au domaine
++affine des égalités, est convexe. Il s'agit d'une décomposition DC sur ce domaine,
++pas d'un majorant global de l'objectif original dans tout l'espace.
++
++La sonde inverse utilise le même facteur, projette sur le noyau et vérifie son
++résidu tangent avant l'admission. Les atomes et leur complément sont encore
++recertifiés. En cas de défaut de rang ou de difficulté numérique, la borne
++scalaire globale fournit un repli suffisant ; un tel repli ne doit pas être
++interprété comme une inertie tangentielle réussie. Les audits Newton étendus
++restent sur le système original.
++
++Une extension convexe dans les directions normales existe sous les hypothèses
++du certificat, mais son coefficient n'est pas calculé dans ce mode. Les champs
++`normal_completion_weight` et `eliminated_normal_completion_weight` valent donc
++zéro avec `dca_filter_tangent_certificate=true` ; zéro signifie ici « extension
++non construite », pas « Hessien global certifié sans complétion normale ».
++Les trajectoires privées hors du domaine affine restent soumises aux contrôles
++du moteur et ne bénéficient pas automatiquement d'une convexité globale.
++
++Ce prototype réduit les modèles sur case1354 mais dégrade case2869. Il n'est
++pas le profil de recherche par défaut. Les corrections propres aux inégalités
++restent individuelles : le Lagrangien complet peut être favorable alors que
++l'objectif enrichi par les seules égalités nécessite encore une correction.
++
++## Transport de certificat et équilibrage
++
++`--dca-certificate-transport` essaie une borne suffisante sans factorisation
++lorsque les structures sont identiques et les dérives petites. Il conserve
++strictement les atomes et leurs poids. La dérive du Hessien est bornée par
++Gershgorin ; celle des normales par une inégalité de Young, avec augmentation
++certifiée du poids normal et du complément scalaire. Les arrondis sont majorés,
++les incréments bornés, et au plus trois transports consécutifs précèdent une
++certification complète. Le mode tangent désactive ce transport, dont la preuve
++utilise une complétion normale effectivement construite. Les champs
++`certificate_transport_trials` et `certificate_transports` distinguent tentative
++et application. Une disponibilité de l'option ne démontre pas son utilité sur
++une instance donnée.
++
++`--ldl-equilibration` applique trois passes de mise à l'échelle symétrique de
++Ruiz aux valeurs du facteur LDL, avec facteurs strictement positifs et bornés.
++Les seconds membres et solutions sont transformés de manière cohérente ;
++les résidus et raffinements sont contrôlés dans le système non mis à l'échelle.
++Les tests couvrent inertie, réutilisation symbolique, changements numériques
++et refus d'un effacement de coefficients par sous-dépassement. Le coût observé
++ne justifie pas d'activer cette option dans le profil `block`.
++
++## Backends, mesures et critères de validation
++
++`--dca-curvature-backend same|ldl|mumps|native` choisit le facteur de certification
++indépendamment du facteur Newton. `same` reprend le backend demandé au solveur.
++Un backend inconnu ou non compilé est refusé. `--dca-sparse-fallback` choisit
++MUMPS pour le secours pivoté s'il est disponible ; sinon le secours reste natif.
++Il n'y a pas de second secours dense après l'échec de MUMPS.
++
++Les compteurs `lazy_newton_native_*` sont des alias historiques du secours
++pivoté. `dca_filter_pivoted_backend` en donne le backend réel. Le choix MUMPS
++évite les très longues factorisations denses observées dans certaines sondes,
++mais ne corrige pas à lui seul une trajectoire de 92 itérations.
++
++Le registre exclusif de G5 reste actif : le core comprend évaluation,
++assemblage, factorisation Newton, résolutions, direction, audits, globalisation,
++construction/certification des majorants et reste du noyau. La préparation,
++le certificat final, l'affichage et le nettoyage sont hors core mais inclus
++dans la résolution C++. Les lectures et constructions CLI/Python, export,
++empreintes et audit indépendant sont des périphériques séparés. Les sous-profils
++de courbure sont inclusifs et ne s'ajoutent pas une deuxième fois au core.
++
++Le runner vérifie chaque solution depuis les coefficients originaux et les
++multiplicateurs exportés, à 1e-6. Le seuil de rejet du résidu Newton étendu
++reste 1e-7. Les tests des nouveaux certificats recalculent indépendamment les
++spectres de petits modèles ; les tests de solveur vérifient des solutions
++analytiques ou le certificat original. Les campagnes de vitesse utilisent
++le niveau d'affichage 0 et un seul solveur à la fois.
+--- /dev/null
++++ b/INSTALL_AND_TEST_G6.md
+@@ -0,0 +1,267 @@
++# Installation et comparaison — G6 recherche
++
++Archive : `lazyipdca_qcqp_v0.4.28r3p28g6_research_source_only.tar.gz`.
++Version `0.4.28r3p28g6-research-dca`, API `4332`, parent G5.
++
++G6 fournit des profils de recherche comparables sur le même QCQP. Le profil
++par défaut est `block`. La cible de **4 s sur case2869 n'est pas atteinte dans
++les résultats disponibles** ; sélectionner une cible ou un profil ne constitue
++pas une annonce de performance. Les résultats des campagnes doivent être lus
++avec leurs certificats et leurs réglages.
++
++Les blocs exécutent un Bash séparé pour préserver le terminal SSH en cas
++d'erreur. L'activation Conda précède `set -u` : certains hooks d'activation
++consultent des variables non initialisées. Le pointeur G6 est écrit seulement
++après une compilation et la suite de tests réussies. Les installations
++précédentes restent disponibles pour les comparaisons.
++
++## Installation
++
++Placer l'archive dans `/data/projects/IPDCA_QCQP`, puis exécuter :
++
++```bash
++if bash -s <<'INSTALL_G6'
++set -Eeo pipefail
++ENV_NAME=lazydca_mumps
++source "$(conda info --base)/etc/profile.d/conda.sh"
++conda activate "$ENV_NAME"
++set -u
++
++unset LD_PRELOAD ASAN_OPTIONS UBSAN_OPTIONS LSAN_OPTIONS
++export OMP_NUM_THREADS=1 OMP_DYNAMIC=FALSE
++export OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 BLIS_NUM_THREADS=1
++
++BASE=/data/projects/IPDCA_QCQP
++TOP=lazyipdca_qcqp_v0.4.28r3p28g6_research_source
++ARCHIVE="$BASE/${TOP}_only.tar.gz"
++
++gzip -t "$ARCHIVE"
++mkdir -p "$BASE/results"
++INSTALL=$(mktemp -d "$BASE/r3p28g6_XXXXXXXX")
++tar --no-same-owner -xzf "$ARCHIVE" -C "$INSTALL"
++SRC="$INSTALL/$TOP"
++(cd "$SRC" && sha256sum --quiet -c RELEASE_MANIFEST_SHA256_G6.txt)
++BUILD_JOBS=4 TEST_JOBS=2 bash "$SRC/tools/build_g6.sh"
++printf '%s\n' "$SRC" > "$BASE/results/R3P28G6_SOURCE_LAST"
++INSTALL_G6
++then
++  echo 'INSTALL=PASS'
++else
++  echo "INSTALL=FAIL rc=$? — terminal préservé"
++fi
++```
++
++Sur le portable, remplacer `ENV_NAME=lazydca_mumps` par `ENV_NAME=pf_gpu`.
++L'environnement doit fournir CMake, un compilateur C++, BLAS/LAPACK,
++SuiteSparse LDL et METIS. Le build est Release avec `-march=native` et lance
++toute la suite CTest. Il cherche également MUMPS : si cette dépendance optionnelle
++n'est pas disponible, CMake conserve le build LDL+METIS. Lire la ligne
++`MUMPS+METIS backend enabled` ou `MUMPS backend not built` dans la configuration
++avant de choisir `tangent-mumps`. Ce dernier profil requiert MUMPS compilé.
++Pour exclure explicitement MUMPS :
++
++```bash
++BUILD_JOBS=4 TEST_JOBS=2 bash "$SRC/tools/build_g6.sh" -DLAZYIPDCA_WITH_MUMPS=OFF
++```
++
++Ipopt est comparé par Python/CasADi avec MUMPS dans CasADi ; il n'est pas lié au
++binaire C++. Python, NumPy et CasADi sont donc nécessaires pour la campagne
++complète. Le nom de l'environnement Conda ne sélectionne pas un backend du
++solveur. Les profils ordinaires utilisent LDL+METIS pour le système de Newton.
++
++## Test paramétré avec affichage Lazy
++
++Les entrées figées disponibles sont `case118`, `case300`, `case1354` et
++`case2869`. Elles ne nécessitent aucun répertoire externe `pglib-opf`. Chaque
++campagne décompresse une seule fois son entrée et utilise ce fichier et ce point
++initial pour tous les solveurs. Les empreintes compressée et décompressée sont
++vérifiées ; prévoir environ 2,5 Go pour l'entrée temporaire de case2869. Elle est
++supprimée automatiquement à la fin de la campagne.
++
++```bash
++if bash -s <<'TEST_G6'
++set -Eeo pipefail
++ENV_NAME=lazydca_mumps
++source "$(conda info --base)/etc/profile.d/conda.sh"
++conda activate "$ENV_NAME"
++set -u
++
++unset LD_PRELOAD ASAN_OPTIONS UBSAN_OPTIONS LSAN_OPTIONS
++export OMP_NUM_THREADS=1 OMP_DYNAMIC=FALSE
++export OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 BLIS_NUM_THREADS=1
++export PYTHONUNBUFFERED=1
++
++PROBLEM=case1354
++PROFILE=block
++DISPLAY=2
++PERIOD=1
++MAX_ATOMS=500
++ATOM_BATCH=2
++INNER_MAX=8
++WARMUPS=0
++REPETITIONS=1
++TARGET_SECONDS=2
++COMPARE_G5=0
++
++BASE=/data/projects/IPDCA_QCQP
++SRC=$(cat "$BASE/results/R3P28G6_SOURCE_LAST")
++BASELINE_ARGS=()
++if [[ "$COMPARE_G5" == 1 ]]; then
++  OLD=$(cat "$BASE/results/R3P28G5_SOURCE_LAST")
++  BASELINE_ARGS=(--baseline-binary "$OLD/build_pf_gpu/lazyipdca_qcqp_cli")
++fi
++
++bash "$SRC/tools/run_g6.sh" \
++  --base "$BASE" --frozen "$PROBLEM" \
++  --binary "$SRC/build_pf_gpu/lazyipdca_qcqp_cli" \
++  "${BASELINE_ARGS[@]}" \
++  --research-profile "$PROFILE" \
++  --display-level "$DISPLAY" \
++  --atom-events --atom-event-every "$PERIOD" \
++  --max-atoms "$MAX_ATOMS" --atom-batch-size "$ATOM_BATCH" \
++  --dca-inner-max "$INNER_MAX" \
++  --threads 1 --warmups "$WARMUPS" --repetitions "$REPETITIONS" \
++  --max-iter 1000 --time-limit 1800 --target-seconds "$TARGET_SECONDS"
++TEST_G6
++then
++  echo 'CORRECTNESS=PASS'
++else
++  echo "CORRECTNESS=FAIL rc=$? — terminal préservé"
++fi
++```
++
++Pour le grand cas : `PROBLEM=case2869` et `TARGET_SECONDS=4`. Pour mesurer les
++temps : `DISPLAY=0`, `WARMUPS=1`, `REPETITIONS=5`. Ipopt est inclus par défaut ;
++ajouter `--skip-ipopt` pour un essai Lazy-DCA seul. `COMPARE_G5=1` ajoute le parent
++G5 inchangé, API 4331, si son pointeur d'installation existe. Le runner refuse
++un binaire dont l'identité ne correspond pas à celle attendue.
++
++Les budgets atomiques, la fréquence des événements, la limite de pas internes,
++les tolérances et l'entrée sont communs aux variantes Lazy. Les options G6 et
++les contrôles facultatifs du runner ne sont pas envoyés au parent G5, qui
++conserve ses réglages algorithmiques par défaut. L'ordre des solveurs tourne
++entre répétitions pour réduire le biais d'ordre ; les campagnes et les builds
++doivent être lancés sans autre résolution concurrente pour les mesures.
++
++## Profils explicites
++
++`--research-profile` sélectionne les groupes ci-dessous. Les commandes exactes
++sont enregistrées dans `records.json`, et le profil ainsi que ses options dans
++`benchmark_summary.json`. Aucune variable d'environnement expérimentale ne
++sélectionne ces mécanismes à la place de ce paramètre.
++
++| Profil | Options supplémentaires du binaire G6 |
++|---|---|
++| `control` | Aucune des options de recherche ci-dessous |
++| `kernel` | `--dca-active-evaluation --dca-packed-atoms --dca-lazy-merit` |
++| `block` (défaut) | `kernel` + `--dca-block-ritz --dca-anderson` |
++| `anderson` | `kernel` + `--dca-anderson` |
++| `tangent` | `block` + `--dca-tangent-curvature` |
++| `tangent-mumps` | `tangent` + `--dca-curvature-backend mumps --dca-sparse-fallback` |
++| `transport` | `block` + `--dca-certificate-transport` |
++| `equilibrated` | `block` + `--ldl-equilibration` |
++
++`control` est un contrôle dans le binaire G6 ; `--baseline-binary` exécute le
++binaire G5 d'origine. Le profil `scalar-control`, ajouté avec `--scalar-control`,
++conserve les options de recherche choisies mais impose `--max-atoms 0`.
++Tous les profils exécutent explicitement `--algorithm lazy-dca --dca-engine
++filter`. Un profil doit être évalué par sa convergence, son coût et son certificat
++original ; un contrôle KKT du point final ne prouve pas à lui seul toutes les
++propriétés des modèles intermédiaires d'un schéma de recherche.
++
++## Affichage, budgets et autres entrées
++
++| Niveau | Présentation |
++|---|---|
++| 0 | Pas de table d'itérations ; destiné aux mesures |
++| 1 | Itérations externes, présentation compacte de type Ipopt |
++| 2 | Colonnes Lazy : atomes, rangs et régularisations, avec résumé |
++| 3 | Modèles, facteurs, pas internes et temps cumulés |
++| 4 | Trace interne détaillée |
++
++Le plafond `--max-atoms 500` est global aux directions stockées simultanément,
++avec les directions mises en cache ; il ne borne pas la somme des admissions
++sur toute une résolution. `--atom-batch-size 2` est un maximum par événement,
++non une création forcée. `--atom-event-every 50` rend les mises à jour du Hessien
++50, 100, etc. éligibles à l'admission ; aucune admission n'est obligatoire.
++La complétion scalaire reste calculée selon le mécanisme du profil retenu.
++`--dca-inner-max 8` borne les pas du modèle réutilisé.
++
++Autres contrôles hérités du runner G5 :
++
++- `--max-atoms 0` désactive les atomes ; `--scalar-control` ajoute ce contrôle à
++  la campagne sans remplacer le profil principal.
++- `--dca-rho-refinements N` : de 0 à 12, défaut 3.
++- `--dca-initial-restoration` rétablit la restauration initiale obligatoire.
++- `--dca-normal-weighted-atoms` utilise les anciens poids avec complétion normale.
++- `--no-model-reuse` et `--no-extrapolation` désactivent les mécanismes concernés
++  dans le binaire G6.
++
++Une seule entrée est autorisée. Remplacer `--frozen "$PROBLEM"` par :
++
++```bash
++--qcq /chemin/absolu/instance.qcq
++```
++
++ou par un fichier MATPOWER déjà présent :
++
++```bash
++--case "$BASE/pglib-opf/pglib_opf_case6470_rte.m"
++```
++
++Dans le second cas, l'export a lieu une seule fois avant comparaison, avec un
++départ power-flow. Les résultats sur les quatre entrées figées ne constituent
++pas une validation des autres instances.
++
++## Certificats et contrat de chronométrage
++
++`CAMPAIGN=...` donne le répertoire des logs, JSON, commandes et résumés.
++`CORRECTNESS=PASS` exige que tous les essais, échauffements compris, passent
++leur contrôle indépendant des conditions KKT à `1e-6`, calculé depuis les
++coefficients originaux et les vecteurs primal-dual exportés. Le runner vérifie
++également les dimensions, l'identité du binaire et l'emploi du moteur Lazy-DCA.
++Les résidus du système de Newton conservent leur seuil de rejet `1e-7`.
++
++`modes.filter-dca.target_met` indique séparément si la médiane des résolutions
++valides satisfait la cible demandée. Le code de retour représente la validité
++numérique ; une solution certifiée peut être trop lente. Comparer des médianes
++mesurées sur la même machine, le même modèle, les mêmes tolérances, le même
++nombre de threads et avec `DISPLAY=0`.
++
++| Mesure | Périmètre |
++|---|---|
++| `elapsed_seconds` / `solver_seconds` du runner Lazy | Résolution C++ : préparation, core, certificat final, diagnostics et nettoyage |
++| `lazy_newton_core_solve_seconds` | Somme des secteurs exclusifs du noyau |
++| `lazy_newton_cost_seconds` | Préparation et secteurs du core, puis certificat, diagnostics et nettoyage, identifiés séparément |
++| `cli_timing` | Chronométrage exporté par le CLI, dont ses phases périphériques |
++| `shared_peripheral_seconds` | Préparation de l'entrée, empreinte initiale et lecture indépendante du modèle |
++| `process_seconds` | Durée du processus enfant, distincte du seul solveur |
++| `independent_certificate_seconds` | Recalcul du certificat dans le processus de campagne, extérieur au solveur |
++| `ipopt_peripheral_seconds` | Lecture, construction du modèle CasADi et temps total du processus Python |
++
++Les secteurs exclusifs du core sont `evaluation`, `assembly`, `factorization`,
++`linear_backend`, `direction`, `direction_audit`, `globalization`, `atoms` et
++`core_other`. Le secteur `atoms` comprend la construction et la certification
++de courbure. Les sous-compteurs de certification, factorisation de courbure,
++sondes et spectres détaillent ce secteur et ne doivent pas être ajoutés une
++seconde fois à son total. Le coût d'affichage fait partie de la résolution
++mesurée ; il faut le supprimer par le niveau 0 pour une comparaison de vitesse.
++
++`lazy_newton_evaluation_calls` distingue les évaluations de fonctions originales
++et de modèles, les calculs de gradients et les produits par les Jacobiennes ou
++Hessiens. L'unité d'un appel de fonction est une fonction scalaire : parcourir
++un vecteur de contraintes compte ses lignes évaluées. Les caches et la sélection
++des lignes peuvent donc réduire les comptes sans modifier la définition du
++problème. Les empreintes avant/après chaque essai, la lecture Python/CasADi,
++l'export MATPOWER et l'audit indépendant restent hors core et sont enregistrés
++séparément. Voir aussi `FILTER_DCA_G5.md` pour le contrat de base hérité.
++
++Avec `--dca-sparse-fallback`, MUMPS remplace le secours pivoté dense lorsqu'il
++est compilé. Il n'y a pas de cascade MUMPS puis dense après un échec MUMPS.
++Les champs `native_factor_seconds`, `native_solve_seconds`,
++`native_factor_successes`, `native_linear_solves` et `last_native_iteration`
++(avec leur préfixe JSON `lazy_newton_`) restent des alias historiques de ce
++secours pivoté. Lire `dca_filter_pivoted_backend` pour savoir s'ils concernent
++MUMPS ou le backend natif. Un nom de compteur historique ne prouve pas le
++recours à une matrice dense. `dca_filter_curvature_backend` identifie séparément
++le backend de certification, et `dca_filter_tangent_certificate` son mode.
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,18 @@
++# LazyIPDCA QCQP — G6, prototypes de recherche DCA
++
++Lire [RESEARCH_DIRECTION_G6.md](RESEARCH_DIRECTION_G6.md) pour le diagnostic
++algorithmique et la prochaine architecture proposée, puis
++[VALIDATION_G6.md](VALIDATION_G6.md), [FILTER_DCA_G6.md](FILTER_DCA_G6.md) et
++[INSTALL_AND_TEST_G6.md](INSTALL_AND_TEST_G6.md) pour les prototypes exécutables.
++La cible de **4 s sur case2869 n'est pas atteinte**. Le mode local sur les
++contraintes fortement actives et l'élimination partielle supplémentaire sont
++des propositions documentées, non des fonctionnalités implémentées dans G6.
++
++Le runner `tools/run_g6.sh` sélectionne explicitement `--research-profile block`
++par défaut ; `control` conserve les réglages algorithmiques G5. Les nouvelles
++options du binaire sont désactivées par défaut. Les documents suivants sont
++historiques et ne décrivent pas les résultats de G6.
++
+ # LazyIPDCA QCQP — G5, complément scalaire et poids atomiques
+ 
+ Lire [INSTALL_AND_TEST_G5.md](INSTALL_AND_TEST_G5.md),
+--- /dev/null
++++ b/RESEARCH_DIRECTION_G6.md
+@@ -0,0 +1,149 @@
++# G6 — Réduire le coût de la convergence Lazy-DCA
++
++Ce document distingue les prototypes exécutables de G6 d'une prochaine architecture encore à implémenter. L'objectif reste une méthode Lazy-DCA : des décompositions DC explicites, des corrections atomiques parcimonieuses, un complément scalaire certifié, quelques pas internes, puis une acceptation sur le problème original. Les mesures disponibles ne permettent pas d'annoncer les objectifs de temps atteints.
++
++## 1. Le verrou n'est plus seulement le temps de factorisation
++
++Les premières expériences G6 ramènent certains essais de case1354 vers **2,6 s**, contre une médiane G5 de **2,934 s**, et case2869 vers **15 s**, contre **18,798 s** pour G5. Ce sont des indications exploratoires : les configurations et nombres de répétitions doivent être lus dans `VALIDATION_G6.md`. Elles ne constituent ni une comparaison répétée homogène de toutes les options, ni une validation sur la TRX. **La cible de 4 s sur case2869 reste hors d'atteinte.**
++
++Les améliorations de noyau, de sondes spectrales et de réutilisation ont une utilité réelle. Mais elles accélèrent une trajectoire qui peut rester lente à cause de sa convexification. Il faut donc mesurer deux phénomènes séparément : le prix de construction du majorant et l'effet du majorant sur le nombre de pas acceptés.
++
++Dans un modèle local, notons \(C_f\succeq0\) la correction de l'objectif — ici l'objectif enrichi par les courbures signées des égalités — et \(C_i\succeq0\) celle de l'inégalité \(i\). La correction qui intervient dans les équations de stationnarité est, au premier ordre lorsque les multiplicateurs d'ancrage sont cohérents,
++
++\[
++C_{\mathrm{eff}}=C_f+\sum_i z_iC_i.
++\]
++
++**Un rho nul et un petit nombre d'atomes ne suffisent donc pas à établir que le pas est proche de Newton.** Des atomes de poids élevés, ou des corrections d'inégalités fortement pondérées par leurs multiplicateurs, peuvent encore amortir les directions utiles. Inversement, une correction importante située uniquement dans les directions normales peut ne pas ralentir le mouvement admissible.
++
++Cette écriture suppose un même modèle centré en \(x_k\). Pour un QCQP, la différence exacte entre stationnarités modèle et originale contient aussi
++
++\[
++\left[\sum_j(\lambda_{k,j}-\lambda_j)Q_{h_j}\right]d,
++\]
++
++car l'objectif utilise les multiplicateurs d'ancrage et les égalités sont affines. Les pas privés, les changements de modèle et de working set ajoutent d'autres différences de trajectoire. Il ne faut pas interpréter \(C_{\mathrm{eff}}\) comme une formule complète du taux de convergence de l'implémentation.
++
++## 2. Un exemple simple montre pourquoi la correction peut coûter des itérations
++
++Considérons \(f(x)=\tfrac12ax^2\), avec \(a>0\), et le majorant DC
++
++\[
++m_k(x)=f(x)+\tfrac12c(x-x_k)^2,\qquad c\ge0.
++\]
++
++Même résolu exactement, il donne
++
++\[
++x_{k+1}=\frac{c}{a+c}x_k.
++\]
++
++Une correction \(c=9a\) produit un facteur de contraction de \(0,9\). Une résolution interne plus rapide ne change pas ce facteur. Lorsque \(c=0\), le minimum de cette quadratique est obtenu en un pas.
++
++Sur une géométrie affine fixe, avec une Hessienne tangentielle \(A\succ0\) et une correction \(C\succeq0\), le modèle quadratique analogue a pour matrice d'itération \((A+C)^{-1}C\). Les valeurs propres sont \(r/(1+r)\), où \(r\) parcourt le spectre de \(A^{-1/2}CA^{-1/2}\). Cela explique l'intérêt de réduire la correction **relativement à la courbure utile**, et pas seulement son rang.
++
++Cette analyse concerne ce modèle exact. Elle ne constitue pas une preuve de convergence pour notre QCQP avec égalités non linéaires, multiplicateurs variables, filtre et résolutions inexactes. Elle fournit néanmoins une question expérimentale précise : les pas deviennent-ils petits parce que le système est cher, ou parce que la correction domine la courbure tangentielle ?
++
++Un diagnostic optionnel peut comparer les énergies \(d^\top C_{\mathrm{eff}}d\) et \(d^\top H_Ld\), seulement lorsque la seconde est positive et numériquement significative. Il doit réutiliser les produits déjà disponibles et ne pas déclencher une factorisation ou un calcul spectral supplémentaire. Son rapport est un indicateur directionnel, pas un certificat global.
++
++## 3. Prochaine architecture : un mode local Lazy-DCA sur les contraintes fortement actives
++
++Le certificat tangent aux seules égalités réduit les corrections normales inutiles. Il ne supprime pas un autre obstacle : près d'une solution, la Hessienne pertinente est celle du Lagrangien **complet**, comprenant les inégalités actives. La partie \(Q_f+\sum_j\lambda_jQ_{h_j}\) peut rester indéfinie sur le tangent aux égalités, même si les conditions du second ordre du QCQP sont satisfaites.
++
++La prochaine proposition est d'identifier un ensemble stable
++
++\[
++\mathcal A_k^+=\{i:g_i(x_k)\approx0,\ z_{k,i}\text{ nettement positif}\},
++\]
++
++avec des seuils adaptés aux échelles du problème. On fige alors
++
++\[
++L_k=f+\lambda_k^\top h+\sum_{i\in\mathcal A_k^+}z_{k,i}g_i
++\]
++
++et on construit le domaine affine
++
++\[
++D_k=\{d:h_k+J_hd=0,\quad
++g_{\mathcal A^+,k}+J_{g,\mathcal A^+}d=0\}.
++\]
++
++La correction \(C_k\succeq0\) doit rendre \(\nabla^2L_k+C_k\) strictement positive uniquement sur le tangent à ce domaine. Toutes les autres inégalités conservent leurs majorants convexes individuels.
++
++Les bornes fortement actives peuvent suivre le même traitement : leur Hessienne est nulle, mais leur normale coordonnée réduit le domaine tangent. Elles doivent alors sortir de leur bloc barrière comme les autres inégalités promues.
++
++Il s'agit d'un **changement explicite de traitement des inégalités sélectionnées**. Leur égalité affine remplace leur majorant d'inégalité. Imposer simultanément les deux ferait apparaître \(\tfrac12d^\top(Q_{g_i}+C_i)d\le0\) sur \(g_i^{\mathrm{lin}}=0\), ce qui peut supprimer toutes les directions utiles. Le mode proposé ne conserve donc pas un majorant contraignant de chaque inégalité originale à chaque étape ; il conserve la vérification de toutes ces inégalités dans le filtre et le certificat final.
++
++La construction reste DC sur le domaine choisi :
++
++\[
++\big[L_k(x_k+d)+\tfrac12d^\top C_kd+\iota_{D_k}(d)\big]
++-\tfrac12d^\top C_kd.
++\]
++
++La première fonction est convexe au sens des fonctions à valeurs étendues lorsque le certificat tangent passe. La seconde est convexe. Le majorant associé majore le Lagrangien partiel, pas généralement l'objectif original dans tout l'espace. Les points privés hors du domaine ne bénéficient pas automatiquement d'une interprétation comme évaluations d'un objectif globalement convexe.
++
++Sous indépendance des gradients actifs, complémentarité stricte et condition suffisante du second ordre, le cône critique devient le sous-espace
++
++\[
++\ker[J_h;J_{g,\mathcal A^+}].
++\]
++
++La Hessienne du Lagrangien complet y est positive à la solution, puis dans un voisinage approprié. Le Hessien **sans correction** peut alors passer le certificat. Il faut essayer explicitement \(H=0,\rho=0\) : des directions atomiques peuvent rester en cache, mais leurs poids appliqués doivent pouvoir devenir nuls. Tester seulement \(\rho=0\) avec les anciens atomes encore appliqués ne suffit pas.
++
++Les contraintes faiblement actives restent des inégalités. Sans complémentarité stricte, le cône critique peut être plus petit que ce sous-espace ; la condition du second ordre sur le cône n'assure donc pas sa positivité sur tout le tangent retenu. Dans ce cas, une correction peut rester nécessaire. Aucune disparition universelle de rho ou des atomes n'est annoncée.
++
++## 4. Contrôleur, multiplicateurs et conditions de retour
++
++Le contrôleur proposé comporte deux modes, avec un budget fini de tentatives.
++
++1. **Lazy-DCA général.** Constituer les candidats à partir des résidus originaux et des multiplicateurs normalisés. Exiger leur persistance sur plusieurs mises à jour acceptées, utiliser une hystérésis d'entrée/sortie, et attendre des résidus et une barrière suffisamment faibles.
++2. **Lazy-DCA local.** Vérifier la géométrie et l'inertie du domaine proposé, construire le nouveau Lagrangien partiel, tenter un nombre borné de pas, puis accepter exclusivement au moyen du filtre original.
++
++Les multiplicateurs doivent suivre une convention unique. Si l'objectif implémenté est
++
++\[
++f_k+\nabla f_k^\top d+\tfrac12d^\top(B_k+C_k)d,
++\]
++
++les multiplicateurs des égalités du sous-problème estiment directement les multiplicateurs originaux, y compris \(z_{\mathcal A^+}\). Si l'objectif est \(L_k(x_k+d)+\tfrac12d^\top C_kd\), les multiplicateurs internes sont des **incréments** : il faut leur ajouter les ancrages. Le contrôle de positivité porte sur les multiplicateurs originaux reconstruits, pas sur les incréments.
++
++Les inégalités promues sortent du bloc barrière et des équations de slack. On ne peut pas imposer leur résidu affine nul tout en maintenant \(s_i z_i=\mu>0\). En cas de retour au mode général, leurs slacks positifs sont reconstruits et transportés avec des multiplicateurs cohérents.
++
++Une correction de second ordre doit traiter les résidus originaux des égalités **et des inégalités promues**. Sinon, le défaut quadratique des contraintes peut faire rejeter les grands pas attendus près de la solution. Toute correction reste soumise au même filtre original.
++
++Un multiplicateur actif invalide, un ensemble instable, un échec de rang/inertie, un mauvais résidu linéaire étendu ou l'épuisement du budget sans acceptation provoque un retour au dernier point accepté et au mode général. Les modèles, caches et transports concernés sont invalidés ensemble. Le certificat KKT final conserve les coefficients et contraintes originaux.
++
++Lorsque les corrections disparaissent, que les ancrages et Jacobiennes sont suffisamment précis, que les erreurs internes et la barrière décroissent convenablement et que les pas complets sont acceptés, le système local rejoint algébriquement le pas SQP/Newton sur l'ensemble actif. C'est le comportement recherché. Ces conditions supplémentaires doivent être vérifiées ; le seul changement de domaine ne démontre pas un taux quadratique ni une convergence globale.
++
++## 5. Réduire encore le système sans construire un noyau dense
++
++Après les éliminations actuelles, les dimensions liées aux égalités sont :
++
++| Instance | Variables restantes | Égalités restantes | Tangent, sous plein rang | Système bordé avant atomes |
++|---|---:|---:|---:|---:|
++| case1354 | 2 707 | 2 188 | 519 | 4 895 |
++| case2869 | 5 737 | 4 718 | 1 019 | 10 455 |
++
++Ces différences de dimensions justifient une réduction supplémentaire. Elles ne démontrent pas qu'un calcul dense de taille 519 ou 1 019 serait plus rapide : construire une base du noyau ou son Hessien peut densifier fortement les opérations.
++
++La première réalisation devrait être une **élimination partielle creuse persistante**, avec pivots bien dimensionnés et budget explicite de remplissage. Un bloc associant une variable à une égalité,
++
++\[
++\begin{bmatrix}b&a\\a&0\end{bmatrix},\qquad a\ne0,
++\]
++
++apporte exactement une valeur propre positive et une négative. Après son élimination par congruence exacte, cette contribution d'inertie est connue. Il reste à certifier le système plus petit, contenant les égalités non éliminées.
++
++Le choix structurel des pivots peut persister ; leurs coefficients numériques et les décalages affines doivent suivre les Jacobiennes du modèle. Un pivot devenu insuffisant impose une reconstruction ou un retour au système actuel. Le contrôle du résidu Newton étendu reste obligatoire.
++
++Une base implicite \(Z=[-N_P^{-1}N_F;I]\) constitue une seconde option. Elle évite le stockage explicite de Z, mais ses applications demandent des résolutions avec \(N_P\), et la construction de \(Z^\top BZ\) peut en demander beaucoup. Le remplissage, le nombre de résolutions et le coût total doivent décider du choix, pas seulement la dimension finale.
++
++## 6. Ce qui existe dans G6, et ce qui reste à construire
++
++G6 contient des **prototypes exécutables** de travail sur le noyau et les représentations creuses, les sondes de Ritz par blocs, l'accélération d'Anderson, le certificat tangent, le transport de certificats, l'équilibrage de Ruiz et le recours creux à MUMPS. Leur disponibilité ne signifie ni qu'ils sont tous activés par défaut, ni qu'ils apportent tous un gain : les configurations retenues ou écartées et les validations appartiennent au rapport de mesures.
++
++L'accélération d'Anderson s'inspire d'une méthode de points fixes documentée dans [Walker et Ni, *Anderson Acceleration for Fixed-Point Iterations*](https://epubs.siam.org/doi/10.1137/10078356X). Les garanties usuelles ne se transfèrent pas automatiquement à notre application inexacte, avec filtre et modèles changeants. Les candidats accélérés doivent donc conserver leurs contrôles originaux.
++
++**Le mode sur la face critique et l'élimination partielle supplémentaire décrits ci-dessus ne sont pas implémentés dans G6.** Ce sont les deux prochains développements proposés. Leur évaluation devra distinguer coût de certification, correction effective, nombre de pas acceptés ou jetés, stabilité de l'ensemble actif et coût de remplissage. Un gain de performance ne sera retenu qu'après comparaison répétée et certification indépendante, avec retour documenté au mode général en cas d'échec.
+--- /dev/null
++++ b/VALIDATION_G6.md
+@@ -0,0 +1,84 @@
++# Validation G6 — prototypes de recherche Lazy-DCA
++
++**La cible de 4 s sur case2869 n’est pas atteinte.** Le profil `block` améliore le parent G5 dans cette campagne, mais ne suffit pas à rendre la branche compétitive sur le grand cas. Le mode local sur contraintes fortement actives proposé dans `RESEARCH_DIRECTION_G6.md` n’est pas implémenté.
++
++## Comparaison répétée du profil livré
++
++Machine locale virtualisée AMD EPYC 9V74, GCC 13.3, Release -O3 et architecture native. SuiteSparse LDL et vraie bibliothèque METIS 4 distribuée avec CasADi ; MUMPS compilé dans G6, mais non utilisé par le profil `block` mesuré. AMD non trouvé dans ce build. Un thread solveur et BLAS, aucun autre build ou benchmark simultané. Ces temps ne sont pas ceux de la TRX.
++
++Un échauffement puis trois mesures par binaire, ordre tournant, même fichier QCQP figé et même point initial, vérification SHA avant et après chaque exécution. G5 est le binaire parent inchangé. G6 utilise le profil explicite `block` : noyau creux, sonde de Ritz par bloc, Anderson contrôlé. Tolérances originales 1e-6, rejet du résidu Newton 1e-7, plafond global 500, batch 2, période 1, inner-max 8, display 0. Les options nouvelles sont enregistrées dans chaque commande.
++
++| Instance | G5 médiane (s) | G6 block médiane (s) | Baisse | Itérations G5 → G6 | Étendue G6 (s) |
++|---|---:|---:|---:|---:|---:|
++| case118 | 0.098489 | 0.093791 | 4.8 % | 21 → 20 | 0.081621–0.096401 |
++| case300 | 0.682772 | 0.579378 | 15.1 % | 65 → 64 | 0.566266–0.602347 |
++| case1354 | 3.176356 | 3.079045 | 3.1 % | 49 → 50 | 2.935556–3.106668 |
++| case2869 | 19.280412 | 15.686346 | 18.6 % | 70 → 69 | 15.441348–16.111948 |
++
++Les 32 résolutions, échauffements compris, passent les audits indépendants KKT sur les coefficients et multiplicateurs originaux. Le nombre d’itérations est identique entre répétitions d’un même mode. Les petits écarts sur case118 et case1354 ne démontrent pas un gain robuste sur d’autres machines. La cible de 2 s sur case300 est satisfaite ; celle de 2 s sur case1354 ne l’est pas.
++
++Ipopt n’a pas été relancé dans cette campagne G6. La campagne G5 antérieure mesurait 3,092 s sur case1354 et 11,508 s sur case2869 ; ce sont des repères historiques, pas des témoins simultanés de ces nouveaux essais. Aucun résultat ne démontre ici une supériorité générale sur Ipopt.
++
++## Coût restant sur case2869
++
++Médianes des secteurs exclusifs ; la somme des médianes peut différer de la médiane du total. La fermeture de chaque registre individuel est vérifiée, avec un écart maximal inférieur à 0,36 microseconde sur les 32 résolutions.
++
++| Secteur (s) | G5 | G6 block |
++|---|---:|---:|
++| preparation | 0.323992 | 0.343459 |
++| evaluation | 1.220852 | 1.162368 |
++| assembly | 0.863933 | 0.740277 |
++| factorization | 2.775151 | 2.667167 |
++| linear_backend | 0.403757 | 0.553342 |
++| direction | 1.660113 | 1.612613 |
++| direction_audit | 1.116507 | 1.020136 |
++| globalization | 0.842951 | 0.944659 |
++| atoms | 7.898727 | 5.827808 |
++| core_other | 2.170394 | 0.803038 |
++| certificate | 0.005423 | 0.005249 |
++| diagnostics | 0.000000 | 0.000000 |
++| cleanup | 0.030294 | 0.032360 |
++
++Le processus complet médian vaut 19.683580 s pour G5 et 16.118735 s pour G6. La lecture CLI et les sorties sont incluses dans ce processus ; les empreintes et audits indépendants du runner sont mesurés séparément. Tous les coûts de courbure restent inclus dans le temps solveur.
++
++Même supprimer entièrement les quelque 5,83 s du secteur `atoms`, en supposant artificiellement la même trajectoire et les autres coûts inchangés, laisserait un ordre de grandeur de **10 s**. La cible de 4 s impose donc une baisse du travail Newton et/ou une réduction beaucoup plus forte des systèmes et des opérations par pas. Une meilleure sonde spectrale ne peut pas, seule, combler cet écart.
++
++| Compteur case2869, première répétition | G5 | G6 block |
++|---|---:|---:|
++| Itérations externes | 70 | 69 |
++| Pas Newton candidats | 84 | 84 |
++| Modèles | 51 | 49 |
++| Mises à jour de Hessien | 47 | 45 |
++| Factorisations de courbure | 558 | 372 |
++| Pas perdus après activation | 14 | 15 |
++| Corrections de direction | 130 | 174 |
++| Résolutions linéaires Newton | 299 | 346 |
++| Atomes appliqués objectif + égalités à la sortie | 10 | 11 |
++| Atomes appliqués aux inégalités à la sortie | 2 | 2 |
++
++G6 économise 186 factorisations de courbure, mais conserve 84 candidats Newton et augmente le nombre de corrections de direction. Anderson accepte 3 candidats sur 7 essais sur case2869, et aucun sur 2 essais sur case1354. Le profil combiné ne transforme donc pas encore la convergence locale. Le rang, le nombre d’atomes et rho doivent être complétés par un diagnostic de leur énergie dans les directions utiles.
++
++## Explorations : conserver aussi les échecs
++
++Essais uniques antérieurs aux campagnes finales, display 4, même tolérance et mêmes modèles. Ils sélectionnaient les mécanismes par des variables de développement et affichaient encore le numéro G5. Ils ne sont pas agrégés aux médianes G6. Leur provenance, les limites de reconstruction des binaires et les options correspondantes sont explicites dans `validation_g6/exploratory/PROVENANCE.json`.
++
++| Prototype | case1354 (s / itérations) | case2869 (s / itérations) | Conclusion limitée |
++|---|---:|---:|---|
++| kernel_only | 2.814 / 49 | 16.376 / 70 | Moins de parcours, trajectoire G5 conservée |
++| block_anderson | 2.927 / 50 | 15.059 / 69 | Profil retenu pour la comparaison finale |
++| anderson_only | 2.916 / 49 | 15.673 / 65 | Gain local sans disparition des coûts de courbure |
++| equilibrated | 3.128 / 47 | 16.984 / 76 | Pas de gain de vitesse démontré |
++| central_early | 2.964 / 52 | 93.935 / 93 | Transport/porte précoce retirés des sources finales |
++| certificate_early | 2.929 / 50 | 15.401 / 69 | Borne de transport stricte, pas de gain démontré |
++| tangent | 2.692 / 41 | 96.378 / 80 (TIME_LIMIT) | Échec temporel du grand cas avec secours dense |
++| tangent_mumps | 2.620 / 41 | 19.585 / 92 | Secours dense évité, trajectoire grand cas dégradée |
++
++Les 29 explorations arrivées au statut `solved` passent un audit indépendant a posteriori. La trentième, `tangent/case2869`, atteint sa limite de temps : elle est conservée comme échec et ne reçoit pas de certificat valide. Le contrôle MUMPS montre que le secours dense explique les très longs essais concernés, mais son remplacement ne suffit pas : `tangent-mumps` demande 92 itérations sur case2869, contre 69 pour `block`.
++
++## Tests, garanties et contenu du bundle
++
++**147/147 CTests passent**. Les cinq nouveaux tests portent sur le bloc de courbure et ses budgets, Anderson sur une solution analytique, l’équilibrage avec résidus originaux, le transport de certificat et le certificat tangent sur des spectres indépendants. Les tests de campagne exercent les options et l’audit original. Un ancien test d’export nécessitait l’ajout de la nouvelle identité G6 à sa liste explicite de versions compatibles ; six exécutables locaux avaient perdu leur droit d’exécution. Les contrôles ont été relancés après ces corrections. Le log complet final et sa synthèse sont conservés.
++
++Le seul changement après cette suite complète clarifie le texte d’aide du secours MUMPS ; il ne modifie pas le noyau. `build_provenance.json` conserve les options CMake, les empreintes des binaires et le périmètre des mesures. `aggregate_summary.json`, les records, les certificats et les logs contiennent les mesures brutes. L’archive est source-only, avec les entrées figées compressées héritées et un patch relatif au parent G5 ; aucun binaire, dépendance compilée ou modèle décompressé n’y est incorporé.
++
++Une validité KKT finale ne prouve pas la convergence globale de chaque prototype. Les garanties intermédiaires et les limites de domaine du certificat tangent sont distinguées dans `FILTER_DCA_G6.md`. Le prochain mode sur les contraintes fortement actives et l’élimination partielle supplémentaire font l’objet d’un projet mathématique documenté, non d’une annonce de fonctionnalité ou de performance déjà acquise.
+--- a/include/lazyipdca_qcqp/result.hpp
++++ b/include/lazyipdca_qcqp/result.hpp
+@@ -183,6 +183,13 @@
+ 
+ struct DcaFilterStatistics {
+   bool used=false;
++  bool tangent_certificate=false;
++  bool active_evaluation=false,packed_atoms=false,lazy_merit=false,block_ritz=false,anderson=false;
++  bool certificate_transport=false,sparse_fallback=false,equilibration=false;
++  std::string curvature_backend;
++  std::string pivoted_backend;
++  int anderson_trials=0,anderson_acceptances=0;
++  int certificate_transport_trials=0,certificate_transports=0;
+   bool initial_restoration_requested=false,normal_atom_weighting=false;
+   int rho_refinement_budget=0,rho_refinement_trials=0,rho_refinement_acceptances=0;
+   int model_reuses=0,maximum_model_steps=0,current_model_steps=0;
+--- a/include/lazyipdca_qcqp/settings.hpp
++++ b/include/lazyipdca_qcqp/settings.hpp
+@@ -11,6 +11,17 @@
+   int dca_filter_rho_refinements = 3;
+   bool dca_filter_initial_restoration = false;
+   bool dca_filter_normal_atom_weighting = false;
++  // G6 research controls are opt-in: the reference DCA behavior remains the
++  // default. These select independently measurable paths, not looser audits.
++  bool dca_filter_active_evaluation = false;
++  bool dca_filter_packed_atoms = false;
++  bool dca_filter_lazy_merit = false;
++  bool dca_filter_block_ritz = false;
++  bool dca_filter_anderson = false;
++  bool dca_filter_tangent_curvature = false;
++  bool dca_filter_certificate_transport = false;
++  bool dca_filter_sparse_fallback = false;
++  std::string dca_filter_curvature_backend = "same";
+   bool dca_filter_model_reuse = true;
+   bool dca_filter_extrapolation = true;
+   int dca_filter_model_retries = 3;
+@@ -77,6 +88,7 @@
+   double kkt_primal_regularization = 1e-12; // rho_x initial/floor for compatibility
+   double kkt_dual_regularization = 1e-12;   // fixed delta_d when adaptive mode is off
+   bool kkt_adaptive_regularization = false;
++  bool kkt_equilibration = false; // symmetric Ruiz scaling in SuiteSparse LDL only
+   double kkt_rho_x_floor = 1e-12;
+   double kkt_rho_x_growth = 10.0;
+   double kkt_rho_x_decay = 0.5;
+--- a/include/lazyipdca_qcqp/version.hpp
++++ b/include/lazyipdca_qcqp/version.hpp
+@@ -1,7 +1,7 @@
+ #pragma once
+ namespace lazyipdca::qcqp {
+ inline constexpr const char* kSolverName = "LazyIPDCA-QCQP";
+-inline constexpr const char* kVersion = "0.4.28r3p28g5-adaptive-dca";
+-inline constexpr int kApiVersion = 4331;
+-inline constexpr const char* kBuildId = "v0.4.28r3p28g5-adaptive-dca-api-4331";
++inline constexpr const char* kVersion = "0.4.28r3p28g6-research-dca";
++inline constexpr int kApiVersion = 4332;
++inline constexpr const char* kBuildId = "v0.4.28r3p28g6-research-dca-api-4332";
+ }
+--- a/python/benchmark_filter_dca_g3.py
++++ b/python/benchmark_filter_dca_g3.py
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+ """Compatibility entry point: this G5 tree uses the G5 runner and identity."""
+-from benchmark_filter_dca_g5 import *
++from benchmark_filter_dca_g6 import *
+ if __name__ == "__main__":
+     raise SystemExit(main())
+--- a/python/benchmark_filter_dca_g4.py
++++ b/python/benchmark_filter_dca_g4.py
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+ """Compatibility entry point: this G5 tree uses the G5 runner and identity."""
+-from benchmark_filter_dca_g5 import *
++from benchmark_filter_dca_g6 import *
+ if __name__ == "__main__":
+     raise SystemExit(main())
+--- /dev/null
++++ b/python/benchmark_filter_dca_g6.py
+@@ -0,0 +1,310 @@
++#!/usr/bin/env python3
++"""G6 research profiles: same-input Lazy-DCA / Ipopt with independent original KKT audits."""
++from __future__ import annotations
++
++import argparse
++import gzip
++import json
++import math
++import os
++from pathlib import Path
++import shutil
++import statistics
++import subprocess
++import sys
++import tempfile
++import time
++
++from benchmark_pglib_r3p29r8 import finite, sha, validate_endpoint
++from live_process_r3p29r3 import run_logged
++from qcq_model_r3p23 import read_qcq
++
++ROOT = Path(__file__).resolve().parents[1]
++TOL = 1e-6
++
++# Explicit, reproducible switches: profiles do not depend on environment variables.
++KERNEL_FLAGS = ("--dca-active-evaluation", "--dca-packed-atoms", "--dca-lazy-merit")
++BLOCK_FLAGS = KERNEL_FLAGS + ("--dca-block-ritz", "--dca-anderson")
++TANGENT_FLAGS = BLOCK_FLAGS + ("--dca-tangent-curvature",)
++RESEARCH_PROFILES = {
++    "control": (),
++    "kernel": KERNEL_FLAGS,
++    "block": BLOCK_FLAGS,
++    "anderson": KERNEL_FLAGS + ("--dca-anderson",),
++    "tangent": TANGENT_FLAGS,
++    "tangent-mumps": TANGENT_FLAGS + (
++        "--dca-curvature-backend", "mumps", "--dca-sparse-fallback"),
++    "transport": BLOCK_FLAGS + ("--dca-certificate-transport",),
++    "equilibrated": BLOCK_FLAGS + ("--ldl-equilibration",),
++}
++
++
++def write_json(path, data):
++    path.write_text(json.dumps(data, indent=2, allow_nan=False) + "\n")
++
++
++def lazy_command(args, binary, qcq, result, mode):
++    command = [str(binary), "--problem", str(qcq), "--json", str(result),
++            "--algorithm", "lazy-dca", "--dca-engine", "filter",
++            "--linear-backend", "ldl", "--linear-metis", "1",
++            "--feas-tol", "1e-6", "--opt-tol", "1e-6",
++            "--dual-inf-tol", "1e-6", "--compl-inf-tol", "1e-6",
++            "--kkt-berr-reject", "1e-7", "--max-outer", str(args.max_iter),
++            "--time-limit", str(args.time_limit), "--display-level", str(args.display_level),
++            "--live-iterations-every", str(args.live_every),
++            "--live-header-every", str(args.live_header_every),
++            "--dca-inner-max", str(args.inner_max),
++            "--max-atoms", str(0 if mode == "scalar-control" else args.max_atoms),
++            "--atom-batch-size", str(args.atom_batch_size),
++            "--atom-event-every", str(args.atom_event_every),
++            "--atom-events" if args.atom_events else "--no-atom-events", "--quiet"]
++    if mode != "baseline":
++        command.extend(RESEARCH_PROFILES[args.research_profile])
++        command += ["--dca-rho-refinements", str(args.rho_refinements)]
++        if args.initial_restoration: command.append("--dca-initial-restoration")
++        if args.normal_weighted_atoms: command.append("--dca-normal-weighted-atoms")
++    if args.no_model_reuse and mode != "baseline": command.append("--no-dca-model-reuse")
++    if args.no_extrapolation and mode != "baseline": command.append("--no-dca-extrapolation")
++    return command
++
++
++def audit_ipopt(model, data, digest):
++    if not data.get("success") or not data.get("kkt_passed") or data.get("model_sha256") != digest:
++        raise ValueError("Ipopt did not pass the original certificate")
++    # Recompute again in this parent process, using exported primal/dual vectors.
++    x, lam, bounds = data["x"], data["constraint_multipliers"], data["bound_multipliers"]
++    if len(x) != model.n or len(bounds) != model.n or len(lam) != len(model.equalities) + len(model.inequalities):
++        raise ValueError("invalid Ipopt certificate dimensions")
++    if not all(finite(v) for vector in (x, lam, bounds) for v in vector):
++        raise ValueError("nonfinite Ipopt certificate")
++    residuals = dict(model.residuals(x), **model.kkt_residuals(x, lam, bounds))
++    if any(not finite(v) or not 0 <= v <= TOL for v in residuals.values()):
++        raise ValueError("independent Ipopt KKT failure: " + str(residuals))
++    return model.objective_value(x), residuals, True
++
++
++def campaign(args, out, temporary):
++    identity = json.loads((ROOT / "release_identity_g6.json").read_text())
++    binary = args.binary.resolve(strict=True)
++    banner = subprocess.check_output([str(binary), "--version"], text=True)
++    if identity["build_id"] not in banner:
++        raise ValueError("binary does not match release_identity_g6.json")
++    baseline = args.baseline_binary.resolve(strict=True) if args.baseline_binary else None
++    parent_identity = json.loads((ROOT / "release_identity_g5.json").read_text())
++    if baseline:
++        parent_banner = subprocess.check_output([str(baseline), "--version"], text=True)
++        if parent_identity["build_id"] not in parent_banner:
++            raise ValueError("baseline must be the unchanged G5 parent binary")
++    env = dict(os.environ, OMP_NUM_THREADS=str(args.threads), OMP_DYNAMIC="FALSE",
++               OPENBLAS_NUM_THREADS="1", MKL_NUM_THREADS="1", BLIS_NUM_THREADS="1", PYTHONUNBUFFERED="1")
++    peripheral = {}
++    start = time.perf_counter()
++    if args.frozen:
++        metadata = json.loads((ROOT / "validation_g1/frozen/models.json").read_text())[args.frozen]
++        compressed = ROOT / "validation_g1/frozen" / (args.frozen + ".qcq.gz")
++        if sha(compressed) != metadata["gzip_sha256"]:
++            raise ValueError("frozen gzip SHA256 mismatch")
++        qcq = temporary / (args.frozen + ".qcq")
++        with gzip.open(compressed, "rb") as source, qcq.open("wb") as destination:
++            shutil.copyfileobj(source, destination, 4 * 1024 * 1024)
++        provenance = {"frozen": args.frozen, **metadata}
++    elif args.qcq:
++        qcq = args.qcq.resolve(strict=True)
++        provenance = {"qcq": str(qcq)}
++    else:
++        case = args.case.resolve(strict=True)
++        qcq = temporary / "export.qcq"
++        command = [sys.executable, str(ROOT / "python/export_pglib_qcqp_r3p23.py"), str(case),
++                   "--output", str(qcq), "--json", str(out / "export.json"), "--flow-limit", "apparent",
++                   "--power-flow-start", "--no-power-flow-voltage-continuation"]
++        run_logged(command, out / "export.log", env=env, timeout=args.time_limit + 60,
++                   live=args.display_level >= 4).check_returncode()
++        provenance = {"case": str(case), "case_sha256": sha(case), "initial_point": "power-flow"}
++    peripheral["input_preparation_seconds"] = time.perf_counter() - start
++    start = time.perf_counter()
++    digest = sha(qcq)
++    if args.frozen and digest != metadata["model_sha256"]:
++        raise ValueError("frozen QCQP SHA256 mismatch")
++    peripheral["initial_hash_seconds"] = time.perf_counter() - start
++    start = time.perf_counter()
++    model = read_qcq(qcq)
++    peripheral["independent_model_read_seconds"] = time.perf_counter() - start
++    modes = ([] if args.skip_ipopt else ["ipopt"]) + (["baseline"] if baseline else []) + ["filter-dca"]
++    if args.scalar_control:
++        modes.append("scalar-control")
++    records = []
++
++    def run(mode, index, warmup):
++        name = ("warmup_" if warmup else "run_") + str(index) + "_" + mode
++        output = out / (name + ".json")
++        if mode == "ipopt":
++            command = [sys.executable, str(ROOT / "python/solve_qcq_ipopt_casadi_r3p23.py"), str(qcq),
++                       "--json", str(output), "--tol", "1e-6", "--constr-viol-tol", "1e-6",
++                       "--dual-inf-tol", "1e-6", "--compl-inf-tol", "1e-6", "--linear-solver", "mumps",
++                       "--print-level", str(args.ipopt_print_level), "--max-iter", str(args.max_iter),
++                       "--time-limit", str(args.time_limit)]
++        else:
++            command = lazy_command(args, baseline if mode == "baseline" else binary, qcq, output, mode)
++        row = {"mode": mode, "warmup": warmup, "index": index, "command": command, "valid": False}
++        started = time.perf_counter()
++        if sha(qcq) != digest:
++            raise ValueError("input changed before run")
++        row["hash_before_seconds"] = time.perf_counter() - started
++        started = time.perf_counter()
++        try:
++            process = run_logged(command, out / (name + ".log"), env=env,
++                                 timeout=args.time_limit + 60, live=args.display_level > 0)
++            row["returncode"] = process.returncode
++        except subprocess.TimeoutExpired:
++            row["returncode"] = -1
++        row["process_seconds"] = time.perf_counter() - started
++        started = time.perf_counter()
++        if sha(qcq) != digest:
++            raise ValueError("input changed during run")
++        row["hash_after_seconds"] = time.perf_counter() - started
++        try:
++            data = json.loads(output.read_text())
++            row.update(status=data.get("status"), message=data.get("message"),
++                       attempted_solver_seconds=data.get("elapsed_seconds", data.get("solver_seconds")),
++                       observed_iterations=data.get("outer_iterations", data.get("iterations")))
++            for key, value in data.items():
++                if key.startswith("dca_filter_") or key in ("lazy_newton_cost_seconds", "lazy_newton_core_solve_seconds",
++                        "lazy_newton_evaluation_calls", "lazy_newton_maximum_direction_residual", "lazy_newton_pivoted_fallbacks"):
++                    row[key] = value
++            if row["returncode"] != 0:
++                raise ValueError("process failure: " + str(data.get("message", data.get("status"))))
++            started = time.perf_counter()
++            if mode == "ipopt":
++                objective, residuals, independent = audit_ipopt(model, data, digest)
++                elapsed, iterations = data["solver_seconds"], data["iterations"]
++                row["ipopt_peripheral_seconds"] = {k: data[k] for k in ("parse_seconds", "model_build_seconds", "total_wall_seconds")}
++            else:
++                expected_identity = parent_identity if mode == "baseline" else identity
++                if any(data.get(k) != expected_identity[k] for k in ("version", "api_version", "build_id")):
++                    raise ValueError("result identity mismatch")
++                if not data.get("dca_filter_used") or data.get("effective_outer_algorithm") != "lazy-dca":
++                    raise ValueError("wrong algorithm; explicit filter Lazy-DCA required")
++                objective, residuals, independent = validate_endpoint(model, data, "filter-dca")
++                elapsed, iterations = data["elapsed_seconds"], data["outer_iterations"]
++                row["cli_timing"] = json.loads(Path(str(output) + ".timing.json").read_text())
++            row["independent_certificate_seconds"] = time.perf_counter() - started
++            if not finite(elapsed) or elapsed < 0 or not finite(objective):
++                raise ValueError("nonfinite result/time")
++            row.update(valid=True, objective=objective, residuals=residuals, independent_certificate=independent,
++                       solver_seconds=elapsed, iterations=iterations)
++        except (ValueError, KeyError, OSError, TypeError) as error:
++            row["error"] = str(error)
++        records.append(row)
++        write_json(out / "records.json", records)
++        print(name, "PASS" if row["valid"] else "FAIL", row.get("solver_seconds", row.get("error")), flush=True)
++
++    for i in range(args.warmups):
++        for mode in modes:
++            run(mode, i + 1, True)
++    for i in range(args.repetitions):
++        offset = i % len(modes)
++        for mode in modes[offset:] + modes[:offset]:
++            run(mode, i + 1, False)
++    reference_values = [r["objective"] for r in records if r["valid"] and r["mode"] == "ipopt"]
++    reference = statistics.median(reference_values) if reference_values else None
++    summary = {"schema": "filter-dca-g6-v1", "release_status": "research",
++               "research_profile": args.research_profile,
++               "research_flags": list(RESEARCH_PROFILES[args.research_profile]), "identity": identity, "model_sha256": digest,
++               "provenance": provenance, "dimensions": [model.n, len(model.equalities), len(model.inequalities)],
++               "tolerance": TOL, "target_seconds": args.target_seconds, "display_level": args.display_level,
++               "settings": {k: v for k, v in vars(args).items() if not isinstance(v, Path)},
++               "shared_peripheral_seconds": peripheral, "timing_contract": "INSTALL_AND_TEST_G6.md",
++               "environment": {k: env[k] for k in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "BLIS_NUM_THREADS")},
++               "all_correct": all(r["valid"] for r in records), "modes": {}}
++    for mode in modes:
++        rows = [r for r in records if r["mode"] == mode and not r["warmup"]]
++        good = [r for r in rows if r["valid"]]
++        entry = {"measured_runs": len(rows), "valid_runs": len(good), "target_met": False,
++                 "all_certificates_independent": len(good) == len(rows) and all(r["independent_certificate"] for r in good),
++                 "observed_iterations": [r.get("observed_iterations") for r in rows]}
++        if len(good) == len(rows):
++            entry.update(median_solver_seconds=statistics.median(r["solver_seconds"] for r in good),
++                         min_solver_seconds=min(r["solver_seconds"] for r in good),
++                         max_solver_seconds=max(r["solver_seconds"] for r in good),
++                         median_process_seconds=statistics.median(r["process_seconds"] for r in good),
++                         iterations=[r["iterations"] for r in good], objectives=[r["objective"] for r in good])
++            entry["target_met"] = entry["median_solver_seconds"] <= args.target_seconds
++            if mode != "ipopt":
++                entry["median_core_solve_seconds"] = statistics.median(r["lazy_newton_core_solve_seconds"] for r in good)
++                entry["median_cost_seconds"] = {k: statistics.median(r["lazy_newton_cost_seconds"][k] for r in good)
++                                                  for k in good[0]["lazy_newton_cost_seconds"]}
++                entry["atoms_lagrangian"] = [r["dca_filter_atoms_lagrangian"] for r in good]
++                entry["atoms_inequalities"] = [r["dca_filter_atoms_inequalities"] for r in good]
++                for field in ("models", "model_reuses", "curvature_factors", "inner_steps", "subspace_spectra"):
++                    if "dca_filter_" + field in good[0]:
++                        entry[field] = [r["dca_filter_" + field] for r in good]
++            if reference is not None:
++                entry["objective_gaps_to_ipopt"] = [r["objective"] - reference for r in good]
++        summary["modes"][mode] = entry
++    write_json(out / "benchmark_summary.json", summary)
++    if args.display_level != 1:
++        print(json.dumps(summary["modes"], indent=2), flush=True)
++    print("CORRECTNESS=" + ("PASS" if summary["all_correct"] else "FAIL"), flush=True)
++    print("SUMMARY=" + str(out / "benchmark_summary.json"), flush=True)
++    return 0 if summary["all_correct"] else 1
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    source = parser.add_mutually_exclusive_group(required=True)
++    source.add_argument("--frozen", "--problem", dest="frozen", choices=("case118", "case300", "case1354", "case2869"))
++    source.add_argument("--qcq", type=Path)
++    source.add_argument("--case", type=Path)
++    parser.add_argument("--binary", type=Path, required=True)
++    parser.add_argument("--baseline-binary", type=Path, help="unchanged G5 parent binary, same input and numerical tolerances")
++    parser.add_argument("--research-profile", choices=tuple(RESEARCH_PROFILES), default="block",
++                        help="experimental G6 profile (default: block); all solver commands are recorded")
++    parser.add_argument("--dca-rho-refinements", dest="rho_refinements", type=int, choices=range(13), default=3)
++    parser.add_argument("--dca-initial-restoration", dest="initial_restoration", action="store_true")
++    parser.add_argument("--dca-normal-weighted-atoms", dest="normal_weighted_atoms", action="store_true")
++    parser.add_argument("--no-extrapolation", action="store_true", help="disable guarded local DCA extrapolation")
++    parser.add_argument("--no-model-reuse", action="store_true", help="rebuild at every accepted point in the selected G6 profile")
++    parser.add_argument("--base", type=Path, default=Path("/data/projects/IPDCA_QCQP"))
++    parser.add_argument("--output", type=Path)
++    parser.add_argument("--skip-ipopt", action="store_true")
++    parser.add_argument("--scalar-control", action="store_true", help="also run the same DCA with max-atoms=0")
++    parser.add_argument("--reuse-qcq", action="store_true", help="compatibility flag; QCQ inputs are always read without copying")
++    parser.add_argument("--display-level", type=int, choices=range(5), default=0)
++    parser.add_argument("--ipopt-print-level", type=int, choices=range(13), default=0)
++    parser.add_argument("--live-every", type=int, default=1)
++    parser.add_argument("--live-header-every", type=int, default=20)
++    parser.add_argument("--inner-max", "--dca-inner-max", dest="inner_max", type=int, default=8)
++    parser.add_argument("--max-atoms", type=int, default=500)
++    parser.add_argument("--atom-batch-size", type=int, default=2)
++    parser.add_argument("--atom-event-every", type=int, default=1)
++    parser.add_argument("--atom-events", dest="atom_events", action="store_true", default=True)
++    parser.add_argument("--no-atom-events", dest="atom_events", action="store_false")
++    parser.add_argument("--threads", type=int, default=1)
++    parser.add_argument("--warmups", type=int, default=1)
++    parser.add_argument("--repetitions", type=int, default=5)
++    parser.add_argument("--max-iter", type=int, default=1000)
++    parser.add_argument("--time-limit", type=float, default=1800)
++    parser.add_argument("--target-seconds", type=float, default=2)
++    args = parser.parse_args()
++    if min(args.threads, args.repetitions, args.max_iter, args.atom_batch_size, args.atom_event_every,
++           args.live_every, args.live_header_every, args.inner_max) < 1 or args.inner_max > 100 or min(args.max_atoms, args.warmups) < 0:
++        parser.error("invalid step, atom, repetition or display counts")
++    if not all(math.isfinite(v) and v > 0 for v in (args.time_limit, args.target_seconds)):
++        parser.error("time limits must be finite and positive")
++    if args.reuse_qcq and not args.qcq:
++        parser.error("--reuse-qcq requires --qcq")
++    label = args.frozen or (args.qcq or args.case).stem
++    out = (args.output or args.base / "results" / ("R3P28G6_" + label + "_" + str(time.time_ns()))).resolve()
++    out.mkdir(parents=True, exist_ok=False)
++    print("CAMPAIGN=" + str(out), flush=True)
++    try:
++        with tempfile.TemporaryDirectory(prefix="input_", dir=out) as temporary:
++            return campaign(args, out, Path(temporary))
++    except (ValueError, KeyError, OSError, subprocess.SubprocessError) as error:
++        write_json(out / "campaign_error.json", {"correctness": False, "error": str(error)})
++        print("CORRECTNESS=FAIL: " + str(error), file=sys.stderr, flush=True)
++        return 1
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+--- /dev/null
++++ b/release_identity_g6.json
+@@ -0,0 +1,8 @@
++{
++  "version": "0.4.28r3p28g6-research-dca",
++  "api_version": 4332,
++  "build_id": "v0.4.28r3p28g6-research-dca-api-4332",
++  "branch": "filter-lazy-dca-research",
++  "parent": "0.4.28r3p28g5-adaptive-dca",
++  "performance_target_met": false
++}
+--- a/src/atomic_newton.cpp
++++ b/src/atomic_newton.cpp
+@@ -39,12 +39,31 @@
+   Vec model_gradient;
+   std::vector<SymTriplet> model_hessian;
+   std::vector<LowRankTerm> model_atoms;
++  // Optional exact common support of lifted DCA atoms. Empty preserves the
++  // generic full-coordinate representation. DcaModels supplies retained
++  // coordinates only for corrections E' U, where E*T=I.
++  std::vector<int> model_atom_support;
+   std::vector<int> model_hi,model_hj,model_hglobal;
++  double model_atom_displacement(const LowRankTerm& a,const Vec& point) const {
++    double d=0;
++    if(model_atom_support.empty()) {
++      for(std::size_t j=0;j<a.direction.size();++j)d+=a.direction[j]*(point[j]-(*model_center)[j]);
++    } else for(int j:model_atom_support)d+=a.direction[j]*(point[j]-(*model_center)[j]);
++    return d;
++  }
++  double model_atom_product(const LowRankTerm& a,const Vec& direction) const {
++    if(model_atom_support.empty())return dot(a.direction,direction);
++    double d=0;for(int j:model_atom_support)d+=a.direction[j]*direction[j];return d;
++  }
++  void add_model_atom(const LowRankTerm& a,double weight,Vec& destination) const {
++    if(model_atom_support.empty())axpy(weight,a.direction,destination);
++    else for(int j:model_atom_support)destination[j]+=weight*a.direction[j];
++  }
+   double model_at(const Vec& point) const {
+     double v=model_constant;
+     for(std::size_t k=0;k<support.size();++k)v+=model_gradient[k]*(point[support[k]]-(*model_center)[support[k]]);
+     for(auto e:model_hessian)v+=(e.i==e.j?0.5:1.0)*e.v*(point[e.i]-(*model_center)[e.i])*(point[e.j]-(*model_center)[e.j]);
+-    for(const auto& a:model_atoms){double d=0;for(std::size_t j=0;j<a.direction.size();++j)d+=a.direction[j]*(point[j]-(*model_center)[j]);v+=0.5*a.beta*d*d;}
++    for(const auto& a:model_atoms){const double d=model_atom_displacement(a,point);v+=0.5*a.beta*d*d;}
+     return v;
+   }
+   void set_model(const Vec& center,std::vector<SymTriplet> h,const std::map<Pair,int>& slots) {
+@@ -119,7 +138,19 @@
+     if(model_active) {
+       note(&NewtonCalls::model_gradients);gradient=model_gradient;
+       for(std::size_t k=0;k<model_hessian.size();++k){auto e=model_hessian[k];gradient[model_hi[k]]+=e.v*(x[e.j]-(*model_center)[e.j]);if(e.i!=e.j)gradient[model_hj[k]]+=e.v*(x[e.i]-(*model_center)[e.i]);}
+-      for(const auto& a:model_atoms){double d=0;for(std::size_t j=0;j<a.direction.size();++j)d+=a.direction[j]*(x[j]-(*model_center)[j]);for(std::size_t k=0;k<support.size();++k)gradient[k]+=a.beta*d*a.direction[support[k]];}
++      for(const auto& a:model_atoms){
++        const double d=model_atom_displacement(a,x);
++        if(model_atom_support.empty()) {
++          for(std::size_t k=0;k<support.size();++k)gradient[k]+=a.beta*d*a.direction[support[k]];
++        } else for(int j:model_atom_support) {
++          // The DCA objective reserves every coordinate, so its common case
++          // uses identity positions. Retain the generic sparse support map.
++          const auto k=std::size_t(j)<support.size()&&support[j]==j?std::size_t(j):
++              std::size_t(std::lower_bound(support.begin(),support.end(),j)-support.begin());
++          if(k==support.size()||support[k]!=j)throw std::runtime_error("DCA atom outside model support");
++          gradient[k]+=a.beta*d*a.direction[j];
++        }
++      }
+       if(pooled_gradient)std::copy(gradient.begin(),gradient.end(),pooled_gradient);
+       return;
+     }
+@@ -137,7 +168,7 @@
+       note(&NewtonCalls::gradients);note(&NewtonCalls::model_gradients);
+       for(std::size_t k=0;k<support.size();++k)g[support[k]]+=weight*model_gradient[k];
+       for(auto e:model_hessian){g[e.i]+=weight*e.v*(point[e.j]-(*model_center)[e.j]);if(e.i!=e.j)g[e.j]+=weight*e.v*(point[e.i]-(*model_center)[e.i]);}
+-      for(const auto& a:model_atoms){double d=0;for(std::size_t j=0;j<a.direction.size();++j)d+=a.direction[j]*(point[j]-(*model_center)[j]);axpy(weight*a.beta*d,a.direction,g);}
++      for(const auto& a:model_atoms){const double d=model_atom_displacement(a,point);add_model_atom(a,weight*a.beta*d,g);}
+       return;
+     }
+     original_gradient_at(point,weight,g);
+@@ -296,6 +327,7 @@
+   Vec base_values;
+   std::size_t atom_border_begin=0;
+   bool has_model_borders=false;
++  bool dca_active_evaluation=false;
+   void strip_model_borders(){if(has_model_borders){kkt.resize(atom_border_begin);base_values.resize(atom_border_begin);dim=nr+mr+ndense;has_model_borders=false;}}
+ 
+   Vec x,lambda,z,s,rd,rp,h;
+@@ -355,6 +387,9 @@
+ 
+   Workspace(const QCQPProblem& p,const Settings& settings,LazyNewtonStatistics& diagnostics,detail::NewtonCostLedger& cost_ledger)
+       :original(p),st(settings),stats(diagnostics),costs(cost_ledger),index(p.n,-1),fixed(p.x0),factor_settings(settings) {
++    dca_active_evaluation=st.dca_engine=="filter"&&
++        (st.outer_algorithm=="lazy-dca"||st.outer_algorithm=="auto")&&
++        st.dca_filter_active_evaluation;
+     for(int j=0;j<p.n;++j) {
+       if(std::isfinite(p.lb[j])&&p.lb[j]==p.ub[j])fixed[j]=p.lb[j];
+       else {index[j]=(int)free.size();free.push_back(j);}
+@@ -546,7 +581,15 @@
+     CostScope cost(costs,NewtonCost::Evaluation);
+     objective.evaluate(x);std::fill(rd.begin(),rd.end(),0.0);objective.add_gradient(1.0,rd);
+     for(int e=0;e<me;++e){equalities[e].evaluate(x);h[e]=equalities[e].value;equalities[e].add_gradient(lambda[e],rd);}
+-    for(int i=0;i<mi;++i){inequalities[i].evaluate(x);rp[i]=inequalities[i].value+s[i];if(active[i])inequalities[i].add_gradient(z[i],rd);}
++    for(int i=0;i<mi;++i){
++      // Inactive rows contribute neither stationarity nor KKT coefficients.
++      // Keep their values current for initial activation and diagnostics;
++      // a newly active row is fully reevaluated before the next model/matrix.
++      if(dca_active_evaluation&&!active[i])inequalities[i].value=inequalities[i].at(x);
++      else inequalities[i].evaluate(x);
++      rp[i]=inequalities[i].value+s[i];
++      if(active[i])inequalities[i].add_gradient(z[i],rd);
++    }
+     if(!finite(rd)||!finite(h)||!finite(rp)||!std::isfinite(objective.value))throw std::runtime_error("lazy-newton: nonfinite evaluation");
+   }
+   void update_matrix() {
+@@ -559,7 +602,7 @@
+       std::fill(g.values.begin(),g.values.end(),0.0);
+       for(auto m:g.map)g.values[m.output]+=q.gradient[m.gradient]*tvalue[m.t];
+     };
+-    for(int i=0;i<mi;++i)update(jr[i],inequalities[i]);
++    for(int i=0;i<mi;++i)if(!dca_active_evaluation||active[i])update(jr[i],inequalities[i]);
+     for(int a=0;a<mr;++a)update(ar[a],equalities[eq_retained[a]]);
+     std::fill(hvalue.begin(),hvalue.end(),0.0);
+     auto add=[&](const Quadratic& q,double weight) {
+@@ -584,7 +627,12 @@
+     if(objective.model_active&&!objective.model_atoms.empty()) {
+       atom_border_begin=kkt.size();has_model_borders=true;
+       for(const auto& a:objective.model_atoms){
+-        Vec reduced(nr,0);for(int j=0;j<n;++j)for(int t=tbegin[j];t<tbegin[j+1];++t)reduced[tcolumn[t]]+=a.direction[j]*tvalue[t];
++        Vec reduced(nr,0);
++        if(!objective.model_atom_support.empty()) {
++          // The support is E's retained coordinates and the atom is E' u.
++          // Thus T' E' u=u exactly, with no scan of eliminated coordinates.
++          for(int j=0;j<nr;++j)reduced[j]=a.direction[retained[j]];
++        } else for(int j=0;j<n;++j)for(int t=tbegin[j];t<tbegin[j+1];++t)reduced[tcolumn[t]]+=a.direction[j]*tvalue[t];
+         const int row=dim++;const double weight=std::sqrt(a.beta);
+         for(int j=0;j<nr;++j){kkt.push_back({j,row,0});base_values.push_back(weight*reduced[j]);}
+         kkt.push_back({row,row,0});base_values.push_back(-1);
+@@ -640,12 +688,16 @@
+     const auto timer=Clock::now();
+     if(st.live_curvature) {
+       CostScope display_cost(costs,NewtonCost::Diagnostics);const auto display_timer=Clock::now();
+-      std::cout<<"[KKT-NATIVE-BEGIN] k="<<stats.accepted_steps<<" trigger="<<trigger
++      std::cout<<"[KKT-PIVOTED-BEGIN] backend="
++        <<(st.dca_engine=="filter" && st.dca_filter_sparse_fallback && linear_backend_compiled("mumps") ? "mumps" : "native")
++        <<" k="<<stats.accepted_steps<<" trigger="<<trigger
+                <<" dim="<<dim<<" rho="<<regularization<<" reason="<<sparse_reason<<std::endl;
+       stats.diagnostic_seconds+=seconds(display_timer);
+     }
+     if(!pivoted) {
+       pivoted_settings=factor_settings;pivoted_settings.linear_backend="native";
++      if (st.dca_engine=="filter" && st.dca_filter_sparse_fallback && linear_backend_compiled("mumps"))
++        pivoted_settings.linear_backend="mumps";
+       pivoted=make_symmetric_factorization(pivoted_settings,message);
+     }
+     bool ok=false;std::string native_message=message;
+@@ -864,7 +916,8 @@
+   Vec hessian_product(const Vec& d) const {
+     ++stats.lagrangian_hessian_products;
+     Vec v(n,0.0);for(std::size_t k=0;k<hpattern.size();++k){auto [i,j]=hpattern[k];v[i]+=hvalue[k]*d[j];if(i!=j)v[j]+=hvalue[k]*d[i];}
+-    if(objective.model_active)for(const auto& a:objective.model_atoms)axpy(a.beta*dot(a.direction,d),a.direction,v);
++    if(objective.model_active)for(const auto& a:objective.model_atoms)
++      objective.add_model_atom(a,a.beta*objective.model_atom_product(a,d),v);
+     return v;
+   }
+   Direction direction(const Vec& rc,const Vec& dual,const Vec& eq,const Vec& primal,int depth=0) {
+--- a/src/dca_curvature.hpp
++++ b/src/dca_curvature.hpp
+@@ -36,12 +36,16 @@
+   int basis_compressions = 0, retired_directions = 0;
+   int last_peak_stored_atoms = 0;
+   int rho_refinement_trials = 0, rho_refinement_acceptances = 0;
++  int certificate_transport_trials = 0, certificate_transports = 0, certificate_transport_streak = 0;
+   int inverse_probes = 0, factor_reuses = 0, subspace_spectra = 0, dependent_witnesses = 0;
+   double ensure_seconds = 0, factor_seconds = 0, inverse_seconds = 0, subspace_seconds = 0;
+   double rho = 0, normal_weight = 0;
++  bool tangent_certificate = false;
+   int small_spectra = 0;
+   int updates = 0, certificates = 0, reuses = 0, probes = 0, additions = 0;
+   explicit DcaCurvature(const Settings &s) : settings_(s) {
++    if (s.dca_filter_curvature_backend != "same")
++      settings_.linear_backend = s.dca_filter_curvature_backend;
+     settings_.kkt_adaptive_regularization = true;
+     settings_.kkt_primal_regularization = 0;
+     settings_.kkt_dual_regularization = 0;
+@@ -49,6 +53,8 @@
+     settings_.kkt_interleaved_equality_ordering = false;
+     settings_.kkt_primal_first_ordering = false;
+     settings_.native_inertia_relative_zero_tolerance = 0;
++    tangent_certificate = s.dca_filter_tangent_curvature;
++    if (tangent_certificate) settings_.kkt_interleaved_equality_ordering = true;
+   }
+   static std::vector<SymTriplet> canonical(int n, const std::vector<SymTriplet> &h) {
+     bool ordered = true;
+@@ -133,7 +139,7 @@
+       // A normal completion certifies the full operator, but its artificial
+       // positive curvature must not erase useful captured negative modes.
+       // The legacy weighting is available only as an explicit control.
+-      if (settings_.dca_filter_normal_atom_weighting && normals && gamma > 0)
++      if (!tangent_certificate && settings_.dca_filter_normal_atom_weighting && normals && gamma > 0)
+         for (const auto &row : *normals) {
+           double a = 0;
+           for (auto e : row) a += e.second * v[e.first];
+@@ -200,6 +206,103 @@
+     }
+     if (hessian_changed)
+       ++updates;
++    // A sufficient perturbation certificate can retain the ENTIRE old PSD
++    // atom correction. For E=N_new-N_old, Young's inequality gives
++    //   ||N_old v||^2 <= 1.25 ||N_new v||^2 + 5 ||E v||^2.
++    // Together with DeltaB >= -dB I this certifies the new majorant using
++    // gamma_new=1.25 gamma_old and rho_new=rho_old+dB+5 gamma_old ||E||^2.
++    // No atom weight is changed and no inverse probe may use the old factor.
++    bool transport_eligible = !tangent_certificate && settings_.dca_filter_certificate_transport &&
++                              certificate_transport_streak < 3 && n == dimension_ &&
++                              margin == previous_margin_ && h.size() == previous_.size() &&
++                              normals && !previous_normals_.empty() &&
++                              normals->size() == previous_normals_.size() &&
++                              normal_weight > 0 && std::isfinite(normal_weight) &&
++                              rho >= 0 && std::isfinite(rho);
++    if (transport_eligible) {
++      for (std::size_t k = 0; k < h.size(); ++k)
++        if (h[k].i != previous_[k].i || h[k].j != previous_[k].j) {
++          transport_eligible = false; break;
++        }
++      for (std::size_t row = 0; transport_eligible && row < normals->size(); ++row) {
++        if ((*normals)[row].size() != previous_normals_[row].size()) {
++          transport_eligible = false; break;
++        }
++        for (std::size_t j = 0; j < (*normals)[row].size(); ++j)
++          if ((*normals)[row][j].first != previous_normals_[row][j].first ||
++              (*normals)[row][j].first < 0 || (*normals)[row][j].first >= n ||
++              (j && (*normals)[row][j - 1].first >= (*normals)[row][j].first)) {
++            transport_eligible = false; break;
++          }
++      }
++    }
++    if (transport_eligible) {
++      ++certificate_transport_trials;
++      Vec diagonal(n, 0), radius(n, 0), old_rows(n, 0), new_rows(n, 0);
++      for (std::size_t k = 0; k < h.size(); ++k) {
++        const auto entry = h[k];
++        const double difference = entry.v - previous_[k].v;
++        old_rows[entry.i] += std::abs(previous_[k].v);
++        new_rows[entry.i] += std::abs(entry.v);
++        if (entry.i == entry.j) diagonal[entry.i] += difference;
++        else {
++          radius[entry.i] += std::abs(difference);
++          radius[entry.j] += std::abs(difference);
++          old_rows[entry.j] += std::abs(previous_[k].v);
++          new_rows[entry.j] += std::abs(entry.v);
++        }
++      }
++      double deficit = 0;
++      for (int i = 0; i < n; ++i) deficit = std::max(deficit, radius[i] - diagonal[i]);
++      Vec difference_columns(n, 0), old_columns(n, 0), new_columns(n, 0);
++      double frobenius_squared = 0, difference_infinity = 0,
++             old_infinity = 0, new_infinity = 0;
++      bool normal_values_finite = true;
++      for (std::size_t row = 0; row < normals->size(); ++row) {
++        double difference_sum = 0, old_sum = 0, new_sum = 0;
++        for (std::size_t j = 0; j < (*normals)[row].size(); ++j) {
++          const auto entry = (*normals)[row][j];
++          const double old_value = previous_normals_[row][j].second;
++          if (!std::isfinite(entry.second) || !std::isfinite(old_value)) {
++            normal_values_finite = false; break;
++          }
++          const double difference = entry.second - old_value;
++          difference_sum += std::abs(difference);
++          difference_columns[entry.first] += std::abs(difference);
++          frobenius_squared += difference * difference;
++          old_sum += std::abs(old_value);
++          new_sum += std::abs(entry.second);
++          old_columns[entry.first] += std::abs(old_value);
++          new_columns[entry.first] += std::abs(entry.second);
++        }
++        difference_infinity = std::max(difference_infinity, difference_sum);
++        old_infinity = std::max(old_infinity, old_sum);
++        new_infinity = std::max(new_infinity, new_sum);
++      }
++      const double error_squared = std::min(frobenius_squared,
++                                           inf_norm(difference_columns) * difference_infinity);
++      const double scale = std::max({1.0, rho, inf_norm(old_rows), inf_norm(new_rows),
++                                     normal_weight * inf_norm(old_columns) * old_infinity,
++                                     1.25 * normal_weight * inf_norm(new_columns) * new_infinity});
++      const double padding = 64 * std::numeric_limits<double>::epsilon() * scale;
++      const double increment = deficit + 5 * normal_weight * error_squared + padding;
++      const double allowed = std::min(1e-3, std::max(1e-6, 0.05 * rho));
++      const double next_rho = std::nextafter(rho + increment, INFINITY);
++      const double next_gamma = std::nextafter(1.25 * normal_weight, INFINITY);
++      if (normal_values_finite && finite_values(diagonal) && finite_values(radius) &&
++          std::isfinite(error_squared) && error_squared >= 0 &&
++          std::isfinite(increment) && increment >= 0 && increment <= allowed &&
++          std::isfinite(next_rho) && std::isfinite(next_gamma)) {
++        rho = next_rho;
++        normal_weight = next_gamma;
++        previous_ = h;
++        previous_normals_ = *normals;
++        ++certificate_transports;
++        ++certificate_transport_streak;
++        return true;
++      }
++    }
++    certificate_transport_streak = 0;
+     // Reweight only after an actual Hessian change. A decrease invalidates
+     // the old certificate; the complete corrected matrix is checked below.
+     for (auto &a : atoms) {
+@@ -264,6 +367,12 @@
+     // has n positive and m negative eigenvalues. On A*d=-h, its added
+     // objective is the constant gamma*||h||^2/2. Newton uses the row-equivalent
+     // unaugmented system and shifted equality duals, avoiding Gram fill.
++    // Research alternative: a ZERO normal block certifies strict positivity
++    // on ker(N) instead. H+rho I remains PSD, so the partial-Lagrangian
++    // majorization still holds globally; convexity of the subproblem is on
++    // its affine equality domain. A positive normal completion exists, but
++    // its value is not computed or claimed by this mode (normal_weight=1 is
++    // only an internal marker selecting the equality border).
+     double upper = std::max(0.0, margin - lower_bound) +
+                    (lower_bound < margin ? 1e-12 * std::max(1.0, std::abs(lower_bound)) : 0.0);
+     int correction_version = 0, factored_version = -1;
+@@ -289,7 +398,7 @@
+       if (gamma > 0 && normals) {
+         dimension += normals->size();
+         for (int e = 0; e < (int)normals->size(); ++e) {
+-          entries.push_back({n + e, n + e, -1 / gamma});
++          entries.push_back({n + e, n + e, tangent_certificate ? 0.0 : -1 / gamma});
+           for (auto a : (*normals)[e])
+             entries.push_back({a.first, n + e, a.second});
+         }
+@@ -339,11 +448,16 @@
+     else {
+       bool zero = false;
+       if (normals && !normals->empty()) {
+-        for (double gamma = std::max(1e2, previous_normal_weight); gamma <= 1e6; gamma *= 100) {
+-          normal_weight = gamma;
+-          if (positive(0, gamma)) {
+-            zero = true;
+-            break;
++        if (tangent_certificate) {
++          normal_weight = 1; // implicit extension, not a numerical gamma
++          zero = positive(0, normal_weight);
++        } else {
++          for (double gamma = std::min(1e6, std::max(1e2, previous_normal_weight)); gamma <= 1e6; gamma *= 100) {
++            normal_weight = gamma;
++            if (positive(0, gamma)) {
++              zero = true;
++              break;
++            }
+           }
+         }
+       } else
+@@ -385,7 +499,14 @@
+       }
+       rho = high;
+     };
+-    refine_complement();
++    // Research control: use one inverse Krylov space for the entire admission
++    // batch. The individual Rayleigh gates below still inspect the CURRENT
++    // correction after every accepted direction. Only the final correction is
++    // exposed to the model, and it receives the same full-space certificate.
++    const bool block_ritz = settings_.dca_filter_block_ritz;
++    const bool defer_refinement = block_ritz && rho > 0 && atom_event &&
++                                  hessian_changed && remaining_atoms > 0 && batch > 0 && normals;
++    if (!defer_refinement) refine_complement();
+     const int additions_before_refinement = additions;
+     if (rho > 0 && atom_event && hessian_changed && remaining_atoms > 0 && normals) {
+       const int allowance = std::min(batch, remaining_atoms);
+@@ -403,7 +524,22 @@
+         Vec v(n);
+         for (int j = 0; j < n; ++j)
+           v[j] = std::sin((j + 1) * 1.618033988749895);
+-        for (int it = 0; it < std::min(n, 18); ++it) {
++        int projection_solves = 0;
++        if (tangent_certificate && normal_weight > 0) {
++          // The primal block of this inverse maps every RHS into ker(N).
++          // Start there to avoid an artificial normal component from the
++          // initial random vector in the finite Krylov/Ritz approximation.
++          Vec rhs(dim, 0);
++          std::copy(v.begin(), v.end(), rhs.begin());
++          std::string message;
++          ++inverse_probes;
++          bool solved;
++          { DcaTimedScope inverse_time(inverse_seconds); solved = factor_->solve(rhs, message); }
++          if (!solved) break;
++          v.assign(rhs.begin(), rhs.begin() + n);
++          projection_solves = 1;
++        }
++        for (int it = 0; it < std::min(n, 18 - projection_solves); ++it) {
+           const double length = norm2(v);
+           if (!(length > 1e-12))
+             break;
+@@ -439,42 +575,52 @@
+                &info);
+         if (info || !(values[m - 1] > 0))
+           break;
+-        Vec direction(n, 0);
+-        for (int j = 0; j < m; ++j)
+-          axpy(reduced[j + m * (m - 1)], basis[j], direction);
+-        double length = norm2(direction);
+-        if (!(length > 0))
+-          break;
+-        for (double &x : direction)
+-          x /= length;
+-        double ray = 0;
+-        for (auto e : base)
+-          ray += (e.i == e.j ? 1 : 2) * e.v * direction[e.i] * direction[e.j];
+-        for (const auto &row : *normals) {
+-          double v = 0;
+-          for (auto a : row)
+-            v += a.second * direction[a.first];
+-          ray += normal_weight * v * v;
+-        }
+-        for (const auto &a : spectral_atoms) {
+-          double v = dot(a.direction, direction);
+-          ray += a.beta * v * v;
+-        }
+-        ++probes;
+-        if (!std::isfinite(ray) || ray >= -std::max(1e-10, min_relative_gain))
+-          break;
+-        // The negative witness authorizes expanding the stored subspace.
+-        // Reject dependent witnesses instead of spending another atom on them.
+-        for (int sweep = 0; sweep < 2; ++sweep)
+-          for (const auto &u : atom_basis_) axpy(-dot(u, direction), u, direction);
+-        const double independent = norm2(direction);
+-        if (!(independent > 1e-6)) { ++dependent_witnesses; break; }
+-        for (double &v : direction) v /= independent;
+-        atom_basis_.push_back(std::move(direction));
+-        rebalance(n, h, normals, normal_weight, margin);
+-        ++correction_version;
+-        --remaining_atoms;
+-        ++additions;
++        int admitted_from_probe = 0;
++        const int candidate_count = block_ritz ? m : 1;
++        for (int candidate = 0; candidate < candidate_count &&
++                                admitted_from_probe < (block_ritz ? allowance : 1); ++candidate) {
++          const int column = m - 1 - candidate;
++          if (!(values[column] > 0)) continue;
++          Vec direction(n, 0);
++          for (int j = 0; j < m; ++j)
++            axpy(reduced[j + m * column], basis[j], direction);
++          double length = norm2(direction);
++          if (!(length > 0)) continue;
++          for (double &x : direction) x /= length;
++          double ray = 0;
++          for (auto e : base)
++            ray += (e.i == e.j ? 1 : 2) * e.v * direction[e.i] * direction[e.j];
++          double tangent_residual = 0;
++          for (const auto &row : *normals) {
++            double v = 0;
++            for (auto a : row) v += a.second * direction[a.first];
++            if (tangent_certificate) tangent_residual = std::isfinite(v)
++                ? std::max(tangent_residual, std::abs(v)) : INFINITY;
++            else ray += normal_weight * v * v;
++          }
++          if (tangent_certificate &&
++              tangent_residual > 1e-7 * std::max(1.0, norm2(direction))) continue;
++          // A prior candidate may have been reweighted into this direction.
++          // Never infer another admission from the old projected eigenvalue.
++          for (const auto &a : spectral_atoms) {
++            double v = dot(a.direction, direction);
++            ray += a.beta * v * v;
++          }
++          ++probes;
++          if (!std::isfinite(ray) || ray >= -std::max(1e-10, min_relative_gain)) continue;
++          for (int sweep = 0; sweep < 2; ++sweep)
++            for (const auto &u : atom_basis_) axpy(-dot(u, direction), u, direction);
++          const double independent = norm2(direction);
++          if (!(independent > 1e-6)) { ++dependent_witnesses; continue; }
++          for (double &v : direction) v /= independent;
++          atom_basis_.push_back(std::move(direction));
++          rebalance(n, h, normals, normal_weight, margin);
++          ++correction_version;
++          --remaining_atoms;
++          ++additions;
++          ++admitted_from_probe;
++        }
++        if (!admitted_from_probe) break;
+         if (positive(0, normal_weight)) {
+           rho = 0;
+         } else {
+@@ -487,10 +633,11 @@
+           }
+           rho = trial;
+         }
++        if (block_ritz) break; // no stale factor is used after batch rebalancing
+       }
+     }
+ 
+-    if (additions != additions_before_refinement) refine_complement();
++    if (defer_refinement || additions != additions_before_refinement) refine_complement();
+     last_peak_stored_atoms = std::max(last_peak_stored_atoms, int(atoms.size() + atom_basis_.size()));
+     compact_inactive_space();
+     previous_ = h;
+--- a/src/dca_filter_engine.hpp
++++ b/src/dca_filter_engine.hpp
+@@ -46,6 +46,97 @@
+     for (auto &q : *group)
+       q.model_active = false;
+ }
++// Experimental, bounded acceleration of the accepted DC fixed-point map.
++// This object never assembles a Hessian or solves a Newton system. Its small
++// least-squares fit only mixes outputs of genuine DC steps. All proposals are
++// audited below on the original problem, with the ordinary DC candidate kept
++// intact as the fallback. Slacks have ORIGINAL-constraint coordinates here;
++// model slacks from distinct DC centres must never be mixed directly.
++struct DcaAnderson {
++  struct Image { Vec x, lambda, z, original_s, residual; };
++  std::vector<Image> history;
++  Vec scaling;
++  std::vector<unsigned char> active;
++  void clear() { history.clear(); scaling.clear(); active.clear(); }
++  bool propose(Workspace &w, const Vec &from_x, const Vec &from_lambda,
++               const Vec &from_z, const Vec &to_x, const Vec &to_lambda,
++               const Vec &to_z, const Vec &to_s, Image &proposal) {
++    if (active != w.active) { clear(); active = w.active; }
++    Image current;
++    current.x = to_x; current.lambda = to_lambda; current.z = to_z;
++    current.original_s = to_s;
++    for (int i = 0; i < w.mi; ++i) if (w.active[i])
++      current.original_s[i] += std::max(0.0, w.inequalities[i].at(to_x) -
++                                                   w.inequalities[i].original_at(to_x));
++    const int dimension = w.n + w.me + w.mi;
++    const bool initial = scaling.empty();
++    if (initial) scaling.resize(dimension);
++    current.residual.resize(dimension);
++    int offset = 0;
++    auto append = [&](const Vec &from, const Vec &to, bool inequalities) {
++      const double family_scale = 1.0 / std::sqrt(std::max<std::size_t>(1, from.size()));
++      for (int j = 0; j < (int)from.size(); ++j, ++offset) {
++        if (initial)
++          scaling[offset] = family_scale /
++              std::max({1.0, std::abs(from[j]), std::abs(to[j])});
++        current.residual[offset] = inequalities && !w.active[j] ? 0.0 :
++            scaling[offset] * (to[j] - from[j]);
++      }
++    };
++    append(from_x, to_x, false); append(from_lambda, to_lambda, false);
++    append(from_z, to_z, true);
++    if (!finite(current.residual) || !finite(current.original_s)) { clear(); return false; }
++    history.push_back(std::move(current));
++    constexpr int depth = 4;
++    if (history.size() > depth) history.erase(history.begin());
++    const int count = history.size();
++    if (count < 2) return false;
++    double gram[depth][depth] = {}, lower[depth][depth] = {}, trace = 0;
++    for (int i = 0; i < count; ++i) {
++      for (int j = 0; j <= i; ++j)
++        gram[i][j] = gram[j][i] = dot(history[i].residual, history[j].residual);
++      trace += gram[i][i];
++    }
++    if (!(trace > 1e-300) || !std::isfinite(trace)) return false;
++    const double ridge = 1e-8 * trace / count;
++    for (int i = 0; i < count; ++i)
++      for (int j = 0; j <= i; ++j) {
++        double value = gram[i][j] + (i == j ? ridge : 0);
++        for (int k = 0; k < j; ++k) value -= lower[i][k] * lower[j][k];
++        if (i == j) {
++          if (!(value > 0) || !std::isfinite(value)) return false;
++          lower[i][j] = std::sqrt(value);
++        } else lower[i][j] = value / lower[j][j];
++      }
++    double forward[depth] = {}, alpha[depth] = {}, denominator = 0;
++    for (int i = 0; i < count; ++i) {
++      double value = 1;
++      for (int j = 0; j < i; ++j) value -= lower[i][j] * forward[j];
++      forward[i] = value / lower[i][i];
++    }
++    for (int i = count - 1; i >= 0; --i) {
++      double value = forward[i];
++      for (int j = i + 1; j < count; ++j) value -= lower[j][i] * alpha[j];
++      alpha[i] = value / lower[i][i]; denominator += alpha[i];
++    }
++    if (!(denominator > 0) || !std::isfinite(denominator)) return false;
++    double coefficient_norm = 0, predicted_norm2 = 0;
++    for (int i = 0; i < count; ++i) { alpha[i] /= denominator; coefficient_norm += std::abs(alpha[i]); }
++    if (!std::isfinite(coefficient_norm) || coefficient_norm > 8.0) return false;
++    for (int i = 0; i < count; ++i)
++      for (int j = 0; j < count; ++j) predicted_norm2 += alpha[i] * alpha[j] * gram[i][j];
++    if (!(predicted_norm2 <= 0.8 * gram[count - 1][count - 1])) return false;
++    proposal.x.assign(w.n, 0); proposal.lambda.assign(w.me, 0);
++    proposal.z.assign(w.mi, 0); proposal.original_s.assign(w.mi, 0);
++    for (int i = 0; i < count; ++i) {
++      axpy(alpha[i], history[i].x, proposal.x);
++      axpy(alpha[i], history[i].lambda, proposal.lambda);
++      axpy(alpha[i], history[i].z, proposal.z);
++      axpy(alpha[i], history[i].original_s, proposal.original_s);
++    }
++    return finite(proposal.x) && finite(proposal.lambda) && finite(proposal.z) && finite(proposal.original_s);
++  }
++};
+ struct DcaModels {
+   Workspace &w;
+   DcaFilterStatistics &stats;
+@@ -176,8 +267,11 @@
+         pnorm2 = std::max(pnorm2, 1 / (w.pivot_coefficient[e] * w.pivot_coefficient[e]));
+     for (auto e : canonical_b)
+       bnorm2 += (e.i == e.j ? 1 : 2) * e.v * e.v;
+-    stats.eliminated_normal_completion_weight =
++    stats.eliminated_normal_completion_weight = lagrangian.tangent_certificate ? 0 :
+         pnorm2 * (std::sqrt(bnorm2) + tnorm2 * bnorm2 / 1e-10) + 1e-10;
++    stats.tangent_certificate = lagrangian.tangent_certificate;
++    stats.certificate_transport_trials = lagrangian.certificate_transport_trials;
++    stats.certificate_transports = lagrangian.certificate_transports;
+     if (!std::isfinite(stats.eliminated_normal_completion_weight))
+       throw std::runtime_error("DCA implicit normal completion overflow");
+     if (restoration || pnorm2 == 0)
+@@ -226,10 +320,12 @@
+         } else
+           q.set_model(center, std::move(hi), slots);
+       }
+-    stats.normal_completion_weight = restoration ? 0 : lagrangian.normal_weight;
++    stats.normal_completion_weight = restoration || lagrangian.tangent_certificate ? 0 : lagrangian.normal_weight;
+     stats.curvature_seconds += seconds(stamp);
+     w.objective.set_model(center, std::move(obj), slots);
+     w.objective.model_atoms.clear();
++    w.objective.model_atom_support.clear();
++    if (w.st.dca_filter_packed_atoms) w.objective.model_atom_support = w.retained;
+     if (!restoration)
+       for (const auto &a : lagrangian.spectral_atoms) {
+         if (!(a.beta > 0))
+@@ -373,6 +469,9 @@
+   st.lazy_newton_predictor_corrector = true;
+   problem.validate();
+   Result result;
++  if (st.dca_filter_curvature_backend != "same" &&
++      !linear_backend_compiled(st.dca_filter_curvature_backend))
++    throw std::invalid_argument("requested DCA curvature backend is not compiled");
+   result.x = problem.x0;
+   result.effective_outer_algorithm = "lazy-dca";
+   result.lazy_dca_equality_model = "affine-partial-lagrangian-dc";
+@@ -381,6 +480,15 @@
+   result.dca_filter.initial_restoration_requested = st.dca_filter_initial_restoration;
+   result.dca_filter.normal_atom_weighting = st.dca_filter_normal_atom_weighting;
+   result.dca_filter.rho_refinement_budget = st.dca_filter_rho_refinements;
++  result.dca_filter.active_evaluation = st.dca_filter_active_evaluation;
++  result.dca_filter.packed_atoms = st.dca_filter_packed_atoms;
++  result.dca_filter.lazy_merit = st.dca_filter_lazy_merit;
++  result.dca_filter.block_ritz = st.dca_filter_block_ritz;
++  result.dca_filter.anderson = st.dca_filter_anderson;
++  result.dca_filter.certificate_transport = st.dca_filter_certificate_transport;
++  result.dca_filter.sparse_fallback = st.dca_filter_sparse_fallback;
++  result.dca_filter.equilibration = st.kkt_equilibration;
++  result.dca_filter.curvature_backend = st.dca_filter_curvature_backend == "same" ? st.linear_backend : st.dca_filter_curvature_backend;
+   result.lazy_newton.display_level = level;
+   auto start = Clock::now();
+   detail::NewtonCostLedger costs(result.lazy_newton, start);
+@@ -434,6 +542,8 @@
+     bool model_ready = false, reuse_model = false;
+     int model_steps = 0;
+     Vec previous_displacement;
++    const bool anderson_enabled = st.dca_filter_anderson;
++    DcaAnderson anderson;
+     if (level) {
+       CostScope display(costs, NewtonCost::Diagnostics);
+       std::cout << "LazyIPDCA  |  DC majorants · original filter\n";
+@@ -468,6 +578,7 @@
+           break;
+         }
+       }
++      if (w.pivoted) stats.pivoted_backend = w.pivoted->name();
+       outer = dca_original(w, w.x, w.lambda, w.z);
+       committed_x = w.x;
+       committed_s = w.s;
+@@ -594,7 +705,12 @@
+             for (int correction = 0; correction < 2 && !private_ok; ++correction) {
+               const double apmax = w.fraction(direction, st.lazy_newton_fraction_to_boundary, 1);
+               const double admax = w.fraction(direction, st.lazy_newton_fraction_to_boundary, 2);
+-              const double theta = w.theta(w.x, w.s);
++              const bool lazy_merit = st.dca_filter_lazy_merit;
++              double theta = 0;
++              if (lazy_merit) {
++                for (double h : w.h) theta += std::abs(h);
++                for (int i = 0; i < w.mi; ++i) if (w.active[i]) theta += std::abs(w.rp[i]);
++              } else theta = w.theta(w.x, w.s);
+               double slope = w.objective.directional(direction.x);
+               for (int i = 0; i < w.mi; ++i)
+                 if (w.active[i])
+@@ -604,8 +720,15 @@
+                 w.penalty = std::max(w.penalty, (slope + std::abs(slope) + 1) / theta);
+               stats.last_penalty = w.penalty;
+               slope -= w.penalty * theta;
+-              const double merit = w.merit(w.x, w.s, target),
+-                           before = w.perturbed_residual(w.x, w.lambda, w.s, w.z, target);
++              double merit = 0, before = 0;
++              bool merit_ready = false;
++              auto prepare_merit = [&]() {
++                if (merit_ready) return;
++                merit = w.merit(w.x, w.s, target);
++                before = w.perturbed_residual(w.x, w.lambda, w.s, w.z, target);
++                merit_ready = true;
++              };
++              if (!lazy_merit) prepare_merit();
+               for (int ls = 0; ls < st.line_search_max_steps; ++ls) {
+                 double tau = std::pow(st.line_search_contraction, ls);
+                 ap = apmax * tau;
+@@ -639,6 +762,7 @@
+                   }
+                   ++stats.original_line_rejections;
+                 }
++                prepare_merit();
+                 ++stats.private_line_trials;
+                 const double trial = positive ? w.merit(tx, ts, target) : INFINITY;
+                 const double noise =
+@@ -750,7 +874,65 @@
+             bool extrapolated = false;
+             Vec displacement(w.n);
+             for (int j = 0; j < w.n; ++j) displacement[j] = tx[j] - accepted_x[j];
+-            if (accepted && !restoration && st.dca_filter_extrapolation &&
++            if (anderson_enabled) {
++              const bool eligible = accepted && !restoration && model_steps == 1 &&
++                  outer.primal <= 1e-4 &&
++                  candidate.primal <= 1e-4 &&
++                  outer.kkt <= 1.0 && candidate.kkt < outer.kkt;
++              if (!eligible) anderson.clear();
++              else {
++                const auto boost_start = Clock::now();
++                DcaAnderson::Image proposal;
++                if (anderson.propose(w, accepted_x, accepted_lambda, accepted_z,
++                                     tx, tl, tz, ts, proposal)) {
++                  Vec original_s = ts;
++                  for (int i = 0; i < w.mi; ++i) if (w.active[i])
++                    original_s[i] += std::max(0.0, w.inequalities[i].at(tx) -
++                                                        w.inequalities[i].original_at(tx));
++                  for (double blend : {1.0, 0.5}) {
++                    Vec cx = tx, cl = tl, cz = tz, cs = original_s;
++                    for (int j = 0; j < w.n; ++j) cx[j] += blend * (proposal.x[j] - tx[j]);
++                    for (int e = 0; e < w.me; ++e) cl[e] += blend * (proposal.lambda[e] - tl[e]);
++                    bool positive = true;
++                    for (int i = 0; i < w.mi; ++i) if (w.active[i]) {
++                      cz[i] += blend * (proposal.z[i] - tz[i]);
++                      cs[i] += blend * (proposal.original_s[i] - original_s[i]);
++                      cs[i] -= std::max(0.0, w.inequalities[i].at(cx) -
++                                                     w.inequalities[i].original_at(cx));
++                      if (!(cz[i] > 0) || !(cs[i] > 0)) positive = false;
++                    }
++                    if (!positive || !finite(cx) || !finite(cl) || !finite(cz) || !finite(cs)) continue;
++                    for (int i = 0; i < w.mi; ++i) if (!w.active[i] &&
++                        w.inequalities[i].original_at(cx) > st.feasibility_tolerance * w.inequalities[i].scale)
++                      positive = false;
++                    if (!positive) continue;
++                    ++stats.extrapolation_trials;
++                    ++stats.anderson_trials;
++                    auto accelerated = dca_original(w, cx, cl, cz, &accepted_lambda, &accepted_z);
++                    // The standard accepted candidate is retained unless both
++                    // ORIGINAL KKT contraction and the same ORIGINAL filter pass.
++                    if (accelerated.primal <= std::max(st.feasibility_tolerance, candidate.primal) &&
++                        accelerated.kkt <= 0.8 * candidate.kkt &&
++                        filter.acceptable(outer, accelerated,
++                            w.objective.at(accepted_x) - w.objective.at(cx), st.feasibility_tolerance)) {
++                      tx.swap(cx); tl.swap(cl); tz.swap(cz); ts.swap(cs);
++                      candidate = accelerated; extrapolated = true;
++                      ++stats.extrapolation_acceptances;
++                      ++stats.anderson_acceptances;
++                      if (level >= 4) {
++                        CostScope display(costs, NewtonCost::Diagnostics);
++                        std::cout << "  DCA-ANDERSON history=" << anderson.history.size()
++                                  << " blend=" << blend << " original_kkt=" << candidate.kkt
++                                  << " accepted=yes" << std::endl;
++                      }
++                      break;
++                    }
++                  }
++                }
++                stats.extrapolation_seconds += seconds(boost_start);
++              }
++            }
++            if (accepted && !extrapolated && !restoration && st.dca_filter_extrapolation &&
+                 outer.theta <= st.feasibility_tolerance && candidate.primal <= st.feasibility_tolerance &&
+                 candidate.kkt < outer.kkt && previous_displacement.size() == displacement.size()) {
+               // A filtered acceleration of the DC fixed-point iteration, not a
+@@ -882,6 +1064,7 @@
+     }
+   }
+   if (owner) {
++    if (owner->pivoted) result.dca_filter.pivoted_backend = owner->pivoted->name();
+     result.lazy_newton.symbolic_analyses = owner->factor->symbolic_analyses();
+     result.lazy_newton.symbolic_reuses = owner->factor->symbolic_reuses();
+     result.lazy_newton.scatter_builds = owner->factor->numeric_scatter_builds();
+--- a/src/io.cpp
++++ b/src/io.cpp
+@@ -836,6 +836,21 @@
+   o << "  \"dca_filter_used\": " << (r.dca_filter.used?"true":"false") << ",\n";
+   o << "  \"dca_filter_initial_restoration_requested\": " << (r.dca_filter.initial_restoration_requested ? "true" : "false") << ",\n";
+   o << "  \"dca_filter_normal_atom_weighting\": " << (r.dca_filter.normal_atom_weighting ? "true" : "false") << ",\n";
++  o << "  \"dca_filter_active_evaluation\": " << (r.dca_filter.active_evaluation ? "true" : "false") << ",\n";
++  o << "  \"dca_filter_packed_atoms\": " << (r.dca_filter.packed_atoms ? "true" : "false") << ",\n";
++  o << "  \"dca_filter_lazy_merit\": " << (r.dca_filter.lazy_merit ? "true" : "false") << ",\n";
++  o << "  \"dca_filter_block_ritz\": " << (r.dca_filter.block_ritz ? "true" : "false") << ",\n";
++  o << "  \"dca_filter_anderson\": " << (r.dca_filter.anderson ? "true" : "false") << ",\n";
++  o << "  \"dca_filter_certificate_transport\": " << (r.dca_filter.certificate_transport ? "true" : "false") << ",\n";
++  o << "  \"dca_filter_sparse_fallback\": " << (r.dca_filter.sparse_fallback ? "true" : "false") << ",\n";
++  o << "  \"dca_filter_equilibration\": " << (r.dca_filter.equilibration ? "true" : "false") << ",\n";
++  o << "  \"dca_filter_curvature_backend\": \"" << r.dca_filter.curvature_backend << "\",\n";
++  o << "  \"dca_filter_pivoted_backend\": \"" << r.dca_filter.pivoted_backend << "\",\n";
++  o << "  \"dca_filter_anderson_trials\": " << r.dca_filter.anderson_trials << ",\n";
++  o << "  \"dca_filter_anderson_acceptances\": " << r.dca_filter.anderson_acceptances << ",\n";
++  o << "  \"dca_filter_tangent_certificate\": " << (r.dca_filter.tangent_certificate ? "true" : "false") << ",\n";
++  o << "  \"dca_filter_certificate_transport_trials\": " << r.dca_filter.certificate_transport_trials << ",\n";
++  o << "  \"dca_filter_certificate_transports\": " << r.dca_filter.certificate_transports << ",\n";
+   o << "  \"dca_filter_rho_refinement_budget\": " << r.dca_filter.rho_refinement_budget << ",\n";
+   o << "  \"dca_filter_rho_refinement_trials\": " << r.dca_filter.rho_refinement_trials << ",\n";
+   o << "  \"dca_filter_rho_refinement_acceptances\": " << r.dca_filter.rho_refinement_acceptances << ",\n";
+--- a/src/linear_solver.cpp
++++ b/src/linear_solver.cpp
+@@ -390,7 +390,9 @@
+ // primal/dual shifts explicitly, preventing backend-dependent double shifts.
+ class SuiteSparseLdlMetisFactor final : public SymmetricFactorization {
+  public:
+-  explicit SuiteSparseLdlMetisFactor(const Settings& st) : st_(st) {}
++  explicit SuiteSparseLdlMetisFactor(const Settings& st) : st_(st) {
++    equilibrate_=st.kkt_equilibration;
++  }
+ 
+   bool factor(int n, int primal_dimension,
+               const std::vector<SymmetricTriplet>& entries,
+@@ -771,6 +773,11 @@
+       }
+     }
+ 
++    // Equilibrate numeric values only: the graph, positional scatter, and
++    // original matrix used for backward-error checks remain unchanged.
++    // Positive diagonal congruence preserves the inertia certificate.
++    if(equilibrate_&&!equilibrate_numeric(message))return false;
++
+     failed_pivot_=-1;
+     std::fill(Flag_.begin(),Flag_.end(),0);
+     const int d=ldl_numeric(n,Ap_.data(),Ai_.data(),Ax_.data(),
+@@ -869,6 +876,53 @@
+   }
+ 
+  private:
++  bool equilibrate_numeric(std::string& message) {
++    equilibration_scale_.assign(static_cast<std::size_t>(n_),1.0);
++    equilibration_norm_.resize(static_cast<std::size_t>(n_));
++    equilibration_step_.resize(static_cast<std::size_t>(n_));
++    constexpr double minimum_scale=1e-100,maximum_scale=1e100;
++    // Three bounded symmetric Ruiz max-norm passes, in permuted coordinates.
++    // Every refactor starts from freshly assembled unscaled Ax_; scaling is
++    // never compounded with a factorization from a previous numeric update.
++    for(int pass=0;pass<3;++pass) {
++      std::fill(equilibration_norm_.begin(),equilibration_norm_.end(),0.0);
++      for(int j=0;j<n_;++j)for(int k=Ap_[j];k<Ap_[j+1];++k) {
++        const double a=std::abs(Ax_[k]);
++        if(!std::isfinite(a)) {
++          message="SuiteSparse LDL equilibration encountered nonfinite coefficient";return false;
++        }
++        const int i=Ai_[k];
++        equilibration_norm_[i]=std::max(equilibration_norm_[i],a);
++        equilibration_norm_[j]=std::max(equilibration_norm_[j],a);
++      }
++      for(int i=0;i<n_;++i) {
++        const double norm=equilibration_norm_[i];
++        // A zero row is left unchanged; the ordinary LDL singularity check
++        // still rejects it. No diagonal shift is introduced by equilibration.
++        const double proposed=norm>0?1.0/std::sqrt(norm):1.0;
++        const double step=std::clamp(proposed,minimum_scale/equilibration_scale_[i],
++                                    maximum_scale/equilibration_scale_[i]);
++        const double cumulative=equilibration_scale_[i]*step;
++        if(!(step>0)||!std::isfinite(step)||!(cumulative>0)||!std::isfinite(cumulative)) {
++          message="SuiteSparse LDL equilibration produced invalid diagonal scale";return false;
++        }
++        equilibration_step_[i]=step;
++        equilibration_scale_[i]=cumulative;
++      }
++      for(int j=0;j<n_;++j)for(int k=Ap_[j];k<Ap_[j+1];++k) {
++        // A wide intermediate avoids overflow of either product before the
++        // second diagonal factor brings it back into double range.
++        const long double product=static_cast<long double>(Ax_[k])*
++            equilibration_step_[Ai_[k]]*equilibration_step_[j];
++        const double scaled=static_cast<double>(product);
++        if(!std::isfinite(scaled)||(Ax_[k]!=0.0&&scaled==0.0)) {
++          message="SuiteSparse LDL equilibration would overflow or erase a coefficient";return false;
++        }
++        Ax_[k]=scaled;
++      }
++    }
++    return true;
++  }
+   void clear_numeric_scatter() {
+     numeric_scatter_valid_=false;
+     scatter_n_=0;
+@@ -881,18 +935,30 @@
+   bool solve_raw(Vec& rhs, Vec& perm_work, std::string& message) const {
+     if(static_cast<int>(perm_work.size())!=n_)
+       perm_work.resize(static_cast<std::size_t>(n_));
+-    for (int i=0;i<n_;++i) perm_work[static_cast<std::size_t>(i)]=rhs[perm_[i]];
++    if(equilibrate_) {
++      for(int i=0;i<n_;++i) {
++        const double value=equilibration_scale_[i]*rhs[perm_[i]];
++        if(!std::isfinite(value)||(rhs[perm_[i]]!=0.0&&value==0.0)) {
++          message="SuiteSparse LDL equilibration overflowed or erased a right hand side entry";return false;
++        }
++        perm_work[static_cast<std::size_t>(i)]=value;
++      }
++    } else for (int i=0;i<n_;++i) perm_work[static_cast<std::size_t>(i)]=rhs[perm_[i]];
+     auto* self=const_cast<SuiteSparseLdlMetisFactor*>(this);
+     ldl_lsolve(n_,perm_work.data(),self->Lp_.data(),self->Li_.data(),self->Lx_.data());
+     ldl_dsolve(n_,perm_work.data(),self->D_.data());
+     ldl_ltsolve(n_,perm_work.data(),self->Lp_.data(),self->Li_.data(),self->Lx_.data());
+-    for (int i=0;i<n_;++i) rhs[perm_[i]]=perm_work[static_cast<std::size_t>(i)];
++    if(equilibrate_) {
++      for(int i=0;i<n_;++i)rhs[perm_[i]]=equilibration_scale_[i]*perm_work[static_cast<std::size_t>(i)];
++    } else for (int i=0;i<n_;++i) rhs[perm_[i]]=perm_work[static_cast<std::size_t>(i)];
+     for (double v:rhs) if(!std::isfinite(v)) {
+       message="SuiteSparse LDL produced non-finite solution"; return false;
+     }
+     return true;
+   }
+   const Settings& st_;
++  bool equilibrate_=false;
++  Vec equilibration_scale_,equilibration_norm_,equilibration_step_;
+   bool probe_ready_=false;int curvature_defect_=0;
+   int symbolic_primal_dimension_=-1,failed_pivot_=-1;
+   int n_=0, symbolic_analyses_=0, symbolic_reuses_=0, symbolic_invalidations_=0;
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -27,6 +27,17 @@
+     << "  --dca-rho-refinements N       certified scalar refinement trials (3, range 0..12)\n"
+     << "  --dca-initial-restoration     enable the legacy initial feasibility phase\n"
+     << "  --dca-normal-weighted-atoms   legacy atom weights including normal completion\n"
++    << "  G6 research controls (off by default; each accepts --no-...):\n"
++    << "  --dca-active-evaluation      skip derivatives of inactive inequality rows\n"
++    << "  --dca-packed-atoms           apply atoms on retained coordinates only\n"
++    << "  --dca-lazy-merit             defer private merit work until original-filter rejection\n"
++    << "  --dca-block-ritz             admit independent directions from a shared Ritz block\n"
++    << "  --dca-anderson               enable filtered multi-step acceleration\n"
++    << "  --dca-tangent-curvature      use the experimental tangent curvature certificate\n"
++    << "  --dca-certificate-transport  try a checked certificate bound between models\n"
++    << "  --dca-sparse-fallback        use MUMPS for pivoted recovery when available\n"
++    << "  --ldl-equilibration          symmetrically equilibrate LDL; keep original residual checks\n"
++    << "  --dca-curvature-backend same|ldl|mumps|native  curvature factor backend (same)\n"
+     << "  --no-dca-extrapolation     disable guarded local DCA extrapolation\n"
+     << "  --no-dca-model-reuse       G4 control: rebuild at each accepted point\n"
+     << "  --dca-engine legacy|filter    select the fixed-majorant original-filter DCA engine\n"
+@@ -339,6 +350,25 @@
+       else if(a=="--dca-rho-refinements") st.dca_filter_rho_refinements=parse_num<int>(need("--dca-rho-refinements"));
+       else if(a=="--dca-initial-restoration") st.dca_filter_initial_restoration=true;
+       else if(a=="--dca-normal-weighted-atoms") st.dca_filter_normal_atom_weighting=true;
++      else if(a=="--dca-active-evaluation") st.dca_filter_active_evaluation=true;
++      else if(a=="--no-dca-active-evaluation") st.dca_filter_active_evaluation=false;
++      else if(a=="--dca-packed-atoms") st.dca_filter_packed_atoms=true;
++      else if(a=="--no-dca-packed-atoms") st.dca_filter_packed_atoms=false;
++      else if(a=="--dca-lazy-merit") st.dca_filter_lazy_merit=true;
++      else if(a=="--no-dca-lazy-merit") st.dca_filter_lazy_merit=false;
++      else if(a=="--dca-block-ritz") st.dca_filter_block_ritz=true;
++      else if(a=="--no-dca-block-ritz") st.dca_filter_block_ritz=false;
++      else if(a=="--dca-anderson") st.dca_filter_anderson=true;
++      else if(a=="--no-dca-anderson") st.dca_filter_anderson=false;
++      else if(a=="--dca-tangent-curvature") st.dca_filter_tangent_curvature=true;
++      else if(a=="--no-dca-tangent-curvature") st.dca_filter_tangent_curvature=false;
++      else if(a=="--dca-certificate-transport") st.dca_filter_certificate_transport=true;
++      else if(a=="--no-dca-certificate-transport") st.dca_filter_certificate_transport=false;
++      else if(a=="--dca-sparse-fallback") st.dca_filter_sparse_fallback=true;
++      else if(a=="--no-dca-sparse-fallback") st.dca_filter_sparse_fallback=false;
++      else if(a=="--ldl-equilibration") st.kkt_equilibration=true;
++      else if(a=="--no-ldl-equilibration") st.kkt_equilibration=false;
++      else if(a=="--dca-curvature-backend") st.dca_filter_curvature_backend=need("--dca-curvature-backend");
+       else if(a=="--no-dca-extrapolation") st.dca_filter_extrapolation=false;
+       else if(a=="--no-dca-model-reuse") st.dca_filter_model_reuse=false;
+       else if(a=="--dca-engine") st.dca_engine=need("--dca-engine");
+@@ -978,6 +1008,12 @@
+       throw std::runtime_error("linear backend '" + st.linear_backend + "' not compiled; available: " + compiled_linear_backends());
+ 
+     if(st.dca_engine!="legacy"&&st.dca_engine!="filter") throw std::runtime_error("dca-engine must be legacy or filter");
++    if(st.dca_filter_curvature_backend!="same"&&st.dca_filter_curvature_backend!="ldl"&&
++       st.dca_filter_curvature_backend!="mumps"&&st.dca_filter_curvature_backend!="native")
++      throw std::runtime_error("dca-curvature-backend must be same, ldl, mumps, or native");
++    if(st.dca_filter_curvature_backend!="same"&&!linear_backend_compiled(st.dca_filter_curvature_backend))
++      throw std::runtime_error("DCA curvature backend '"+st.dca_filter_curvature_backend+
++                               "' not compiled; available: "+compiled_linear_backends());
+     if(st.dca_engine=="filter"&&st.outer_algorithm!="lazy-dca"&&st.outer_algorithm!="auto") throw std::runtime_error("dca-engine filter requires outer-algorithm lazy-dca");
+     if(st.ln_engine!="legacy"&&st.ln_engine!="atomic") throw std::runtime_error("ln-engine must be legacy or atomic");
+     if(st.live_display_level < -1 || st.live_display_level>4) throw std::runtime_error("display-level must be 0..4");
+--- a/tests/test_exporter_pglib_contract_r3p22.py
++++ b/tests/test_exporter_pglib_contract_r3p22.py
+@@ -538,7 +538,8 @@
+                                     "LazyIPDCA-QCQP 0.4.28r3p28g1-atomic-graft (API 4327, v0.4.28r3p28g1-atomic-graft-api-4327)",
+                                     "LazyIPDCA-QCQP 0.4.28r3p28g3-filter-dca (API 4329, v0.4.28r3p28g3-filter-dca-api-4329)",
+                                     "LazyIPDCA-QCQP 0.4.28r3p28g4-persistent-dca (API 4330, v0.4.28r3p28g4-persistent-dca-api-4330)",
+-                                    "LazyIPDCA-QCQP 0.4.28r3p28g5-adaptive-dca (API 4331, v0.4.28r3p28g5-adaptive-dca-api-4331)"))
++                                    "LazyIPDCA-QCQP 0.4.28r3p28g5-adaptive-dca (API 4331, v0.4.28r3p28g5-adaptive-dca-api-4331)",
++                                    "LazyIPDCA-QCQP 0.4.28r3p28g6-research-dca (API 4332, v0.4.28r3p28g6-research-dca-api-4332)"))
+         except Exception as exc:  # contract failure must be reported cleanly
+             failures.append(f"r3p22 invocation failed: {exc}")
+         else:
+@@ -552,6 +553,7 @@
+                     "0.4.28r3p28g1-atomic-graft" not in version and
+                     "0.4.28r3p28g3-filter-dca" not in version and
+                     "0.4.28r3p28g5-adaptive-dca" not in version and
++                    "0.4.28r3p28g6-research-dca" not in version and
+                     "0.4.28r3p28g4-persistent-dca" not in version):
+                 failures.append(f"wrong solver version: {version}")
+             if rc != 0 or result.get("status") != "solved":
+--- a/tests/test_g3_campaign_contract.py
++++ b/tests/test_g3_campaign_contract.py
+@@ -64,6 +64,10 @@
+             assert data["objective"] < -1.99999
+             assert data["dca_filter_atoms_lagrangian"] + data["dca_filter_atoms_inequalities"] <= cap
+             assert data["dca_filter_peak_stored_atoms"] <= cap
++            for flag in ("active_evaluation", "packed_atoms", "lazy_merit", "block_ritz", "anderson"):
++                assert data["dca_filter_" + flag] is True, flag
++            assert data["dca_filter_tangent_certificate"] is False
++            assert data["dca_filter_curvature_backend"] == "ldl"
+             assert data["dca_filter_inner_steps"] <= data["dca_filter_models"] * 8
+             assert " iter " in process.stdout
+             if level == 1:
+@@ -91,7 +95,7 @@
+             else:
+                 raise AssertionError("altered multiplier passed the independent certificate")
+         assert problem.read_text() == MODEL, "input mutated"
+-        # A purported baseline must really be the unchanged G4, not the same
++        # A purported baseline must really be the unchanged G5, not the same
+         # new binary used twice under two labels.
+         out = directory / "wrong_baseline"
+         rejected = subprocess.run([sys.executable, str(ROOT / "python/benchmark_filter_dca_g4.py"),
+@@ -99,7 +103,7 @@
+                                    "--baseline-binary", str(binary), "--output", str(out),
+                                    "--skip-ipopt", "--warmups", "0", "--repetitions", "1"],
+                                   capture_output=True, text=True, timeout=20)
+-        assert rejected.returncode != 0 and "unchanged G4" in rejected.stderr
++        assert rejected.returncode != 0 and "unchanged G5" in rejected.stderr
+     print("PASS G3 campaign, displays, cap, cost accounting and independent rejection")
+ 
+ 
+--- /dev/null
++++ b/tests/test_g6_anderson.cpp
+@@ -0,0 +1,77 @@
++#include "lazyipdca_qcqp/dca_filter.hpp"
++#include <cmath>
++#include <iostream>
++#include <stdexcept>
++
++using namespace lazyipdca::qcqp;
++namespace {
++void require(bool condition, const char *message) {
++  if (!condition) throw std::runtime_error(message);
++}
++void independent_certificate(const Result &r) {
++  require(r.status == Status::Solved, r.message.c_str());
++  require(r.x.size() == 3 && r.certificate_inequality_multipliers.size() == 1,
++          "missing original coefficient certificate");
++  const double diagonal[3] = {-1.2, -1.0, 0.0};
++  const double z = r.certificate_inequality_multipliers[0];
++  require(std::isfinite(z) && z >= 0, "invalid inequality dual sign");
++  double g = -1, objective = 1.5 * r.x[2], stationarity = 0;
++  for (int j = 0; j < 3; ++j) {
++    require(std::isfinite(r.x[j]) && r.x[j] >= -2 - 1e-6 && r.x[j] <= 2 + 1e-6,
++            "nonfinite or infeasible original point");
++    g += r.x[j] * r.x[j];
++    objective += 0.5 * diagonal[j] * r.x[j] * r.x[j];
++    double gradient = (diagonal[j] + 2 * z) * r.x[j] + (j == 2 ? 1.5 : 0.0);
++    if (r.certificate_lower_multipliers.size() == 3) gradient -= r.certificate_lower_multipliers[j];
++    if (r.certificate_upper_multipliers.size() == 3) gradient += r.certificate_upper_multipliers[j];
++    stationarity = std::max(stationarity, std::abs(gradient));
++  }
++  require(g <= 1e-6 && std::abs(z * g) <= 1e-6 && stationarity <= 1e-6,
++          "independent original KKT check rejected");
++  require(std::abs(objective + 1.5) <= 1e-5, "wrong original objective");
++}
++}
++int main() {
++  try {
++    QCQPProblem p;
++    // Genuine DC objective, convex sphere constraint. At (0,0,-1), z=0.75,
++    // the tangent Lagrangian Hessian is diag(0.3,0.5), whereas the objective
++    // alone has two negative modes. Its DC corrections produce local modes
++    // approximately 0.8 and 2/3. Unlike a concave sphere constraint, this
++    // example does not require combining positive O(error^2) DC slack gaps.
++    p.name = "g6_two_slow_dc_objective_modes";
++    p.n = 3; p.x0 = {0.1, 0.1, -std::sqrt(0.98)};
++    p.lb = {-2, -2, -2}; p.ub = {2, 2, 2};
++    p.objective.linear = {0, 0, 1.5}; p.objective.hessian.n = 3;
++    p.objective.hessian.entries = {{0, 0, -1.2}, {1, 1, -1.0}};
++    QuadraticFunction inequality;
++    inequality.constant = -1; inequality.linear = {0, 0, 0}; inequality.hessian.n = 3;
++    inequality.hessian.entries = {{0, 0, 2}, {1, 1, 2}, {2, 2, 2}};
++    p.inequalities = {inequality};
++    Settings s; s.linear_backend = "native"; s.dca_engine = "filter";
++    require(!s.dca_filter_anderson, "Anderson acceleration must remain opt-in");
++    s.max_outer_iterations = 1000; s.lazy_newton_activation_margin = 1;
++    s.dca_filter_extrapolation = false; // Isolate the new multi-mode proposal.
++    s.dca_filter_model_reuse = false;
++    s.feasibility_tolerance = s.stationarity_tolerance =
++        s.dual_infeasibility_tolerance = s.complementarity_tolerance = 1e-6;
++    const auto baseline = solve_filter_dca(p, s);
++    independent_certificate(baseline);
++    s.dca_filter_anderson = true;
++    const auto accelerated = solve_filter_dca(p, s);
++    independent_certificate(accelerated);
++    std::cout << "Anderson probe: baseline=" << baseline.outer_iterations
++              << " accelerated=" << accelerated.outer_iterations
++              << " trials=" << accelerated.dca_filter.extrapolation_trials
++              << " acceptances=" << accelerated.dca_filter.extrapolation_acceptances << '\n';
++    require(accelerated.dca_filter.extrapolation_acceptances > 0,
++            "bounded multi-mode acceleration not exercised");
++    require(accelerated.outer_iterations < baseline.outer_iterations,
++            "multi-mode proposal did not reduce DC iterations");
++    require(accelerated.dca_filter.restorations == 0, "unexpected restoration");
++    std::cout << "PASS original nonconvex objective KKT; DC iterations "
++              << baseline.outer_iterations << " -> " << accelerated.outer_iterations
++              << ", accepted Anderson proposals "
++              << accelerated.dca_filter.extrapolation_acceptances << '\n';
++  } catch (const std::exception &e) { std::cerr << e.what() << '\n'; return 1; }
++}
+--- /dev/null
++++ b/tests/test_g6_block_curvature.cpp
+@@ -0,0 +1,157 @@
++#include "../src/dca_curvature.hpp"
++#include <iostream>
++#include <stdexcept>
++
++using namespace lazyipdca::qcqp;
++
++namespace {
++constexpr int dimension = 24;
++constexpr double margin = 1e-4;
++using Normals = std::vector<std::vector<std::pair<int, double>>>;
++
++void require(bool condition, const char *message) {
++  if (!condition) throw std::runtime_error(message);
++}
++
++Vec spectrum(Vec matrix) {
++  Vec values(dimension), work(3 * dimension);
++  const char vectors = 'N', triangle = 'U';
++  int info = 0, workspace = work.size(), n = dimension;
++  dsyev_(&vectors, &triangle, &n, matrix.data(), &n, values.data(),
++         work.data(), &workspace, &info);
++  require(info == 0, "independent dense eigensystem failed");
++  for (double value : values) require(std::isfinite(value), "nonfinite eigenvalue");
++  return values;
++}
++
++// Assemble from exported coefficients and factors, without corrected(), the
++// bordered matrix, or the production factorization/inertia implementation.
++void verify_certificate(const std::vector<SymTriplet> &h,
++                        const detail::DcaCurvature &curvature,
++                        const Normals &normals, int cap) {
++  Vec original(dimension * dimension, 0), correction(original.size(), 0);
++  for (const auto &entry : h) {
++    original[entry.i + dimension * entry.j] += entry.v;
++    if (entry.i != entry.j) original[entry.j + dimension * entry.i] += entry.v;
++  }
++  require(std::isfinite(curvature.rho) && curvature.rho >= 0,
++          "invalid scalar complement");
++  require(std::isfinite(curvature.normal_weight) && curvature.normal_weight >= 0,
++          "invalid normal completion");
++  for (int i = 0; i < dimension; ++i) correction[i + dimension * i] = curvature.rho;
++  auto add_rank_one = [&](double weight, const Vec &direction) {
++    require(std::isfinite(weight) && weight >= 0, "non-PSD atom weight");
++    for (int j = 0; j < dimension; ++j)
++      for (int i = 0; i < dimension; ++i)
++        correction[i + dimension * j] += weight * direction[i] * direction[j];
++  };
++  for (const auto &atom : curvature.atoms) {
++    Vec direction(dimension, 0);
++    direction[atom.i] = atom.u;
++    if (atom.j != atom.i) direction[atom.j] = atom.v;
++    add_rank_one(atom.beta, direction);
++  }
++  for (const auto &atom : curvature.spectral_atoms) add_rank_one(atom.beta, atom.direction);
++  for (const auto &row : normals) {
++    Vec direction(dimension, 0);
++    for (const auto &entry : row) direction[entry.first] += entry.second;
++    add_rank_one(curvature.normal_weight, direction);
++  }
++  require(spectrum(correction).front() >= -1e-8, "DCA correction is not PSD");
++  for (std::size_t k = 0; k < original.size(); ++k) original[k] += correction[k];
++  require(spectrum(original).front() > 0.5 * margin,
++          "final full-space majorant lost its strict-convexity certificate");
++  require(int(curvature.atoms.size() + curvature.stored_spectral_atoms()) <= cap &&
++              curvature.last_peak_stored_atoms <= cap,
++          "stored atom capacity exceeded");
++}
++
++std::vector<SymTriplet> indefinite_matrix() {
++  std::vector<SymTriplet> h;
++  for (int i = 0; i < dimension; ++i) h.push_back({i, i, 3 + 0.04 * i});
++  h[0].v = -4;
++  h[2].v = -1.7;
++  h.back().v = -8; // negative only in the equality-normal direction
++  h.push_back({0, 1, 0.6});
++  h.push_back({2, 3, 0.35});
++  return h;
++}
++
++void exercise_caps(const Settings &settings, bool block) {
++  Settings configured = settings;
++  configured.dca_filter_block_ritz = block;
++  const auto h = indefinite_matrix();
++  const Normals normals = {{{dimension - 1, 1}}};
++  for (int cap : {0, 1, 2}) {
++    detail::DcaCurvature curvature(configured);
++    int remaining = cap;
++    curvature.ensure(dimension, h, margin, true, remaining, 2, 1e-8, &normals);
++    verify_certificate(h, curvature, normals, cap);
++    require(remaining >= 0, "atom budget became negative");
++    if (cap == 0) require(curvature.additions == 0, "zero capacity admitted an atom");
++    else {
++      require(curvature.stored_spectral_atoms() > 0,
++              "negative tangent curvature produced no spectral correction");
++      require(curvature.inverse_probes > 0, "test did not exercise the inverse oracle");
++    }
++    // There are two independent negative tangent modes. A rank-zero/rank-one
++    // atom correction cannot make both positive without a scalar complement.
++    if (cap < 2) require(curvature.rho > 0, "missing complementary scalar curvature");
++    const int additions = curvature.additions, factors = curvature.certificates;
++    curvature.ensure(dimension, h, margin, true, remaining, 2, 1e-8, &normals);
++    require(curvature.additions == additions && curvature.certificates == factors,
++            "identical model invalidated its cached certificate");
++    verify_certificate(h, curvature, normals, cap);
++  }
++}
++} // namespace
++
++int main() {
++  try {
++    Settings settings;
++    settings.linear_backend = "native";
++    settings.dca_filter_rho_refinements = 3;
++    exercise_caps(settings, false);
++    exercise_caps(settings, true);
++    settings.dca_filter_block_ritz = true;
++
++    // Leave capacity available: non-events and moving normals must not spend
++    // it, even though the old full-space certificate must be updated.
++    detail::DcaCurvature curvature(settings);
++    auto h = indefinite_matrix();
++    Normals normals = {{{dimension - 1, 1}}};
++    int remaining = 4;
++    curvature.ensure(dimension, h, margin, true, remaining, 2, 1e-8, &normals);
++    verify_certificate(h, curvature, normals, 4);
++    const int initial_additions = curvature.additions;
++    require(remaining > 0, "test did not retain admission capacity");
++
++    normals = {{{1, 0.002}, {dimension - 1, std::sqrt(1 - 0.002 * 0.002)}}};
++    const int initial_updates = curvature.updates;
++    curvature.ensure(dimension, h, margin, true, remaining, 2, 1e-8, &normals);
++    require(curvature.updates == initial_updates && curvature.additions == initial_additions,
++            "normal drift was treated as a Hessian admission event");
++    verify_certificate(h, curvature, normals, 4);
++
++    // Reverse one captured negative mode and couple its subspace to another:
++    // old weights can decrease and rotate, so an old certificate is unsafe.
++    h[0].v = 2.2;
++    h[2].v = -3.2;
++    h.push_back({0, 2, 0.8});
++    h.push_back({0, 3, -0.4});
++    curvature.ensure(dimension, h, margin, false, remaining, 2, 1e-8, &normals);
++    require(curvature.additions == initial_additions, "atom admitted outside an event");
++    verify_certificate(h, curvature, normals, 4);
++
++    // A newly negative independent direction may be admitted on the next real
++    // Hessian event. Validate the complete result after all batch reweighting.
++    h[5].v = -2.5;
++    curvature.ensure(dimension, h, margin, true, remaining, 2, 1e-8, &normals);
++    require(remaining >= 0, "post-update admission exceeded capacity");
++    verify_certificate(h, curvature, normals, 4);
++    std::cout << "PASS block Ritz: independent PSD spectra, caps and Hessian events\n";
++  } catch (const std::exception &error) {
++    std::cerr << error.what() << '\n';
++    return 1;
++  }
++}
+--- /dev/null
++++ b/tests/test_g6_certificate_transport.cpp
+@@ -0,0 +1,127 @@
++#include "../src/dca_curvature.hpp"
++#include <iostream>
++#include <stdexcept>
++
++using namespace lazyipdca::qcqp;
++
++namespace {
++constexpr int n = 24;
++constexpr double margin = 1e-4;
++using Normals = std::vector<std::vector<std::pair<int, double>>>;
++void require(bool condition, const char *message) {
++  if (!condition) throw std::runtime_error(message);
++}
++double smallest(Vec matrix) {
++  Vec eigenvalues(n), work(3 * n);
++  const char vectors = 'N', triangle = 'U';
++  int dimension = n, workspace = work.size(), info = 0;
++  dsyev_(&vectors, &triangle, &dimension, matrix.data(), &dimension,
++         eigenvalues.data(), work.data(), &workspace, &info);
++  require(info == 0 && std::isfinite(eigenvalues.front()), "independent spectrum failed");
++  return eigenvalues.front();
++}
++void verify(const std::vector<SymTriplet> &h, const detail::DcaCurvature &c,
++            const Normals &normals) {
++  Vec a(n * n, 0), correction(n * n, 0);
++  for (auto e : h) {
++    a[e.i + n * e.j] += e.v;
++    if (e.i != e.j) a[e.j + n * e.i] += e.v;
++  }
++  for (int i = 0; i < n; ++i) correction[i + n * i] = c.rho;
++  auto rank_one = [&](double beta, const Vec &v) {
++    require(beta >= 0 && std::isfinite(beta), "invalid correction weight");
++    for (int j = 0; j < n; ++j)
++      for (int i = 0; i < n; ++i) correction[i + n * j] += beta * v[i] * v[j];
++  };
++  for (auto atom : c.atoms) {
++    Vec v(n, 0);
++    v[atom.i] = atom.u;
++    if (atom.i != atom.j) v[atom.j] = atom.v;
++    rank_one(atom.beta, v);
++  }
++  for (const auto &atom : c.spectral_atoms) rank_one(atom.beta, atom.direction);
++  for (const auto &row : normals) {
++    Vec v(n, 0);
++    for (auto e : row) v[e.first] += e.second;
++    rank_one(c.normal_weight, v);
++  }
++  require(smallest(correction) > -1e-8, "transported DCA correction is not PSD");
++  for (std::size_t k = 0; k < a.size(); ++k) a[k] += correction[k];
++  require(smallest(a) > margin * 0.5, "transported full majorant is not strictly convex");
++}
++bool identical_atoms(const std::vector<LowRankTerm> &left,
++                     const std::vector<LowRankTerm> &right) {
++  if (left.size() != right.size()) return false;
++  for (std::size_t i = 0; i < left.size(); ++i)
++    if (left[i].beta != right[i].beta || left[i].direction != right[i].direction) return false;
++  return true;
++}
++} // namespace
++
++int main() {
++  try {
++    Settings settings;
++    settings.linear_backend = "native";
++    settings.dca_filter_block_ritz = true;
++    settings.dca_filter_certificate_transport = true;
++    detail::DcaCurvature curvature(settings);
++    std::vector<SymTriplet> h;
++    for (int i = 0; i < n; ++i) h.push_back({i, i, 3 + 0.04 * i});
++    h[0].v = -4;
++    h[2].v = -1.7;
++    h.back().v = -8;
++    h.push_back({0, 1, 0.6});
++    h.push_back({2, 3, 0.35});
++    Normals normals = {{{1, 0}, {n - 1, 1}}};
++    int remaining = 4;
++    curvature.ensure(n, h, margin, true, remaining, 2, 1e-8, &normals);
++    require(curvature.normal_weight > 0 && !curvature.spectral_atoms.empty(),
++            "test did not establish a normal-plus-atomic certificate");
++    require(curvature.certificate_transports == 0, "transport used before first certificate");
++    verify(h, curvature, normals);
++
++    const int factors = curvature.certificates, additions = curvature.additions;
++    const auto atoms = curvature.spectral_atoms;
++    const int budget = remaining;
++    for (int step = 1; step <= 3; ++step) {
++      h[0].v -= 1e-8;
++      normals[0][0].second += 1e-8;
++      curvature.ensure(n, h, margin, true, remaining, 2, 1e-8, &normals);
++      require(curvature.certificate_transports == step,
++              "small certified perturbation was not transported");
++      require(curvature.certificates == factors, "transport unnecessarily factorized the matrix");
++      require(curvature.additions == additions && remaining == budget &&
++                  identical_atoms(atoms, curvature.spectral_atoms),
++              "transport changed its retained atom correction");
++      verify(h, curvature, normals);
++    }
++    require(curvature.normal_weight > 1e6, "test did not exercise the gamma restart bound");
++    h[0].v -= 1e-8;
++    curvature.ensure(n, h, margin, false, remaining, 2, 1e-8, &normals);
++    require(curvature.certificate_transports == 3 && curvature.certificate_transport_streak == 0,
++            "unbounded chain of transported certificates");
++    require(curvature.certificates > factors && curvature.normal_weight <= 1e6,
++            "full recertification failed to restart the normal-weight search");
++    verify(h, curvature, normals);
++
++    const int transported_before_large_change = curvature.certificate_transports;
++    h[2].v -= 0.05;
++    curvature.ensure(n, h, margin, false, remaining, 2, 1e-8, &normals);
++    require(curvature.certificate_transports == transported_before_large_change,
++            "large perturbation bypassed a complete certificate");
++    verify(h, curvature, normals);
++
++    // The inexpensive Frobenius bound is valid only for an actual matrix
++    // layout with unique coordinates; duplicate entries must use the fallback.
++    const double shared = normals[0][0].second * 0.5;
++    normals = {{{1, shared}, {1, shared}, {n - 1, 1}}};
++    curvature.ensure(n, h, margin, true, remaining, 2, 1e-8, &normals);
++    require(curvature.certificate_transports == transported_before_large_change,
++            "changed normal pattern used an invalid perturbation bound");
++    verify(h, curvature, normals);
++    std::cout << "PASS transported PSD certificate, fixed atoms and bounded fallback\n";
++  } catch (const std::exception &error) {
++    std::cerr << error.what() << '\n';
++    return 1;
++  }
++}
+--- /dev/null
++++ b/tests/test_g6_equilibration.cpp
+@@ -0,0 +1,124 @@
++#include "lazyipdca_qcqp/linear_solver.hpp"
++
++#include <cmath>
++#include <iostream>
++#include <limits>
++#include <stdexcept>
++#include <string>
++
++using namespace lazyipdca::qcqp;
++
++namespace {
++void require(bool ok,const std::string& message) {
++  if(!ok)throw std::runtime_error(message);
++}
++Vec product(const std::vector<SymmetricTriplet>& matrix,const Vec& x) {
++  std::vector<long double> sum(x.size(),0);
++  for(auto e:matrix) {
++    sum[e.i]+=static_cast<long double>(e.value)*x[e.j];
++    if(e.i!=e.j)sum[e.j]+=static_cast<long double>(e.value)*x[e.i];
++  }
++  Vec result(x.size());
++  for(std::size_t i=0;i<x.size();++i)result[i]=static_cast<double>(sum[i]);
++  return result;
++}
++void check_original(const std::vector<SymmetricTriplet>& matrix,const Vec& rhs,
++                    const Vec& x,const Vec& expected,const Vec& variable_scale) {
++  std::vector<long double> residual(rhs.begin(),rhs.end()),magnitude(rhs.size());
++  for(std::size_t i=0;i<rhs.size();++i)magnitude[i]=std::abs(rhs[i]);
++  for(auto e:matrix) {
++    const long double first=static_cast<long double>(e.value)*x[e.j];
++    residual[e.i]-=first;magnitude[e.i]+=std::abs(first);
++    if(e.i!=e.j) {
++      const long double second=static_cast<long double>(e.value)*x[e.i];
++      residual[e.j]-=second;magnitude[e.j]+=std::abs(second);
++    }
++  }
++  for(std::size_t i=0;i<rhs.size();++i) {
++    require(std::isfinite(x[i]),"nonfinite original-coordinate solution");
++    require(std::abs(residual[i])<=2e-12L*std::max(1e-300L,magnitude[i]),
++            "original rowwise residual rejected at row "+std::to_string(i));
++    require(std::abs((x[i]-expected[i])*variable_scale[i])<=2e-9,
++            "equilibration changed original solution coordinate "+std::to_string(i));
++  }
++}
++}
++
++int main() {
++  try {
++    if(!linear_backend_compiled("ldl")) {
++      std::cout<<"[SKIP] SuiteSparse LDL+METIS not compiled\n";return 0;
++    }
++    Settings settings;
++    require(!settings.kkt_equilibration,"LDL equilibration must remain opt-in");
++    settings.linear_backend="ldl";
++    settings.linear_metis=true;
++    settings.kkt_adaptive_regularization=true;
++    settings.kkt_preserve_structural_zeros=true;
++    settings.kkt_iterative_refinement_steps=4;
++    settings.kkt_backward_error_tolerance=1e-13;
++    settings.kkt_backward_error_reject=1e-10;
++    std::string message;
++    auto baseline=make_symmetric_factorization(settings,message);
++    require(static_cast<bool>(baseline),"baseline LDL factory: "+message);
++    // Each factor borrows its own Settings for the entire factor lifetime.
++    Settings equilibrated_settings=settings;
++    equilibrated_settings.kkt_equilibration=true;
++    auto factor=make_symmetric_factorization(equilibrated_settings,message);
++    require(static_cast<bool>(factor),"equilibrated LDL factory: "+message);
++
++    const Vec scale={1e-9,1e8,1e-5,1e6,1e-3,1e5};
++    const Vec scaled_solution={0.75,-0.5,0.25,1.25,-0.75,0.5};
++    Vec expected(6);
++    for(int i=0;i<6;++i)expected[i]=scaled_solution[i]/scale[i];
++    std::vector<SymmetricTriplet> matrix={
++        {0,0,4},{1,1,5},{2,2,6},{3,3,7},{4,4,-3},{5,5,-4},
++        {0,1,.1},{1,2,.2},{2,3,.15},{0,4,.3},{1,4,-.2},
++        {2,5,.25},{3,5,.35},{4,5,.1}};
++    for(auto& e:matrix)e.value*=scale[e.i]*scale[e.j];
++    for(int update=0;update<3;++update) {
++      if(update)matrix[2].value*=1.2;
++      const Vec rhs=product(matrix,expected);
++      require(factor->factor(6,4,matrix,message),"equilibrated factor: "+message);
++      Vec answer=rhs;
++      require(factor->solve(answer,message),"equilibrated solve: "+message);
++      check_original(matrix,rhs,answer,expected,scale);
++      require(baseline->factor(6,4,matrix,message),"baseline factor: "+message);
++      answer=rhs;
++      require(baseline->solve(answer,message),"baseline solve: "+message);
++      check_original(matrix,rhs,answer,expected,scale);
++      if(update) {
++        require(factor->last_symbolic_reused(),"equilibration invalidated symbolic cache");
++        require(factor->last_numeric_scatter_reused(),"equilibration invalidated numeric scatter");
++      }
++    }
++    // Inertia rejection must survive the congruence, while a COMPLETE factor
++    // remains available for a checked curvature probe in original coordinates.
++    require(!factor->factor(6,6,matrix,message),"wrong inertia accepted after scaling");
++    require(factor->curvature_defect()==2,"wrong curvature defect after scaling");
++    Vec rhs=product(matrix,expected),answer=rhs;
++    require(factor->solve_curvature_probe(answer,message),"curvature probe: "+message);
++    check_original(matrix,rhs,answer,expected,scale);
++
++    // A changed dimension must rebuild scales as well as symbolic storage.
++    matrix={{0,0,1e-200},{1,1,-1e200}};
++    const Vec tiny_scale={1e-100,1e100},tiny_expected={1e100,-1e-100};
++    rhs=product(matrix,tiny_expected);answer=rhs;
++    require(factor->factor(2,1,matrix,message),"extreme diagonal factor: "+message);
++    require(factor->solve(answer,message),"extreme diagonal solve: "+message);
++    check_original(matrix,rhs,answer,tiny_expected,tiny_scale);
++    // Refuse to turn a nonzero into an exact zero by underflow in scaling.
++    const std::vector<SymmetricTriplet> unscalable={
++        {0,0,1e300},{0,1,1e-300},{1,1,-1e300}};
++    require(!factor->factor(2,1,unscalable,message),"silent coefficient underflow accepted");
++    require(message.find("erase")!=std::string::npos,"unexpected extreme-scaling failure: "+message);
++    // A rejected scale must not contaminate the next numeric factorization.
++    require(factor->factor(2,1,matrix,message),"refactor after rejected scale: "+message);
++    answer=rhs;require(factor->solve(answer,message),"solve after rejected scale: "+message);
++    check_original(matrix,rhs,answer,tiny_expected,tiny_scale);
++    std::cout<<"[PASS] symmetric equilibration retains original solves, inertia, and caches\n";
++    return 0;
++  } catch(const std::exception& error) {
++    std::cerr<<error.what()<<'\n';return 1;
++  }
++}
+--- /dev/null
++++ b/tests/test_g6_tangent_curvature.cpp
+@@ -0,0 +1,133 @@
++#include "../src/dca_curvature.hpp"
++#include <iostream>
++#include <stdexcept>
++
++using namespace lazyipdca::qcqp;
++namespace {
++constexpr int n = 24;
++constexpr double margin = 1e-4;
++using Normals = std::vector<std::vector<std::pair<int, double>>>;
++void require(bool condition, const char *message) {
++  if (!condition) throw std::runtime_error(message);
++}
++double smallest(Vec matrix, int dimension) {
++  Vec values(dimension), work(3 * dimension);
++  const char vectors = 'N', triangle = 'U';
++  int info = 0, workspace = work.size();
++  dsyev_(&vectors, &triangle, &dimension, matrix.data(), &dimension,
++         values.data(), work.data(), &workspace, &info);
++  require(info == 0 && std::isfinite(values.front()), "independent eigensystem failed");
++  return values.front();
++}
++// Explicit orthonormal tangent basis for N=(sin(angle),0,...,cos(angle)).
++std::vector<Vec> tangent_basis(double angle) {
++  std::vector<Vec> basis(n - 1, Vec(n, 0));
++  basis[0][0] = std::cos(angle);
++  basis[0][n - 1] = -std::sin(angle);
++  for (int i = 1; i < n - 1; ++i) basis[i][i] = 1;
++  return basis;
++}
++Normals normal(double angle) {
++  return {{{0, std::sin(angle)}, {n - 1, std::cos(angle)}}};
++}
++std::vector<SymTriplet> matrix(double angle, bool negative_tangent) {
++  const auto basis = tangent_basis(angle);
++  Vec dense(n * n, 0);
++  for (int k = 0; k < n - 1; ++k) {
++    const double eigenvalue = negative_tangent && k == 0 ? -4.0 :
++                             negative_tangent && k == 2 ? -1.7 : 3 + 0.04 * k;
++    for (int j = 0; j < n; ++j)
++      for (int i = 0; i < n; ++i)
++        dense[i + n * j] += eigenvalue * basis[k][i] * basis[k][j];
++  }
++  Vec v(n, 0);
++  v[0] = std::sin(angle);
++  v[n - 1] = std::cos(angle);
++  for (int j = 0; j < n; ++j)
++    for (int i = 0; i < n; ++i) dense[i + n * j] -= 1e5 * v[i] * v[j];
++  std::vector<SymTriplet> h;
++  for (int i = 0; i < n; ++i)
++    for (int j = i; j < n; ++j)
++      if (i == j || dense[i + n * j] != 0) h.push_back({i, j, dense[i + n * j]});
++  return h;
++}
++double verify(const std::vector<SymTriplet> &h, const detail::DcaCurvature &curvature,
++              double angle, int cap) {
++  Vec dense(n * n, 0), correction(n * n, 0);
++  for (auto e : h) {
++    dense[e.i + n * e.j] += e.v;
++    if (e.i != e.j) dense[e.j + n * e.i] += e.v;
++  }
++  for (int i = 0; i < n; ++i) correction[i + n * i] = curvature.rho;
++  auto rank_one = [&](double beta, const Vec &v) {
++    require(beta >= 0 && std::isfinite(beta), "invalid PSD atom weight");
++    for (int j = 0; j < n; ++j)
++      for (int i = 0; i < n; ++i) correction[i + n * j] += beta * v[i] * v[j];
++  };
++  for (auto atom : curvature.atoms) {
++    Vec v(n, 0);
++    v[atom.i] = atom.u;
++    if (atom.i != atom.j) v[atom.j] = atom.v;
++    rank_one(atom.beta, v);
++  }
++  for (const auto &atom : curvature.spectral_atoms) rank_one(atom.beta, atom.direction);
++  require(smallest(correction, n) >= -1e-8, "partial-Lagrangian correction is not PSD");
++  for (std::size_t k = 0; k < dense.size(); ++k) dense[k] += correction[k];
++  const auto basis = tangent_basis(angle);
++  Vec projected((n - 1) * (n - 1), 0);
++  for (int j = 0; j < n - 1; ++j)
++    for (int i = 0; i < n - 1; ++i)
++      for (int b = 0; b < n; ++b)
++        for (int a = 0; a < n; ++a)
++          projected[i + (n - 1) * j] += basis[i][a] * dense[a + n * b] * basis[j][b];
++  require(smallest(projected, n - 1) > 0.5 * margin,
++          "affine-domain majorant is not strictly convex");
++  require(int(curvature.atoms.size() + curvature.stored_spectral_atoms()) <= cap,
++          "atom cap exceeded");
++  return smallest(dense, n);
++}
++} // namespace
++
++int main() {
++  try {
++    Settings settings;
++    settings.linear_backend = "native";
++    settings.dca_filter_tangent_curvature = true;
++    settings.dca_filter_block_ritz = true;
++    settings.dca_filter_certificate_transport = true;
++    for (double angle : {0.0, 0.31}) {
++      auto normals = normal(angle);
++      const auto normal_only = matrix(angle, false);
++      detail::DcaCurvature c(settings);
++      int budget = 4;
++      c.ensure(n, normal_only, margin, true, budget, 2, 1e-8, &normals);
++      require(c.tangent_certificate, "tangent certificate mode not enabled");
++      require(c.rho == 0 && c.additions == 0,
++              "normal-only negative curvature caused a tangent correction");
++      require(verify(normal_only, c, angle, 4) < -1e4,
++              "test failed to retain the harmless negative normal curvature");
++
++      const auto h = matrix(angle, true);
++      for (int cap : {0, 1, 2}) {
++        detail::DcaCurvature correction(settings);
++        int remaining = cap;
++        correction.ensure(n, h, margin, true, remaining, 2, 1e-8, &normals);
++        verify(h, correction, angle, cap);
++        if (cap < 2) require(correction.rho > 0, "rank-limited complement is missing");
++        if (cap > 0) require(correction.additions > 0, "negative tangent mode was not captured");
++        const int additions = correction.additions;
++        const double changed_angle = angle + 1e-9;
++        auto changed_normals = normal(changed_angle);
++        correction.ensure(n, h, margin, true, remaining, 2, 1e-8, &changed_normals);
++        require(correction.additions == additions, "normal drift admitted a new atom");
++        require(correction.certificate_transports == 0,
++                "full-space gamma transport was applied to a tangent certificate");
++        verify(h, correction, changed_angle, cap);
++      }
++    }
++    std::cout << "PASS tangent inertia: independent restricted spectra and normal-only curvature\n";
++  } catch (const std::exception &error) {
++    std::cerr << error.what() << '\n';
++    return 1;
++  }
++}
+--- a/tests/test_lazy_newton_regression.py
++++ b/tests/test_lazy_newton_regression.py
+@@ -23,7 +23,7 @@
+ sys.path.insert(0, str(ROOT / 'python'))
+ from qcq_model_r3p23 import read_qcq  # noqa: E402
+ from benchmark_case118_r3p28 import independent_kkt, TOL  # noqa: E402
+-IDENTITY = json.loads((ROOT / 'release_identity_g5.json').read_text())
++IDENTITY = json.loads((ROOT / 'release_identity_g6.json').read_text())
+ VERSION, API_VERSION = IDENTITY['version'], IDENTITY['api_version']
+ 
+ SOLVED = {'BT1': (-1.0, 1e-6), 'HS116': (97.5875096, 1e-5)}
+--- /dev/null
++++ b/tools/build_g6.sh
+@@ -0,0 +1,26 @@
++#!/usr/bin/env bash
++# G6 research build. Activate Conda before calling this script.
++# MUMPS is optional at configure time; LDL+METIS is always required.
++set -Eeuo pipefail
++SRC=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
++BUILD_DIR=${BUILD_DIR:-$SRC/build_pf_gpu}
++BUILD_JOBS=${BUILD_JOBS:-4}
++TEST_JOBS=${TEST_JOBS:-2}
++CMAKE=${CMAKE:-cmake}
++CTEST=${CTEST:-ctest}
++args=(
++  -S "$SRC" -B "$BUILD_DIR" -DCMAKE_BUILD_TYPE=Release
++  -DLAZYIPDCA_NATIVE_ARCH=ON -DLAZYIPDCA_BUILD_TESTS=ON
++  -DLAZYIPDCA_WITH_IPOPT=OFF -DLAZYIPDCA_WITH_QDLDL=OFF
++  -DLAZYIPDCA_WITH_MUMPS=ON -DLAZYIPDCA_WITH_LDL=ON
++  -DLAZYIPDCA_REQUIRE_HISTORICAL_LDL=ON
++)
++if [[ -n ${CONDA_PREFIX:-} ]]; then
++  args+=("-DCMAKE_PREFIX_PATH=$CONDA_PREFIX" "-DLDL_ROOT=$CONDA_PREFIX" "-DMETIS_ROOT=$CONDA_PREFIX" "-DMUMPS_ROOT=$CONDA_PREFIX")
++fi
++"$CMAKE" "${args[@]}" "$@"
++"$CMAKE" --build "$BUILD_DIR" --parallel "$BUILD_JOBS"
++OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 BLIS_NUM_THREADS=1 \
++  "$CTEST" --test-dir "$BUILD_DIR" --output-on-failure --parallel "$TEST_JOBS"
++"$BUILD_DIR/lazyipdca_qcqp_cli" --version
++printf 'BINARY=%s\nBUILD=PASS\n' "$BUILD_DIR/lazyipdca_qcqp_cli"
+--- /dev/null
++++ b/tools/run_g6.sh
+@@ -0,0 +1,5 @@
++#!/usr/bin/env bash
++set -Eeuo pipefail
++SRC=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
++export PYTHONUNBUFFERED=1
++exec "${PYTHON:-python}" "$SRC/python/benchmark_filter_dca_g6.py" "$@"

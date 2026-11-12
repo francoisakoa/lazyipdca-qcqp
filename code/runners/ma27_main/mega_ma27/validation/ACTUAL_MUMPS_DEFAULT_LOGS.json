@@ -1,0 +1,32 @@
+{
+  "schema": "previous-mega-real-mumps-archived-default-proof-parse-v1",
+  "passed": true,
+  "records": [
+    {
+      "fixture": "active_bound",
+      "passed": true,
+      "endpoint_sha256": "ac867ba7832b4ae25d4e481d4412022f194b885ff121c11d498e569a819fe638",
+      "solver_log_sha256": "0a6150faef021b26b98beabb15f8ed905f92d85555498b657c2e7403f725c7b8"
+    },
+    {
+      "fixture": "quadratic_inequality",
+      "passed": true,
+      "endpoint_sha256": "be8b7ffd62b36b643a54abfe86b22a9e8a09b9168fb5f0cf6f846c827966ffe6",
+      "solver_log_sha256": "ca71b4f7554c2644bdf00363ed752a83d27ded712130b399e409ca6340337a3a"
+    },
+    {
+      "fixture": "quadratic_equality",
+      "passed": true,
+      "endpoint_sha256": "5a11f6a351a01c663d58d204a6ca9a60e19d3bdc045253e9d0ff9eb78a7b3eea",
+      "solver_log_sha256": "4a81fad7cd7dfa9eedcce38363cfacf21ae10b592742db36e0c61b11ec79147f"
+    },
+    {
+      "fixture": "large_finite_bound",
+      "passed": true,
+      "endpoint_sha256": "8c3e81cba7cd4d19fb03e550d11877db7bd7ea3d09c38c9be5d2746a922d973c",
+      "solver_log_sha256": "341bccd7bdfa0515e027bfc490fc780d86daeec6b30637890b099d7b98fc7327"
+    }
+  ],
+  "optimizer_invocations": 0,
+  "ma27_qualified_locally": false
+}

@@ -1,0 +1,6 @@
+{
+  "url": "https://raw.githubusercontent.com/coin-or/Ipopt/releases/3.14.11/src/Algorithm/LinearSolvers/IpMumpsSolverInterface.cpp",
+  "release": "3.14.11",
+  "local": "IpMumpsSolverInterface_3_14_11.cpp",
+  "sha256": "b9a01fd786a34da66dd486b098bc93aaf43124427cd9918062142ff9488c243b"
+}

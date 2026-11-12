@@ -1,0 +1,11 @@
+{
+  "schema": "previous-mega-default-ipopt-bridge-tests-v1",
+  "passed": true,
+  "tests_run": 13,
+  "optimizer_invocations": 0,
+  "real_backend_qualification_performed": false,
+  "source_sha256": {
+    "setup_runtime.py": "27afb6cf375c181982d96fa3cd5f40559ed13e8c929a47cae34e8af2556843d8",
+    "campaign/ipopt_worker.py": "824f00051f33b15823fa51f2fe789d85b12f14313ca897308eb237fd9814ee3d"
+  }
+}

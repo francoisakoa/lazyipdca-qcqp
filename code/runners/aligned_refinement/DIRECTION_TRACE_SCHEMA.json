@@ -1,0 +1,14 @@
+{
+  "schema": "native-final-direction-provenance-v2",
+  "trace_header": "lazy-factorial-accepted-trace-v1",
+  "state_events": ["startup_restoration_commit", "state_recovery_commit", "terminal_central_restart_commit", "post_multiplier_update", "central_restart_commit"],
+  "primary_events": ["metric_initialized", "accepted"],
+  "base_direction_origins": ["frozen_kkt_soc", "analytic_soc", "square_feasibility_normal", "original_curvature_recovery", "majorant_refined", "majorant_primary"],
+  "postprocesses": ["none", "source_curve", "consistent_bound_curve", "soc_replacement"],
+  "final_origin_rule": "direction_origin if postprocess=none, otherwise postprocess; base origin remains separately recorded",
+  "pure_majorant_final_origins": ["majorant_primary", "majorant_refined"],
+  "states": "Committed binary64 x/s/z/equality-multiplier state SHA256, phase dimensions, outer counter, alpha and mu; clocks are excluded from parity",
+  "initial_metric": "First initialized component correction digest is compared across each frozen/adaptive pair; later phase sequences are recorded but not required equal after treatment trajectories diverge",
+  "pre_model_exit": "Native initial_model_events=0 and initial digest empty means not_reached only when the completed native intervention proof confirms no refinement; no fictitious matrix digest",
+  "unknown_origins": "Retain explicitly and bound the fraction; never fold into majorant or claim the full-corpus fraction is identified"
+}

@@ -1,0 +1,12 @@
+[SOLVER-ROUTE] stage=primary optimizer=Lazy fallback_policy=off full_primary_budget=1 global_seconds=30 input_x0_unchanged=1
+[STANDARD-AUTO] policy=off mode=historical reason=explicit-standard-policy-off requested_engine=majorants effective_engine=majorants configuration=R3 stabilization=0 GR=0 source_barrier=0 short_prox=0 positive_bound_product=0 consistent_bound_repair=0 consistent_bound_trigger=always exact_global_faces=0 atomic_regularization=1 initial_mu=0.0001 startup=legacy requested_startup=legacy rank_presolve=0 requested_rank_presolve=0 free_epigraph_presolve=0 requested_free_epigraph_presolve=0 checkpoint_requested=0 checkpoint_effective=0 builtin_checkpoint_skipped=0 full_source_rows=0 input_x0_unchanged=1 warm_initializer=0
+[GR-ADJUSTMENTS] active=0 constraint_increments=coefficients proximal_policy=historical fixed_centering_steps=0 residual_components=1 equality_Hessian=exact Armijo_unchanged=1 original_KKT_unchanged=1
+[MAJORANT-LINEAR] requested=mumps metis=1 factory=mumps_sym_indef_metis_persistent_symbolic_envelope_refined cross_backend_fallback=0
+LazyIPDCA | outer inequality majorants · original filter · original KKT
+[MAJORANTS] outer_only=1 predictor_corrector=0 auxiliary_completion=0 inner_rule=historical-single-Newton original_filter=1 slack_transport=0 slack_policy=historical-unchanged objective_convexification=off initial_mu=0.0001 initialization=actual-complementarity-mean predictor_corrector_requested=0
+[ZERO-GRADIENT-ORIGINAL-KKT] accepted=1 primal=0 dual=0 complementarity=0 point_unchanged=1 all_original_rows_audited=1 final_tolerances_unchanged=1
+[MAJORANT-OPTIONS] restoration=0 retraction=0 hybrid_soc=0 gr_defined_soc=0 gr_kkt_soc=0 consistent_bound_master=0 consistent_bound_trigger=always soc_attempts=0 soc_accepted=0 soc_rejected=0
+
+EXIT: initial point satisfies original QCQP KKT
+[NATIVE-AL-FALLBACK] attempted=0 accepted=0 reason="primary-original-KKT-no-fallback" primary_status=solved fallback_status=not-run primary_seconds=0.000501669 preflight_seconds=0 AL_seconds=0 final_audit_seconds=0 total_seconds=0.000514238 primary_outer_iterations=0 AL_accepted_Newton_steps=0 total_factorizations=0
+[SOLVER-ROUTE] endpoint=lazy fallback_accepted=0 original_QCQP_KKT=1 primary_retained=1

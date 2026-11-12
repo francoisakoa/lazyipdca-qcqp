@@ -1,0 +1,17 @@
+{
+  "schema": "refinement-qualification-controller-local-tests-v1",
+  "passed": true,
+  "tests": 29,
+  "optimizers_launched": 0,
+  "actual_TRX_qualification": false,
+  "production_authorized": false,
+  "scope": "Synthetic provenance, trace, selection, censor and control-parser tests only; never a native trajectory qualification",
+  "scripts": {
+    "TEST_QUALIFIER_EXPERIENCE.py": "2411f51937caa59ea6556e7029b50bc1217e6586f5f2306dabdfcc93719515cf",
+    "QUALIFIER_EXPERIENCE.py": "360978b2c8ef9138c65f0f8ffe27c98049804520d439cfd0a938051597fc4427"
+  },
+  "cpu_affinity": [
+    23
+  ],
+  "jobs": 1
+}

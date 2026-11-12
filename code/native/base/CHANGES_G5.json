@@ -1,0 +1,36 @@
+{
+  "parent": {
+    "version": "0.4.28r3p28g4-persistent-dca",
+    "api_version": 4330,
+    "build_id": "v0.4.28r3p28g4-persistent-dca-api-4330",
+    "branch": "filter-lazy-dca",
+    "parent": "0.4.28r3p28g3-filter-dca"
+  },
+  "release": {
+    "version": "0.4.28r3p28g5-adaptive-dca",
+    "api_version": 4331,
+    "build_id": "v0.4.28r3p28g5-adaptive-dca-api-4331",
+    "branch": "filter-lazy-dca",
+    "parent": "0.4.28r3p28g4-persistent-dca"
+  },
+  "retained": [
+    "original-filter start with bounded restoration fallback",
+    "physical reduced Hessian for collective atom weights",
+    "bounded inertia-certified scalar refinement before/after admission"
+  ],
+  "default_controls": {
+    "dca-rho-refinements": 3,
+    "dca-initial-restoration": false,
+    "dca-normal-weighted-atoms": false,
+    "max-atoms": 500,
+    "atom-batch-size": 2,
+    "atom-event-every": 1,
+    "dca-inner-max": 8
+  },
+  "validation": "VALIDATION_G5.md",
+  "targets": {
+    "case300_seconds": 2,
+    "case2869_seconds": 4,
+    "case2869_met": false
+  }
+}

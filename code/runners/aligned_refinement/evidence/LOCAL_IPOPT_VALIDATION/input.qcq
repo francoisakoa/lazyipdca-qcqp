@@ -1,0 +1,32 @@
+LAZYIPDCA_QCQP_V1
+name aligned_active_inequality_fixed_variable
+n 3
+x0 0.1 0.1 0.25
+lb -2 -2 0.25
+ub 2 2 0.25
+objective
+quadratic
+name f
+constant 1.0625
+linear -3 0 -1
+hessian_nnz 3
+0 0 2
+1 1 2
+2 2 2
+end_quadratic
+equalities 1
+quadratic
+name affine_balance
+constant -1
+linear 1 1 0
+hessian_nnz 0
+end_quadratic
+inequalities 1
+quadratic
+name active_quadratic
+constant -0.25
+linear 0 0 0
+hessian_nnz 1
+0 0 2
+end_quadratic
+end_problem

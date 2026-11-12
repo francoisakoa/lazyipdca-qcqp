@@ -1,0 +1,35 @@
+{
+  "schema": "lazy-factorial-baseline-observer-source-v1",
+  "qualified_source": "/workspace/scratch/da3e31fd0a48/article_revision_R4/base/LazyQCQP_article_20261108_R3_sources/reproduction/qualified_native_source",
+  "qualified_files": 823,
+  "changes": [
+    {
+      "path": "src/factorial_trace.hpp",
+      "qualified_sha256": null,
+      "observer_sha256": "c17f18dd5212b85b7053acaa0d7e4f7836f016dfb0832d888d70f2236c187fbd"
+    },
+    {
+      "path": "src/atomic_newton.cpp",
+      "qualified_sha256": "e6119e297a10bc443c996e8c39caa688bbdb32d974a76a453ab5ae571a753ec1",
+      "observer_sha256": "50e379b6a8628ef2c0768d05d658cff77811618769fbbb4466ba5afc7a973870"
+    },
+    {
+      "path": "src/main.cpp",
+      "qualified_sha256": "5027f63645baa609a420fc41310a9765f24d40c49eef5223e57d6d246dbb6e4e",
+      "observer_sha256": "2f3a04535886ea5c8b49fa7e3311974fea13267f4ca0e610acd4487e1a94e0e2"
+    },
+    {
+      "path": "src/dca_inequality_majorant_engine.hpp",
+      "qualified_sha256": "0d3b63f8768989658f3b51ec777156d6811b547d84736322fcda3a1a7a3778dc",
+      "observer_sha256": "2b68d5f4c17648fc60854a13b7826ab7a941cde45738cf66c5d617a59173d56f"
+    },
+    {
+      "path": "include/lazyipdca_qcqp/settings.hpp",
+      "qualified_sha256": "465b2c82a505e579ad7d1c36f0b3eb8762cdae99e8a3fe77b6a6720818188f41",
+      "observer_sha256": "1000cccd9e2351a8a689c2f7fc4609eea6941c1b86cfe1cbcc2b74158ba60327"
+    }
+  ],
+  "numerical_changes": false,
+  "purpose": "accepted-commit passive observation only; no factorial numerical selectors exposed",
+  "gate_required": "original baseline vs observer exact final coordinates and nonclock counters; then observer trajectory vs research diagonals"
+}

@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "study_contract_sha256": "bb73bc927a7397fff847338f2a76e436e48177101994e37483919eddf260bbb3",
+  "sample_cases": 50,
+  "regimes": {
+    "I": 25,
+    "M": 25
+  },
+  "sample_max_n": 4979,
+  "same_corpus_input_start_bindings": true,
+  "required_legacy_runs": 700,
+  "required_installed_ma27_reference_runs": 100,
+  "required_intervention_runs": 48,
+  "planned_native_runs": 748,
+  "control_fixtures": [
+    {
+      "case_id": "structural_control_01",
+      "dataset": "native_intervention_controls",
+      "regime": "I",
+      "input_sha256": "9c7b1a007e80a393cd6ffb6b7278bb8135de0aaa51ee5cd2e1e6731bf2757628"
+    },
+    {
+      "case_id": "structural_control_02",
+      "dataset": "native_intervention_controls",
+      "regime": "I",
+      "input_sha256": "ded476a7dd0cf148670ca70a9d51ae8e9c178ebb2b5ca2a39c6fbbcfafcf823d"
+    },
+    {
+      "case_id": "structural_control_03",
+      "dataset": "native_intervention_controls",
+      "regime": "I",
+      "input_sha256": "52c6cda9a5ef5ecb1dbb6fa7b49d3f90a039e879dbed7909837db8f2df1ca0e4"
+    },
+    {
+      "case_id": "structural_control_04",
+      "dataset": "native_intervention_controls",
+      "regime": "M",
+      "input_sha256": "e12db200cb00337f250d9cd313008b95bffe8220103f3ac9d6469d88ebf355b2"
+    },
+    {
+      "case_id": "structural_control_05",
+      "dataset": "native_intervention_controls",
+      "regime": "I",
+      "input_sha256": "7cb3e5945428124b39a6c6dc9b9a34f275ea08eae6e709783a14f93d5c4e5dd8"
+    },
+    {
+      "case_id": "structural_control_06",
+      "dataset": "native_intervention_controls",
+      "regime": "M",
+      "input_sha256": "4c886b80711a1c649d3e8844a82116191435bcada541e74cf5f466884155d26d"
+    }
+  ],
+  "optimizer_invocations": 0,
+  "actual_TRX_qualification": false,
+  "production_authorized": false,
+  "cpu_affinity": [
+    23
+  ],
+  "jobs": 1
+}

@@ -1,0 +1,501 @@
+--- a/include/lazyipdca_qcqp/settings.hpp
++++ b/include/lazyipdca_qcqp/settings.hpp
+@@ -5,6 +5,7 @@
+ #include <functional>
+ #include <memory>
+ #include <cstdint>
++#include <vector>
+ 
+ namespace lazyipdca::qcqp {
+ 
+@@ -15,15 +16,37 @@
+   std::uint64_t accepted_events=0;
+   bool success=true;
+   std::string error;
++  // Observation-only state for the explicit refinement ablation. Empty/default
++  // fields are unused by every historical profile.
++  std::string guard_config_sha256,initial_inequality_model_sha256;
++  std::string current_initial_model_sha256,current_metric_sha256;
++  std::vector<std::string> initial_hybrid_model_hashes;
++  std::uint64_t initial_model_events=0,current_phase_metric_index=0;
++  std::uint64_t refinement_attempt_events=0,accepted_refinements=0,refinement_rollback_events=0;
++  std::uint64_t metric_hash_evaluations=0;
++  std::uint64_t primary_backend_factor_attempts=0;
++  bool frozen_metric_invariant_verified=true;
+ };
+ struct Settings {
+   // Independent research factors. Empty strings preserve every historical path.
+   std::string factorial_inequalities, factorial_globalization, factorial_trace;
++  std::string factorial_refinement, factorial_common_guards;
+   bool factorial_validation_legacy_objective=false;
+   std::shared_ptr<FactorialTraceState> factorial_trace_state;
+   bool factorial_active() const {return !factorial_inequalities.empty();}
+   bool factorial_exact_objective() const {return factorial_active()&&!factorial_validation_legacy_objective;}
+-  bool factorial_r3_controls() const {return factorial_active()?factorial_globalization=="r3":convexification_study=="off";}
++  bool factorial_refinement_active() const {return factorial_active()&&!factorial_refinement.empty();}
++  bool factorial_refinement_frozen() const {return factorial_refinement_active()&&factorial_refinement=="frozen";}
++  bool factorial_r3_controls() const {
++    return factorial_active()?
++      (factorial_common_guards.empty()?factorial_globalization=="r3":factorial_common_guards=="r3"):
++      convexification_study=="off";
++  }
++  bool factorial_hs_guards() const {
++    return factorial_active()?
++      (factorial_common_guards.empty()?factorial_globalization=="hs":factorial_common_guards=="hs"):
++      (convexification_study=="HH"||convexification_study=="H0"||convexification_study=="HS"||convexification_study=="SH");
++  }
+ 
+   // CLI-only optional diagnostic observer; absent by default, not a restart.
+   std::function<void(const QCQPProblem&,Result&,const ConstraintPresolve*,int,double)> accepted_checkpoint_callback;
+--- a/src/atomic_newton.cpp
++++ b/src/atomic_newton.cpp
+@@ -1820,6 +1820,11 @@
+           ?dynamic_cast<const detail::PairReducedFactorization*>(factor.get()):nullptr;
+       const int underlying_before=pair_factor?pair_factor->underlying_factorizations():0;
+       ++stats.factor_attempts;
++      // Count the actual primary backend call, including retries. Model
++      // construction or an exception before this call does not imply its use.
++      if(st.factorial_refinement_active()&&st.convexification_study=="HH"&&
++         st.factorial_trace_state&&st.factorial_trace_state->current_phase_metric_index>0)
++        ++st.factorial_trace_state->primary_backend_factor_attempts;
+       bool ok=factor->factor(dim,nr,kkt,message);current_factor=factor.get();
+       const int primary_backend_attempts=factor->last_regularization_attempts();
+       const double primary_backend_primal=factor->last_primal_regularization();
+--- a/src/dca_convexification_study_models.hpp
++++ b/src/dca_convexification_study_models.hpp
+@@ -7,6 +7,8 @@
+   std::vector<double> study_hybrid_priority;
+   Vec study_last_displacement;
+   bool study_trial_pending=false,study_hybrid_due=false,study_model_failure_due=false;
++  std::string factorial_initial_metric_sha256,factorial_current_metric_sha256;
++  std::uint64_t factorial_phase_metric_index=0;
+   double study_recovery_original_theta=0;
+   int study_rejections=0,study_trial_id=0,study_commits=0,study_rollbacks=0;
+   bool study_hybrid_enabled() const {return study::support_study_mode(w.st.convexification_study);}
+@@ -116,9 +118,15 @@
+       study_trace("construct","inequality",i,study_inequalities[i]);
+     }
+     curvature_ready=true;objective_ready=true;
++    if(w.st.factorial_refinement_active()) {
++      factorial_initial_metric_sha256=factorial_current_metric_sha256=study_factorial_metric_sha256();
++      CostScope observed(w.costs,NewtonCost::Diagnostics);
++      factorial_phase_metric_index=detail::factorial_trace_metric_initial(w.st,
++          factorial_initial_metric_sha256,w.n,w.mi,w.me);
++    }
+     // Eager runs request the same certified correction family before their
+     // first model is installed. This remains a rollback-capable metric trial.
+-    if(study_hybrid_enabled()&&w.st.convexification_schedule=="eager")study_hybrid_due=true;
++    if(study_hybrid_enabled()&&w.st.convexification_schedule=="eager"&&!w.st.factorial_refinement_frozen())study_hybrid_due=true;
+     curvature_builds=study_builds;curvature_seconds=study_seconds;
+     stats.majorant_curvature_certificates=study_builds;stats.majorant_curvature_seconds=study_seconds;
+     stats.model_build_seconds+=study_seconds;
+@@ -182,6 +190,7 @@
+   }
+   void study_reanchor() {
+     if(!curvature_ready)study_prepare();
++    study_factorial_snapshot();
+     if(installed)throw std::runtime_error("study previous model still installed");
+     center=w.x;
+     if(!w.st.factorial_exact_objective())study_install(w.objective,study_objective);
+@@ -210,6 +219,7 @@
+   }
+   void study_accepted_step() {
+     ++study_accepted;
++    if(w.st.factorial_refinement_frozen())return;
+     if(study_hybrid_enabled()){
+       study_rejections=0;
+       if(study_accepted==1||study_accepted%std::max(1,w.st.study_hybrid_event_interval)==0)study_hybrid_due=true;
+@@ -249,6 +259,46 @@
+   }
+ 
+   study::Correction& study_hybrid_metric(int i){return i<0?study_objective:study_inequalities[i];}
++  // Hash the mathematical inequality corrections, not mutable oracle caches
++  // or atom activity counters. This has no effect on the numerical models.
++  // Hash once per construction/change and at finalization; reanchoring only
++  // reuses the digest, so diagnostic work cannot become O(Hessian nnz) at
++  // every Newton step. Every metric writer below is guarded in frozen mode.
++  std::string study_factorial_metric_sha256() const {
++    CostScope observed(w.costs,NewtonCost::Diagnostics);
++    detail::FactorialSHA256 hash;hash.text("hybrid-inequality-metric-binary64-v1");
++    hash.word(w.n);hash.word(w.mi);hash.word(w.me);
++    auto matrix=[&](const std::vector<SymTriplet>& a) {
++      hash.word(a.size());for(const auto& e:a){hash.word(e.i);hash.word(e.j);hash.word(1);hash.number(e.v);}
++    };
++    for(int i=0;i<w.mi;++i)if(w.inequality_kind[i]==0) {
++      if(std::size_t(i)>=study_inequalities.size())throw std::runtime_error("unconstructed ablation inequality metric");
++      const auto& c=study_inequalities[i];hash.word(i);hash.text(c.family);hash.word(c.support_scalar);
++      hash.word(2);hash.number(w.inequalities[i].scale);hash.number(c.rho);hash.word(c.support.size());for(int j:c.support)hash.word(j);
++      matrix(c.original);matrix(c.correction);hash.word(c.hybrid_atoms.size());
++      for(const auto& atom:c.hybrid_atoms){hash.word(1);hash.number(atom.weight);hash.word(atom.indices.size());for(int j:atom.indices)hash.word(j);hash.vector(atom.values);}
++    }
++    if(w.st.factorial_trace_state)++w.st.factorial_trace_state->metric_hash_evaluations;
++    return hash.finish();
++  }
++  void study_factorial_snapshot(bool metric_changed=false) {
++    if(!w.st.factorial_refinement_active()||!curvature_ready)return;
++    CostScope observed(w.costs,NewtonCost::Diagnostics);
++    if(metric_changed)factorial_current_metric_sha256=study_factorial_metric_sha256();
++    detail::factorial_trace_metric_current(w.st,factorial_phase_metric_index,
++        factorial_initial_metric_sha256,factorial_current_metric_sha256);
++  }
++  void study_factorial_final_check() const {
++    if(!w.st.factorial_refinement_active()||!curvature_ready)return;
++    try {
++      const auto digest=study_factorial_metric_sha256();
++      detail::factorial_trace_metric_current(w.st,factorial_phase_metric_index,
++          factorial_initial_metric_sha256,digest);
++    }catch(const std::exception& error) {
++      if(w.st.factorial_trace_state){auto& s=*w.st.factorial_trace_state;s.success=false;
++        s.frozen_metric_invariant_verified=false;s.error=error.what();}
++    }
++  }
+   std::string study_metric_digest() const {
+     std::ostringstream repr;repr<<std::hexfloat;
+     auto add=[&](const study::Correction& c){repr<<c.family<<':'<<c.support_scalar<<':'<<c.rho<<';';for(const auto& a:c.hybrid_atoms){repr<<a.weight<<':'<<a.strikes<<':';for(std::size_t j=0;j<a.indices.size();++j)repr<<a.indices[j]<<','<<a.values[j]<<';';}};
+@@ -334,9 +384,12 @@
+       <<"],\"thresholds\":["<<s.min_lift<<','<<s.min_activity<<','<<s.min_score<<"],\"spectral_mode\":\"fullspace-estimate-selection-only\"}"<<std::endl;
+   }
+   bool study_begin_trial(const char* reason="periodic") {
++    if(w.st.factorial_refinement_frozen()){study_factorial_snapshot();return false;}
+     if(!study_hybrid_enabled()||!curvature_ready||study_trial_pending)return false;
+     if(installed)throw std::runtime_error("hybrid trial requires discarded model");
+     if(!study_hybrid_due&&study_rejections<2)return false;
++    if(w.st.factorial_refinement_active()&&w.st.factorial_trace_state)
++      ++w.st.factorial_trace_state->refinement_attempt_events;
+     const bool model_recovery=study_model_failure_due;
+     study_model_failure_due=false;
+     study_hybrid_due=false;study_trial_accepted_digest=study_metric_digest();++study_trial_id;
+@@ -443,17 +496,24 @@
+   }
+   void study_commit_trial() {
+     if(!study_hybrid_enabled()||!study_trial_pending)return;
++    if(w.st.factorial_refinement_frozen())throw std::runtime_error("frozen refinement attempted a metric commit");
+     const int changed=study_trial_backup.size();study_trial_backup.clear();study_trial_pending=false;++study_commits;
++    if(w.st.factorial_refinement_active()&&w.st.factorial_trace_state)++w.st.factorial_trace_state->accepted_refinements;
++    study_factorial_snapshot(true);
+     study_controller_trace("commit","original-filter-accepted",changed);
+   }
+   void study_rollback_trial() {
+     if(!study_hybrid_enabled()||!study_trial_pending)return;
++    if(w.st.factorial_refinement_frozen())throw std::runtime_error("frozen refinement attempted a metric rollback");
+     if(installed)throw std::runtime_error("hybrid rollback requires discarded model");
+     const int changed=study_trial_backup.size();for(auto& old:study_trial_backup)study_hybrid_metric(old.first)=std::move(old.second);
+     study_trial_backup.clear();study_trial_pending=false;++study_rollbacks;
++    if(w.st.factorial_refinement_active()&&w.st.factorial_trace_state)++w.st.factorial_trace_state->refinement_rollback_events;
++    study_factorial_snapshot(true);
+     study_controller_trace("rollback","original-step-rejected",changed);
+   }
+   void study_note_rejection(const char* reason) {
++    if(w.st.factorial_refinement_frozen())return;
+     if(!study_hybrid_enabled())return;
+     ++study_rejections;if(study_rejections>=2)study_hybrid_due=true;
+     if(std::string(reason)=="inner-criterion") {
+@@ -470,6 +530,7 @@
+     study_controller_trace("rejection",reason);
+   }
+   void study_summary() const {
++    study_factorial_final_check();
+     if(!study_enabled())return;
+     if(study_hybrid_enabled())study_controller_trace("summary","finished");
+     if(study_hybrid_enabled()) {
+--- a/src/dca_inequality_majorant_engine.hpp
++++ b/src/dca_inequality_majorant_engine.hpp
+@@ -5200,7 +5200,7 @@
+           const bool bound_stagnation=gr_bound_watch.observe(
+               gr_globalization&&gr_consistent_bound_master&&gr_bound_repair_on_failure&&
+               st.standard_r10_policy=="auto"&&
+-              (st.factorial_active()?st.factorial_globalization=="r3":st.convexification_study=="off")&&st.study_controller=="r3"&&
++              st.factorial_r3_controls()&&st.study_controller=="r3"&&
+               !std::getenv("LAZY_ORIGINAL_GR_CONSISTENT_BOUND_TRIGGER"),
+               result.lazy_newton.accepted_steps,alpha,current.kkt,current.source_stationarity_residual(mu),mu,
+               std::max({st.feasibility_tolerance,st.dual_infeasibility_tolerance,st.complementarity_tolerance}));
+--- a/src/factorial_structure_inspection.hpp
++++ b/src/factorial_structure_inspection.hpp
+@@ -10,6 +10,7 @@
+ namespace lazyipdca::qcqp::detail {
+ struct FactorialStructureInspection {
+   bool reduction_changed=false,unresolved=false,has_signed_square=false;
++  bool retain_original_qcqp=false;
+   std::size_t potential_shapes=0,models=0,rank_models=0,exact_phase_models=0;
+   std::vector<NativeSignedSquareReduction::Link> original_links;
+   std::string reason;
+@@ -26,9 +27,16 @@
+     if(now()>=deadline||depth>12||models>=64){unresolved=true;reason="structural-inspection-work-limit";return;}
+     if(!seen.insert(signature(p,rank,structural,rewrite)).second)return;
+     ++models;has_signed_square=has_signed_square||p.has_signed_square();
+-    const NativeSignedSquareReduction r(p);reduction_changed=reduction_changed||r.changed();
+     potential_shapes+=NativeSignedSquareReduction::potential_link_shapes(p);
+-    if(models==1){original_links=r.links;reason=r.reason;}
++    if(retain_original_qcqp) {
++      // The primary experiment disables this nonlinear route by construction.
++      // Candidate shapes are reported, but cannot change the supplied QCQP or
++      // any of its exact quadratic/affine reductions in this intervention.
++      if(models==1)reason="primary-original-QCQP-native-signed-square-route-disabled";
++    } else {
++      const NativeSignedSquareReduction r(p);reduction_changed=reduction_changed||r.changed();
++      if(models==1){original_links=r.links;reason=r.reason;}
++    }
+     // With no quadratic source equality, exact affine substitutions and row
+     // deletion cannot create one. This covers regime I without optimizer work.
+     const bool quadratic_eq=std::any_of(p.equalities.begin(),p.equalities.end(),[](const auto& q){return !q.signed_square.empty()||std::any_of(q.hessian.entries.begin(),q.hessian.entries.end(),[](auto e){return e.v!=0;});});
+@@ -52,6 +60,7 @@
+       // Both globalization columns and both possible exact-fixed attempts.
+       // These are actual native coefficient reductions, never numerical solves.
+       for(bool hs:{false,true})for(bool exact_fixed:{false,true}) {
++        if(retain_original_qcqp&&hs)continue; // common_r3_guards_v1, both G columns
+         if(now()>=deadline){unresolved=true;reason="rank-inspection-deadline";return;}
+         ConstraintPresolve reduced(p,true,hs,exact_fixed,!hs);
+         if(exact_fixed&&reduced.affine_bounds().empty())continue;
+@@ -59,12 +68,12 @@
+       }
+     }
+   }
+-  explicit FactorialStructureInspection(const QCQPProblem& p) {
++  explicit FactorialStructureInspection(const QCQPProblem& p,bool original_qcqp=false):retain_original_qcqp(original_qcqp) {
+     deadline=now()+300;
+     try{inspect(p,true,true,false,0);}catch(const std::exception& e){unresolved=true;reason=e.what();}
+     // Any candidate shape remains a conservative unresolved case, even if
+     // current bounds/start/compatibility keep the raw reduction inactive.
+-    if(potential_shapes>0)unresolved=true;
++    if(!retain_original_qcqp&&potential_shapes>0)unresolved=true;
+   }
+   bool eligible()const{return !reduction_changed&&!unresolved&&!has_signed_square;}
+ };
+--- a/src/factorial_trace.hpp
++++ b/src/factorial_trace.hpp
+@@ -26,11 +26,13 @@
+   st.majorant_soc_small_step_patience=hs?4:0;
+ }
+ inline bool factorial_legacy_objective_control(const Settings& st) {
+-  return st.factorial_active()?st.factorial_globalization=="hs":st.objective_lazy_convexification;
++  return st.factorial_active()?st.factorial_hs_guards():st.objective_lazy_convexification;
+ }
+ inline void factorial_configure(Settings& st) {
+   if(st.factorial_inequalities.empty()&&st.factorial_globalization.empty()) {
+     if(st.factorial_validation_legacy_objective)throw std::runtime_error("factorial legacy-objective validation requires hybrid+hs");
++    if(!st.factorial_refinement.empty()||!st.factorial_common_guards.empty())
++      throw std::runtime_error("refinement/guard controls require both factorial selectors");
+     return;
+   }
+   if((st.factorial_inequalities!="cache"&&st.factorial_inequalities!="hybrid")||
+@@ -39,6 +41,13 @@
+   if(st.factorial_validation_legacy_objective&&
+      (st.factorial_inequalities!="hybrid"||st.factorial_globalization!="hs"))
+     throw std::runtime_error("legacy objective is restricted to the historical HH diagonal validation");
++  if(!st.factorial_refinement.empty()&&st.factorial_refinement!="frozen"&&st.factorial_refinement!="adaptive")
++    throw std::runtime_error("factorial refinement expects frozen|adaptive");
++  if(!st.factorial_common_guards.empty()&&st.factorial_common_guards!="r3")
++    throw std::runtime_error("factorial common guards currently supports r3 only");
++  if(st.factorial_refinement_active()&&
++     (st.factorial_inequalities!="hybrid"||st.factorial_validation_legacy_objective||st.factorial_common_guards.empty()))
++    throw std::runtime_error("refinement ablation requires common hybrid initialization, exact objective and explicit common guards");
+   if(st.study_controller!="r3"||st.native_al_fallback!="off"||!st.dca_endpoint_start_file.empty())
+     throw std::runtime_error("factorial requires historical r3 controller, native-al-fallback off, and frozen x0");
+   if(st.factorial_trace.empty())throw std::runtime_error("factorial runs require an accepted-direction trace");
+@@ -63,22 +72,76 @@
+ public:
+   void byte(unsigned char v){b[used++]=v;++size;if(used==64){block();used=0;}}
+   void word(std::uint64_t v){for(int i=0;i<8;++i)byte(static_cast<unsigned char>(v>>(8*i)));}
+-  void vector(const std::vector<double>& v){word(v.size());for(double d:v){std::uint64_t u;static_assert(sizeof(u)==sizeof(d));std::memcpy(&u,&d,sizeof(u));word(u);}}
++  void text(const std::string& v){word(v.size());for(unsigned char c:v)byte(c);}
++  void number(double d){std::uint64_t u;static_assert(sizeof(u)==sizeof(d));std::memcpy(&u,&d,sizeof(u));word(u);}
++  void vector(const std::vector<double>& v){word(v.size());for(double d:v)number(d);}
+   std::string finish(){auto bits=size*8;byte(0x80);while(used!=56)byte(0);for(int i=7;i>=0;--i)byte(static_cast<unsigned char>(bits>>(8*i)));std::ostringstream s;s<<std::hex<<std::setfill('0');for(auto v:h)s<<std::setw(8)<<v;return s.str();}
+ };
++// This binds the declared guard/numerical policy once, before any native
++// phase consumes its own initialization or presolve flags. The eight explicit
++// globalization switches, trace paths and refinement selector are excluded.
++// Per-phase consumed flags are recorded separately and may naturally differ
++// after the two trajectories diverge.
++inline std::string factorial_guard_config_digest(const Settings& st) {
++  FactorialSHA256 h;h.text("common_r3_guards_v1");
++  h.text("original_qcqp:no-native-signed-square-reduction");
++  h.text(st.factorial_common_guards);h.word(st.factorial_r3_controls());h.word(st.factorial_hs_guards());
++  h.text(st.study_controller);h.text(st.native_al_fallback);h.text(st.linear_backend);h.word(st.linear_metis);
++  h.text(st.standard_r10_policy);h.word(st.dca_rank_presolve);h.word(st.dca_rank_implied_bounds);
++  h.word(st.free_epigraph_presolve);h.text(st.majorant_startup_policy);h.word(st.standard_equality_watch);
++  h.word(st.dca_filter_sparse_fallback);h.word(st.restoration_shared_iteration_budget);
++  h.word(st.restoration_max_iterations);h.word(st.max_outer_iterations);
++  h.vector({st.time_limit_seconds,st.feasibility_tolerance,st.stationarity_tolerance,
++    st.dual_infeasibility_tolerance,st.complementarity_tolerance,st.lazy_newton_fraction_to_boundary});
++  h.text("common-expanded-Newton-compensated-long-double-fma/inertia/original-KKT-v1");
++  return h.finish();
++}
+ inline std::string factorial_policies(const Settings& st) {
+   const std::string c=st.factorial_active()?st.factorial_inequalities:(st.convexification_study=="off"?"cache":"hybrid");
+   const std::string g=st.factorial_active()?st.factorial_globalization:(st.convexification_study=="off"?"r3":"hs");
+-  return "\"inequality_policy\":\""+c+"\",\"globalization_policy\":\""+g+"\",\"objective_exact\":"+
++  std::string out="\"inequality_policy\":\""+c+"\",\"globalization_policy\":\""+g+"\",\"objective_exact\":"+
+       ((st.factorial_exact_objective()||(!st.factorial_active()&&!st.objective_lazy_convexification))?"true":"false");
++  if(st.factorial_refinement_active())out+=",\"refinement_policy\":\""+st.factorial_refinement+
++    "\",\"common_guards\":\""+st.factorial_common_guards+
++    "\",\"guard_policy_version\":\"common_r3_guards_v1\",\"guard_fingerprint_scope\":\"complete_task_policy_before_phase_consumption\",\"common_representation\":\"original_qcqp\",\"guard_config_sha256\":\""+
++    (st.factorial_trace_state?st.factorial_trace_state->guard_config_sha256:factorial_guard_config_digest(st))+"\"";
++  return out;
+ }
+ inline void factorial_trace_begin(Settings& st) {
+   if(st.factorial_trace.empty())return;
+   st.factorial_trace_state=std::make_shared<FactorialTraceState>();
++  if(st.factorial_refinement_active())st.factorial_trace_state->guard_config_sha256=factorial_guard_config_digest(st);
+   std::ofstream out(st.factorial_trace,std::ios::trunc);
+   out<<"{\"schema\":\"lazy-factorial-accepted-trace-v1\",\"event\":\"header\","<<factorial_policies(st)
+      <<",\"state_encoding\":\"sha256-length-prefixed-binary64-le-x-s-z-lambda\",\"state_coordinates\":\"native-phase-internal\"}\n";
+   if(!out)throw std::runtime_error("cannot create factorial accepted trace");
++}
++inline std::uint64_t factorial_trace_metric_initial(const Settings& st,const std::string& digest,
++    std::size_t n,std::size_t mi,std::size_t me) {
++  if(!st.factorial_refinement_active())return 0;
++  if(!st.factorial_trace_state)throw std::runtime_error("refinement metric observer was not initialized");
++  auto& s=*st.factorial_trace_state;const auto index=++s.initial_model_events;
++  s.initial_hybrid_model_hashes.push_back(digest);
++  if(s.initial_inequality_model_sha256.empty())s.initial_inequality_model_sha256=digest;
++  s.current_phase_metric_index=index;s.current_initial_model_sha256=s.current_metric_sha256=digest;
++  std::ofstream out(st.factorial_trace,std::ios::app);
++  out<<"{\"event\":\"metric_initialized\","<<factorial_policies(st)
++     <<",\"initialization\":\"common_certified_hybrid\",\"phase_metric_index\":"<<index
++     <<",\"phase_n\":"<<n<<",\"phase_mi\":"<<mi<<",\"phase_me\":"<<me
++     <<",\"initial_inequality_model_sha256\":\""<<digest<<"\"}\n";
++  if(!out)throw std::runtime_error("refinement initialization trace failed");
++  return index;
++}
++inline void factorial_trace_metric_current(const Settings& st,std::uint64_t index,
++    const std::string& initial,const std::string& current) {
++  if(!st.factorial_refinement_active())return;
++  if(!st.factorial_trace_state)throw std::runtime_error("refinement metric observer was not initialized");
++  auto& s=*st.factorial_trace_state;
++  s.current_phase_metric_index=index;s.current_initial_model_sha256=initial;s.current_metric_sha256=current;
++  if(st.factorial_refinement_frozen()&&initial!=current) {
++    s.success=false;s.frozen_metric_invariant_verified=false;s.error="frozen inequality metric changed";
++    throw std::runtime_error(s.error);
++  }
+ }
+ inline void factorial_trace_commit(const Settings& st,const std::vector<double>& x,const std::vector<double>& s,
+     const std::vector<double>& z,const std::vector<double>& l,int outer,double mu,double alpha,
+@@ -93,7 +156,15 @@
+        <<"\",\"postprocess\":\""<<postprocess<<"\",\"final_origin\":\""<<(std::string(postprocess)=="none"?origin:postprocess)<<"\",\"objective_E0_zero\":"<<(objective_zero?"true":"false")
+        <<",\"mu\":"<<mu<<",\"alpha\":"<<alpha<<",\"phase_n\":"<<x.size()<<",\"phase_mi\":"<<s.size()
+        <<",\"phase_me\":"<<l.size()<<",\"state_sha256\":\""<<hash.finish()<<"\",\"primal\":"<<primal
+-       <<",\"dual\":"<<dual<<",\"complementarity\":"<<comp<<"}\n";
++       <<",\"dual\":"<<dual<<",\"complementarity\":"<<comp;
++    if(st.factorial_refinement_active())out<<",\"phase_metric_index\":"<<state.current_phase_metric_index
++       <<",\"initial_inequality_model_sha256\":\""<<state.current_initial_model_sha256
++       <<"\",\"current_inequality_model_sha256\":\""<<state.current_metric_sha256
++       <<"\",\"refinement_attempt_events\":"<<state.refinement_attempt_events
++       <<",\"accepted_refinements\":"<<state.accepted_refinements
++       <<",\"refinement_update_events\":"<<state.accepted_refinements
++       <<",\"refinement_rollback_events\":"<<state.refinement_rollback_events;
++    out<<"}\n";
+     if(!out)throw std::runtime_error("accepted trace write failed");
+     if(st.factorial_exact_objective()&&!objective_zero)throw std::runtime_error("exact objective invariant violated at accepted direction");
+   }catch(const std::exception& e){state.success=false;state.error=e.what();}
+@@ -115,7 +186,7 @@
+ inline std::string factorial_json_string(const std::string& s) {
+   std::string out;for(unsigned char c:s){if(c=='"'||c=='\\')out+='\\';if(c>=32)out+=char(c);else out+=' ';}return out;
+ }
+-inline void factorial_trace_finish(const Settings& st,const std::string& endpoint,int outer,int restoration,double elapsed,std::uint64_t accepted) {
++inline void factorial_trace_finish(const Settings& st,const std::string& endpoint,int outer,int restoration,double elapsed,std::uint64_t accepted,const std::string& actual_backend="") {
+   if(st.factorial_trace.empty()||!st.factorial_trace_state||endpoint.empty())return;
+   auto& s=*st.factorial_trace_state;
+   if(s.accepted_events!=accepted){s.success=false;s.error="accepted trace count differs from endpoint";}
+@@ -126,7 +197,26 @@
+   std::ofstream out(endpoint+".factorial.json");
+   out<<"{\"schema\":\"lazy-factorial-endpoint-v1\","<<factorial_policies(st)
+      <<",\"trace_success\":"<<(s.success?"true":"false")<<",\"accepted_events\":"<<s.accepted_events
+-     <<",\"budget_verified\":"<<(budget_verified?"true":"false")<<",\"endpoint_accepted_steps\":"<<accepted<<",\"outer_iterations\":"<<outer<<",\"restoration_iterations\":"<<restoration<<",\"seconds\":"<<std::setprecision(17)<<elapsed<<",\"error\":\""<<factorial_json_string(s.error)<<"\",\"legacy_objective_validation\":"<<(st.factorial_validation_legacy_objective?"true":"false")<<"}\n";
++     <<",\"budget_verified\":"<<(budget_verified?"true":"false")<<",\"endpoint_accepted_steps\":"<<accepted<<",\"outer_iterations\":"<<outer<<",\"restoration_iterations\":"<<restoration<<",\"seconds\":"<<std::setprecision(17)<<elapsed<<",\"error\":\""<<factorial_json_string(s.error)<<"\",\"legacy_objective_validation\":"<<(st.factorial_validation_legacy_objective?"true":"false");
++  if(st.factorial_refinement_active()) {
++    FactorialSHA256 h;for(const auto& v:s.initial_hybrid_model_hashes)h.text(v);
++    out<<",\"initialization\":\"common_certified_hybrid\",\"initial_inequality_model_sha256\":\""<<s.initial_inequality_model_sha256
++       <<"\",\"initial_hybrid_models_sha256\":\""<<h.finish()<<"\",\"initial_model_events\":"<<s.initial_model_events
++       <<",\"refinement_attempt_events\":"<<s.refinement_attempt_events
++       <<",\"accepted_refinements\":"<<s.accepted_refinements
++       <<",\"refinement_update_events\":"<<s.accepted_refinements
++       <<",\"refinement_rollback_events\":"<<s.refinement_rollback_events
++       <<",\"metric_hash_evaluations\":"<<s.metric_hash_evaluations
++       <<",\"native_solver_completed\":true,\"initial_model_state\":\""<<(s.initial_model_events?"reached":"not_reached")
++       <<"\",\"initialization_calls\":"<<s.initial_model_events
++       <<",\"primary_backend_factor_attempts\":"<<s.primary_backend_factor_attempts
++       <<",\"primary_newton_backend_used\":"<<(s.primary_backend_factor_attempts?"true":"false")
++       <<",\"native_pre_model_return\":"<<((s.initial_model_events==0&&accepted==0)?"true":"false")
++       <<",\"frozen_metric_invariant_verified\":"<<(s.frozen_metric_invariant_verified?"true":"false")
++       <<",\"requested_linear_backend\":\""<<(st.linear_backend=="mumps"&&st.linear_metis?"mumps_metis":st.linear_backend)
++       <<"\",\"actual_linear_backend\":\""<<factorial_json_string(actual_backend)<<"\"";
++  }
++  out<<"}\n";
+   if(!out)throw std::runtime_error("factorial endpoint sidecar write failed");
+ }
+ }
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -35,6 +35,8 @@
+     << "  --factorial-structure-preflight       inspect exact representation coupling; no solver\n"
+     << "  --factorial-inequalities cache|hybrid  declared research factor; objective exact\n"
+     << "  --factorial-globalization r3|hs       independent published control package\n"
++    << "  --factorial-refinement frozen|adaptive  same hybrid initialization; explicit ablation\n"
++    << "  --factorial-common-guards r3          fixed R3 guards and original-QCQP representation\n"
+     << "  --factorial-trace FILE                accepted-state digest/origin JSONL\n"
+     << "  --factorial-validation-legacy-objective  HH diagonal validation only\n"
+     << "  --frozen-start FILE            frozen JSON x0 only; no dual/slack/history import\n"
+@@ -761,6 +763,8 @@
+       else if(a=="--factorial-structure-check"||a=="--factorial-structure-preflight") factorial_structure_preflight=true;
+       else if(a=="--factorial-inequalities") st.factorial_inequalities=need("--factorial-inequalities");
+       else if(a=="--factorial-globalization") st.factorial_globalization=need("--factorial-globalization");
++      else if(a=="--factorial-refinement") st.factorial_refinement=need("--factorial-refinement");
++      else if(a=="--factorial-common-guards") st.factorial_common_guards=need("--factorial-common-guards");
+       else if(a=="--factorial-trace") st.factorial_trace=need("--factorial-trace");
+       else if(a=="--factorial-validation-legacy-objective") st.factorial_validation_legacy_objective=true;
+       else if(a=="--convexification-study") st.convexification_study=need("--convexification-study");
+@@ -1703,11 +1707,12 @@
+     }
+     const auto read_end=std::chrono::steady_clock::now();
+     if(factorial_structure_preflight) {
+-      const detail::FactorialStructureInspection inspection(p);
++      const detail::FactorialStructureInspection inspection(p,st.factorial_refinement_active());
+       const auto shape_count=inspection.potential_shapes;
+       std::ostringstream proof;proof<<std::setprecision(17)
+           <<"{\"schema\":\"lazy-factorial-structure-preflight-v1\",\"inspection_only\":true,\"solver_invocations\":0"
+           <<",\"n\":"<<p.n<<",\"equalities\":"<<p.equalities.size()<<",\"inequalities\":"<<p.inequalities.size()
++          <<(st.factorial_refinement_active()?",\"common_representation\":\"original_qcqp\",\"native_signed_square_route_disabled\":true":"")
+           <<",\"native_signed_square_changed\":"<<(inspection.reduction_changed?"true":"false")
+           <<",\"has_signed_square\":"<<(inspection.has_signed_square?"true":"false")
+           <<",\"inspected_models\":"<<inspection.models<<",\"inspected_rank_models\":"<<inspection.rank_models<<",\"inspected_exact_phase_models\":"<<inspection.exact_phase_models
+@@ -1746,7 +1751,7 @@
+     Solver solver(st);
+     Result r = solver.solve(p);
+     const auto solver_end=std::chrono::steady_clock::now();
+-    detail::factorial_trace_finish(st,json_path,r.outer_iterations,r.restoration_iterations,r.elapsed_seconds,r.lazy_newton.accepted_steps);
++    detail::factorial_trace_finish(st,json_path,r.outer_iterations,r.restoration_iterations,r.elapsed_seconds,r.lazy_newton.accepted_steps,r.linear_solver_backend);
+     r.cli_read_seconds=std::chrono::duration<double>(read_end-read_start).count();
+     r.cli_arguments_seconds=std::chrono::duration<double>(read_start-process_start).count();
+     r.cli_solver_call_seconds=std::chrono::duration<double>(solver_end-read_end).count();
+--- a/src/rank_presolve.cpp
++++ b/src/rank_presolve.cpp
+@@ -923,7 +923,7 @@
+   auto attempt=[&](const Settings& st,bool enable_exact_fixed)->std::optional<Result> {
+   const auto begin=Clock::now();
+   const bool equality_bounds=st.dca_rank_implied_bounds&&st.dca_engine=="majorants"&&
+-      (st.factorial_active()?st.factorial_globalization=="hs":
++      (st.factorial_active()?st.factorial_hs_guards():
+        (st.convexification_study=="HH"||st.convexification_study=="H0"||
+         st.convexification_study=="HS"||st.convexification_study=="SH"));
+   const bool affine_equality_bounds=st.dca_rank_implied_bounds&&
+--- a/src/solver.cpp
++++ b/src/solver.cpp
+@@ -4791,7 +4791,7 @@
+     return detail::solve_with_power2_scaling(problem,st_);
+   }
+   if(st_.free_epigraph_presolve && st_.majorant_adaptive_globalization &&
+-     (st_.factorial_active()?st_.factorial_globalization=="hs":st_.convexification_study!="off") && st_.outer_algorithm=="lazy-dca" &&
++     (st_.factorial_active()?st_.factorial_hs_guards():st_.convexification_study!="off") && st_.outer_algorithm=="lazy-dca" &&
+      st_.dca_engine=="majorants" && !st_.rank_presolve_context && !problem.has_signed_square())
+     return solve_with_free_epigraph_presolve(problem,st_);
+   // The first GR diagnostic has no old-policy whole-solve cold retry.
+@@ -4862,7 +4862,7 @@
+   // a model subsequently rejected by the study. The reference-off path keeps
+   // its historical elimination and multiplier lift unchanged.
+   if(!st_.majorant_equality_stabilization && !problem.has_signed_square() && st_.outer_algorithm=="lazy-dca" && st_.dca_engine=="majorants" &&
+-      st_.factorial_r3_controls()) {
++      st_.factorial_r3_controls()&&!st_.factorial_refinement_active()) {
+     const auto begin=std::chrono::steady_clock::now();
+     NativeSignedSquareReduction native(problem);
+     if(native.changed()) {

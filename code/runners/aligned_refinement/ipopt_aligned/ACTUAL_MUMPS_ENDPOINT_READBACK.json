@@ -1,0 +1,73 @@
+{
+  "schema": "aligned-runtime-existing-endpoint-readback-v1",
+  "passed": true,
+  "backends_tested": [
+    "mumps"
+  ],
+  "strategies": [
+    "monotone",
+    "adaptive"
+  ],
+  "native_solver_invocations": 0,
+  "new_endpoint_audits": 0,
+  "production_authorized": false,
+  "ma27_qualification_still_required": true,
+  "observations": [
+    {
+      "strategy": "monotone",
+      "passed": true,
+      "endpoint": "/workspace/scratch/da3e31fd0a48/factorial_20261109/local_ipopt_smokes_final/mumps_monotone.json",
+      "endpoint_sha256": "d56a34f10be0954d96fd836c511daad4e7aceeea05d6f7c605fe7d2cd2a57fdd",
+      "log_sha256": "aa8f6f779aaa442f92c9b9c02540c0459262c36d4d4c1fcc6418eb599e196fd2",
+      "proof": {
+        "aligned_options_verified": true,
+        "native_route_verified": true,
+        "backend_verified": true,
+        "budget_verified": true,
+        "ipopt_version": "3.14.11",
+        "mu_strategy": "monotone",
+        "linear_solver": "mumps",
+        "effective_options_sha256": "629afa4e4d6c881e5cbd8a947c4addb8425830f5413693e0b003407732dd0fc5",
+        "native_elapsed_seconds": 0.00584403,
+        "native_iterations": 7,
+        "option_file_disabled": true,
+        "input_representation_overrides": [],
+        "effective_bound_infinity": {
+          "nlp_lower_bound_inf": -1e+19,
+          "nlp_upper_bound_inf": 1e+19
+        },
+        "endpoint_sha256": "d56a34f10be0954d96fd836c511daad4e7aceeea05d6f7c605fe7d2cd2a57fdd",
+        "solver_log_sha256": "aa8f6f779aaa442f92c9b9c02540c0459262c36d4d4c1fcc6418eb599e196fd2",
+        "backend_banner_verified": true
+      }
+    },
+    {
+      "strategy": "adaptive",
+      "passed": true,
+      "endpoint": "/workspace/scratch/da3e31fd0a48/factorial_20261109/local_ipopt_smokes_final/mumps_adaptive.json",
+      "endpoint_sha256": "946c8b558805e4e1277f7e53cebd23f74ecc201877537cd2741b2768a0b7ac41",
+      "log_sha256": "313e81559cee9baa08f5ced58151cd7354b8d710e93705ac52e92623a68748ee",
+      "proof": {
+        "aligned_options_verified": true,
+        "native_route_verified": true,
+        "backend_verified": true,
+        "budget_verified": true,
+        "ipopt_version": "3.14.11",
+        "mu_strategy": "adaptive",
+        "linear_solver": "mumps",
+        "effective_options_sha256": "47dc741112da6e694168b73bba994daf53e8020f34b6638812df0eb23afe1af5",
+        "native_elapsed_seconds": 0.005393743,
+        "native_iterations": 6,
+        "option_file_disabled": true,
+        "input_representation_overrides": [],
+        "effective_bound_infinity": {
+          "nlp_lower_bound_inf": -1e+19,
+          "nlp_upper_bound_inf": 1e+19
+        },
+        "endpoint_sha256": "946c8b558805e4e1277f7e53cebd23f74ecc201877537cd2741b2768a0b7ac41",
+        "solver_log_sha256": "313e81559cee9baa08f5ced58151cd7354b8d710e93705ac52e92623a68748ee",
+        "backend_banner_verified": true
+      }
+    }
+  ]
+}

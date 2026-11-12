@@ -1,0 +1,78 @@
+PERSISTANCE — PORTÉE DU COMMUTATEUR NATIF
+
+--research-curvature-cache reuse|rebuild (défaut : reuse)
+--research-curvature-report CHEMIN.jsonl
+--research-curvature-trace CHEMIN.jsonl (qualification seulement)
+
+Le mode est une comparaison de cache de courbure à correction déterministe
+identique. Le moteur est R3 majorants, convexification-study off et correction
+adaptative de l'objectif désactivée. Les modes hybrides SS/HH et la correction
+adaptative de l'objectif sont refusés pour cette ablation. Le vieux drapeau
+--no-dca-model-reuse n'est pas utilisé.
+
+La préparation initiale de la courbure n'est effectuée qu'une fois dans les
+deux modes. À chaque installation suivante d'un modèle, rebuild efface les
+Curvature numériques, les supports reconstruits, les listes de lignes
+corrigées et leurs certificats ; il rappelle le constructeur historique sur
+les mêmes Hessiennes originales et les mêmes échelles. Cela inclut une
+réinstallation au même centre lors d'une restauration de modèle : il ne
+s'agit donc pas uniquement des itérations acceptées à centre distinct.
+Les tableaux symboliques des facteurs linéaires et de l'assemblage, les
+valeurs/gradients originaux, les états primal-dual, la globalisation et les
+égalités ne sont pas réinitialisés. set_model réinstalle les mêmes coefficients
+et conserve la correspondance symbolique lorsque les indices coïncident.
+Les choix structurels immuables de préparation, tels que les masques de
+spectres de petite taille et l'enveloppe de sparsité, restent également fixes.
+
+Les compteurs de spectre positif sont remis à leur valeur courante après
+chaque reconstruction, car ils interviennent dans une garde de barrière.
+Les compteurs historiques de réutilisation des courbures sont mis à zéro
+dans rebuild. Les seuls champs non temporels exclus de la comparaison des
+endpoints reuse/rebuild sont dca_filter_curvature_reuses et
+dca_filter_majorant_curvature_reuses. Le rapport de recherche fournit les
+comptes réels de construction, d'installation et de réutilisation. Tous les
+autres compteurs numériques/de travail doivent coïncider pour la qualification.
+
+Le rapport ajoute un objet JSON par instance DcaInequalityModels :
+schema research-curvature-cache-summary-v1 ; model_instance ; mode ;
+preparations ; reanchors ; quadratic_row_builds ; corrected_rows ;
+construction_seconds ; rebuild_reset_seconds ; trace_records ; reuse_hits ;
+complete. Les instances et leurs compteurs sont conservés, y compris les
+phases privées/reprises. Après une préparation effective, reuse a une
+préparation ; rebuild en a max(1,reanchors). Un objet détruit avant préparation
+peut avoir zéro préparation et zéro installation. Les constructions traitent
+aussi les lignes quadratiques qui sont déjà convexes ; corrected_rows ne
+compte que celles nécessitant une correction.
+
+Un dernier objet de session est écrit après le retour normal du solveur :
+schema research-curvature-cache-session-v1 ; mode ; model_instances ;
+solver_returned true. Il doit correspondre au nombre d'instances résumées.
+Un chemin qui termine avant de créer un modèle donne ce seul objet avec
+model_instances zéro, jamais une preuve fondée sur un simple fichier vide.
+Ce reçu prouve le retour de l'appel solveur, pas son succès numérique :
+le statut, les ressources et l'audit indépendant restent nécessaires.
+
+La trace contient des événements reanchor, controller et accepted. Les
+identités SHA256 sont calculées sur une sérialisation canonique avec
+longueurs, entiers 64 bits et coefficients binary64 bit à bit, incluant
+les zéros signés. correction_identity couvre les supports, matrices,
+certificats scalaires et indicateurs des courbures, ainsi que les coefficients
+effectivement installés et leur correspondance symbolique. state_identity couvre
+x, lambda, z, s, activité, paramètres de stabilisation/barrière, et pour les
+pas acceptés les paramètres de contrôle et la direction du contrôleur.
+Les points primal-dual enregistrés sont les points effectivement acceptés ;
+la direction est celle conservée par le contrôleur, avant une éventuelle
+courbe ou correction SOC déjà reflétée dans le point accepté.
+Cette trace compare les centres et les pas principaux acceptés ; elle ne
+prétend pas enregistrer chaque point d'essai rejeté du filtre. Les états
+finaux et compteurs de travail restent vérifiés indépendamment.
+
+La trace doit être ABSENTE des répétitions chronométrées. Le calcul des
+empreintes et l'écriture des événements sont entièrement désactivés lorsque
+son chemin est vide. Le bref rapport final de compteurs et temps reste activé
+dans les deux modes et son coût reste dans le temps processus. Tous les coûts
+de destruction et reconstruction des corrections restent également inclus.
+
+La source de référence authentifiée n'est jamais modifiée. Le patch isolé
+touche six fichiers : Settings, main.cpp, atomic_newton.cpp, les modèles
+majorants, le contrôleur majorant et le nouvel utilitaire SHA256/validation.

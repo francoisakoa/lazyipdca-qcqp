@@ -1,0 +1,7 @@
+{
+  "old": "On pairs whose two runs exceed one second, its median time ratio to Ipopt is 0.34--0.48 with MUMPS on both sides, and 0.83--2.12 against Ipopt with MA27.",
+  "new": "On common-certificate pairs with both runs exceeding one second, the median ratio of baseline time to Ipopt time is 0.34 for problems with quadratic inequalities and no quadratic equality, and 0.48 for problems with both quadratic constraint types, when both methods use MUMPS. With MA27 in both methods, the corresponding ratios are 0.83 and 2.12.",
+  "quantities_unchanged": true,
+  "native_or_Ipopt_runs": 0,
+  "reason": "Author requested explicit mapping of each ratio to regime and common backend."
+}

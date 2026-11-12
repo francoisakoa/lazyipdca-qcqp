@@ -1,0 +1,131 @@
+{
+  "schema": "lazy-ma27-independent-source-review-v1",
+  "at_utc": "2026-11-08T08:58:13.425016+00:00",
+  "verdict": "CONDITIONALLY_ACCEPTED_TARGET_HSL_AND_TRAJECTORY_QUALIFICATION_PENDING",
+  "blocking_code_findings": [],
+  "adapter_sha256": "145fe2ffa9521f864374fc38ee32565b14a588ad42c2807e5813f82a3f634b47",
+  "adapted_research_source_signature": "efa63ae3e8120b87272b876cf0a827bd2dd20a76624bfefe5bb5fa5634ad6f9e",
+  "original_research_source_signature": "58bfdda4101d7aaf17b06fab9fc251151f300789aa6e8c0cd24c1ffb3729e2a2",
+  "changed_files": [
+    {
+      "path": "src/main.cpp",
+      "before_sha256": "e5f7a03747fcdc7f07041b9da179a9e355c8d235e46a9bd03af41ae898b48e5d",
+      "after_sha256": "350cbd42e03b8e9da0ddbf98eff2e8fb343d270f88f6835a0c9e7deb02846481",
+      "operations": [
+        "admit existing MA27+METIS under unchanged native policy checks",
+        "backend-specific refusal message",
+        "correct generic direct-solver description"
+      ]
+    },
+    {
+      "path": "src/dca_inequality_majorant_engine.hpp",
+      "before_sha256": "a02cb53dfdd9f94eb75499cba7e22235c864e2146d4c97798d6e660649dc64ba",
+      "after_sha256": "0ed21749f03b31904c4c5e34bf33d53ef3b214d0b93731fe5ad02ff3eb94f207",
+      "operations": [
+        "admit existing MA27+METIS under unchanged native policy checks",
+        "backend-specific refusal message"
+      ]
+    },
+    {
+      "path": "include/lazyipdca_qcqp/standard_auto.hpp",
+      "before_sha256": "d4ea54e8d2d21e77edeef8e6a4cbc855ec5af9a20301fe03aba5fb15bd426d6e",
+      "after_sha256": "3b7d0efd34dbbd8b3f4a0980e707ec577ed3907201022c8e8094ac2f2be07139",
+      "operations": [
+        "admit existing MA27+METIS under unchanged native policy checks",
+        "backend-specific refusal message"
+      ]
+    },
+    {
+      "path": "include/lazyipdca_qcqp/majorant_equality_stabilization.hpp",
+      "before_sha256": "4cbd43fb09ffe21857d0590b9bc013f3bfcdd75ef49ab00f8996e8f1fb89821f",
+      "after_sha256": "75298cc8dd36a9a95f8866e6a01df6dc4f77a685754ea9f21c0fc65927f1eeca",
+      "operations": [
+        "admit existing MA27+METIS under unchanged native policy checks",
+        "backend-specific refusal message"
+      ]
+    },
+    {
+      "path": "src/dca_convexification_study_models.hpp",
+      "before_sha256": "07e4ce28a317bf34b440e71eaf515dd8a20ee3627bea87be868249bd32530475",
+      "after_sha256": "6f3f9ecb993153e046b07479d45c8abe128b04aa6b076c271e0864b971952605",
+      "operations": [
+        "use requested MA27 for large support inertia classification",
+        "label the actual curvature certificate backend"
+      ]
+    },
+    {
+      "path": "src/hsl_ma27_factorization.hpp",
+      "before_sha256": "1777381f4cbfd08db86c00b243fcec3bbbdaa492ded7b1e3bc44b03cb1a8e070",
+      "after_sha256": "e89cc276cfc5ee5a12706ecdb12c9dcdfe8b6502c37ba7dcddc32230011c387f",
+      "operations": [
+        "invalidate reported inertia before every factor attempt",
+        "retain existing complete-factor INFO(15) inertia only",
+        "expose existing nonsingular MA27 inertia through common interface",
+        "store diagnostic inertia separately from Newton acceptance",
+        "optional cap for existing bounded restoration only",
+        "bounded real/integer workspace resize guards",
+        "cap initial analysis integer workspace",
+        "cap completed symbolic workspace before numerical factorization",
+        "keep existing MA27 memory retry ladder inside the optional cap",
+        "refuse reuse of a bounded factor after a workspace rejection",
+        "release obsolete bounded workspace before a new pattern"
+      ]
+    },
+    {
+      "path": "src/linear_solver.cpp",
+      "before_sha256": "2a88d6ebd089c6373453f52c67ba7532e25a1130fc6af970c4893888764f5313",
+      "after_sha256": "e85e1faef46ae32128338adba14eec1dcfdc056f880e7931dc9ceabf896a5506",
+      "operations": [
+        "MA27 bounded restoration factory without a backend substitute",
+        "declare supported bounded sparse backends"
+      ]
+    },
+    {
+      "path": "src/positive_square_epigraph_restoration.hpp",
+      "before_sha256": "8215fea4efff5273c5c200175e9f56b9ef525c12e866b895e2adad1f238367f0",
+      "after_sha256": "942c0d24032bbe84baac8e6a5653798c6561fecb3383dfb0e41d376680ed4bf7",
+      "operations": [
+        "preserve positive-square feasibility repair on bounded MA27"
+      ]
+    },
+    {
+      "path": "src/restoration.cpp",
+      "before_sha256": "76f9cc3e2f8c51fb9f55be6b81f1acdc2f0da386698f94c95de17f291c01e249",
+      "after_sha256": "6ef365aadf9574f4efa58bc642b73ce192c4598eb206985f002e122a8c8a2e2c",
+      "operations": [
+        "preserve existing bounded sparse restoration eligibility on MA27"
+      ]
+    },
+    {
+      "path": "src/solver.cpp",
+      "before_sha256": "9a407961ae0bb119eb73fdef814e26dee7229c4b9f6657e6be3a33f47ecbf561",
+      "after_sha256": "a8097db4d80fe258c4e6952241af5ce69959ae685314f635420d2024bba335e1",
+      "operations": [
+        "label the explicitly requested MA27 backend truthfully"
+      ]
+    }
+  ],
+  "reviewed_properties": [
+    "The actual bounded workspace helpers preserve analyzed IW data and release obsolete real A before growth.",
+    "The bounded failure latch is checked before numeric input copies and Fortran calls, preventing LA/LIW lengths from being reused against insufficient arrays.",
+    "The complete numeric factor must succeed and expose a valid INFO(15) count in 0..n before common inertia diagnostics become available.",
+    "Unknown or failed numeric inertia stays unknown; successful full-rank inertia has zero null pivots.",
+    "Original MUMPS admission truth values, the MUMPS bounded factory branch, unshifted classification settings and Newton acceptance checks are retained.",
+    "Requested MA27 large-support curvature classification uses MA27; the adaptation adds no MUMPS substitution.",
+    "All source changes are confined to the declared ten paths in separate copied trees; qualified input trees remain untouched."
+  ],
+  "tests": {
+    "python_adaptation_checks": 7,
+    "compiled_pure_workspace_and_accessor_checks": 39,
+    "passed": true
+  },
+  "optimizer_invocations_by_reviewer": 0,
+  "HSL_numerical_factorizations_by_reviewer": 0,
+  "declared_limits": [
+    "The 128 MiB cap covers numerical MA27 A/IW work arrays and accounted integer replacement copies; symbolic auxiliary arrays, allocator overhead and process RSS are separate.",
+    "Actual licensed HSL ABI/library qualification and numerical controls must pass on the target machine.",
+    "The fresh same-backend 50-case trajectory gate has not been run by this review.",
+    "The source review is conditional and does not certify new campaign outcomes."
+  ],
+  "production_authorized": false
+}

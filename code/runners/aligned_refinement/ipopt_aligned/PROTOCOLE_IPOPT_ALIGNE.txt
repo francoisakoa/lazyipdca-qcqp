@@ -1,0 +1,82 @@
+IPOPT — COMPARAISON ALIGNÉE DES STRATÉGIES ET DES SOLVEURS LINÉAIRES
+
+Périmètre
+Les 4 078 QCQP originaux gelés et leurs départs bruts sont tous inclus :
+I : 1 037 ; M : 797 ; E : 1 704 ; Q : 540. Il n'existe pas de régime A
+dans ce corpus. Aucun nouveau départ n'est fourni par un autre solveur.
+Les quatre cellules neuves donnent 16 312 tâches :
+  ipopt_ma27_monotone_aligned ; ipopt_mumps_monotone_aligned ;
+  ipopt_ma27_adaptive_aligned ; ipopt_mumps_adaptive_aligned.
+Les anciennes sorties Ipopt ne peuvent remplir aucune de ces cellules.
+
+Réglages communs
+Cette expérience compare monotone et adaptive sous des tolérances et budgets
+alignés ; ce n'est pas une relance entièrement sans options. Ipopt conserve
+la mise à l'échelle gradient-based, les hessiennes exactes et le traitement
+make_parameter des variables fixées. Les options effectivement relues sont :
+tol=1e-8 ; constr_viol_tol=dual_inf_tol=compl_inf_tol=1e-6 ;
+acceptable_iter=0 ; bound_relax_factor=0 ; max_iter=5000 ;
+max_cpu_time=max_wall_time=7200 ; option_file_name='' ; print_user_options=yes.
+Seuls mu_strategy et linear_solver désignent les facteurs comparés. HSL pour
+MA27 et les paramètres propres au backend restent liés à la construction
+homogène admise. Le seuil de borne infinie peut être augmenté pour représenter
+une borne originale finie dépassant le seuil d'Ipopt ; cette adaptation exacte
+doit être déclarée et identique entre stratégies à cas et backend fixés.
+
+Budget et ressources
+22 tâches à un seul thread alimentent continûment les CPU 0 à 21, dans l'ordre
+CUTEst, multicast Beamforming, PGLIB, puis les autres collections, sans Dey.
+Cette allocation est distincte de l'ablation Lazy, fixée au seul CPU 23.
+Le temps numérique natif, le temps du processus et son CPU utilisateur+système
+sont vérifiés chacun contre 7 200 s. La borne native d'itérations est 5 000.
+Aucun plafond séparé de 600 itérations de restauration Ipopt n'est déduit de
+max_iter : le plafond partagé de 600 est un contrat propre aux variantes Lazy.
+Les comptes de travail interne, factorisations et résolutions sont rapportés
+seulement si les compteurs natifs les exposent, sans inférence depuis les
+itérations. Aucun travail antérieur n'est soustrait d'une tâche relancée.
+
+Qualification des résultats
+Une réussite exige trois résidus finis, positifs ou nuls et au plus 1e-6 :
+primal, dual et complémentarité, sur le QCQP original complet. L'audit
+indépendant est conservé avec la preuve des données, du départ, des options,
+du binaire, du backend effectivement chargé et des budgets. Le statut interne
+success/acceptable d'Ipopt est compté séparément. Les dossiers absents,
+interrompus ou non vérifiables restent distingués des échecs numériques dans
+les preuves. Pour le tableau principal, le dénominateur reste le plan complet :
+réussite ou absence de certificat. Un audit technique n'est pas présenté comme
+la preuve d'un échec numérique ni comme une contradiction mathématique d'Ipopt.
+
+Dépouillement
+  python3 ipopt_aligned/ANALYSER_IPOPT_ALIGNE.py \
+    --plan "$RUN/PLAN.json" --observations "$RUN/OBSERVATIONS.jsonl" \
+    --out "$RUN/DEPOUILLEMENT" \
+    --lazy-reference evidence/COMPACT_14_CONFIGS.jsonl.gz
+
+--allow-partial permet seulement un état provisoire, et conserve les tâches
+absentes au dénominateur. La troncature d'une seule dernière ligne en cours
+d'écriture est tolérée dans ce mode ; une ligne interne mal formée est refusée.
+
+Les six paires parmi les quatre nouvelles cellules sont analysées par régime,
+collection et famille. Si la référence Lazy est fournie, seules ses douze
+configurations natives (six politiques, deux backends) sont importées. Ces
+comparaisons avec les archives Lazy sont descriptives ; elles ne constituent
+pas une nouvelle ablation causale des politiques. Le niveau de preuve des
+archives est conservé. Les deux anciennes sorties Ipopt du fichier à quatorze
+configurations sont écartées.
+
+Sur les intersections de certificats stricts appariés par identifiant, données
+et départ, l'écart d'objectif est (f_gauche-f_droite)/max(1,|f_gauche|,|f_droite|).
+Le signe négatif favorise la gauche pour une minimisation. Les seuils 1e-3 et
+1e-2, les quartiles signés et absolus, les effectifs et les résidus finaux sont
+rapportés. Une comparaison de certificat n'est pas une garantie d'optimalité
+globale. Les temps sont des ratios appariés avec horloge explicitée : processus
+et calcul numérique natif restent séparés, audit exclu du processus solveur.
+Les sous-ensembles où les deux temps dépassent strictement 1 s sont isolés,
+ainsi que ceux dont les objectifs sont équivalents au seuil 1e-3. Les quartiles
+emploient l'interpolation linéaire à (N-1)p, avec N affiché. Une exécution
+unique par cas ne suffit pas à affirmer une différence robuste de performance.
+
+Sorties : COUVERTURE.csv ; PAIRES_KKT_OBJECTIFS.csv ; TEMPS_APPARIES.csv ;
+CAUSES_NON_CERTIFICATION.csv ; DISTRIBUTIONS_RESIDUS.csv ;
+ANALYSE_IPOPT_ALIGNE.json ; OBSERVATIONS_ANALYSE_COMPACTES.jsonl.gz.
+Le programme est en lecture seule et n'invoque aucun solveur.

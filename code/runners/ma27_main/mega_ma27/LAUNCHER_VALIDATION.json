@@ -1,0 +1,14 @@
+{
+  "schema": "previous-mega-ma27-launcher-tests-v1",
+  "passed": true,
+  "tests": 12,
+  "optimizer_invocations": 0,
+  "remote_actions": 0,
+  "principal_tasks": 32624,
+  "optional_with_factorial_tasks": 39960,
+  "single_controller": true,
+  "source_sha256": {
+    "DEMARRER.py": "2d1a0d5bc177cf477d4c08365b50bad53ae49877d01a60b6b062de6094e7068b",
+    "SUIVRE.py": "6709869852422f3924b070c622e58cf48618a85fceda42b1246a9ad8d37bf3c9"
+  }
+}

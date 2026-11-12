@@ -1,0 +1,17 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/coin-or/Ipopt/releases/3.14.11/src/Algorithm/IpBacktrackingLineSearch.cpp",
+    "sha256": "2f6ba6c8ac4d03c84a7259dae929ba2ed0b8370955f904fdd48145e79404ed32",
+    "bytes": 47312
+  },
+  {
+    "url": "https://raw.githubusercontent.com/coin-or/Ipopt/releases/3.14.11/src/Algorithm/IpOptErrorConvCheck.cpp",
+    "sha256": "41595885aa3d3266c2b69b91ba23164fe4b1777c8801d98fb5fe09e570ac065d",
+    "bytes": 15789
+  },
+  {
+    "url": "https://raw.githubusercontent.com/coin-or/Ipopt/releases/3.14.11/src/Algorithm/IpIpoptAlg.cpp",
+    "sha256": "e696ceffa75a82330bb5768d8cf45298e50044b5d4af4b2716f4456a10f0069d",
+    "bytes": 39331
+  }
+]

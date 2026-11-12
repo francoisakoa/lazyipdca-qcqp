@@ -1,0 +1,37 @@
+# Dans le kit intégré, adapter seulement le chemin KIT à ablation_asu.
+KIT="$HOME/Téléchargements/LAZYQCQP_ABLATION_BORNES_ASU_20261110_R2"
+ETUDE=/extra/LAZYQCQP_ASU_BOUNDS_RESULTS/ETUDE_ASU_R2
+
+# Plan et tests sans optimisation. Les sorties demandées doivent être neuves.
+python3 "$KIT/BOUNDS.py" plan --out /tmp/PLAN_ASU_503_R2.json
+PYTHONDONTWRITEBYTECODE=1 python3 "$KIT/TEST_KIT.py" --out /tmp/ASU_TEST_SOURCE_R2
+PYTHONDONTWRITEBYTECODE=1 python3 "$KIT/TEST_ORCHESTRATION.py" --out /tmp/ASU_TEST_REPRISE_R2
+PYTHONDONTWRITEBYTECODE=1 python3 "$KIT/TEST_QUALIFICATION.py" --out /tmp/ASU_TEST_QUALIFICATION_R2
+
+# Après libération des cœurs 0–21 : construction, qualification, pilote,
+# promotion sans répétition, campagne complète et analyse automatique.
+python3 -u "$KIT/STUDY_BOUNDS.py" --out "$ETUDE"
+
+# Reprise après interruption : exactement la même commande.
+python3 -u "$KIT/STUDY_BOUNDS.py" --out "$ETUDE"
+
+# Suivi global depuis un autre terminal (lecture seule).
+python3 "$KIT/SUIVRE_ETUDE.py" --out "$ETUDE"
+python3 "$KIT/SUIVRE_ETUDE.py" --out "$ETUDE" --once
+
+# Racine implicite :
+# /extra/LAZYQCQP_MEGA_MA27_INSTALL/20261108T094930_519247Z/device
+# Une relocalisation explicite utilise --root /chemin/exact/device.
+# Des copies gelées ailleurs utilisent --frozen-root /chemin/exact.
+# Le résolveur exige les mêmes octets et x0 ; il ne régénère aucun problème.
+# Une construction R2 vérifiée peut être fournie par --build /.../BUILD_BOUNDS.json.
+# Conserver les mêmes arguments et le même répertoire lors de la reprise.
+
+# Lecture directe de la campagne complète après sa création :
+python3 "$KIT/BOUNDS.py" suivre --out "$ETUDE/campagne" --once
+
+# Contrôle manuel des reçus : qualification/QUALIFICATION.json,
+# pilote/PILOT_GATE.json, campagne/REUSE_PROMOTION.json.
+# Analyse finale : analyse/PAIRED_SUMMARY.json et PAIRED_OBJECTIVES.csv.
+# Total : 144 contrôles + 6036 ablations = 6180 exécutions natives ;
+# les 144 observations du pilote d'ablation sont incluses dans les 6036.

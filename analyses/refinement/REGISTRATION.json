@@ -1,0 +1,31 @@
+{
+  "schema": "adaptive-refinement-production-registration-v2",
+  "registration_status": "draft_not_sealed",
+  "study_contract_file": "STUDY_CONTRACT.json",
+  "study_contract_sha256": "1594f649957921bb1ca890ebacc117638e6051dc0a1a5302bac1607d3dbbc480",
+  "bindings": {
+    "source_tree_sha256": null,
+    "binary_sha256_by_backend": {
+      "ma27": null,
+      "mumps": null
+    },
+    "source_separation_audit_sha256": null,
+    "qualification50_receipt_sha256": null,
+    "direction_trace_schema_sha256": null,
+    "common_guard_vector_sha256": null
+  },
+  "note": "Seal only after the source/build/parity/synthetic gates pass. Gate receipts bind the static study SHA; production observations bind this final seal SHA, avoiding a hash cycle.",
+  "amendment": {
+    "schema": "qualification-clock-work-amendment-v1",
+    "parent_study_sha256": "bb73bc927a7397fff847338f2a76e436e48177101994e37483919eddf260bbb3",
+    "original_failed_gate": {
+      "path": "/extra/LAZYQCQP_RAFFINEMENT_RESULTS/ABLATION_20261109T140336_22fd9404/qualification/GATE50.json",
+      "sha256": "ab8bba13de68f038280c3ae8e49508834ec0d82aebefdd142a4c531385336290"
+    },
+    "committed_states_and_terminal_core": "exact binary64 identity",
+    "full_endpoint_and_work_comparison": "retained unchanged and reported separately",
+    "private_rejected_work": "admissible only with source-bound rejected recovery receipts and exact counter accounting; otherwise blocked",
+    "future_production_results_read": false,
+    "native_binaries_changed": false
+  }
+}

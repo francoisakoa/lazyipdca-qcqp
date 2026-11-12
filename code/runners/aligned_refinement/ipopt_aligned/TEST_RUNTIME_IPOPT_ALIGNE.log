@@ -1,0 +1,24 @@
+test_adaptive_cannot_be_substituted_for_monotone (__main__.Tests.test_adaptive_cannot_be_substituted_for_monotone) ... ok
+test_all_four_effective_option_sets_pass (__main__.Tests.test_all_four_effective_option_sets_pass) ... ok
+test_backend_banner_is_required_beyond_effective_options (__main__.Tests.test_backend_banner_is_required_beyond_effective_options) ... ok
+test_balanced_order_never_changes_starts (__main__.Tests.test_balanced_order_never_changes_starts) ... ok
+test_compact_status_has_four_regimes_and_four_methods (__main__.Tests.test_compact_status_has_four_regimes_and_four_methods) ... ok
+test_default_cutoffs_cannot_silently_replace_large_finite_bounds (__main__.Tests.test_default_cutoffs_cannot_silently_replace_large_finite_bounds) ... ok
+test_each_changed_effective_tolerance_is_refused (__main__.Tests.test_each_changed_effective_tolerance_is_refused) ... ok
+test_four_cells_and_resources_are_explicit (__main__.Tests.test_four_cells_and_resources_are_explicit) ... ok
+test_fresh_output_cannot_be_created_inside_inputs (__main__.Tests.test_fresh_output_cannot_be_created_inside_inputs) ... ok
+test_full_corpus_preparation_and_reload_preserve_resolved_bindings (__main__.Tests.test_full_corpus_preparation_and_reload_preserve_resolved_bindings) ... ok
+test_large_finite_bounds_have_exact_declared_representation (__main__.Tests.test_large_finite_bounds_have_exact_declared_representation) ... ok
+test_local_build_cannot_authorize_production (__main__.Tests.test_local_build_cannot_authorize_production) ... ok
+test_native_limits_and_nonfinite_vectors_are_refused (__main__.Tests.test_native_limits_and_nonfinite_vectors_are_refused) ... ok
+test_observation_export_repairs_missing_append (__main__.Tests.test_observation_export_repairs_missing_append) ... ok
+test_partial_recovery_does_not_restart_solver (__main__.Tests.test_partial_recovery_does_not_restart_solver) ... ok
+test_process_cpu_and_wall_and_native_budgets_are_conjunctive (__main__.Tests.test_process_cpu_and_wall_and_native_budgets_are_conjunctive) ... ok
+test_queue_is_continuous_across_datasets (__main__.Tests.test_queue_is_continuous_across_datasets) ... ok
+test_stale_saved_pid_is_not_active_work (__main__.Tests.test_stale_saved_pid_is_not_active_work) ... ok
+test_wrong_hsl_and_defaults_are_refused (__main__.Tests.test_wrong_hsl_and_defaults_are_refused) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 1.089s
+
+OK

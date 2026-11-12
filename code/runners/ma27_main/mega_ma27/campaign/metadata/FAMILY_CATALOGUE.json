@@ -1,0 +1,14 @@
+[
+ {"id":"COPS_camshape","label":"Cam design","core":true,"kind":"parameterized_public_application","coarse_origin":"COPS3","I_candidates":100,"maximum_extension_cases":150},
+ {"id":"COPS_minimal_surface","label":"Minimal surfaces with obstacles","core":true,"kind":"exact_public_application_epigraph","coarse_origin":"COPS3","I_candidates":100,"maximum_extension_cases":150},
+ {"id":"Mittelmann_boundary_cont6","label":"Elliptic boundary control","core":true,"kind":"exact_public_application_projection","coarse_origin":"Mittelmann_PDE_control","I_candidates":100,"maximum_extension_cases":150},
+ {"id":"Mittelmann_distributed_dist2","label":"Distributed logistic PDE control","core":true,"kind":"exact_public_application_projection","coarse_origin":"Mittelmann_PDE_control","I_candidates":100,"maximum_extension_cases":150},
+ {"id":"IJOC_partition_QCQP","label":"Published nonconvex QCQP generator","core":true,"kind":"author_published_generator","coarse_origin":"INFORMSJoC_partition_QCQP","I_candidates":150,"maximum_extension_cases":150},
+ {"id":"packing_equal_disks","label":"Equal disk packing","core":true,"kind":"generated_published_application_formulation","coarse_origin":"packing_geometry","I_candidates":60,"maximum_extension_cases":150},
+ {"id":"obstacle_path_smoothing","label":"Obstacle paths and rigid link geometry","core":true,"kind":"generated_published_application_formulations","coarse_origin":"robotic_distance_geometry","I_candidates":60,"M_candidates":30,"maximum_extension_cases":150},
+ {"id":"multicast_beamforming","label":"Multicast and phase constrained beamforming","core":true,"kind":"generated_published_application_formulations","coarse_origin":"wireless_multicast","I_candidates":90,"M_candidates":30,"maximum_extension_cases":150},
+ {"id":"two_ellipsoid_qcqp","label":"Two ellipsoidal trust regions","core":true,"kind":"generated_published_mathematical_family","coarse_origin":"quadratic_trust_regions","I_candidates":90,"maximum_extension_cases":150},
+ {"id":"controlled_kappa","label":"Controlled relative tangent curvature","core":true,"kind":"synthetic_analytic_reference","coarse_origin":"controlled_synthetic_geometry","I_candidates":60,"maximum_extension_cases":150},
+ {"id":"QPLIB_reference","label":"Native continuous QPLIB reference panel","core":false,"kind":"library_reference_panel","coarse_origin":"QPLIB","I_candidates":49,"maximum_extension_cases":150},
+ {"id":"CBLIB_SOC_reference","label":"Continuous conic reference panel","core":false,"kind":"library_reference_panel","coarse_origin":"CBLIB","I_candidates":8,"maximum_extension_cases":150}
+]

@@ -1,0 +1,18 @@
+{
+  "src/factorial_trace.hpp": {
+    "sha256": "05cd120b261ee31661fc7e4c29baa5e1a0f2c49d919e612fb6eaf292b787a726",
+    "bytes": 16747
+  },
+  "src/dca_convexification_study_models.hpp": {
+    "sha256": "59750158c10884f1749af2b7fd35db44619d5778d69bd3f35caea28ae03b3c83",
+    "bytes": 43339
+  },
+  "src/dca_inequality_majorant_models.hpp": {
+    "sha256": "c048f06d63400388437ff54511f9fcae605d729196d70f1f866c668b3ede5c9e",
+    "bytes": 33137
+  },
+  "src/dca_inequality_majorant_engine.hpp": {
+    "sha256": "3e670931269446ac6757529681a27cf439a6a8c3ae59102d8d3bbd69cb66d32e",
+    "bytes": 377964
+  }
+}

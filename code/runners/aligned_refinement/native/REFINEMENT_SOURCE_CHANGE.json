@@ -1,0 +1,83 @@
+{
+  "schema": "same-kernel-refinement-ablation-source-feature-v1",
+  "changed_files": [
+    {
+      "path": "include/lazyipdca_qcqp/settings.hpp",
+      "before_sha256": "0faf70fdf5150d3e01dd15f2b310312eb84d862d446bb804bb58310d2c6c4230",
+      "after_sha256": "cf7e2b3128022802b8d0a98adcf190456eaaf5ba55ac49b8ddb80c258d9aa357"
+    },
+    {
+      "path": "src/atomic_newton.cpp",
+      "before_sha256": "50e379b6a8628ef2c0768d05d658cff77811618769fbbb4466ba5afc7a973870",
+      "after_sha256": "97c86089b4071c8781020aff991577522a5d82b61dd6b6785e875f0eb90e73e4"
+    },
+    {
+      "path": "src/dca_convexification_study_models.hpp",
+      "before_sha256": "6f3f9ecb993153e046b07479d45c8abe128b04aa6b076c271e0864b971952605",
+      "after_sha256": "59750158c10884f1749af2b7fd35db44619d5778d69bd3f35caea28ae03b3c83"
+    },
+    {
+      "path": "src/dca_inequality_majorant_engine.hpp",
+      "before_sha256": "0ed21749f03b31904c4c5e34bf33d53ef3b214d0b93731fe5ad02ff3eb94f207",
+      "after_sha256": "3e670931269446ac6757529681a27cf439a6a8c3ae59102d8d3bbd69cb66d32e"
+    },
+    {
+      "path": "src/factorial_structure_inspection.hpp",
+      "before_sha256": "13a50f2078fe46ecce2206464dce541b6d366f6ce601bb421d873ff98dc01d2e",
+      "after_sha256": "39042751d79283aaf9d56341acc1b620fbeb8721510bdeb61f9b7f34bf372a98"
+    },
+    {
+      "path": "src/factorial_trace.hpp",
+      "before_sha256": "04d93cfae1798b27d3e2d1d9ce947a05903495fc3a65f2a2ad0adfab90a4fe17",
+      "after_sha256": "05cd120b261ee31661fc7e4c29baa5e1a0f2c49d919e612fb6eaf292b787a726"
+    },
+    {
+      "path": "src/main.cpp",
+      "before_sha256": "350cbd42e03b8e9da0ddbf98eff2e8fb343d270f88f6835a0c9e7deb02846481",
+      "after_sha256": "102cafb50499234f47fb02e4ffa63a1e44740201676cbd5a8c489d6e78d4257e"
+    },
+    {
+      "path": "src/rank_presolve.cpp",
+      "before_sha256": "d010ed9a1cfd581fa0906da27bf2f64bbc3cf4ea526966fa214a6863b92341f7",
+      "after_sha256": "3965303c1b31275768be1b49e76408f3a302db4286fa8111c03c3ba48e290c7b"
+    },
+    {
+      "path": "src/solver.cpp",
+      "before_sha256": "a8097db4d80fe258c4e6952241af5ce69959ae685314f635420d2024bba335e1",
+      "after_sha256": "b4c777ac0dddf3dbf1626490e195b75e5438463546cc4c8ff4ea07822a8153c1"
+    }
+  ],
+  "primary_flags": [
+    "--factorial-inequalities hybrid",
+    "--factorial-globalization r3|hs",
+    "--factorial-refinement frozen|adaptive",
+    "--factorial-common-guards r3"
+  ],
+  "primary_objective_exact": true,
+  "common_representation": "original_qcqp",
+  "guard_policy_version": "common_r3_guards_v1",
+  "frozen_blocks": [
+    "eager metric updates",
+    "accepted-step periodic updates",
+    "rejection and failed-model triggers",
+    "all trial entry",
+    "commit/rollback if reached unexpectedly"
+  ],
+  "frozen_final_matrix_hash_check": true,
+  "initial_sha_encoding": "Full component-correction binary64 lengths/values, supports, original/correction triplets and hybrid weights/directions; activity counters excluded",
+  "sequence_sha_encoding": "SHA256(concat(little-endian-uint64(64), UTF8(hex_digest)) in initialization event order)",
+  "metric_initialization_indices_begin": 1,
+  "hash_reanchoring": "Cached per unchanged metric; recomputed on initialization, commits, rollbacks and final model check",
+  "legacy_new_flags_absent": "no source policy settings or numerical paths changed by new feature",
+  "complete_native_build_verified_by_this_agent": false,
+  "blocking_local_dependency": "boost/multiprecision/cpp_bin_float.hpp absent for atomic_newton.cpp full translation unit",
+  "production_run_authorized": false,
+  "unit_cpp_checks": 155,
+  "typed_actual_metric_observer_fixture_checks": 12,
+  "independent_Python_metric_SHA_check": true,
+  "independent_JSON_checks": 77,
+  "optimizers_launched_by_this_agent": 0,
+  "TRX_access": false,
+  "primary_backend_factor_attempts_semantics": "Incremented immediately before each actual primary factor->factor call, including retries; zero before backend entry.",
+  "counter_placement_static_check": true
+}

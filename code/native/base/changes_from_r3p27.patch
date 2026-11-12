@@ -1,0 +1,1683 @@
+--- /dev/null
++++ b/ANALYSE_CASE118_R3P27A1.md
+@@ -0,0 +1,149 @@
++# Analyse et optimisation de LazyIPDCA-QCQP — r3p27a1
++
++Cette branche expérimentale part exclusivement des sources r3p27 jointes. Identité :
++`0.4.28r3p27a1-lazy-equality-curvature`, API **4311**.
++
++**Résultat : 1,363 s en médiane pour le profil optimisé, contre 2,419 s pour le contrôle et 0,216 s pour Ipopt.** Le temps baisse de **43,7 %** (accélération **1,77×**). La cible de 0,2 s n'est pas atteinte : il reste un facteur **6,8** par rapport à cette cible, ou **6,3** par rapport à Ipopt mesuré ici. L'alternative tangentielle est implémentée et certifiée sur ce cas, mais n'améliore pas ce résultat.
++
++## 1. Protocole et résultats
++
++Même fichier QCQP, même point initial, mêmes coefficients et bornes pour tous les solveurs. Dimensions : **1 088 variables, 980 égalités, 979 inégalités**, dont 36 variables à bornes fixées.
++
++SHA-256 du modèle :
++
++```text
++d60ea7005d72605c2b33c587b574c390076e56246f27e41924ee5bf0f259aef6
++```
++
++Il s'agit d'un fichier case118 déjà disponible localement, exporté antérieurement. Le fichier MATPOWER/PGLIB source n'était pas disponible ici : cette mesure n'est donc pas présentée comme un nouvel export du case118 de votre machine. Le modèle n'est pas incorporé à l'archive de sources. Le nouveau runner accepte votre `.m` ou un `.qcq` existant ; il exporte/copie une seule fois et vérifie le SHA avant et après chaque résolution.
++
++Un échauffement exclu puis cinq mesures par mode, ordre tournant entre les modes. Release `-O3 -DNDEBUG`, architecture native, AMD EPYC 9V74 sous KVM ; un thread OpenMP et un thread BLAS. Lazy : SuiteSparse LDL et METIS 4 ; Ipopt : CasADi 3.7.2, MUMPS. Ce ne sont pas des mesures sur votre machine `pf_gpu`.
++
++| Mode | Médiane solveur | Min–max | Itérations externes | Factorisations du pas | Tests d'inertie supplémentaires | Résolutions validées |
++|---|---:|---:|---:|---:|---:|---:|
++| Ipopt | 0,2164 s | 0,1995–0,2317 s | 22 | — | — | 5/5 |
++| Contrôle r3p27 instrumenté | 2,4185 s | 2,3742–2,4803 s | 73 | 82 | 0 | 5/5 |
++| Optimisation creuse | **1,3628 s** | 1,3346–1,4335 s | 73 | 82 | 0 | 5/5 |
++| Optimisation creuse + inertie tangentielle | 1,4173 s | 1,3975–1,4594 s | 72 | 85 | 7 | 5/5 |
++
++Le contrôle utilise le même nouveau binaire, avec les nouvelles optimisations désactivées et le profil r3p27 conservé. Un essai initial du binaire original r3p27 avait donné 2,6375 s, également en 73 itérations et 82 pas. Le pourcentage de gain ci-dessus utilise exclusivement les médianes de la campagne contrôlée.
++
++Les temps solveur excluent la lecture/construction du problème ; ils comprennent la restauration, la résolution et le certificat final de Lazy. Le temps de construction CasADi n'est pas dans le temps Ipopt. Les temps complets de processus sont également enregistrés : médianes 1,519 s pour Ipopt, 2,625 s pour le contrôle, 1,519 s pour le profil creux et 1,571 s pour le tangent. Leur quasi-égalité Ipopt/Lazy creux ne constitue **pas** une égalité de performances des solveurs.
++
++## 2. Ce qui a été optimisé
++
++L'audit montre que le coût ne se limite pas à LDL. Les évaluations des modèles, la transformation affine et leurs validations répètent des parcours de vecteurs denses pour des lignes essentiellement creuses. Un profil gprof du contrôle confirme que ces opérations dominent les échantillons ; le chiffre d'échantillonnage de LDL ne doit pas être assimilé à un chronométrage précis des bibliothèques externes.
++
++L'option **`--lazyqp-affine-support-fastpath`** :
++
++- étend les supports creux gardés existants aux valeurs et gradients de la composition affine ;
++- applique cette arithmétique aux deux sondes de validation de la réduction, sans supprimer ces validations ;
++- l'applique à la reconstruction des multiplicateurs éliminés et aux audits primal-dual des états transportés ;
++- construit les lignes du Jacobien des égalités à partir des entrées structurelles ;
++- évalue le contrôle KKT des multiplicateurs transportés sur les coefficients creux du problème original ;
++- fusionne deux parcours identiques des valeurs des inégalités ;
++- conserve le chemin générique pour les modèles dont les décalages ou corrections de faible rang rendent le support inéligible.
++
++Les supports sont reconstruits sur le modèle courant : aucun support périmé ne traverse un changement de majorant. Les contrôles de finitude, les validations de gradient/valeur, le retour arrière de la transaction et le certificat final indépendant restent présents. Les fonctions KKT partagent les mêmes formules ; seul leur évaluateur intermédiaire peut être creux. Le certificat final conserve l'évaluation générique.
++
++Sur la campagne, **le vecteur primal et les quatre vecteurs de multiplicateurs finaux du profil creux sont identiques à ceux du contrôle**, ainsi que les 73 itérations et les 82 factorisations du pas. Il s'agit donc ici d'une réduction du coût de calcul, sans modification observée de la trajectoire finale.
++
++| Poste chronométré, médiane | Contrôle | Profil creux |
++|---|---:|---:|
++| Construction des modèles primaires | 0,1655 s | 0,0338 s |
++| Noyau primaire, réduction et audits inclus | 1,3834 s | 0,7652 s |
++| Construction/courbure du modèle des égalités | 0,2151 s | 0,2058 s |
++| Restauration totale | 0,1196 s | 0,1206 s |
++
++Les autres évaluations, la globalisation et le certificat final occupent le reste. Les nouveaux compteurs JSON distinguent ces postes. `constraint_curvature_seconds` chronomètre l'oracle ordinaire objectif/inégalités, pas la courbure condensée des égalités : les deux ne doivent pas être confondus.
++
++Les options nouvelles restent désactivées par défaut pour les anciens utilisateurs. Le runner compare explicitement contrôle, profil creux et variante tangentielle.
++
++## 3. Alternative aux égalités quadratiques
++
++### Principe
++
++Pour `h_j(x) = 0`, le signe du multiplicateur est libre. La courbure utile est celle du Lagrangien des égalités :
++
++\[
++ B_{eq,k}=Q_f+\sum_j\lambda_{j,k}Q_{h_j}.
++\]
++
++Le code r3p27 exploite déjà cette somme signée. Cependant, son option `block-exact` corrige la courbure négative dans l'espace ambiant. Une direction normale aux égalités peut donc entraîner une correction alors qu'elle n'est pas une direction libre du sous-problème affine.
++
++Avec `A_k d = -h(x_k)` et les bornes fixes incluses dans `A_k`, deux directions admissibles diffèrent d'un vecteur de `ker(A_k)`. La condition pertinente pour la convexité de l'objectif sur cet espace affine est :
++
++\[
++ Z_k^T(B_{eq,k}+\rho I)Z_k\succ0,
++ \qquad A_k Z_k=0.
++\]
++
++La variante **`--dca-equality-model tangent-inertia`** vérifie cette condition sans construire une base dense `Z_k`. Elle utilise le test d'inertie du système bordé, après la même élimination affine exacte que LazyQP. Sur ce modèle, l'élimination passe de 1 088 à 344 variables et laisse 272 lignes d'égalité, bornes fixes incluses, soit une dimension tangentielle théorique de 72.
++
++Pour conserver une marge `epsilon`, le test porte sur la réduction exacte de :
++
++\[
++ \begin{bmatrix}
++ B_{eq,k}+(\rho-\epsilon)I & A_k^T\\
++ A_k & 0
++ \end{bmatrix}.
++\]
++
++Une inertie `(n, m, 0)` après réduction certifie la positivité tangentielle correspondante lorsque les lignes sont indépendantes. Le bloc dual reste **strictement nul** et le backend ne rajoute aucune régularisation implicite. Une perturbation duale rendrait cette interprétation injustifiée.
++
++Le test utilise un ordre primal d'abord pour éviter les pivots nuls que LDL sans pivotage peut rencontrer dans cet opérateur à bloc dual nul. Le solveur primaire conserve METIS. Un échec numérique, une singularité ou une mauvaise inertie entraîne un retour à la convexification ambiante existante. L'échec du test n'est pas interprété comme la preuve d'une courbure tangentielle négative.
++
++Le test est tenté seulement au voisinage défini par la stationnarité transportée et `--dca-tangent-inertia-trigger` (défaut 1,0). Ce seuil autorise une tentative ; il ne certifie jamais la courbure ni la convergence.
++
++### Philosophie Lazy conservée et limite théorique
++
++Le working set à activation différée, les majorants des inégalités, l'état primal-dual transporté et un pas predictor-corrector par majorant tenté restent conservés. Il n'y a ni rétraction auxiliaire des égalités ni reconstruction complète des multiplicateurs pendant la trajectoire. Dans le profil single-loop r3p27 testé, ces rétractions étaient déjà désactivées malgré le nom historique `condensed-retraction`.
++
++Quand le test passe, on retire la correction spectrale ambiante superflue ; on ne supprime pas les égalités. Le modèle reste convexe sur son domaine affine admissible. Cela ne constitue pas une nouvelle preuve globale de convergence de DCA pour des égalités non convexes : la globalisation sur le problème original et le certificat final restent nécessaires.
++
++Cette version ajoute **sept factorisations de certification** en plus des factorisations des pas. Le compteur `dca_single_loop_factorizations` ne les inclut pas ; elles sont visibles dans `equality_tangent_inertia_attempts`. Il ne faut pas présenter cette variante comme ne faisant qu'une factorisation totale par itération.
++
++### Résultat de l'essai
++
++Sept tests tentés, sept acceptés, 72 itérations externes, mais **85 pas** contre 82 pour le profil creux. Le nombre de tentatives supplémentaires et le coût des tests absorbent le gain de l'itération économisée. Le tangent est environ **4 % plus lent** que le profil creux. Il est livré comme alternative de recherche, pas comme profil recommandé pour la vitesse.
++
++La variante rencontrait un arrêt de recherche linéaire à un point primal déjà stationnaire numériquement. Elle dispose d'un événement terminal explicite : en cas de stagnation d'un point **déjà accepté et réalisable**, l'unique reconstruction finale indépendante des multiplicateurs peut être tentée. `solved` n'est retourné que si ce certificat original passe ; sinon l'échec reste un échec. Aucun point rejeté n'est accepté, aucun seuil KKT n'est relâché. Sur cette campagne, ce certificat a été utilisé une fois par résolution et vérifié indépendamment en Python.
++
++Je déconseille de représenter systématiquement `h=0` par deux inégalités convexifiées dans l'espoir d'accélérer case118 : cela introduit deux modèles, deux familles de multiplicateurs/barrières et des courbures opposées. La somme signée et la restriction tangentielle sont plus directement adaptées à la géométrie de l'égalité.
++
++## 4. Ce qui reste nécessaire pour viser 0,2 s
++
++Les mesures excluent un simple réglage de l'oracle comme solution : même en supprimant intégralement les quelque 0,206 s du modèle des égalités, il resterait environ **1,16 s**. Les majorants successifs sont encore 73, contre 22 itérations Ipopt ; la restauration seule coûte environ 0,12 s.
++
++Les prochaines modifications devraient viser simultanément :
++
++1. **Une représentation numérique persistante du modèle réduit.** Compiler les supports, les cartes de transformation et l'assemblage une fois par structure ; mettre à jour les coefficients lorsque le majorant change. Conserver l'audit complet à chaque transition structurelle et les résidus originaux à chaque acceptation. Aujourd'hui, une part substantielle du noyau reconstruit et revalide ces objets.
++2. **Une meilleure phase locale.** Réduire progressivement la correction/proximalité seulement avec une garde de courbure valide, pour se rapprocher d'un pas Newton du Lagrangien. Un traitement de type SQP primal-dual avec working set Lazy peut conserver la sélection à la demande, mais accepter un Hessien seulement localement admissible change la garantie de majorant convexe global. Cette distinction doit rester explicite.
++3. **Une courbure tangentielle moins chère.** Réutiliser le patron symbolique et les cartes d'élimination ; calculer un certificat réduit, puis réutiliser les objets structurels du pas. L'inertie du KKT avec barrière/Schur ne peut pas, à elle seule, remplacer le certificat de convexité du modèle sans barrière : ce sont deux matrices différentes.
++4. **Une restauration moins coûteuse sur le même départ.** Améliorer son calcul sans exporter un point initial différent pour Lazy et Ipopt. Un démarrage direct peut être étudié, mais il n'est pas activé dans la campagne livrée.
++
++La Hessienne exacte utilisée par Ipopt comprend aussi les contributions des inégalités, avec leurs multiplicateurs : [interface officielle d'Ipopt](https://coin-or.github.io/Ipopt/INTERFACES.html). La somme `B_eq` de cette branche n'est donc pas la Hessienne complète d'Ipopt. Les options de régularisation et de Hessienne d'Ipopt sont documentées dans [ses options officielles](https://coin-or.github.io/Ipopt/OPTIONS.html). Cela explique une différence algorithmique à investiguer ; ce n'est pas une preuve qu'une modification particulière atteindra 0,2 s.
++
++Un budget de recherche pourrait être 20 ms de démarrage/restauration, 25 pas à 6 ms et 30 ms de certification/autres frais. **Ce budget est un objectif, pas une mesure ni une promesse.** Cette livraison apporte une amélioration mesurée et une expérience de courbure contrôlée ; elle ne justifie pas de déclarer la parité avec Ipopt.
++
++## 5. Validation et contenu
++
++**123/123 tests enregistrés validés.** Les nouveaux tests couvrent la parité creux/générique sous transformation affine avec décalage non nul, pivots de signes opposés, correction de faible rang, gradients et multiplicateurs ; le rejet d'un modèle non fini ; les cas de courbure négative normale admissible, négative tangentielle refusée et égalités dupliquées singulières. Le test Python du benchmark refuse des faux résultats `solved`, des multiplicateurs invalides et une variante tangentielle qui n'aurait jamais été exercée.
++
++Pour chaque résolution mesurée, Python recalcule la faisabilité et les résidus KKT **non mis à l'échelle** à partir du fichier QCQP et des quatre vecteurs de multiplicateurs exportés. Les variables fixées sont exclues de la stationnarité libre selon la convention commune déjà utilisée pour Ipopt. Seuil absolu : `1e-6`.
++
++| Résidu original maximal sur les cinq essais | Ipopt | Contrôle / creux | Tangent |
++|---|---:|---:|---:|
++| Faisabilité primale | 7,70e-11 | 6,22e-14 | 1,18e-13 |
++| Stationnarité libre | 2,46e-7 | 3,69e-7 | 3,05e-7 |
++| Complémentarité | 1,71e-7 | 1,99e-13 | 1,30e-13 |
++
++Objectif commun proche de **97 213,607395**. Accord des objectifs avec Ipopt contrôlé ; un simple statut `solved` ne suffit pas au runner.
++
++- `INSTALL_AND_TEST_R3P27A1.md` : commandes complètes pour `pf_gpu`.
++- `python/benchmark_case118_r3p27a1.py` et son profil JSON : protocole reproductible.
++- `validation_r3p27a1/` : mesures brutes, commandes réellement exécutées, résumés, environnement, profil gprof et journal CTest. Les chemins absolus des observations désignent l'environnement de mesure, pas votre installation.
++- `changes_from_r3p27.patch` : différences des sources, hors preuves volumineuses et historique de manifeste.
++- `RELEASE_MANIFEST_SHA256_R3P27A1.txt` : intégrité de tous les fichiers livrés.
++
++Les anciens documents restent comme historique ; leurs identités, profils et chiffres ne décrivent pas cette branche. Utilisez le nouveau runner, pas l'ancien script qui vérifie spécifiquement l'API 4310.
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -738,11 +738,11 @@
+            COMMAND ${Python3_EXECUTABLE}
+              ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_verify_r3p27_ab.py)
+   set_tests_properties(verify_r3p27_ab PROPERTIES TIMEOUT 60)
+-  add_test(NAME r3p27_version_identity
++  add_test(NAME r3p27a1_version_identity
+            COMMAND lazyipdca_qcqp_cli --version)
+-  set_tests_properties(r3p27_version_identity PROPERTIES
++  set_tests_properties(r3p27a1_version_identity PROPERTIES
+     PASS_REGULAR_EXPRESSION
+-      "0.4.28r3p27-single-loop-hybrid-kkt.*API 4310.*r3p27-single-loop-hybrid-kkt-api-4310")
++      "0.4.28r3p27a1-lazy-equality-curvature.*API 4311.*r3p27a1-lazy-equality-curvature-api-4311")
+   set_tests_properties(benchmark_same_qcqp_r3p24 PROPERTIES
+     ENVIRONMENT "OMP_NUM_THREADS=1;OPENBLAS_NUM_THREADS=1;MKL_NUM_THREADS=1;BLIS_NUM_THREADS=1"
+     TIMEOUT 60)
+@@ -829,3 +829,12 @@
+   add_test(NAME cutest100_size_selector
+     COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_cutest100_selector.py)
+ endif()
++
++if(LAZYIPDCA_BUILD_TESTS)
++  add_executable(test_sparse_affine_tangent tests/test_sparse_affine_tangent.cpp)
++  target_link_libraries(test_sparse_affine_tangent PRIVATE lazyipdca_qcqp)
++  add_test(NAME sparse_affine_tangent COMMAND test_sparse_affine_tangent)
++  set_tests_properties(sparse_affine_tangent PROPERTIES ENVIRONMENT "OMP_NUM_THREADS=1;OPENBLAS_NUM_THREADS=1")
++  add_test(NAME benchmark_case118_r3p27a1_certificate
++    COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_benchmark_case118_r3p27a1.py)
++endif()
+--- /dev/null
++++ b/INSTALL_AND_TEST_R3P27A1.md
+@@ -0,0 +1,67 @@
++# Compiler et comparer r3p27a1 dans pf_gpu
++
++Prérequis dans l'environnement existant : CMake, Ninja, compilateur C++17, SuiteSparse LDL, METIS, BLAS/LAPACK ; Python, NumPy, SciPy et CasADi pour exporter/comparer à Ipopt. Le build exige LDL+METIS : ne substituez pas un backend manquant pour comparer les chiffres.
++
++Placez `lazyipdca_qcqp_v0.4.28r3p27a1_lazy_equality_curvature_source_only.tar.gz` dans `/data/projects/IPDCA_QCQP`. Ce bloc crée un répertoire d'installation neuf et lance une campagne sur votre `.m`. Une erreur arrête uniquement le processus Bash enfant ; votre terminal reste ouvert.
++
++```bash
++if bash -s <<'R3P27A1'
++set -Eeuo pipefail
++umask 022
++source "$(conda info --base)/etc/profile.d/conda.sh"
++conda activate pf_gpu
++BASE=/data/projects/IPDCA_QCQP
++TOP=lazyipdca_qcqp_v0.4.28r3p27a1_lazy_equality_curvature_source
++INSTALL=$(mktemp -d "$BASE/r3p27a1_XXXXXXXX")
++tar --no-same-owner -xzf "$BASE/${TOP}_only.tar.gz" -C "$INSTALL"
++SRC="$INSTALL/$TOP"
++(cd "$SRC" && sha256sum -c RELEASE_MANIFEST_SHA256_R3P27A1.txt)
++bash "$SRC/tools/build_pf_gpu_r3p27a1.sh"
++bash "$SRC/tools/run_case118_r3p27a1.sh" \
++  --base "$BASE" \
++  --case "$BASE/pglib-opf/pglib_opf_case118_ieee.m" \
++  --binary "$SRC/build_pf_gpu/lazyipdca_qcqp_cli" \
++  --threads 8 --warmups 1 --repetitions 5 --target-seconds 0.2
++printf 'SOURCE=%s\n' "$SRC"
++R3P27A1
++then
++  echo 'R3P27A1_CORRECTNESS=PASS'
++else
++  echo "R3P27A1_CORRECTNESS=FAIL rc=$? — terminal préservé"
++fi
++```
++
++L'identité attendue est `0.4.28r3p27a1-lazy-equality-curvature`, API 4311. Les trois profils Lazy utilisent le même binaire. Les profils existants restent inchangés par défaut ; l'optimisation est demandée explicitement.
++
++Le programme affiche `CAMPAIGN=...`, puis `SUMMARY=.../benchmark_summary.json`. Chaque campagne porte un nom unique. `CORRECTNESS=PASS` signifie que les solutions et les contrats vérifiés sont corrects. L'atteinte de la cible est le champ `target_met` de chaque mode ; elle est **distincte** de la validité numérique. Une solution correcte plus lente que 0,2 s n'est pas falsifiée en succès de performance.
++
++Pour comparer sur un QCQP déjà exporté, remplacez exclusivement la ligne `--case ...` par :
++
++```bash
++  --qcq /chemin/absolu/vers/case118.qcq \
++```
++
++Le fichier doit garder les dimensions `1088/980/979`. Le runner crée sa copie de travail puis en vérifie le SHA. N'utilisez pas un fichier exporté depuis la solution d'un autre solveur comme départ d'un seul des profils.
++
++La campagne locale livrée utilisait `--threads 1`. Pour comparer l'effet OpenMP sur votre machine, refaites une campagne avec 1 puis 8 threads, sans faire tourner les campagnes en parallèle. BLAS reste à un thread dans les deux cas. Les temps dépendent du processeur, des versions de LDL/METIS/BLAS et de l'export ; le SHA et l'environnement de chaque essai sont enregistrés.
++
++## Commandes utiles après installation
++
++Avec `SRC` désignant le répertoire affiché :
++
++```bash
++bash "$SRC/tools/build_pf_gpu_r3p27a1.sh"
++python "$SRC/python/benchmark_case118_r3p27a1.py" --help
++```
++
++Le profil complet et lisible est dans `python/case118_profile_r3p27a1.json`. Les différences des modes sont :
++
++| Mode du runner | Options spécifiques |
++|---|---|
++| `control` | `--no-lazyqp-affine-support-fastpath --dca-equality-model condensed-retraction` |
++| `sparse` | `--lazyqp-affine-support-fastpath --dca-equality-model condensed-retraction` |
++| `tangent` | `--lazyqp-affine-support-fastpath --dca-equality-model tangent-inertia` |
++
++L'alternative tangentielle exige le single-loop, la courbure condensée et le fallback block-exact ; le profil les fournit déjà. Son seuil de tentative est `--dca-tangent-inertia-trigger 1.0`. Les cinq essais livrés montrent que `sparse` est le plus rapide des profils Lazy testés.
++
++Les anciens runners `r3p27` vérifient l'API 4310 et doivent rester réservés à l'ancienne version. Ils ne sont pas réétiquetés pour masquer l'identité de cette branche.
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,25 @@
++# LazyIPDCA-QCQP r3p27a1 — arithmétique creuse et courbure des égalités
++
++Branche expérimentale issue de l'archive r3p27 fournie. Version
++`0.4.28r3p27a1-lazy-equality-curvature`, API **4311**.
++
++Sur cinq mesures locales case118 : **1,363 s** pour le profil creux,
++**2,419 s** pour le contrôle, **0,216 s** pour Ipopt. Cible 0,2 s **non atteinte**.
++La variante de courbure tangentielle certifiée est disponible en option ;
++elle atteint 1,417 s et reste expérimentale. **123 tests validés** et
++vérification indépendante des conditions KKT du problème original à `1e-6`.
++
++Consulter [l'analyse détaillée](ANALYSE_CASE118_R3P27A1.md),
++[les commandes de compilation et de comparaison](INSTALL_AND_TEST_R3P27A1.md)
++et les observations dans `validation_r3p27a1/`.
++Les nouveaux chemins sont désactivés par défaut ; le runner
++`tools/run_case118_r3p27a1.sh` les compare explicitement.
++
++---
++
++Les sections suivantes sont l'historique des versions antérieures.
++Les chiffres et scripts historiques ne décrivent pas r3p27a1.
++
+ # LazyIPDCA-QCQP v0.4.28r3p27
+ 
+ ## r3p27: single-loop hybrid inequality KKT
+--- a/include/lazyipdca_qcqp/curvature.hpp
++++ b/include/lazyipdca_qcqp/curvature.hpp
+@@ -44,6 +44,7 @@
+       const SymMatrix& Q, Convexification& cvx, double target_margin,
+       int max_rank = -1);
+   int calls() const { return calls_; }
++  double seconds() const { return seconds_; }
+   int partial_spectrum_workspace_queries() const {
+     return partial_spectrum_workspace_queries_;
+   }
+@@ -52,6 +53,7 @@
+   const Settings& st_;
+   std::mt19937 rng_;
+   int calls_ = 0;
++  double seconds_ = 0.0;
+   // DSYEVR mutates all of its dense/work arrays.  They therefore belong to
+   // one already-stateful oracle instance (calls_ and rng_ are stateful too),
+   // never to shared global storage.  A workspace queried for the largest
+--- a/include/lazyipdca_qcqp/inner_lazyqp.hpp
++++ b/include/lazyipdca_qcqp/inner_lazyqp.hpp
+@@ -29,7 +29,13 @@
+ // model in p. On any mismatch this fails closed so p can be solved unchanged.
+ bool build_exact_affine_subproblem_reduction(
+     const ConvexSubproblem& p, ExactAffineSubproblemReduction& reduction,
+-    std::string& message);
++    std::string& message, bool sparse_checks = false);
++
++// Numerical sufficient certificate of positive curvature on ker(A). All
++// affine eliminations are validated before checking the unregularized saddle
++// matrix inertia; singular or unsupported models are rejected.
++bool certify_affine_tangent_inertia(const ConvexSubproblem& model,
++    SymmetricFactorization& factor, std::string& message);
+ 
+ // Solver for an already-convex QCQP majorant.  No DC convexification occurs
+ // here.  The slack remains an independent primal variable.  At a trial point,
+--- a/include/lazyipdca_qcqp/qcqp_ipopt_termination.hpp
++++ b/include/lazyipdca_qcqp/qcqp_ipopt_termination.hpp
+@@ -39,11 +39,20 @@
+   int v_U_dimension = 0;
+ };
+ 
+-inline QCQPIpoptTermination qcqp_ipopt_termination(
++struct DefaultQCQPEvaluation {
++  double value(const QuadraticFunction& q,const Vec& x) { return q.value(x); }
++  void gradient_axpy(const QuadraticFunction& q,const Vec& x,double scale,Vec& y) {
++    axpy(scale,q.gradient(x),y);
++  }
++  double violation(const QCQPProblem& p,const Vec& x) { return feasibility(p,x).total_inf; }
++};
++
++template<class Evaluation>
++inline QCQPIpoptTermination qcqp_ipopt_termination_evaluated(
+     const QCQPProblem& p,
+     const Vec& x,
+     const QCQPTerminationMultipliers& mult,
+-    const Settings& st) {
++    const Settings& st, Evaluation& evaluation) {
+   QCQPIpoptTermination out;
+   if (!mult.valid || static_cast<int>(x.size()) != p.n ||
+       mult.equality.size() != p.equalities.size() ||
+@@ -88,7 +97,7 @@
+     y_l1 += std::abs(y);
+     out.equality_multiplier_inf =
+         std::max(out.equality_multiplier_inf, std::abs(y));
+-    if (y != 0.0) axpy(y, p.equalities[j].gradient(x), r);
++    if (y != 0.0) evaluation.gradient_axpy(p.equalities[j],x,y,r);
+   }
+ 
+   double comp_inf = 0.0;
+@@ -99,9 +108,9 @@
+     z_l1 += mu; // v_U; grad_L(s)=v_U-y_d=0 in the canonical slack form
+     out.inequality_multiplier_inf =
+         std::max(out.inequality_multiplier_inf, mu);
+-    if (mu != 0.0) axpy(mu, p.inequalities[i].gradient(x), r);
++    if (mu != 0.0) evaluation.gradient_axpy(p.inequalities[i],x,mu,r);
+     comp_inf =
+-        std::max(comp_inf, std::abs(mu * p.inequalities[i].value(x)));
++        std::max(comp_inf, std::abs(mu * evaluation.value(p.inequalities[i],x)));
+   }
+ 
+   const bool have_lb =
+@@ -144,10 +153,17 @@
+                        out.v_L_dimension + out.v_U_dimension;
+   const int dual_dim = out.y_c_dimension + out.y_d_dimension + comp_dim;
+   const double dual = inf_norm(r);
+-  const double constr = feasibility(p, x).total_inf;
++  const double constr = evaluation.violation(p,x);
+   out.stop = ipopt_desired_convergence_metrics(
+       dual, constr, comp_inf, y_l1, z_l1, dual_dim, comp_dim, st);
+   return out;
+ }
+ 
++inline QCQPIpoptTermination qcqp_ipopt_termination(
++    const QCQPProblem& p,const Vec& x,const QCQPTerminationMultipliers& mult,
++    const Settings& st) {
++  DefaultQCQPEvaluation evaluation;
++  return qcqp_ipopt_termination_evaluated(p,x,mult,st,evaluation);
++}
++
+ } // namespace lazyipdca::qcqp
+--- a/include/lazyipdca_qcqp/result.hpp
++++ b/include/lazyipdca_qcqp/result.hpp
+@@ -36,6 +36,10 @@
+   std::string linear_solver_backend = "native_dense_lapack";
+   std::string effective_outer_algorithm = "unresolved";
+   Vec x;
++  Vec certificate_equality_multipliers;
++  Vec certificate_inequality_multipliers;
++  Vec certificate_lower_multipliers;
++  Vec certificate_upper_multipliers;
+   double objective = 0.0;
+   Feasibility feasibility;
+   // Historical projected-stationarity trajectory diagnostic.
+@@ -446,6 +450,13 @@
+   int terminal_kkt_active_stability = 0;
+   double terminal_kkt_multiplier_cutoff = 0.0;
+   double elapsed_seconds = 0.0;
++  double constraint_curvature_seconds = 0.0;
++  double equality_model_seconds = 0.0;
++  double primary_model_build_seconds = 0.0;
++  double primary_inner_seconds = 0.0;
++  int equality_tangent_inertia_attempts = 0;
++  int equality_tangent_inertia_acceptances = 0;
++  int equality_tangent_stall_certificates = 0;
+ };
+ 
+ } // namespace lazyipdca::qcqp
+--- a/include/lazyipdca_qcqp/settings.hpp
++++ b/include/lazyipdca_qcqp/settings.hpp
+@@ -195,6 +195,7 @@
+   // supports.  The generic dense traversal remains the default and is always
+   // used for models with a dense shift or a low-rank term.
+   bool lazyqp_model_support_fastpath = false;
++  bool lazyqp_affine_support_fastpath = false;
+ 
+   // Representation of retained rank-one curvature corrections in LazyQP.
+   // This is deliberately independent of exact_eigen_threshold, which belongs
+@@ -349,6 +350,7 @@
+   // elastic-split
+   //   Experimental two-majorant elastic alternative retained for comparison.
+   std::string dca_equality_model = "linearized";
++  double dca_tangent_inertia_trigger = 1.0;
+ 
+   int dca_condensed_newton_iterations = 8;
+   int dca_condensed_krylov_iterations = 16;
+--- a/include/lazyipdca_qcqp/single_loop_policy.hpp
++++ b/include/lazyipdca_qcqp/single_loop_policy.hpp
+@@ -45,10 +45,11 @@
+ // This deliberately evaluates the original QCQP KKT equations, not the affine
+ // majorant equations.  It is a finiteness/provenance guard, not a convergence
+ // certificate: the final independent multiplier fit remains mandatory.
++template<class Evaluation=DefaultQCQPEvaluation>
+ inline SingleLoopMultiplierGuard guard_single_loop_multiplier_transport(
+     const QCQPProblem& problem, const Vec& point,
+     const QCQPTerminationMultipliers& multipliers,
+-    const Settings& settings) {
++    const Settings& settings, Evaluation evaluation=Evaluation{}) {
+   SingleLoopMultiplierGuard guard;
+   if (!multipliers.valid || point.size() != static_cast<std::size_t>(problem.n) ||
+       multipliers.equality.size() != problem.equalities.size() ||
+@@ -72,8 +73,8 @@
+       !finite_nonnegative(multipliers.upper_bound))
+     return guard;
+ 
+-  const QCQPIpoptTermination original = qcqp_ipopt_termination(
+-      problem, point, multipliers, settings);
++  const QCQPIpoptTermination original = qcqp_ipopt_termination_evaluated(
++      problem, point, multipliers, settings, evaluation);
+   guard.original_dual_infeasibility = original.stop.dual_infeasibility;
+   guard.original_complementarity = original.stop.complementarity;
+   guard.accepted = original.stop.finite;
+--- a/include/lazyipdca_qcqp/version.hpp
++++ b/include/lazyipdca_qcqp/version.hpp
+@@ -1,7 +1,7 @@
+ #pragma once
+ namespace lazyipdca::qcqp {
+ inline constexpr const char* kSolverName = "LazyIPDCA-QCQP";
+-inline constexpr const char* kVersion = "0.4.28r3p27-single-loop-hybrid-kkt";
+-inline constexpr int kApiVersion = 4310;
+-inline constexpr const char* kBuildId = "v0.4.28r3p27-single-loop-hybrid-kkt-api-4310";
++inline constexpr const char* kVersion = "0.4.28r3p27a1-lazy-equality-curvature";
++inline constexpr int kApiVersion = 4311;
++inline constexpr const char* kBuildId = "v0.4.28r3p27a1-lazy-equality-curvature-api-4311";
+ }
+--- /dev/null
++++ b/python/benchmark_case118_r3p27a1.py
+@@ -0,0 +1,208 @@
++#!/usr/bin/env python3
++"""Frozen-QCQP comparison: Ipopt, r3p27 control, sparse audits, tangent inertia.
++
++Every measured endpoint is independently checked with the file coefficients
++and the exported certificate multipliers. No tolerance is relaxed for timing.
++"""
++from __future__ import annotations
++import argparse
++import hashlib
++import json
++import math
++import os
++from pathlib import Path
++import shutil
++import statistics
++import subprocess
++import sys
++import time
++from qcq_model_r3p23 import read_qcq
++
++VERSION='0.4.28r3p27a1-lazy-equality-curvature'
++BUILD_ID='v'+VERSION+'-api-4311'
++TOL=1e-6
++ROOT=Path(__file__).resolve().parents[1]
++MODES=('ipopt','control','sparse','tangent')
++
++def finite(v):
++    return isinstance(v,(float,int)) and not isinstance(v,bool) and math.isfinite(v)
++
++def digest(path):
++    return hashlib.sha256(path.read_bytes()).hexdigest()
++
++def check_lazy(model,result,mode):
++    if result.get('status')!='solved':
++        raise ValueError(str(result.get('message','not solved')))
++    if result.get('version')!=VERSION or result.get('build_id')!=BUILD_ID or result.get('api_version')!=4311:
++        raise ValueError('incorrect solver identity')
++    names=('certificate_equality_multipliers','certificate_inequality_multipliers',
++           'certificate_lower_multipliers','certificate_upper_multipliers')
++    vectors=[result.get(k) for k in names]
++    sizes=(len(model.equalities),len(model.inequalities),model.n,model.n)
++    for k,v,n in zip(names,vectors,sizes):
++        if not isinstance(v,list) or len(v)!=n or not all(finite(x) for x in v):
++            raise ValueError('invalid certificate vector '+k)
++    equality,inequality,lower,upper=vectors
++    if any(x<0 for v in (inequality,lower,upper) for x in v):
++        raise ValueError('negative inequality/bound multiplier')
++    x=result.get('x')
++    if not isinstance(x,list) or len(x)!=model.n or not all(finite(v) for v in x):
++        raise ValueError('invalid primal vector')
++    residuals=model.residuals(x)
++    residuals.update(model.kkt_residuals(x,equality+inequality,[u-l for u,l in zip(upper,lower)]))
++    # Check the two bound multiplier sides separately as well.
++    for j in range(model.n):
++        if model.lb[j]==model.ub[j]:
++            continue
++        for b,z in ((model.lb[j],lower[j]),(model.ub[j],upper[j])):
++            if math.isfinite(b):
++                residuals['complementarity_inf']=max(residuals['complementarity_inf'],abs(z*(x[j]-b)))
++            elif z!=0:
++                raise ValueError('multiplier on an absent bound')
++    for k,v in residuals.items():
++        if not finite(v) or not 0<=v<=TOL:
++            raise ValueError(f'independent original KKT failed: {k}={v}')
++    objective=model.objective_value(x)
++    if not finite(result.get('objective')) or abs(objective-result['objective'])>1e-7*max(1,abs(objective)):
++        raise ValueError('objective mismatch with original file')
++    for k in ('dual_infeasibility_inf','complementarity_inf','scaled_nlp_error'):
++        if not finite(result.get(k)) or not 0<=result[k]<=TOL:
++            raise ValueError('invalid reported KKT '+k)
++    if result.get('dca_single_loop_full_refit_calls')!=1 or result.get('multiplier_refit_attempts')!=0:
++        raise ValueError('single-loop final-only multiplier-fit contract violated')
++    if result.get('lazy_dca_equality_retraction_attempts')!=0:
++        raise ValueError('unexpected equality retraction')
++    expected='tangent-inertia' if mode=='tangent' else 'condensed-retraction'
++    if result.get('lazy_dca_equality_model')!=expected:
++        raise ValueError('wrong equality model')
++    if mode=='tangent' and result.get('equality_tangent_inertia_acceptances',0)<1:
++        raise ValueError('tangent alternative never exercised')
++    return objective,residuals
++
++def main(argv=None):
++    parser=argparse.ArgumentParser(description=__doc__)
++    source=parser.add_mutually_exclusive_group(required=True)
++    source.add_argument('--case',type=Path)
++    source.add_argument('--qcq',type=Path)
++    parser.add_argument('--binary',type=Path,required=True)
++    parser.add_argument('--output',type=Path)
++    parser.add_argument('--base',type=Path,default=Path('/data/projects/IPDCA_QCQP'))
++    parser.add_argument('--repetitions',type=int,default=5)
++    parser.add_argument('--warmups',type=int,default=1)
++    parser.add_argument('--threads',type=int,default=8)
++    parser.add_argument('--time-limit',type=float,default=1800)
++    parser.add_argument('--target-seconds',type=float,default=.2)
++    args=parser.parse_args(argv)
++    if args.repetitions<1 or args.warmups<0 or args.threads<1 or not finite(args.time_limit) or args.time_limit<=0 or not finite(args.target_seconds) or args.target_seconds<=0:
++        parser.error('positive repetitions/threads/time limits required; warmups>=0')
++    binary=args.binary.resolve(strict=True)
++    banner=subprocess.check_output([str(binary),'--version'],text=True)
++    if BUILD_ID not in banner: parser.error('the r3p27a1 binary is required')
++    out=(args.output or args.base/'results'/('R3P27A1_CASE118_'+time.strftime('%Y%m%d_%H%M%S')+'_'+str(time.time_ns()))).resolve()
++    out.mkdir(parents=True,exist_ok=False)
++    print('CAMPAIGN='+str(out),flush=True)
++    env=dict(os.environ,OMP_NUM_THREADS=str(args.threads),OMP_DYNAMIC='FALSE',
++             OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',BLIS_NUM_THREADS='1')
++    qcq=out/'case118.shared.qcq'
++    if args.qcq:
++        shutil.copyfile(args.qcq.resolve(strict=True),qcq)
++        provenance={'input_qcq':str(args.qcq.resolve()),'input_sha256':digest(args.qcq)}
++    else:
++        case=args.case.resolve(strict=True)
++        command=[sys.executable,str(ROOT/'python/export_pglib_qcqp_r3p23.py'),str(case),
++                 '--output',str(qcq),'--json',str(out/'export.json'),'--flow-limit','apparent',
++                 '--power-flow-start','--no-power-flow-voltage-continuation']
++        with (out/'export.log').open('w') as log:
++            subprocess.run(command,env=env,stdout=log,stderr=log,check=True)
++        provenance={'case':str(case),'case_sha256':digest(case)}
++    model=read_qcq(qcq)
++    if (model.n,len(model.equalities),len(model.inequalities))!=(1088,980,979):
++        raise ValueError('expected the unchanged 1088/980/979 case118 export')
++    sha=digest(qcq);qcq.chmod(0o444)
++    profile=json.loads((ROOT/'python/case118_profile_r3p27a1.json').read_text())
++    records=[]
++    def run(mode,index,warmup):
++        stem=('warmup_' if warmup else 'run_')+str(index)+'_'+mode
++        result_path=out/(stem+'.json')
++        before=digest(qcq)
++        if before!=sha: raise ValueError('model changed before '+stem)
++        if mode=='ipopt':
++            command=[sys.executable,str(ROOT/'python/solve_qcq_ipopt_casadi_r3p23.py'),str(qcq),
++                     '--json',str(result_path),'--tol','1e-6','--constr-viol-tol','1e-6',
++                     '--dual-inf-tol','1e-6','--compl-inf-tol','1e-6','--max-iter','3000',
++                     '--time-limit',str(args.time_limit),'--linear-solver','mumps','--print-level','0']
++        else:
++            command=[str(binary),'--problem',str(qcq),'--json',str(result_path)]+profile+[
++                '--time-limit',str(args.time_limit),'--quiet',
++                '--lazyqp-affine-support-fastpath' if mode!='control' else '--no-lazyqp-affine-support-fastpath',
++                '--dca-equality-model','tangent-inertia' if mode=='tangent' else 'condensed-retraction']
++        record={'mode':mode,'index':index,'warmup':warmup,'command':command,'sha256_before':before}
++        start=time.perf_counter()
++        with (out/(stem+'.log')).open('w') as log:
++            try:
++                process=subprocess.run(command,env=env,stdout=log,stderr=log,timeout=args.time_limit+60)
++                record['returncode']=process.returncode
++            except subprocess.TimeoutExpired:
++                record['returncode']=-1
++        record['process_seconds']=time.perf_counter()-start
++        record['sha256_after']=digest(qcq)
++        if record['sha256_after']!=sha: raise ValueError('model changed after '+stem)
++        try:
++            result=json.loads(result_path.read_text())
++            if record['returncode']!=0: raise ValueError('optimizer returned '+str(record['returncode'])+': '+str(result.get('message')))
++            if mode=='ipopt':
++                if not result.get('success') or not result.get('kkt_passed') or result.get('model_sha256')!=sha:
++                    raise ValueError('Ipopt reference failed')
++                residuals=result['residuals']
++                if any(not finite(v) or v<0 or v>TOL for v in residuals.values()): raise ValueError('invalid Ipopt KKT')
++                objective=result['objective'];seconds=result['solver_seconds'];iterations=result['iterations']
++            else:
++                objective,residuals=check_lazy(model,result,mode)
++                seconds=result['elapsed_seconds'];iterations=result['outer_iterations']
++                for k in ('inner_iterations','dca_single_loop_factorizations','equality_tangent_inertia_attempts',
++                          'equality_tangent_inertia_acceptances','equality_tangent_stall_certificates',
++                          'equality_model_seconds','primary_inner_seconds','primary_model_build_seconds','restoration_total_seconds'):
++                    record[k]=result.get(k)
++            if not finite(objective): raise ValueError('nonfinite objective')
++            if not finite(seconds) or seconds<0: raise ValueError('invalid solve time')
++            record.update(valid=True,objective=objective,residuals=residuals,solver_seconds=seconds,iterations=iterations)
++        except (OSError,ValueError,KeyError,TypeError) as exc:
++            record.update(valid=False,error=str(exc))
++        records.append(record)
++        (out/'records.json').write_text(json.dumps(records,indent=2,allow_nan=False)+'\n')
++        print(stem, 'PASS' if record['valid'] else 'FAIL', record.get('solver_seconds',record.get('error')),flush=True)
++    for i in range(args.warmups):
++        for mode in MODES:run(mode,i+1,True)
++    for i in range(args.repetitions):
++        order=MODES[i%4:]+MODES[:i%4]
++        for mode in order:run(mode,i+1,False)
++    reference=[r['objective'] for r in records if r['mode']=='ipopt' and r['valid']]
++    if reference:
++        fref=statistics.median(reference)
++        for r in records:
++            if r['valid'] and abs(r['objective']-fref)>1e-5+1e-8*abs(fref):
++                r.update(valid=False,error='objective differs from Ipopt reference')
++    else:
++        for r in records:r.update(valid=False,error='no valid Ipopt reference')
++    summary={'schema':'lazyipdca-case118-r3p27a1-v1','model_sha256':sha,'provenance':provenance,
++             'dimensions':[1088,980,979],'tolerance':TOL,'target_seconds':args.target_seconds,
++             'environment':{k:env[k] for k in ['OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','BLIS_NUM_THREADS']},
++             'all_correct':all(r['valid'] for r in records),'modes':{}}
++    for mode in MODES:
++        selected=[r for r in records if r['mode']==mode and not r['warmup']]
++        valid=[r for r in selected if r['valid']]
++        data={'valid_runs':len(valid),'measured_runs':len(selected)}
++        if len(valid)==len(selected):
++            data['median_solver_seconds']=statistics.median(r['solver_seconds'] for r in valid)
++            data['median_process_seconds']=statistics.median(r['process_seconds'] for r in valid)
++            data['iterations']=[r['iterations'] for r in valid]
++            data['target_met']=data['median_solver_seconds']<=args.target_seconds
++        summary['modes'][mode]=data
++    (out/'records.json').write_text(json.dumps(records,indent=2,allow_nan=False)+'\n')
++    (out/'benchmark_summary.json').write_text(json.dumps(summary,indent=2,allow_nan=False)+'\n')
++    print(json.dumps(summary['modes'],indent=2),flush=True)
++    print('CORRECTNESS='+('PASS' if summary['all_correct'] else 'FAIL'),flush=True)
++    print('SUMMARY='+str(out/'benchmark_summary.json'),flush=True)
++    return 0 if summary['all_correct'] else 1
++if __name__=='__main__':
++    raise SystemExit(main())
+--- /dev/null
++++ b/python/case118_profile_r3p27a1.json
+@@ -0,0 +1,136 @@
++[
++  "--algorithm",
++  "lazy-dca",
++  "--inner-backend",
++  "lazyqp",
++  "--linear-backend",
++  "ldl",
++  "--qp-backend",
++  "ldl",
++  "--linear-metis",
++  "1",
++  "--qp-option",
++  "C",
++  "--qp-amrs",
++  "--qp-init",
++  "2",
++  "--qp-mehrotra",
++  "--qp-bp-adaptive",
++  "--kkt-adaptive-reg",
++  "--kkt-persistent-symbolic-cache",
++  "--no-equality-qp-original-kkt-gmres",
++  "--no-lazyqp-numeric-kkt-reuse",
++  "--lazyqp-model-support-fastpath",
++  "--lazyqp-hybrid-retained-ineq",
++  "2",
++  "--lazyqp-hybrid-min-row-nnz",
++  "64",
++  "--inner-full-dual-warm-start",
++  "--lazyqp-warm-guard",
++  "2",
++  "--dca-affine-box-bounded-lazy",
++  "--feas-tol",
++  "1e-6",
++  "--opt-tol",
++  "1e-6",
++  "--dual-inf-tol",
++  "1e-6",
++  "--compl-inf-tol",
++  "1e-6",
++  "--kkt-berr-tol",
++  "1e-9",
++  "--kkt-berr-reject",
++  "1e-7",
++  "--kkt-refine",
++  "3",
++  "--inner-tol",
++  "1e-8",
++  "--inner-mu-fallback-tol",
++  "1e-7",
++  "--restoration-iters",
++  "600",
++  "--restoration-restarts",
++  "16",
++  "--restoration-restart-iters",
++  "400",
++  "--restoration-exact-workspace-reuse",
++  "--restoration-exact-sparse-row-dots",
++  "--restoration-exact-parallel-row-dots",
++  "--restoration-exact-parallel-min-rows",
++  "128",
++  "--dca-inner-retries",
++  "3",
++  "--dca-inner-retry-prox",
++  "1e-6",
++  "--dca-step-control",
++  "--no-soc",
++  "--working-set-drop-patience",
++  "8",
++  "--activation",
++  "5e-4",
++  "--dca-equality-funnel-auto",
++  "--no-dca-corrector",
++  "--no-dca-iterated-soc",
++  "--no-dca-equality-retraction",
++  "--dca-equality-model",
++  "condensed-retraction",
++  "--dca-condensed-curvature",
++  "--lazyqp-low-rank-form",
++  "bordered",
++  "--dca-condensed-max-rank",
++  "8",
++  "--dca-condensed-scalar-safeguard-updates",
++  "8",
++  "--dca-condensed-newton-iters",
++  "12",
++  "--dca-condensed-krylov-iters",
++  "32",
++  "--dca-condensed-krylov-rtol",
++  "1e-6",
++  "--dca-condensed-continuation",
++  "32",
++  "--dca-condensed-tol",
++  "1e-8",
++  "--dca-condensed-adaptive-normal-refinement",
++  "--dca-condensed-normal-intermediate-berr-tol",
++  "1e-6",
++  "--dca-condensed-normal-intermediate-berr-reject",
++  "1e-4",
++  "--dca-condensed-normal-strict-stationarity-factor",
++  "1e3",
++  "--dca-condensed-alpha-predictor",
++  "--dca-condensed-alpha-growth",
++  "2",
++  "--dca-condensed-alpha-full-step-frequency",
++  "8",
++  "--dca-condensed-flow-lift-schur",
++  "--no-dca-condensed-post-retraction-ws-expansion",
++  "--no-dca-condensed-modeled-side-filter",
++  "--dca-condensed-block-exact-curvature",
++  "--no-dca-condensed-projected-multi-ritz-inertia",
++  "--lazyqp-flow-lift-elimination",
++  "--no-dca-condensed-outer-extrapolation",
++  "--no-terminal-kkt",
++  "--max-outer",
++  "1000",
++  "--max-inner",
++  "1",
++  "--time-limit",
++  "1800",
++  "--no-live-iterations",
++  "--dca-single-loop-primal-dual",
++  "--dca-single-loop-inner-steps",
++  "1",
++  "--dca-single-loop-forcing-eta",
++  "0.9",
++  "--dca-single-loop-baseline-prox",
++  "0.05",
++  "--dca-single-loop-multiplier-transport",
++  "--no-dca-single-loop-direct-start",
++  "--no-lazyqp-inexact-forcing",
++  "--lazyqp-zero-dual-continuation",
++  "--lazyqp-zero-dual-mu-cap",
++  "1e-2",
++  "--lazyqp-kkt-form",
++  "hybrid"
++]
+--- a/src/curvature.cpp
++++ b/src/curvature.cpp
+@@ -2,6 +2,7 @@
+ 
+ #include <algorithm>
+ #include <cmath>
++#include <chrono>
+ #include <iostream>
+ #include <iterator>
+ #include <limits>
+@@ -524,6 +525,11 @@
+ }
+ 
+ void CurvatureOracle::ensure_convex(const SymMatrix& Q, Convexification& cvx, double target_margin, int max_rank) {
++  struct Timer {
++    double& seconds;
++    std::chrono::steady_clock::time_point start=std::chrono::steady_clock::now();
++    ~Timer() { seconds+=std::chrono::duration<double>(std::chrono::steady_clock::now()-start).count(); }
++  } timer{seconds_};
+   if (Q.n == 0) return;
+ 
+   // Optional proof-oriented fallback. Because low-rank terms are PSD, a
+--- a/src/inner_lazyqp.cpp
++++ b/src/inner_lazyqp.cpp
+@@ -578,6 +578,38 @@
+   return reduced;
+ }
+ 
++// Sparse arithmetic for affine composition/audits. Supports are rebuilt from
++// the current immutable model, never reused across a changed majorant.
++Vec supported_transpose_gradient(const ConvexQuadraticModel& model,
++    const Vec& x, const std::vector<SparseRow>& transform, int reduced_n,
++    const ModelSupport& support) {
++  if(!support.eligible)
++    return transform_transpose_product(transform,reduced_n,model.gradient(x));
++  Vec work(model.linear.size(),0.0), result(reduced_n,0.0);
++  model_gradient_support_into(model,x,work,support,nullptr);
++  for(int j:support.index)
++    for(const auto& [k,a]:transform[static_cast<std::size_t>(j)].entries)
++      result[static_cast<std::size_t>(k)]+=a*work[static_cast<std::size_t>(j)];
++  return result;
++}
++
++void supported_gradient_axpy(const ConvexQuadraticModel& model,
++    const Vec& x, double multiplier, Vec& destination,
++    const ModelSupport& support, Vec& workspace) {
++  if(!support.eligible) {
++    axpy(multiplier,model.gradient(x),destination);
++    return;
++  }
++  model_gradient_support_into(model,x,workspace,support,nullptr);
++  for(int j:support.index)
++    destination[static_cast<std::size_t>(j)]+=multiplier*workspace[static_cast<std::size_t>(j)];
++}
++
++double supported_value(const ConvexQuadraticModel& model,const Vec& x,
++                       const ModelSupport& support) {
++  return support.eligible ? model_value_support(model,x,support,nullptr) : model.value(x);
++}
++
+ void add_polynomial_quadratic(
+     std::map<std::pair<int, int>, double>& upper, int i, int j,
+     double polynomial_coefficient) {
+@@ -596,7 +628,7 @@
+ bool compose_quadratic_model(
+     const ConvexQuadraticModel& full, const Vec& offset,
+     const std::vector<SparseRow>& transform, int reduced_n,
+-    ConvexQuadraticModel& reduced, std::string& message) {
++    ConvexQuadraticModel& reduced, std::string& message, bool sparse_checks) {
+   const int full_n = static_cast<int>(transform.size());
+   if (!valid_quadratic_model(full, full_n) ||
+       static_cast<int>(offset.size()) != full_n) {
+@@ -605,9 +637,9 @@
+   }
+ 
+   try {
+-    reduced.constant = full.value(offset);
+-    reduced.linear = transform_transpose_product(
+-        transform, reduced_n, full.gradient(offset));
++    const auto support=sparse_checks ? build_model_support(full,full_n) : ModelSupport{};
++    reduced.constant = supported_value(full,offset,support);
++    reduced.linear = supported_transpose_gradient(full,offset,transform,reduced_n,support);
+   } catch (const std::exception& e) {
+     message = std::string("affine quadratic composition failed: ") + e.what();
+     return false;
+@@ -682,7 +714,7 @@
+ bool validate_affine_reduction(
+     const ConvexSubproblem& full,
+     const ExactAffineSubproblemReduction& reduction,
+-    std::string& message) {
++    std::string& message, bool sparse_checks) {
+   const int reduced_n = reduction.reduced.nvar;
+   std::vector<Vec> probes;
+   probes.emplace_back(static_cast<std::size_t>(reduced_n), 0.0);
+@@ -701,8 +733,10 @@
+     auto check_model = [&](const ConvexQuadraticModel& original,
+                            const ConvexQuadraticModel& mapped,
+                            const char* label) {
+-      const double original_value = original.value(y);
+-      const double mapped_value = mapped.value(z);
++      const auto original_support=sparse_checks ? build_model_support(original,full.nvar) : ModelSupport{};
++      const auto mapped_support=sparse_checks ? build_model_support(mapped,reduced_n) : ModelSupport{};
++      const double original_value = supported_value(original,y,original_support);
++      const double mapped_value = supported_value(mapped,z,mapped_support);
+       if (!close_scalar(original_value, mapped_value)) {
+         std::ostringstream os;
+         os << label << " affine value mismatch: " << original_value
+@@ -710,9 +744,13 @@
+         message = os.str();
+         return false;
+       }
+-      const Vec expected = transform_transpose_product(
+-          reduction.transform_rows, reduced_n, original.gradient(y));
+-      const Vec actual = mapped.gradient(z);
++      const Vec expected = supported_transpose_gradient(original,y,
++          reduction.transform_rows,reduced_n,original_support);
++      Vec actual;
++      if(mapped_support.eligible) {
++        actual.assign(reduced_n,0.0);
++        model_gradient_support_into(mapped,z,actual,mapped_support,nullptr);
++      } else actual=mapped.gradient(z);
+       if (expected.size() != actual.size()) {
+         message = std::string(label) + " affine gradient dimension mismatch";
+         return false;
+@@ -791,7 +829,7 @@
+ 
+ bool build_exact_affine_subproblem_reduction(
+     const ConvexSubproblem& p, ExactAffineSubproblemReduction& reduction,
+-    std::string& message) {
++    std::string& message, bool sparse_checks) {
+   reduction = {};
+   bool committed = false;
+   struct ResetPartialReduction {
+@@ -959,13 +997,13 @@
+       p.prefer_feasible_centered_start;
+   if (!compose_quadratic_model(p.objective, reduction.offset,
+                                reduction.transform_rows, reduced_n,
+-                               reduction.reduced.objective, message))
++                               reduction.reduced.objective, message, sparse_checks))
+     return false;
+   reduction.reduced.inequalities.resize(p.inequalities.size());
+   for (std::size_t i = 0; i < p.inequalities.size(); ++i)
+     if (!compose_quadratic_model(
+             p.inequalities[i], reduction.offset, reduction.transform_rows,
+-            reduced_n, reduction.reduced.inequalities[i], message))
++            reduced_n, reduction.reduced.inequalities[i], message, sparse_checks))
+       return false;
+ 
+   reduction.reduced.equalities.nvar = reduced_n;
+@@ -1056,7 +1094,7 @@
+   }
+   reduction.reduced.exact_affine_eliminations.clear();
+ 
+-  if (!validate_affine_reduction(p, reduction, message)) {
++  if (!validate_affine_reduction(p, reduction, message, sparse_checks)) {
+     return false;
+   }
+   committed = true;
+@@ -1078,17 +1116,6 @@
+         residual, std::abs(current));
+   }
+   return residual;
+-}
+-
+-double inequality_violation_inf(const ConvexSubproblem& p, const Vec& y) {
+-  double violation = 0.0;
+-  for (const auto& inequality : p.inequalities) {
+-    const double value = inequality.value(y);
+-    if (!std::isfinite(value))
+-      return std::numeric_limits<double>::infinity();
+-    violation = std::max(violation, std::max(0.0, value));
+-  }
+-  return violation;
+ }
+ 
+ struct FullAffineStateAudit {
+@@ -1110,7 +1137,9 @@
+     const ConvexSubproblem& full,
+     const ExactAffineSubproblemReduction& reduction,
+     const Vec& reduced_primal,const Vec& reduced_equality_duals,
+-    const Vec& inequality_duals,const Vec& inequality_slacks) {
++    const Vec& inequality_duals,const Vec& inequality_slacks,
++    const std::vector<ModelSupport>& supports) {
++  Vec gradient_workspace;
+   FullAffineStateAudit audit;
+   if(static_cast<int>(reduced_primal.size())!=reduction.reduced.nvar ||
+      reduced_equality_duals.size()!=reduction.retained_equalities.size() ||
+@@ -1139,9 +1168,8 @@
+               no_eliminated);
+   for(int i=0;i<(int)full.inequalities.size();++i)
+     if(inequality_duals[static_cast<std::size_t>(i)]!=0.0)
+-      axpy(inequality_duals[static_cast<std::size_t>(i)],
+-           full.inequalities[static_cast<std::size_t>(i)].gradient(
+-               audit.primal),no_eliminated);
++      supported_gradient_axpy(full.inequalities[i],audit.primal,
++          inequality_duals[i],no_eliminated,supports[i],gradient_workspace);
+   for(const auto& elimination:reduction.eliminations) {
+     double pivot=0.0;
+     for(const auto& [j,value]:full.equalities.rows[
+@@ -1158,22 +1186,21 @@
+               audit.equality_duals[static_cast<std::size_t>(r)],dual);
+   for(int i=0;i<(int)full.inequalities.size();++i)
+     if(inequality_duals[static_cast<std::size_t>(i)]!=0.0)
+-      axpy(inequality_duals[static_cast<std::size_t>(i)],
+-           full.inequalities[static_cast<std::size_t>(i)].gradient(
+-               audit.primal),dual);
++      supported_gradient_axpy(full.inequalities[i],audit.primal,
++          inequality_duals[i],dual,supports[i],gradient_workspace);
+   if(!finite_vec(dual)||!finite_vec(audit.equality_duals)) return audit;
+ 
+   audit.dual_inf=max_abs(dual);
+   audit.equality_inf=equality_residual_inf(full,audit.primal);
+-  audit.inequality_inf=inequality_violation_inf(full,audit.primal);
++  audit.inequality_inf=0.0;
+   audit.primal_slack_inf=0.0;
+   audit.complementarity_inf=0.0;
+   bool interior=true;
+   for(int i=0;i<(int)full.inequalities.size();++i) {
+     const double zi=inequality_duals[static_cast<std::size_t>(i)];
+     const double si=inequality_slacks[static_cast<std::size_t>(i)];
+-    const double phi=full.inequalities[static_cast<std::size_t>(i)].value(
+-        audit.primal);
++    const double phi=supported_value(full.inequalities[i],audit.primal,supports[i]);
++    audit.inequality_inf=std::max(audit.inequality_inf,phi);
+     interior=interior&&zi>0.0&&si>0.0&&std::isfinite(phi);
+     audit.primal_slack_inf=std::max(
+         audit.primal_slack_inf,std::abs(phi+si));
+@@ -1214,6 +1241,10 @@
+         reduction.retained_equalities[static_cast<std::size_t>(k)])] =
+         reduced_result.equality_duals[static_cast<std::size_t>(k)];
+ 
++  const auto supports=settings.lazyqp_affine_support_fastpath
++      ? build_model_supports(full.inequalities,full.nvar)
++      : std::vector<ModelSupport>(full.inequalities.size());
++  Vec gradient_workspace;
+   // Stationarity without the eliminated equality multipliers.  The strict
+   // structural contract makes each pivot column unique, so its missing free
+   // multiplier is recovered independently from that coordinate.
+@@ -1229,9 +1260,8 @@
+     const double multiplier =
+         expanded.inequality_duals[static_cast<std::size_t>(i)];
+     if (multiplier != 0.0)
+-      axpy(multiplier,
+-           full.inequalities[static_cast<std::size_t>(i)].gradient(expanded.y),
+-           no_eliminated);
++      supported_gradient_axpy(full.inequalities[i],expanded.y,multiplier,
++          no_eliminated,supports[i],gradient_workspace);
+   }
+ 
+   for (const auto& elimination : reduction.eliminations) {
+@@ -1258,9 +1288,8 @@
+     const double multiplier =
+         expanded.inequality_duals[static_cast<std::size_t>(i)];
+     if (multiplier != 0.0)
+-      axpy(multiplier,
+-           full.inequalities[static_cast<std::size_t>(i)].gradient(expanded.y),
+-           full_dual);
++      supported_gradient_axpy(full.inequalities[i],expanded.y,multiplier,
++          full_dual,supports[i],gradient_workspace);
+   }
+   if (!finite_vec(expanded.equality_duals) || !finite_vec(full_dual)) {
+     message = "affine dual reconstruction produced a nonfinite result";
+@@ -1269,7 +1298,7 @@
+ 
+   expanded.dual_inf = max_abs(full_dual);
+   expanded.equality_inf = equality_residual_inf(full, expanded.y);
+-  expanded.inequality_inf = inequality_violation_inf(full, expanded.y);
++  expanded.inequality_inf = 0.0;
+   expanded.primal_residual_inf = 0.0;
+   double complementarity_sum = 0.0;
+   double full_complementarity_inf = 0.0;
+@@ -1277,8 +1306,8 @@
+     const double slack = expanded.inequality_slacks[static_cast<std::size_t>(i)];
+     const double multiplier =
+         expanded.inequality_duals[static_cast<std::size_t>(i)];
+-    const double value =
+-        full.inequalities[static_cast<std::size_t>(i)].value(expanded.y);
++    const double value = supported_value(full.inequalities[i],expanded.y,supports[i]);
++    expanded.inequality_inf=std::max(expanded.inequality_inf,value);
+     if (!(slack > 0.0) || !(multiplier > 0.0) ||
+         !std::isfinite(value)) {
+       message = "expanded affine state has an invalid inequality slack or dual";
+@@ -1302,7 +1331,7 @@
+       full,reduction,reduced_result.dca_single_loop_initial_primal,
+       reduced_result.dca_single_loop_initial_equality_duals,
+       reduced_result.dca_single_loop_initial_inequality_duals,
+-      reduced_result.dca_single_loop_initial_inequality_slacks);
++      reduced_result.dca_single_loop_initial_inequality_slacks,supports);
+   if(single_loop_initial.ok) {
+     expanded.dca_single_loop_initial_primal=single_loop_initial.primal;
+     expanded.dca_single_loop_initial_equality_duals=
+@@ -1598,6 +1627,48 @@
+ 
+ } // namespace
+ 
++bool certify_affine_tangent_inertia(const ConvexSubproblem& model,
++    SymmetricFactorization& factor, std::string& message) {
++  if(!model.inequalities.empty() || !valid_quadratic_model(model.objective,model.nvar)) {
++    message="invalid tangent-only model"; return false;
++  }
++  ExactAffineSubproblemReduction reduction;
++  const ConvexSubproblem* p=&model;
++  if(!model.exact_affine_eliminations.empty()) {
++    if(!build_exact_affine_subproblem_reduction(model,reduction,message,true)) return false;
++    p=&reduction.reduced;
++  }
++  const int n=p->nvar, m=static_cast<int>(p->equalities.rows.size());
++  if(p->equalities.nvar!=n || p->equalities.rhs.size()!=p->equalities.rows.size()) {
++    message="tangent Jacobian dimension mismatch"; return false;
++  }
++  std::vector<SymmetricTriplet> K;
++  K.reserve(p->objective.base_hessian.entries.size()+n+m);
++  for(const auto& e:p->objective.base_hessian.entries) K.push_back({e.i,e.j,e.v});
++  for(int j=0;j<n;++j)
++    K.push_back({j,j,j<p->objective.shift_dimension ? p->objective.scalar_shift : 0.0});
++  for(int a=0;a<m;++a) {
++    K.push_back({n+a,n+a,0.0}); // no dual perturbation in a curvature certificate
++    for(const auto& [j,v]:p->equalities.rows[a].entries) {
++      if(j<0 || j>=n || !std::isfinite(v)) { message="invalid tangent Jacobian"; return false; }
++      K.push_back({j,n+a,v});
++    }
++  }
++  int rank=0;
++  for(const auto& t:p->objective.low_rank) {
++    if(t.beta<0.0) { message="negative tangent correction"; return false; }
++    if(t.beta==0.0) continue;
++    const int border=n+m+rank++;
++    K.push_back({border,border,-1.0});
++    for(int j=0;j<n;++j) if(t.direction[j]!=0.0)
++      K.push_back({j,border,std::sqrt(t.beta)*t.direction[j]});
++  }
++  // The backend must be configured without implicit diagonal shifts. The
++  // caller owns that Settings lifetime; this is the same contract as the
++  // condensed tangent certificate.
++  return factor.factor(n+m+rank,n,K,message);
++}
++
+ void ConvexQCQPLazyQPKernel::clear_factorization_cache() const {
+   full_factor_.reset();
+   reduced_factor_.reset();
+@@ -1648,7 +1719,7 @@
+     ExactAffineSubproblemReduction reduction;
+     std::string reduction_message;
+     const bool reduction_ok = build_exact_affine_subproblem_reduction(
+-        p, reduction, reduction_message);
++        p, reduction, reduction_message, st_.lazyqp_affine_support_fastpath);
+     InnerResult attempted;
+     InnerResult expanded;
+     bool expanded_ok = false;
+--- a/src/io.cpp
++++ b/src/io.cpp
+@@ -523,6 +523,13 @@
+   o << "  \"soc_inner_iterations\": " << r.soc_inner_iterations << ",\n";
+   o << "  \"soc_factorizations\": " << r.soc_factorizations << ",\n";
+   o << "  \"curvature_calls\": " << r.curvature_calls << ",\n";
++  o << "  \"constraint_curvature_seconds\": " << r.constraint_curvature_seconds << ",\n";
++  o << "  \"equality_model_seconds\": " << r.equality_model_seconds << ",\n";
++  o << "  \"primary_model_build_seconds\": " << r.primary_model_build_seconds << ",\n";
++  o << "  \"primary_inner_seconds\": " << r.primary_inner_seconds << ",\n";
++  o << "  \"equality_tangent_inertia_attempts\": " << r.equality_tangent_inertia_attempts << ",\n";
++  o << "  \"equality_tangent_inertia_acceptances\": " << r.equality_tangent_inertia_acceptances << ",\n";
++  o << "  \"equality_tangent_stall_certificates\": " << r.equality_tangent_stall_certificates << ",\n";
+   o << "  \"lagrangian_correction_rank\": " << r.objective_rank << ",\n";
+   o << "  \"objective_rank\": " << r.objective_rank << ",\n";
+   o << "  \"inequality_total_rank\": " << r.inequality_total_rank << ",\n";
+@@ -542,6 +549,18 @@
+   o << "  \"terminal_kkt_active_stability\": " << r.terminal_kkt_active_stability << ",\n";
+   o << "  \"terminal_kkt_multiplier_cutoff\": "; json_number(o, r.terminal_kkt_multiplier_cutoff); o << ",\n";
+   o << "  \"elapsed_seconds\": "; json_number(o, r.elapsed_seconds); o << ",\n";
++  const auto emit_vector=[&](const char* name,const Vec& v) {
++    o << "  \"" << name << "\": [";
++    for(std::size_t i=0;i<v.size();++i) {
++      if(i) o << ", ";
++      json_number(o,v[i]);
++    }
++    o << "],\n";
++  };
++  emit_vector("certificate_equality_multipliers",r.certificate_equality_multipliers);
++  emit_vector("certificate_inequality_multipliers",r.certificate_inequality_multipliers);
++  emit_vector("certificate_lower_multipliers",r.certificate_lower_multipliers);
++  emit_vector("certificate_upper_multipliers",r.certificate_upper_multipliers);
+   o << "  \"x\": [";
+   for (std::size_t i = 0; i < r.x.size(); ++i) {
+     if (i) o << ", ";
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -164,7 +164,9 @@
+     << "  --dca-equality-retraction      guarded SQP equality retraction before SOC (default)\n"
+     << "  --no-dca-equality-retraction   disable equality retraction for A/B tests\n"
+     << "  --dca-equality-retraction-max-ratio X correction/step guard (default 2)\n"
+-    << "  --dca-equality-model MODE      linearized|condensed-retraction|elastic-split\n"
++    << "  --dca-equality-model MODE      linearized|condensed-retraction|tangent-inertia|elastic-split\n"
++    << "  --dca-tangent-inertia-trigger X  original projected stationarity gate (default 1)\n"
++    << "  --lazyqp-affine-support-fastpath / --no-lazyqp-affine-support-fastpath  sparse affine audits\n"
+     << "  --dca-condensed-newton-iters N condensed Newton iterations (default 8)\n"
+     << "  --dca-condensed-krylov-iters N GMRES iterations in equality space (default 16)\n"
+     << "  --dca-condensed-krylov-rtol X  relative GMRES tolerance (default 1e-4)\n"
+@@ -404,6 +406,8 @@
+       else if (a == "--no-lazyqp-flow-lift-elimination") st.lazyqp_flow_lift_elimination = false;
+       else if (a == "--lazyqp-model-support-fastpath") st.lazyqp_model_support_fastpath = true;
+       else if (a == "--no-lazyqp-model-support-fastpath") st.lazyqp_model_support_fastpath = false;
++      else if (a == "--lazyqp-affine-support-fastpath") st.lazyqp_affine_support_fastpath = true;
++      else if (a == "--no-lazyqp-affine-support-fastpath") st.lazyqp_affine_support_fastpath = false;
+       else if (a == "--lazyqp-low-rank-form") st.lazyqp_low_rank_form = need("--lazyqp-low-rank-form");
+       else if (a == "--lazyqp-condense-threshold") st.lazyqp_low_rank_condense_threshold = parse_num<int>(need("--lazyqp-condense-threshold"));
+       else if (a == "--lazyqp-warm-guard") st.lazyqp_warm_start_guard_factor = parse_num<double>(need("--lazyqp-warm-guard"));
+@@ -470,6 +474,7 @@
+       else if (a == "--no-dca-equality-retraction") st.dca_equality_retraction = false;
+       else if (a == "--dca-equality-retraction-max-ratio") st.dca_equality_retraction_max_ratio = parse_num<double>(need("--dca-equality-retraction-max-ratio"));
+       else if (a == "--dca-equality-model") st.dca_equality_model = need("--dca-equality-model");
++      else if (a == "--dca-tangent-inertia-trigger") st.dca_tangent_inertia_trigger=std::stod(need("--dca-tangent-inertia-trigger"));
+       else if (a == "--dca-condensed-newton-iters") st.dca_condensed_newton_iterations = parse_num<int>(need("--dca-condensed-newton-iters"));
+       else if (a == "--dca-condensed-krylov-iters") st.dca_condensed_krylov_iterations = parse_num<int>(need("--dca-condensed-krylov-iters"));
+       else if (a == "--dca-condensed-krylov-rtol") st.dca_condensed_krylov_relative_tolerance = parse_num<double>(need("--dca-condensed-krylov-rtol"));
+@@ -770,8 +775,9 @@
+       throw std::runtime_error("terminal KKT controls require a positive finite trigger, nonnegative finite cutoffs/regularizations, stability>=1, and iters>=1");
+     if (st.dca_equality_model != "linearized" &&
+         st.dca_equality_model != "condensed-retraction" &&
++        st.dca_equality_model != "tangent-inertia" &&
+         st.dca_equality_model != "elastic-split")
+-      throw std::runtime_error("--dca-equality-model must be linearized, condensed-retraction, or elastic-split");
++      throw std::runtime_error("--dca-equality-model must be linearized, condensed-retraction, tangent-inertia, or elastic-split");
+     if (st.dca_condensed_newton_iterations < 1 ||
+         st.dca_condensed_krylov_iterations < 1 ||
+         st.dca_condensed_continuation_attempts < 1 ||
+--- a/src/solver.cpp
++++ b/src/solver.cpp
+@@ -32,6 +32,13 @@
+ 
+ namespace lazyipdca::qcqp {
+ namespace {
++struct AccumulateSeconds {
++  double& total;
++  std::chrono::steady_clock::time_point start=std::chrono::steady_clock::now();
++  ~AccumulateSeconds() {
++    total+=std::chrono::duration<double>(std::chrono::steady_clock::now()-start).count();
++  }
++};
+ 
+ 
+ ConvexQuadraticModel linear_inequality(int nvar, int idx, double coeff, double constant) {
+@@ -273,6 +280,18 @@
+   for (const auto& [j, a] : row.entries)
+     dense[static_cast<std::size_t>(j)] += alpha * a;
+ }
++
++struct StructuralQCQPEvaluation {
++  SparseGradientWorkspace workspace;
++  explicit StructuralQCQPEvaluation(int n):workspace(n) {}
++  double value(const QuadraticFunction& q,const Vec& x) { return structural_quadratic_value(q,x); }
++  double violation(const QCQPProblem& p,const Vec& x) { return structural_feasibility(p,x).total_inf; }
++  void gradient_axpy(const QuadraticFunction& q,const Vec& x,double scale,Vec& y) {
++    consume_sparse_quadratic_gradient(q,x,workspace,[&](int j,double v) {
++      y[static_cast<std::size_t>(j)]+=scale*v;
++    });
++  }
++};
+ 
+ void add_scaled_hessian(SymMatrix& dst, const SymMatrix& src, double alpha) {
+   if (alpha == 0.0) return;
+@@ -1462,8 +1481,15 @@
+     out.original_ineq_offset=static_cast<int>(out.p.inequalities.size());
+   } else {
+     // Classical SQP linearization of original equalities.
++    SparseGradientWorkspace equality_workspace(prob.n);
+     for(const auto& h:prob.equalities) {
+-      out.p.equalities.rows.push_back(dense_gradient_row(h.gradient(x)));
++      if(st.lazyqp_affine_support_fastpath) {
++        SparseRow row;
++        consume_sparse_quadratic_gradient(h,x,equality_workspace,[&](int j,double v) {
++          if(v!=0.0) row.entries.push_back({j,v});
++        });
++        out.p.equalities.rows.push_back(std::move(row));
++      } else out.p.equalities.rows.push_back(dense_gradient_row(h.gradient(x)));
+       out.p.equalities.rhs.push_back(-structural_quadratic_value(h,x));
+     }
+     out.original_ineq_offset=0;
+@@ -3105,6 +3131,10 @@
+     if(better){
+       best_fit=fit;
+       best_t=t;
++      result.certificate_equality_multipliers=mult.equality;
++      result.certificate_inequality_multipliers=mult.inequality;
++      result.certificate_lower_multipliers=mult.lower_bound;
++      result.certificate_upper_multipliers=mult.upper_bound;
+       best_reg=reg;
+       have_best=true;
+     }
+@@ -3145,6 +3175,10 @@
+   result.termination_multiplier_regularization=std::numeric_limits<double>::infinity();
+   const auto t=qcqp_ipopt_termination(p,x,mult,st);
+   store_termination_metrics(t,result);
++  result.certificate_equality_multipliers=mult.equality;
++  result.certificate_inequality_multipliers=mult.inequality;
++  result.certificate_lower_multipliers=mult.lower_bound;
++  result.certificate_upper_multipliers=mult.upper_bound;
+   result.ipopt_desired_convergence=mult.valid && t.stop.converged;
+   return t;
+ }
+@@ -3924,6 +3958,14 @@
+ 
+ Result Solver::solve(const QCQPProblem& problem) {
+   problem.validate();
++  if(!std::isfinite(st_.dca_tangent_inertia_trigger) || st_.dca_tangent_inertia_trigger<=0.0)
++    throw std::runtime_error("tangent inertia trigger must be positive and finite");
++  if(st_.dca_equality_model=="tangent-inertia" &&
++     (!st_.dca_single_loop_primal_dual ||
++      !st_.dca_condensed_tangent_curvature ||
++      !st_.dca_condensed_block_exact_curvature))
++    throw std::runtime_error(
++        "tangent-inertia requires single-loop, condensed curvature and block-exact fallback");
+   if(st_.dca_single_loop_primal_dual) {
+     if(st_.outer_algorithm!="lazy-dca")
+       throw std::runtime_error(
+@@ -4151,7 +4193,8 @@
+     }
+     const bool requested_condensed_equality_model=
+         st_.outer_algorithm=="lazy-dca" && has_quadratic_equality &&
+-        st_.dca_equality_model=="condensed-retraction";
++        (st_.dca_equality_model=="condensed-retraction" ||
++         st_.dca_equality_model=="tangent-inertia");
+ 
+     CurvatureOracle curvature(st_);
+     // Isolate the large condensed-model oracle from the objective/inequality
+@@ -4199,6 +4242,7 @@
+     const bool affine_box_lazy_route = st_.dca_affine_box_bounded_lazy &&
+         affine_descent_box_bounded && has_quadratic_equality &&
+         (st_.dca_equality_model=="condensed-retraction" ||
++         st_.dca_equality_model=="tangent-inertia" ||
+          st_.dca_equality_model=="linearized");
+     const bool full_affine_majorant = st_.outer_algorithm=="lazy-dca" &&
+         st_.dca_full_constraints_for_affine_objective && objective_is_affine &&
+@@ -4474,6 +4518,13 @@
+       // changing the convexity certificate used by the majorant.
+       CondensedQuadraticRetraction condensed_geometry(
+           st_,st_.dca_condensed_flow_lift_schur);
++      Settings tangent_factor_settings=st_;
++      tangent_factor_settings.kkt_adaptive_regularization=true;
++      tangent_factor_settings.linear_metis=false;
++      std::string tangent_factor_message;
++      auto tangent_factor=st_.dca_equality_model=="tangent-inertia"
++          ? make_symmetric_factorization(tangent_factor_settings,tangent_factor_message)
++          : std::unique_ptr<SymmetricFactorization>{};
+       CondensedQuadraticRetraction condensed_retraction(
+           st_,st_.dca_condensed_flow_lift_schur);
+       const bool uses_lazyqp_kernel=st_.inner_backend=="lazyqp" ||
+@@ -4587,7 +4638,8 @@
+       const bool elastic_equality_mode=has_quadratic_equality &&
+           st_.dca_equality_model=="elastic-split";
+       const bool condensed_equality_mode=has_quadratic_equality &&
+-          st_.dca_equality_model=="condensed-retraction";
++          (st_.dca_equality_model=="condensed-retraction" ||
++           st_.dca_equality_model=="tangent-inertia");
+       double equality_funnel=st_.feasibility_tolerance;
+       if(has_quadratic_equality) {
+         const Feasibility initial_funnel_feas=
+@@ -4679,8 +4731,10 @@
+           return false;
+         }
+         const SingleLoopMultiplierGuard guard=
+-            guard_single_loop_multiplier_transport(
+-                problem,point,proposed,st_);
++            st_.lazyqp_affine_support_fastpath
++                ? guard_single_loop_multiplier_transport(problem,point,proposed,st_,
++                    StructuralQCQPEvaluation(problem.n))
++                : guard_single_loop_multiplier_transport(problem,point,proposed,st_);
+         if(!guard.accepted) {
+           ++result.dca_single_loop_refit_fallbacks;
+           if(st_.verbose)
+@@ -5026,6 +5080,7 @@
+         // normal map built for this outer iteration.
+         bool condensed_single_normal_map=false;
+         if(condensed_equality_mode) {
++          AccumulateSeconds timer{result.equality_model_seconds};
+           // Equality curvature must be available from the first manifold step.
+           // A working-set edit changes only inequality membership.  The signed
+           // equality multiplier transported by the accepted convex-QP step is
+@@ -5058,7 +5113,49 @@
+           // Start from no ambient-space correction.  Only negative curvature
+           // visible on the equality tangent space is needed by the model.
+           condensed_objective_cvx=Convexification{};
+-          if(st_.dca_condensed_tangent_curvature &&
++          if(st_.dca_equality_model=="tangent-inertia" && warm_mult_valid &&
++             cached_projected_stationarity(x)<=st_.dca_tangent_inertia_trigger) {
++            ++result.equality_tangent_inertia_attempts;
++            std::string message;
++            ConvexSubproblem tangent;
++            tangent.nvar=problem.n;
++            tangent.original_dimension=problem.n;
++            tangent.prefer_feasible_centered_start=true;
++            tangent.objective.base_hessian=condensed_objective_hessian;
++            tangent.objective.linear.assign(problem.n,0.0);
++            tangent.objective.shift_dimension=problem.n;
++            tangent.objective.scalar_shift=single_loop_baseline_prox-st_.curvature_margin;
++            tangent.equalities.nvar=problem.n;
++            tangent.exact_affine_eliminations=lazyqp_flow_lift_plan;
++            SparseGradientWorkspace workspace(problem.n);
++            for(const auto& h:problem.equalities) {
++              SparseRow row;
++              consume_sparse_quadratic_gradient(h,x,workspace,[&](int j,double v) {
++                if(v!=0.0) row.entries.push_back({j,v});
++              });
++              tangent.equalities.rows.push_back(std::move(row));
++              tangent.equalities.rhs.push_back(0.0);
++            }
++            for(int j=0;j<problem.n;++j)
++              if(std::isfinite(problem.lb[j]) && std::isfinite(problem.ub[j]) &&
++                 std::abs(problem.ub[j]-problem.lb[j])<=st_.fixed_bound_tolerance) {
++                SparseRow row; row.entries.push_back({j,1.0});
++                tangent.equalities.rows.push_back(std::move(row));
++                tangent.equalities.rhs.push_back(0.0);
++              }
++            const bool certified=tangent_factor &&
++                certify_affine_tangent_inertia(tangent,*tangent_factor,message);
++            if(certified) {
++              condensed_single_normal_map=true;
++              ++result.equality_tangent_inertia_acceptances;
++            }
++            if(st_.verbose)
++              std::cout << "[TANGENT-INERTIA] k=" << outer
++                        << " accepted=" << (certified?1:0)
++                        << " fallback=" << (certified?0:1)
++                        << " message=" << message << "\n";
++          }
++          if(!condensed_single_normal_map && st_.dca_condensed_tangent_curvature &&
+              st_.dca_condensed_block_exact_curvature) {
+             ++result.lazy_dca_condensed_block_exact_attempts;
+             const int calls_before=condensed_curvature.calls();
+@@ -5590,11 +5687,14 @@
+             Settings build_st=st_;
+             build_st.dca_extra_proximal_regularization +=
+                 single_loop_baseline_prox+trial_model_prox;
++            {
++            AccumulateSeconds timer{result.primary_model_build_seconds};
+             built=build_dca_subproblem(problem,x,*active_objective_cvx,ineq_cvx,
+                                        working_set,modeled_side_recovery_rows,
+                                        build_st,
+                                        lazyqp_flow_lift_plan,
+                                        objective_hessian_override);
++            }
+             result.lazy_dca_condensed_modeled_side_filter_recovery_margin_rows+=
+                 built.modeled_side_recovery_margin_rows;
+             if(built.elastic_equalities) ++result.lazy_dca_elastic_subproblems;
+@@ -5704,11 +5804,14 @@
+               persistent_lazyqp_settings.inner_dual_warm_start=true;
+               persistent_lazyqp_settings.inner_inequality_dual_warm_start=true;
+             }
++            {
++            AccumulateSeconds timer{result.primary_inner_seconds};
+             if(uses_lazyqp_kernel && !built.p.inequalities.empty())
+               inner=persistent_lazyqp.solve(built.p);
+             else
+               inner=solve_inner(built.p,persistent_lazyqp_settings,
+                                   persistent_equality_factor.get());
++            }
+             const bool attempted_warm=built.p.has_dual_warm_start && !force_cold;
+             record_inner(inner);
+             const bool usable_inner=inner.success ||
+@@ -8070,6 +8173,24 @@
+         }
+       }
+ 
++      // A rejected model cannot be committed. At a numerically stationary
++      // accepted primal point, however, the terminal event can precede the
++      // five accepted-small-step counter: a new line search has no resolvable
++      // objective decrease left. Spend the SAME sole independent final fit on
++      // that accepted point. No model multiplier or small step certifies KKT.
++      if(st_.dca_equality_model=="tangent-inertia" &&
++         result.status==Status::LineSearchFailure &&
++         !single_loop_final_certificate_attempted && result.outer_iterations>0 &&
++         std::isfinite(result.step_inf) &&
++         result.step_inf<=std::max(st_.step_tolerance,
++             100.0*std::numeric_limits<double>::epsilon()*std::max(1.0,inf_norm(x))) &&
++         structural_feasibility(problem,x).total_inf<=st_.feasibility_tolerance) {
++        ++result.equality_tangent_stall_certificates;
++        if(run_single_loop_final_certificate(x,result.outer_iterations,"tangent-primal-stall")) {
++          result.status=Status::Solved;
++          result.message="original-QCQP KKT certificate passed at tangent-model primal stall";
++        }
++      }
+       if(result.status==Status::NumericalError && result.message.empty()) {
+         result.status=Status::MaxOuterIterations;
+         result.message="Lazy-DCA outer iteration limit reached";
+@@ -8245,6 +8366,7 @@
+       // user-requested extra prox only.  Single-loop baseline and adaptive
+       // retry maxima have dedicated diagnostics.
+       result.final_proximal_regularization=st_.dca_extra_proximal_regularization;
++      result.constraint_curvature_seconds=curvature.seconds();
+       result.elapsed_seconds=elapsed();
+       return result;
+     }
+@@ -9391,6 +9513,7 @@
+     result.model_stationarity_inf = last_stationarity;
+     result.step_inf = last_step;
+     result.curvature_calls = curvature.calls();
++    result.constraint_curvature_seconds=curvature.seconds();
+     result.objective_rank = last_lagrangian_rank;
+     result.active_inequalities = static_cast<int>(working_set.size());
+     result.active_jacobian_rank = last_tangent.jacobian_rank;
+--- /dev/null
++++ b/tests/test_benchmark_case118_r3p27a1.py
+@@ -0,0 +1,56 @@
++#!/usr/bin/env python3
++"""Ensure timing cannot bypass independent original-QCQP certification."""
++import copy
++from pathlib import Path
++import sys
++import unittest
++
++sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'python'))
++from benchmark_case118_r3p27a1 import BUILD_ID, VERSION, check_lazy
++from qcq_model_r3p23 import HessianEntry, QuadraticFunction, QCQPModel
++
++
++class CertificateGate(unittest.TestCase):
++    def setUp(self):
++        self.model = QCQPModel('gate', 1, (0.,), (-2.,), (2.,),
++            QuadraticFunction('f', 0., (), (HessianEntry(0, 0, 2.),)), (),
++            (QuadraticFunction('g', -1., ((0, 1.),), ()),))
++        self.result = dict(status='solved', version=VERSION, build_id=BUILD_ID,
++            api_version=4311, certificate_equality_multipliers=[],
++            certificate_inequality_multipliers=[0.], certificate_lower_multipliers=[0.],
++            certificate_upper_multipliers=[0.], x=[0.], objective=0.,
++            dual_infeasibility_inf=0., complementarity_inf=0., scaled_nlp_error=0.,
++            dca_single_loop_full_refit_calls=1, multiplier_refit_attempts=0,
++            lazy_dca_equality_retraction_attempts=0,
++            lazy_dca_equality_model='condensed-retraction')
++
++    def test_valid_certificate(self):
++        objective, residuals = check_lazy(self.model, self.result, 'sparse')
++        self.assertEqual(objective, 0.)
++        self.assertEqual(max(residuals.values()), 0.)
++
++    def test_reject_forged_success(self):
++        mutations = [dict(x=[float('nan')]), dict(x=[3.]), dict(x=[.1], objective=.01),
++            dict(certificate_upper_multipliers=[.5]),
++            dict(certificate_inequality_multipliers=[-1.]),
++            dict(certificate_equality_multipliers=None), dict(objective=1.),
++            dict(dca_single_loop_full_refit_calls=2), dict(multiplier_refit_attempts=1),
++            dict(lazy_dca_equality_retraction_attempts=1), dict(build_id='stale'),
++            dict(lazy_dca_equality_model='linearized'), dict(scaled_nlp_error=float('nan'))]
++        for mutation in mutations:
++            with self.subTest(mutation=mutation):
++                result = copy.deepcopy(self.result)
++                result.update(mutation)
++                with self.assertRaises(ValueError):
++                    check_lazy(self.model, result, 'sparse')
++
++    def test_tangent_must_be_exercised(self):
++        self.result['lazy_dca_equality_model'] = 'tangent-inertia'
++        with self.assertRaises(ValueError):
++            check_lazy(self.model, self.result, 'tangent')
++        self.result['equality_tangent_inertia_acceptances'] = 1
++        check_lazy(self.model, self.result, 'tangent')
++
++
++if __name__ == '__main__':
++    unittest.main()
+--- a/tests/test_exporter_pglib_contract_r3p22.py
++++ b/tests/test_exporter_pglib_contract_r3p22.py
+@@ -532,7 +532,7 @@
+                 max_outer=1000, max_inner=1000, time_limit=60.0,
+                 live_output=False, condensed_curvature="auto",
+                 compatible_banners=(R3P24_BANNER, R3P25_BANNER, R3P26_BANNER,
+-                                    R3P27_BANNER))
++                                    R3P27_BANNER, "LazyIPDCA-QCQP 0.4.28r3p27a1-lazy-equality-curvature (API 4311, v0.4.28r3p27a1-lazy-equality-curvature-api-4311)"))
+         except Exception as exc:  # contract failure must be reported cleanly
+             failures.append(f"r3p22 invocation failed: {exc}")
+         else:
+@@ -540,7 +540,8 @@
+                     R3P24_VERSION not in version and
+                     R3P25_VERSION not in version and
+                     R3P26_VERSION not in version and
+-                    R3P27_VERSION not in version):
++                    R3P27_VERSION not in version and
++                    "0.4.28r3p27a1-lazy-equality-curvature" not in version):
+                 failures.append(f"wrong solver version: {version}")
+             if rc != 0 or result.get("status") != "solved":
+                 failures.append(
+--- /dev/null
++++ b/tests/test_sparse_affine_tangent.cpp
+@@ -0,0 +1,59 @@
++#include "lazyipdca_qcqp/inner_lazyqp.hpp"
++#include <cmath>
++#include <iostream>
++#include <stdexcept>
++using namespace lazyipdca::qcqp;
++void require(bool b,const char* m) { if(!b) throw std::runtime_error(m); }
++void close(double a,double b) { require(std::isfinite(a)&&std::isfinite(b)&&std::abs(a-b)<1e-10*(1+std::abs(a)),"affine arithmetic mismatch"); }
++int main() {
++ try {
++  ConvexSubproblem p;
++  p.nvar=p.original_dimension=8; p.prefer_feasible_centered_start=true;
++  p.objective.linear.assign(8,0);p.objective.linear[1]=-1;
++  p.objective.base_hessian.n=8;p.objective.shift_dimension=8;p.objective.scalar_shift=.2;
++  for(int i=0;i<8;++i)p.objective.base_hessian.entries.push_back({i,i,2.0});
++  p.objective.low_rank.push_back({.3,{1,0,0,0,0,0,0,1}});
++  p.equalities.nvar=8;p.equalities.rows={{{{0,-2},{1,1},{7,1}}}};p.equalities.rhs={.5};
++  p.exact_affine_eliminations={{0,7}};
++  ConvexQuadraticModel g;g.constant=-10;g.linear.assign(8,0);g.linear[2]=.2;g.base_hessian.n=8;
++  g.base_hessian.entries={{2,2,1},{2,7,.1},{7,7,1}};p.inequalities={g};
++  ExactAffineSubproblemReduction dense,sparse;std::string message;
++  require(build_exact_affine_subproblem_reduction(p,dense,message,false),message.c_str());
++  require(build_exact_affine_subproblem_reduction(p,sparse,message,true),message.c_str());
++  for(int k=0;k<10;++k) {
++   Vec z(7);for(int j=0;j<7;++j)z[j]=.1*std::sin(j+k);
++   close(dense.reduced.objective.value(z),sparse.reduced.objective.value(z));
++   close(dense.reduced.inequalities[0].value(z),sparse.reduced.inequalities[0].value(z));
++   auto a=dense.reduced.inequalities[0].gradient(z),b=sparse.reduced.inequalities[0].gradient(z);
++   for(int j=0;j<7;++j)close(a[j],b[j]);
++  }
++  Settings st;st.verbose=false;st.linear_backend="native";st.lazyqp_flow_lift_elimination=true;
++  st.inner_tolerance=1e-9;st.max_inner_iterations=100;
++  auto a=ConvexQCQPLazyQPKernel(st).solve(p);
++  st.lazyqp_affine_support_fastpath=true;
++  auto b=ConvexQCQPLazyQPKernel(st).solve(p);
++  require(a.success&&b.success,"sparse/dense affine solve failed");
++  require(a.y.size()==b.y.size(),"primal size mismatch");
++  for(std::size_t j=0;j<a.y.size();++j) close(a.y[j],b.y[j]);
++  close(a.dual_inf,b.dual_inf);close(a.complementarity,b.complementarity);
++  auto invalid=p;invalid.inequalities[0].linear[6]=std::numeric_limits<double>::quiet_NaN();
++  require(!build_exact_affine_subproblem_reduction(invalid,sparse,message,true),"NaN bypassed sparse validation");
++  require(sparse.reduced.nvar==0,"failed reduction retained stale state");
++
++  ConvexSubproblem t;t.nvar=t.original_dimension=3;t.prefer_feasible_centered_start=true;
++  t.objective.linear={0,0,0};t.objective.base_hessian.n=3;
++  t.objective.base_hessian.entries={{0,0,-100},{1,1,2},{2,2,1}};
++  t.equalities.nvar=3;t.equalities.rows={{{{0,1}}},{{{0,-1},{2,1}}}};t.equalities.rhs={0,0};
++  t.exact_affine_eliminations={{1,2}};
++  st.kkt_adaptive_regularization=true;st.linear_metis=false;
++  auto factor=make_symmetric_factorization(st,message);
++  require(bool(factor),"missing factor");
++  require(certify_affine_tangent_inertia(t,*factor,message),"normal negative curvature incorrectly rejected");
++  t.objective.base_hessian.entries[1].v=-2;
++  require(!certify_affine_tangent_inertia(t,*factor,message),"negative tangent curvature accepted");
++  t.objective.base_hessian.entries[1].v=2;
++  t.equalities.rows.push_back(t.equalities.rows[0]);t.equalities.rhs.push_back(0);
++  require(!certify_affine_tangent_inertia(t,*factor,message),"singular Jacobian accepted");
++  std::cout<<"sparse affine audits and reduced tangent inertia PASS\n";
++ } catch(const std::exception& e) { std::cerr<<e.what()<<"\n";return 1; }
++}
+--- /dev/null
++++ b/tools/build_pf_gpu_r3p27a1.sh
+@@ -0,0 +1,18 @@
++#!/usr/bin/env bash
++set -Eeuo pipefail
++umask 022
++ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
++BUILD="$ROOT/build_pf_gpu"
++: "${CONDA_PREFIX:?Activer conda pf_gpu avant la compilation}"
++cmake -S "$ROOT" -B "$BUILD" -G Ninja \
++  -DCMAKE_BUILD_TYPE=Release \
++  -DPython3_EXECUTABLE="$(command -v python)" \
++  -DLDL_ROOT="$CONDA_PREFIX" -DMETIS_ROOT="$CONDA_PREFIX" \
++  -DLAZYIPDCA_BUILD_TESTS=ON -DLAZYIPDCA_NATIVE_ARCH=ON \
++  -DLAZYIPDCA_WITH_LDL=ON -DLAZYIPDCA_WITH_METIS=ON \
++  -DLAZYIPDCA_REQUIRE_HISTORICAL_LDL=ON
++cmake --build "$BUILD" --parallel "$(nproc)"
++OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 ctest --test-dir "$BUILD" --output-on-failure
++"$BUILD/lazyipdca_qcqp_cli" --version
++"$BUILD/lazyipdca_qcqp_cli" --linear-backends
++printf 'BUILD=%s\n' "$BUILD"
+--- /dev/null
++++ b/tools/run_case118_r3p27a1.sh
+@@ -0,0 +1,4 @@
++#!/usr/bin/env bash
++set -Eeuo pipefail
++ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
++python -u "$ROOT/python/benchmark_case118_r3p27a1.py" "$@"

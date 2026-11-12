@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "tests": [
+    "Positive correction effect and zero controller/interaction with 3 dispersed collections",
+    "20 certificates concentrated in one collection fail concentration criterion",
+    "Unknown counterparts remain intervals; they are not classified as failures",
+    "Unknown outcomes cannot rescue a net gain below 20",
+    "Interaction and half-weighted main effects use the specified 2x2 signs",
+    "Mixed SOC is not counted as pure majorant; BOTH times must exceed 1 second",
+    "End-to-end evidence gate: missing budget and inconsistent strict residuals remain unknown"
+  ],
+  "actual_optimizer_calls": 0,
+  "synthetic_decisions_are_not_experimental_results": true
+}

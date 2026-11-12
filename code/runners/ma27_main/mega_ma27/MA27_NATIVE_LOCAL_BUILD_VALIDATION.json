@@ -1,0 +1,22 @@
+{
+  "schema": "native-ma27-local-build-fail-closed-validation-v1",
+  "source_bound": true,
+  "homogeneous_compilation": true,
+  "translation_units": 20,
+  "binary": "/workspace/scratch/da3e31fd0a48/mega_ma27/validation/native_hsl_final_compile/lazyipdca_qcqp_cli",
+  "binary_sha256": "a543ca276f56b603187a2de33b670a60156a402be6e76c345e73e97bd1e06a83",
+  "build_proof": "/workspace/scratch/da3e31fd0a48/mega_ma27/validation/native_hsl_final_compile/BUILD_NATIVE.json",
+  "build_proof_sha256": "9e79cfc83e4b1ae2c773c1ec37c76b6eefce271a85f08241130b267348d84540",
+  "compiled_backends": [
+    "native",
+    "ma27"
+  ],
+  "mumps_linked": false,
+  "missing_hsl_returncode": 2,
+  "missing_hsl_produced_endpoint": false,
+  "missing_hsl_error_explicit": true,
+  "actual_hsl_numerical_qualification": false,
+  "licensed_hsl_available": false,
+  "production_authorized": false,
+  "scope": "Compilation of final backend-support overlay and rejection of missing real HSL; no MA27 optimizer success is claimed"
+}

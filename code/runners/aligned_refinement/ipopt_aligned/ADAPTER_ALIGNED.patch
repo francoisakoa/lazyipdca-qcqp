@@ -1,0 +1,302 @@
+--- a/include/lazyipdca_qcqp/direct_ipopt.hpp
++++ b/include/lazyipdca_qcqp/direct_ipopt.hpp
+@@ -3,6 +3,8 @@
+ #include "lazyipdca_qcqp/model.hpp"
+ 
+ #include <cstddef>
++#include <cmath>
++#include <stdexcept>
+ #include <limits>
+ #include <string>
+ #include <utility>
+@@ -29,12 +31,28 @@
+   int max_iterations = 5000;
+   int print_level = 5;
+   std::string linear_solver = "mumps";
++  std::string mu_strategy = "monotone";
+   // Optional path passed verbatim to Ipopt's official `hsllib` option.
+   // Leaving it empty preserves Ipopt's own dynamic-loader search policy.
+   std::string hsl_library;
+   bool derivative_test = false;
+   bool print_timing_statistics = false;
+ };
++
++// This fixed contract is checked by the solver API as well as the CLI.
++inline void validate_aligned_ipopt_settings(const DirectIpoptSettings& s) {
++  if(s.mu_strategy!="adaptive"&&s.mu_strategy!="monotone")
++    throw std::invalid_argument("mu_strategy must be adaptive or monotone");
++  if(s.linear_solver!="ma27"&&s.linear_solver!="mumps")
++    throw std::invalid_argument("linear_solver must be ma27 or mumps");
++  if(s.tolerance!=1e-8||s.constraint_violation_tolerance!=1e-6||
++     s.dual_infeasibility_tolerance!=1e-6||s.complementarity_tolerance!=1e-6||
++     s.acceptable_iterations!=0||s.max_iterations!=5000||s.time_limit_seconds!=7200.0||
++     s.derivative_test||s.print_timing_statistics||s.print_level<0||s.print_level>12)
++    throw std::invalid_argument("aligned Ipopt fixed tolerance/budget contract violated");
++  if(s.linear_solver=="mumps"&&!s.hsl_library.empty())
++    throw std::invalid_argument("hsllib is only admitted for ma27");
++}
+ 
+ // A deterministic sparse derivative plan for an original QCQP.  Its public
+ // structure/value accessors make the exact TNLP contract testable even in a
+@@ -102,6 +120,9 @@
+ 
+ struct DirectIpoptResult {
+   double parse_seconds=0, derivative_plan_seconds=0, setup_seconds=0;
++  bool aligned_contract_verified=false;
++  bool option_file_disabled=false;
++  std::string mu_strategy;
+   double core_s=0, postsolve_seconds=0;
+   std::string library_defaults_json="{}";
+   std::string representation_overrides_json="[]";
+--- a/src/direct_ipopt.cpp
++++ b/src/direct_ipopt.cpp
+@@ -636,6 +636,7 @@
+ 
+ DirectIpoptResult solve_direct_ipopt(const QCQPProblem& problem,
+                                      const DirectIpoptSettings& requested) {
++  validate_aligned_ipopt_settings(requested);
+   DirectIpoptSettings options=requested;
+   const auto start = std::chrono::steady_clock::now();
+   auto elapsed = [&]() {
+@@ -663,6 +664,7 @@
+ 
+   DirectIpoptResult result;
+   result.available = true;
++  result.mu_strategy=options.mu_strategy;
+   result.linear_solver=options.linear_solver;
+   result.requested_mumps_ordering=0; // no ordering override
+   result.wall_limit_seconds=options.time_limit_seconds;
+@@ -678,16 +680,35 @@
+   result.derivative_plan_seconds = elapsed();
+ 
+   auto application = IpoptApplicationFactory();
++  auto set_string=[&](const char* name,const std::string& value){
++    if(!application->Options()->SetStringValue(name,value))
++      throw std::runtime_error(std::string("Ipopt rejected string option ")+name);
++  };
++  auto set_integer=[&](const char* name,int value){
++    if(!application->Options()->SetIntegerValue(name,value))
++      throw std::runtime_error(std::string("Ipopt rejected integer option ")+name);
++  };
++  auto set_numeric=[&](const char* name,double value){
++    if(!application->Options()->SetNumericValue(name,value))
++      throw std::runtime_error(std::string("Ipopt rejected numeric option ")+name);
++  };
+   // Make the CLI deterministic: a stray ipopt.opt in the caller's working
+   // directory must not silently replace the audited command-line contract.
+-  application->Options()->SetStringValue("option_file_name", "");
+-  application->Options()->SetIntegerValue("print_level", options.print_level);
+-  application->Options()->SetIntegerValue("max_iter", options.max_iterations);
++  set_string("option_file_name", "");
++  set_numeric("tol",1e-8);
++  set_numeric("constr_viol_tol",1e-6);
++  set_numeric("dual_inf_tol",1e-6);
++  set_numeric("compl_inf_tol",1e-6);
++  set_integer("acceptable_iter",0);
++  set_numeric("bound_relax_factor",0.0);
++  set_string("mu_strategy",options.mu_strategy);
++  set_integer("print_level", options.print_level);
++  set_integer("max_iter", options.max_iterations);
+   // The campaign budget is wall time in OptimizeTNLP. max_cpu_time is an
+   // additional ceiling; a callback supplies a portable wall-time guard.
+-  application->Options()->SetNumericValue("max_cpu_time",options.time_limit_seconds);
++  set_numeric("max_cpu_time",options.time_limit_seconds);
+ #if IPOPT_VERSION_MAJOR > 3 || (IPOPT_VERSION_MAJOR == 3 && IPOPT_VERSION_MINOR >= 14)
+-  application->Options()->SetNumericValue("max_wall_time",options.time_limit_seconds);
++  set_numeric("max_wall_time",options.time_limit_seconds);
+ #endif
+   double max_finite_bound=0.0;
+   for(int j=0;j<problem.n;++j) {
+@@ -698,20 +719,15 @@
+   if(!std::isfinite(bound_infinity))
+     throw std::runtime_error("finite bound too large for an exact Ipopt infinity sentinel");
+   if(max_finite_bound>=1e19) {
+-    application->Options()->SetNumericValue("nlp_lower_bound_inf",-bound_infinity);
+-    application->Options()->SetNumericValue("nlp_upper_bound_inf",bound_infinity);
++    set_numeric("nlp_lower_bound_inf",-bound_infinity);
++    set_numeric("nlp_upper_bound_inf",bound_infinity);
+     std::ostringstream representation;
+     representation<<std::setprecision(17)<<"[{\"reason\":\"preserve finite original bounds beyond the library default infinity cutoff\",\"nlp_lower_bound_inf\":"<<-bound_infinity<<",\"nlp_upper_bound_inf\":"<<bound_infinity<<"}]";
+     result.representation_overrides_json=representation.str();
+   }
+-  application->Options()->SetStringValue("linear_solver", options.linear_solver);
+-  if (!options.hsl_library.empty() &&
+-      !application->Options()->SetStringValue("hsllib",
+-                                               options.hsl_library)) {
+-    throw std::runtime_error(
+-        "this Ipopt build does not support the hsllib option");
+-  }
+-  application->Options()->SetStringValue("print_user_options", "yes");
++  set_string("linear_solver", options.linear_solver);
++  if (!options.hsl_library.empty()) set_string("hsllib",options.hsl_library);
++  set_string("print_user_options", "yes");
+ 
+   const auto initialization_status = application->Initialize();
+   if (initialization_status != Ipopt::Solve_Succeeded) {
+@@ -724,7 +740,9 @@
+     return result;
+   }
+ 
+-  // Query effective library defaults; no numerical setting is written here.
++  // Query effective settings after Initialize; verify the aligned contract.
++  double effective_bound_relax=-1,effective_cpu=-1,effective_wall=-1;
++  int effective_max_iter=-1;
+   std::ostringstream defaults; defaults<<std::setprecision(17)<<"{";
+   bool first_default=true;
+   const char quote=34;
+@@ -746,6 +764,7 @@
+     std::string value;
+     application->Options()->GetStringValue(name,value,"");
+     sep();defaults<<quote<<name<<quote<<':'<<quote<<json_escape(value)<<quote;
++    return value;
+   };
+   numeric("tol",&options.tolerance);
+   numeric("constr_viol_tol",&options.constraint_violation_tolerance);
+@@ -758,21 +777,32 @@
+   numeric("acceptable_compl_inf_tol",&options.acceptable_complementarity_tolerance);
+   numeric("acceptable_obj_change_tol",&options.acceptable_objective_change_tolerance);
+   numeric("s_max",&options.nlp_error_scaling_max);
+-  string("mu_strategy");string("nlp_scaling_method");string("hessian_approximation");
+-  string("fixed_variable_treatment");string("linear_solver");
+-  numeric("bound_relax_factor");numeric("nlp_lower_bound_inf");numeric("nlp_upper_bound_inf");
+-  integer("max_iter");numeric("max_cpu_time");
++  const auto effective_mu=string("mu_strategy");string("nlp_scaling_method");string("hessian_approximation");
++  string("fixed_variable_treatment");const auto effective_backend=string("linear_solver");
++  const auto effective_option_file=string("option_file_name");
++  const auto effective_print_options=string("print_user_options");
++  integer("print_level");
++  if(options.linear_solver=="ma27")string("hsllib");
++  numeric("bound_relax_factor",&effective_bound_relax);numeric("nlp_lower_bound_inf");numeric("nlp_upper_bound_inf");
++  integer("max_iter",&effective_max_iter);numeric("max_cpu_time",&effective_cpu);
+ #if IPOPT_VERSION_MAJOR > 3 || (IPOPT_VERSION_MAJOR == 3 && IPOPT_VERSION_MINOR >= 14)
+-  numeric("max_wall_time");
++  numeric("max_wall_time",&effective_wall);
+ #endif
+   if(options.linear_solver=="mumps")integer("mumps_pivot_order");
+   defaults<<"}";result.library_defaults_json=defaults.str();
+-  std::cout<<"IPOPT_DEFAULTS_EFFECTIVE {"
++  validate_aligned_ipopt_settings(options);
++  if(effective_mu!=options.mu_strategy||effective_backend!=options.linear_solver||
++     effective_bound_relax!=0.0||effective_max_iter!=5000||effective_cpu!=7200.0||
++     effective_wall!=7200.0||!effective_option_file.empty()||effective_print_options!="yes")
++    throw std::runtime_error("Effective Ipopt options violate aligned contract");
++  result.aligned_contract_verified=true;
++  result.option_file_disabled=true;
++  std::cout<<"IPOPT_ALIGNED_EFFECTIVE {"
+            <<quote<<"ipopt_version"<<quote<<':'<<quote<<IPOPT_VERSION<<quote<<','
+            <<quote<<"effective_options"<<quote<<':'<<result.library_defaults_json<<','
+            <<quote<<"input_representation_overrides"<<quote<<':'<<result.representation_overrides_json<<','
+            <<quote<<"explicit_nonrepresentation_overrides"<<quote
+-           <<":[\"max_iter\",\"max_cpu_time\",\"max_wall_time\",\"linear_solver\",\"hsllib_if_MA27\",\"option_file_name_empty\",\"print_level\",\"print_user_options\"]}"
++           <<":[\"tol\",\"constr_viol_tol\",\"dual_inf_tol\",\"compl_inf_tol\",\"acceptable_iter\",\"bound_relax_factor\",\"mu_strategy\",\"max_iter\",\"max_cpu_time\",\"max_wall_time\",\"linear_solver\",\"hsllib_if_MA27\",\"option_file_name_empty\",\"print_level\",\"print_user_options\"]}"
+            <<std::endl;
+ 
+   Ipopt::SmartPtr<OriginalQCQPTNLP> concrete =
+@@ -878,7 +908,8 @@
+ #else
+ 
+ DirectIpoptResult solve_direct_ipopt(const QCQPProblem& problem,
+-                                     const DirectIpoptSettings&) {
++                                     const DirectIpoptSettings& requested) {
++  validate_aligned_ipopt_settings(requested);
+   problem.validate();
+   DirectIpoptResult result;
+   result.n = problem.n;
+@@ -900,10 +931,13 @@
+                                      const std::string& problem_name) {
+   std::ostringstream out;
+   out << "{\n";
+-  out << "  " << char(34) << "adapter_version" << char(34) << ": " << char(34) << "ipopt-library-defaults-original-qcqp-v1" << char(34) << ",\n";
+-  out << "  " << char(34) << "reference_policy" << char(34) << ": " << char(34) << "library_defaults_with_declared_resources_backend_and_exact_input_encoding" << char(34) << ",\n";
++  out << "  " << char(34) << "adapter_version" << char(34) << ": " << char(34) << "ipopt-aligned-original-qcqp-v1" << char(34) << ",\n";
++  out << "  " << char(34) << "reference_policy" << char(34) << ": " << char(34) << "aligned_original_kkt_tolerances_v1" << char(34) << ",\n";
+   out << "  " << char(34) << "effective_options" << char(34) << ": " << result.library_defaults_json << ",\n";
+   out << "  " << char(34) << "input_representation_overrides" << char(34) << ": " << result.representation_overrides_json << ",\n";
++  out << "  \"aligned_contract_verified\": " << (result.aligned_contract_verified?"true":"false") << ",\n";
++  out << "  \"option_file_disabled\": " << (result.option_file_disabled?"true":"false") << ",\n";
++  out << "  \"mu_strategy\": \"" << json_escape(result.mu_strategy) << "\",\n";
+   out << "  \"linear_solver\": \"" << json_escape(result.linear_solver) << "\",\n";
+   out << "  \"requested_mumps_ordering\": " << result.requested_mumps_ordering << ",\n";
+   out << "  \"optimization_wall_limit_seconds\": " << result.wall_limit_seconds << ",\n";
+--- a/src/ipopt_qcqp_main.cpp
++++ b/src/ipopt_qcqp_main.cpp
+@@ -20,12 +20,13 @@
+ void usage(const char* executable) {
+   std::cerr
+       << "Usage: " << executable << " --problem FILE.qcq [options]\n"
+-      << "Solve the original exported QCQP with Ipopt library numerical defaults.\n\n"
++      << "Solve the original exported QCQP with aligned tolerances and explicit barrier strategy.\n\n"
+       << "Options:\n"
+       << "  --frozen-start FILE      qualified frozen primal x0 JSON override\n"
+       << "  --json FILE              write ipopt-direct-qcqp-result-v1 JSON\n"
+       << "  --max-iter N             Ipopt iteration limit (default 5000)\n"
+       << "  --time-limit SEC         Ipopt optimization wall budget (default 7200)\n"
++      << "  --mu-strategy NAME       adaptive or monotone (default monotone)\n"
+       << "  --linear-solver NAME     Ipopt linear solver (default mumps)\n"
+       << "  --hsl-library FILE       pass FILE to Ipopt's hsllib option (for example with ma27)\n"
+       << "  --print-level N          Ipopt print level (default 5)\n"
+@@ -64,9 +65,9 @@
+   try {
+     for (int argument = 1; argument < argc; ++argument) {
+       const std::string option = argv[argument];
+-      const std::set<std::string> allowed={"--problem","--frozen-start","--json","--max-iter","--time-limit","--linear-solver","--hsl-library","--print-level","--quiet","--version","--help","-h"};
++      const std::set<std::string> allowed={"--problem","--frozen-start","--json","--max-iter","--time-limit","--linear-solver","--mu-strategy","--hsl-library","--print-level","--quiet","--version","--help","-h"};
+       if(!allowed.count(option))
+-        throw std::invalid_argument("Default-only comparator rejects numerical override: "+option);
++        throw std::invalid_argument("Aligned comparator rejects unsupported override: "+option);
+ 
+       auto need = [&](const char* name) -> std::string {
+         if (argument + 1 >= argc)
+@@ -77,42 +78,13 @@
+       if (option == "--problem") problem_path = need("--problem");
+       else if (option == "--frozen-start") frozen_start_path=need("--frozen-start");
+       else if (option == "--json") json_path = need("--json");
+-      else if (option == "--tol")
+-        settings.tolerance = parse_number<double>(need("--tol"));
+-      else if (option == "--constr-viol-tol")
+-        settings.constraint_violation_tolerance =
+-            parse_number<double>(need("--constr-viol-tol"));
+-      else if (option == "--dual-inf-tol")
+-        settings.dual_infeasibility_tolerance =
+-            parse_number<double>(need("--dual-inf-tol"));
+-      else if (option == "--compl-inf-tol")
+-        settings.complementarity_tolerance =
+-            parse_number<double>(need("--compl-inf-tol"));
+-      else if (option == "--acceptable-iter")
+-        settings.acceptable_iterations =
+-            parse_number<int>(need("--acceptable-iter"));
+-      else if (option == "--acceptable-tol")
+-        settings.acceptable_tolerance =
+-            parse_number<double>(need("--acceptable-tol"));
+-      else if (option == "--acceptable-constr-viol-tol")
+-        settings.acceptable_constraint_violation_tolerance =
+-            parse_number<double>(need("--acceptable-constr-viol-tol"));
+-      else if (option == "--acceptable-dual-inf-tol")
+-        settings.acceptable_dual_infeasibility_tolerance =
+-            parse_number<double>(need("--acceptable-dual-inf-tol"));
+-      else if (option == "--acceptable-compl-inf-tol")
+-        settings.acceptable_complementarity_tolerance =
+-            parse_number<double>(need("--acceptable-compl-inf-tol"));
+-      else if (option == "--acceptable-obj-change-tol")
+-        settings.acceptable_objective_change_tolerance = parse_number<double>(need("--acceptable-obj-change-tol"));
+-      else if (option == "--s-max")
+-        settings.nlp_error_scaling_max =
+-            parse_number<double>(need("--s-max"));
+       else if (option == "--max-iter")
+         settings.max_iterations = parse_number<int>(need("--max-iter"));
+       else if (option == "--time-limit")
+         settings.time_limit_seconds =
+             parse_number<double>(need("--time-limit"));
++      else if (option == "--mu-strategy")
++        settings.mu_strategy = need("--mu-strategy");
+       else if (option == "--linear-solver")
+         settings.linear_solver = need("--linear-solver");
+       else if (option == "--hsl-library" || option == "--hsllib")
+@@ -147,6 +119,7 @@
+     }
+ 
+     if (quiet) settings.print_level = 0;
++    validate_aligned_ipopt_settings(settings);
+ 
+     const auto parse_start=std::chrono::steady_clock::now();
+     QCQPProblem problem = read_qcq_compact(problem_path);

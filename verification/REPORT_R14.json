@@ -1,0 +1,41 @@
+{
+  "revision": "R14",
+  "validated_sources": [
+    "ipopt_aligned_20261110/audit",
+    "ipopt_aligned_20261110/pairs"
+  ],
+  "updated": [
+    "abstract",
+    "16-configuration regime table",
+    "paired I coverage",
+    "M ASU/PGLib barrier sensitivity",
+    "E/Q external-reference coverage including outside-GasLib reversal",
+    "same-backend paired objectives and >1s times for all native policies",
+    "new main empirical performance profiles including monotone Ipopt",
+    "composition weighting for all 16 configurations",
+    "all 16 published-reference-value summaries and 50-case common cohort",
+    "complete dataset/global tables and 28 time pairs per backend"
+  ],
+  "complete_table_validation": {
+    "rows": 65248,
+    "configurations": 16,
+    "collections": 28,
+    "unordered_comparisons_per_backend": 28
+  },
+  "preserved": [
+    "formal statements and proofs",
+    "controlled geometry and convergence figures",
+    "native result observations",
+    "R13 implied-bound causal caveat"
+  ],
+  "pending": [
+    "controlled refinement production results",
+    "fixed-policy implied-bound ablation"
+  ],
+  "requires_parent_check": [
+    "no unresolved xrefs after compilation",
+    "R13 default-stopping counts retained as stopping diagnostic only"
+  ],
+  "tex_written": true,
+  "pdf_compilation_performed": false
+}

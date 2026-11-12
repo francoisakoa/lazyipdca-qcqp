@@ -1,0 +1,72 @@
+{
+  "schema": "lazyqcqp-integration-validation-v1",
+  "at_utc": "2026-11-09T12:09:46.158893+00:00",
+  "passed": true,
+  "tests": 5,
+  "optimizer_invocations": 0,
+  "actual_Trx_access": false,
+  "full_campaign_qualified": false,
+  "qualification_on_target_pending": true,
+  "scope": "Actual Python command-line parsers and imports are exercised for both root callchains; stage computation is mocked using temporary synthetic receipts. No scientific solver outcomes are generated.",
+  "checks": {
+    "actual_4078_input_start_bindings_match_current_plan": true,
+    "complete_16312_queue": true,
+    "no_dey_28_datasets": true,
+    "ipopt_cpus": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "refinement_cpus": [
+      23
+    ],
+    "disjoint_allocations": true,
+    "actual_ipopt_six_stage_command_chain": true,
+    "actual_native_six_stage_command_chain": true,
+    "export_rejects_false_completeness_from_truncation_duplicates_or_unknown_methods": true,
+    "scalar_audits_included_and_large_vectors_optional": true
+  },
+  "findings_closed": [
+    "Ipopt orchestrator paths point to ipopt_aligned rather than runtime",
+    "Ipopt OBSERVATIONS and native RESULTS are distinct actual streams",
+    "Ablation arguments carry CPU23/jobs1",
+    "Export completeness validates observation identities/counts beyond status",
+    "Ipopt option equality compares strategies within each case/backend so exact finite-bound infinity thresholds can vary by input"
+  ],
+  "reviewed_files_sha256": {
+    "TEST_INTEGRATION.py": "55c7b340070cdb70fd9eba693644cfb2c24254aae001196a030df865a3171f34",
+    "PILOTER.py": "d8f4f8e2e2422d1ce51e90710003b4c9ac5be07494e2ab6d2a6d154e708b7208",
+    "PILOTER_IPOPT.py": "c807f2a31cf3ce2d556c96dff3f31a7a6f55f76759e2638e0f0f71ab7cd59ee6",
+    "EXPORTER_RESULTATS.py": "95255230b324fa3374f39c82cd9f25e0cdd9969fc9a13acc3ba3f295303dc9d3",
+    "SUIVRE_TOUT.py": "d65fdcd2290e4b2e1628622276826643719a2ca1027e3024b13cf5614b20da70",
+    "LANCER_TOUT.sh": "62c9e0a4fa63f5f3ca54afab81d22f8f09266fd6796c0c46ed096abae006ab94",
+    "STUDY_CONTRACT.json": "bb73bc927a7397fff847338f2a76e436e48177101994e37483919eddf260bbb3",
+    "ipopt_aligned/ANALYSER_IPOPT_ALIGNE.py": "32235bbab71062023be3a8c8264424569b3078f5c93ff4f46ae3d7bcf301f0f9",
+    "ipopt_aligned/IPOPT_ALIGNE_CONTRACT.py": "6dd99613bb8ce1a8ae165fda8e4509b494cfbe3592c027f2852084a582fea468",
+    "ipopt_aligned/PREPARER_IPOPT_ALIGNE.py": "1cb9d514ca3845d9c0a91e1a8fd53e10d822a1671b380588a5a89657a1f2d51a",
+    "ipopt_aligned/CONTROLEUR_IPOPT_ALIGNE.py": "34b4304196d382fa5def0a7aa2624b0505a7fb6287afe9c830828515155d3f1d",
+    "runtime/PREPARER_EXPERIENCE.py": "fe816246cb59a733ecbfb1598aa90ac632895dc2d7d11f682e2eecea1519ef32",
+    "runtime/CONTROLEUR_EXPERIENCE.py": "df3a0291721b36b7d259d856995c565d31ed5d37e2fbb793c92cb6bae9bf03ba",
+    "qualification/QUALIFIER_EXPERIENCE.py": "360978b2c8ef9138c65f0f8ffe27c98049804520d439cfd0a938051597fc4427"
+  },
+  "test_log_sha256": "f052abe48c9788aee6844989923526058138b58679ba2bb857b1b8002943a1de"
+}

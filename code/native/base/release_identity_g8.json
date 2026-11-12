@@ -1,0 +1,14 @@
+{
+  "version": "0.4.28r3p28g8-adaptive-local-dca",
+  "api_version": 4334,
+  "build_id": "v0.4.28r3p28g8-adaptive-local-dca-api-4334",
+  "branch": "filter-lazy-dca-research",
+  "parent": "0.4.28r3p28g7-local-active-dca",
+  "parent_profile": "local",
+  "performance_target_met": null,
+  "package_revision": 0,
+  "release_status": "research",
+  "local_performance_target_met": false,
+  "trx_performance_target_met": null,
+  "recommended_as_g7_replacement": false
+}

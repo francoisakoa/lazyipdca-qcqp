@@ -1,0 +1,29 @@
+{
+  "schema": "quiet-targeted-timing-local-validation-v1",
+  "created_utc": "2026-11-10T13:12:28.725319+00:00",
+  "passed": true,
+  "synthetic_controller_tests": 12,
+  "cohort_tests": 4,
+  "qcqp_optimizer_invocations": 0,
+  "synthetic_processes_only": true,
+  "commands": [
+    {
+      "command": [
+        "python",
+        "TEST_CHRONO_CALME.py"
+      ],
+      "returncode": 0,
+      "output": "test_artifact_mutation_refuses_recovery (__main__.ChronoTests.test_artifact_mutation_refuses_recovery) ... ok\ntest_contamination_retried_but_retained_and_not_best_selected (__main__.ChronoTests.test_contamination_retried_but_retained_and_not_best_selected) ... ok\ntest_crash_after_clean_numeric_failure_commit_is_recovered_without_rerun (__main__.ChronoTests.test_crash_after_clean_numeric_failure_commit_is_recovered_without_rerun) ... ok\ntest_exact_frozen_cohorts_and_no_duplicate_schedule (__main__.ChronoTests.test_exact_frozen_cohorts_and_no_duplicate_schedule) ... ok\ntest_frozen_start_and_input_provenance (__main__.ChronoTests.test_frozen_start_and_input_provenance) ... ok\ntest_live_previous_owned_process_blocks_duplicate_launch (__main__.ChronoTests.test_live_previous_owned_process_blocks_duplicate_launch) ... ok\ntest_native_commands_preserve_historical_wrapper_options (__main__.ChronoTests.test_native_commands_preserve_historical_wrapper_options) ... ok\ntest_preparation_resumes_existing_strictly_empty_output (__main__.ChronoTests.test_preparation_resumes_existing_strictly_empty_output) ... ok\ntest_process_scope_affinity_and_budget (__main__.ChronoTests.test_process_scope_affinity_and_budget) ... ok\ntest_ratio_quartiles_are_casewise_not_reciprocal_summary (__main__.ChronoTests.test_ratio_quartiles_are_casewise_not_reciprocal_summary) ... ok\ntest_summary_keeps_all_attempt_costs_and_three_rep_median (__main__.ChronoTests.test_summary_keeps_all_attempt_costs_and_three_rep_median) ... ok\ntest_systemwide_process_and_short_lived_cpu_detection (__main__.ChronoTests.test_systemwide_process_and_short_lived_cpu_detection) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 0.305s\n\nOK\n"
+    },
+    {
+      "command": [
+        "python",
+        "cohort/TEST_COHORT.py"
+      ],
+      "returncode": 0,
+      "output": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.013s\n\nOK\n"
+    }
+  ],
+  "controller_sha256": "042a19462fa16bd0dd8d52036a39e454c22866bf175774ada273e40df694f98a",
+  "tests_sha256": "e6f4b07e4d899054ca6329918628b7dc1437b658ebd10875fb851a4cf3121341"
+}

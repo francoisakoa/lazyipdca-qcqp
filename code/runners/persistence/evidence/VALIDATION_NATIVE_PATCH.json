@@ -1,0 +1,20 @@
+{
+  "schema": "persistence-native-patch-local-unit-v1",
+  "passed": true,
+  "sha256_standard_vectors": 3,
+  "binary64_signed_zero_identity_checked": true,
+  "generic_scope_checks": 108,
+  "scope_accepted": 40,
+  "scope_rejected": 68,
+  "changed_source_files": [
+    "include/lazyipdca_qcqp/settings.hpp",
+    "src/atomic_newton.cpp",
+    "src/dca_inequality_majorant_engine.hpp",
+    "src/dca_inequality_majorant_models.hpp",
+    "src/main.cpp",
+    "src/research_curvature_support.hpp"
+  ],
+  "baseline_source_unchanged": true,
+  "optimizer_invocations": 0,
+  "scope": "compiled support/hash/scope checks; separate native integration receipt records actual QCQP tests"
+}

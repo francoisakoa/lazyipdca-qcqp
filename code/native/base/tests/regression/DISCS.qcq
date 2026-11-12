@@ -1,0 +1,1006 @@
+LAZYIPDCA_QCQP_V1
+name DISCS
+n 36
+x0 0.029999999999999999 0.0055554999999999997 1 0.059999999999999998 0.011110999999999999 2 0.089999999999999997 0.016666500000000001 3 0.12 0.022221999999999999 4 0.14999999999999999 0.027777499999999997 5 0.17999999999999999 0.033333000000000002 6 0.20999999999999999 0.038888499999999999 7 0.23999999999999999 0.044443999999999997 8 0.27000000000000002 0.049999499999999995 9 0.29999999999999999 0.055554999999999993 10 0.32999999999999996 0.061110499999999998 11 0.35999999999999999 0.066666000000000003 12
+lb 0 0 1 -INF 0 1 -INF -INF 1 -INF -INF 1 -INF -INF 1 -INF -INF 1 -INF -INF 1 -INF -INF 1 -INF -INF 1 -INF -INF 1 -INF -INF 1 -INF -INF 1
+ub 0 0 INF INF 0 INF INF INF INF INF INF INF INF INF INF INF INF INF INF INF INF INF INF INF INF INF INF INF INF INF INF INF INF INF INF INF
+objective
+quadratic
+name objective
+constant 0
+linear 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1
+hessian_nnz 0
+end_quadratic
+equalities 18
+quadratic
+name S(1,2)
+constant 0
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+0 0 -2
+0 3 2
+1 1 -2
+1 4 2
+2 2 2
+2 5 2
+3 3 -2
+4 4 -2
+5 5 2
+end_quadratic
+quadratic
+name S(2,3)
+constant 0
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+3 3 -2
+3 6 2
+4 4 -2
+4 7 2
+5 5 2
+5 8 2
+6 6 -2
+7 7 -2
+8 8 2
+end_quadratic
+quadratic
+name S(2,4)
+constant 0
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+3 3 -2
+3 9 2
+4 4 -2
+4 10 2
+5 5 2
+5 11 2
+9 9 -2
+10 10 -2
+11 11 2
+end_quadratic
+quadratic
+name S(3,4)
+constant 0
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+6 6 -2
+6 9 2
+7 7 -2
+7 10 2
+8 8 2
+8 11 2
+9 9 -2
+10 10 -2
+11 11 2
+end_quadratic
+quadratic
+name S(4,5)
+constant 0
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+9 9 -2
+9 12 2
+10 10 -2
+10 13 2
+11 11 2
+11 14 2
+12 12 -2
+13 13 -2
+14 14 2
+end_quadratic
+quadratic
+name S(4,6)
+constant 0
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+9 9 -2
+9 15 2
+10 10 -2
+10 16 2
+11 11 2
+11 17 2
+15 15 -2
+16 16 -2
+17 17 2
+end_quadratic
+quadratic
+name S(5,6)
+constant 0
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+12 12 -2
+12 15 2
+13 13 -2
+13 16 2
+14 14 2
+14 17 2
+15 15 -2
+16 16 -2
+17 17 2
+end_quadratic
+quadratic
+name S(1,7)
+constant 0
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+0 0 -2
+0 18 2
+1 1 -2
+1 19 2
+2 2 2
+2 20 2
+18 18 -2
+19 19 -2
+20 20 2
+end_quadratic
+quadratic
+name S(6,7)
+constant 0
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+15 15 -2
+15 18 2
+16 16 -2
+16 19 2
+17 17 2
+17 20 2
+18 18 -2
+19 19 -2
+20 20 2
+end_quadratic
+quadratic
+name S(7,8)
+constant 0
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+18 18 -2
+18 21 2
+19 19 -2
+19 22 2
+20 20 2
+20 23 2
+21 21 -2
+22 22 -2
+23 23 2
+end_quadratic
+quadratic
+name S(7,9)
+constant 0
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+18 18 -2
+18 24 2
+19 19 -2
+19 25 2
+20 20 2
+20 26 2
+24 24 -2
+25 25 -2
+26 26 2
+end_quadratic
+quadratic
+name S(8,9)
+constant 0
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+21 21 -2
+21 24 2
+22 22 -2
+22 25 2
+23 23 2
+23 26 2
+24 24 -2
+25 25 -2
+26 26 2
+end_quadratic
+quadratic
+name S(8,10)
+constant 0
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+21 21 -2
+21 27 2
+22 22 -2
+22 28 2
+23 23 2
+23 29 2
+27 27 -2
+28 28 -2
+29 29 2
+end_quadratic
+quadratic
+name S(9,10)
+constant 0
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+24 24 -2
+24 27 2
+25 25 -2
+25 28 2
+26 26 2
+26 29 2
+27 27 -2
+28 28 -2
+29 29 2
+end_quadratic
+quadratic
+name S(5,11)
+constant 0
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+12 12 -2
+12 30 2
+13 13 -2
+13 31 2
+14 14 2
+14 32 2
+30 30 -2
+31 31 -2
+32 32 2
+end_quadratic
+quadratic
+name S(10,11)
+constant 0
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+27 27 -2
+27 30 2
+28 28 -2
+28 31 2
+29 29 2
+29 32 2
+30 30 -2
+31 31 -2
+32 32 2
+end_quadratic
+quadratic
+name S(10,12)
+constant 0
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+27 27 -2
+27 33 2
+28 28 -2
+28 34 2
+29 29 2
+29 35 2
+33 33 -2
+34 34 -2
+35 35 2
+end_quadratic
+quadratic
+name S(11,12)
+constant 0
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+30 30 -2
+30 33 2
+31 31 -2
+31 34 2
+32 32 2
+32 35 2
+33 33 -2
+34 34 -2
+35 35 2
+end_quadratic
+inequalities 48
+quadratic
+name S(1,3)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+0 0 -2
+0 6 2
+1 1 -2
+1 7 2
+2 2 2
+2 8 2
+6 6 -2
+7 7 -2
+8 8 2
+end_quadratic
+quadratic
+name S(1,4)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+0 0 -2
+0 9 2
+1 1 -2
+1 10 2
+2 2 2
+2 11 2
+9 9 -2
+10 10 -2
+11 11 2
+end_quadratic
+quadratic
+name S(1,5)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+0 0 -2
+0 12 2
+1 1 -2
+1 13 2
+2 2 2
+2 14 2
+12 12 -2
+13 13 -2
+14 14 2
+end_quadratic
+quadratic
+name S(2,5)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+3 3 -2
+3 12 2
+4 4 -2
+4 13 2
+5 5 2
+5 14 2
+12 12 -2
+13 13 -2
+14 14 2
+end_quadratic
+quadratic
+name S(3,5)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+6 6 -2
+6 12 2
+7 7 -2
+7 13 2
+8 8 2
+8 14 2
+12 12 -2
+13 13 -2
+14 14 2
+end_quadratic
+quadratic
+name S(1,6)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+0 0 -2
+0 15 2
+1 1 -2
+1 16 2
+2 2 2
+2 17 2
+15 15 -2
+16 16 -2
+17 17 2
+end_quadratic
+quadratic
+name S(2,6)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+3 3 -2
+3 15 2
+4 4 -2
+4 16 2
+5 5 2
+5 17 2
+15 15 -2
+16 16 -2
+17 17 2
+end_quadratic
+quadratic
+name S(3,6)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+6 6 -2
+6 15 2
+7 7 -2
+7 16 2
+8 8 2
+8 17 2
+15 15 -2
+16 16 -2
+17 17 2
+end_quadratic
+quadratic
+name S(2,7)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+3 3 -2
+3 18 2
+4 4 -2
+4 19 2
+5 5 2
+5 20 2
+18 18 -2
+19 19 -2
+20 20 2
+end_quadratic
+quadratic
+name S(3,7)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+6 6 -2
+6 18 2
+7 7 -2
+7 19 2
+8 8 2
+8 20 2
+18 18 -2
+19 19 -2
+20 20 2
+end_quadratic
+quadratic
+name S(4,7)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+9 9 -2
+9 18 2
+10 10 -2
+10 19 2
+11 11 2
+11 20 2
+18 18 -2
+19 19 -2
+20 20 2
+end_quadratic
+quadratic
+name S(5,7)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+12 12 -2
+12 18 2
+13 13 -2
+13 19 2
+14 14 2
+14 20 2
+18 18 -2
+19 19 -2
+20 20 2
+end_quadratic
+quadratic
+name S(1,8)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+0 0 -2
+0 21 2
+1 1 -2
+1 22 2
+2 2 2
+2 23 2
+21 21 -2
+22 22 -2
+23 23 2
+end_quadratic
+quadratic
+name S(2,8)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+3 3 -2
+3 21 2
+4 4 -2
+4 22 2
+5 5 2
+5 23 2
+21 21 -2
+22 22 -2
+23 23 2
+end_quadratic
+quadratic
+name S(3,8)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+6 6 -2
+6 21 2
+7 7 -2
+7 22 2
+8 8 2
+8 23 2
+21 21 -2
+22 22 -2
+23 23 2
+end_quadratic
+quadratic
+name S(4,8)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+9 9 -2
+9 21 2
+10 10 -2
+10 22 2
+11 11 2
+11 23 2
+21 21 -2
+22 22 -2
+23 23 2
+end_quadratic
+quadratic
+name S(5,8)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+12 12 -2
+12 21 2
+13 13 -2
+13 22 2
+14 14 2
+14 23 2
+21 21 -2
+22 22 -2
+23 23 2
+end_quadratic
+quadratic
+name S(6,8)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+15 15 -2
+15 21 2
+16 16 -2
+16 22 2
+17 17 2
+17 23 2
+21 21 -2
+22 22 -2
+23 23 2
+end_quadratic
+quadratic
+name S(1,9)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+0 0 -2
+0 24 2
+1 1 -2
+1 25 2
+2 2 2
+2 26 2
+24 24 -2
+25 25 -2
+26 26 2
+end_quadratic
+quadratic
+name S(2,9)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+3 3 -2
+3 24 2
+4 4 -2
+4 25 2
+5 5 2
+5 26 2
+24 24 -2
+25 25 -2
+26 26 2
+end_quadratic
+quadratic
+name S(3,9)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+6 6 -2
+6 24 2
+7 7 -2
+7 25 2
+8 8 2
+8 26 2
+24 24 -2
+25 25 -2
+26 26 2
+end_quadratic
+quadratic
+name S(4,9)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+9 9 -2
+9 24 2
+10 10 -2
+10 25 2
+11 11 2
+11 26 2
+24 24 -2
+25 25 -2
+26 26 2
+end_quadratic
+quadratic
+name S(5,9)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+12 12 -2
+12 24 2
+13 13 -2
+13 25 2
+14 14 2
+14 26 2
+24 24 -2
+25 25 -2
+26 26 2
+end_quadratic
+quadratic
+name S(6,9)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+15 15 -2
+15 24 2
+16 16 -2
+16 25 2
+17 17 2
+17 26 2
+24 24 -2
+25 25 -2
+26 26 2
+end_quadratic
+quadratic
+name S(1,10)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+0 0 -2
+0 27 2
+1 1 -2
+1 28 2
+2 2 2
+2 29 2
+27 27 -2
+28 28 -2
+29 29 2
+end_quadratic
+quadratic
+name S(2,10)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+3 3 -2
+3 27 2
+4 4 -2
+4 28 2
+5 5 2
+5 29 2
+27 27 -2
+28 28 -2
+29 29 2
+end_quadratic
+quadratic
+name S(3,10)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+6 6 -2
+6 27 2
+7 7 -2
+7 28 2
+8 8 2
+8 29 2
+27 27 -2
+28 28 -2
+29 29 2
+end_quadratic
+quadratic
+name S(4,10)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+9 9 -2
+9 27 2
+10 10 -2
+10 28 2
+11 11 2
+11 29 2
+27 27 -2
+28 28 -2
+29 29 2
+end_quadratic
+quadratic
+name S(5,10)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+12 12 -2
+12 27 2
+13 13 -2
+13 28 2
+14 14 2
+14 29 2
+27 27 -2
+28 28 -2
+29 29 2
+end_quadratic
+quadratic
+name S(6,10)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+15 15 -2
+15 27 2
+16 16 -2
+16 28 2
+17 17 2
+17 29 2
+27 27 -2
+28 28 -2
+29 29 2
+end_quadratic
+quadratic
+name S(7,10)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+18 18 -2
+18 27 2
+19 19 -2
+19 28 2
+20 20 2
+20 29 2
+27 27 -2
+28 28 -2
+29 29 2
+end_quadratic
+quadratic
+name S(1,11)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+0 0 -2
+0 30 2
+1 1 -2
+1 31 2
+2 2 2
+2 32 2
+30 30 -2
+31 31 -2
+32 32 2
+end_quadratic
+quadratic
+name S(2,11)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+3 3 -2
+3 30 2
+4 4 -2
+4 31 2
+5 5 2
+5 32 2
+30 30 -2
+31 31 -2
+32 32 2
+end_quadratic
+quadratic
+name S(3,11)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+6 6 -2
+6 30 2
+7 7 -2
+7 31 2
+8 8 2
+8 32 2
+30 30 -2
+31 31 -2
+32 32 2
+end_quadratic
+quadratic
+name S(4,11)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+9 9 -2
+9 30 2
+10 10 -2
+10 31 2
+11 11 2
+11 32 2
+30 30 -2
+31 31 -2
+32 32 2
+end_quadratic
+quadratic
+name S(6,11)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+15 15 -2
+15 30 2
+16 16 -2
+16 31 2
+17 17 2
+17 32 2
+30 30 -2
+31 31 -2
+32 32 2
+end_quadratic
+quadratic
+name S(7,11)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+18 18 -2
+18 30 2
+19 19 -2
+19 31 2
+20 20 2
+20 32 2
+30 30 -2
+31 31 -2
+32 32 2
+end_quadratic
+quadratic
+name S(8,11)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+21 21 -2
+21 30 2
+22 22 -2
+22 31 2
+23 23 2
+23 32 2
+30 30 -2
+31 31 -2
+32 32 2
+end_quadratic
+quadratic
+name S(9,11)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+24 24 -2
+24 30 2
+25 25 -2
+25 31 2
+26 26 2
+26 32 2
+30 30 -2
+31 31 -2
+32 32 2
+end_quadratic
+quadratic
+name S(1,12)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+0 0 -2
+0 33 2
+1 1 -2
+1 34 2
+2 2 2
+2 35 2
+33 33 -2
+34 34 -2
+35 35 2
+end_quadratic
+quadratic
+name S(2,12)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+3 3 -2
+3 33 2
+4 4 -2
+4 34 2
+5 5 2
+5 35 2
+33 33 -2
+34 34 -2
+35 35 2
+end_quadratic
+quadratic
+name S(3,12)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+6 6 -2
+6 33 2
+7 7 -2
+7 34 2
+8 8 2
+8 35 2
+33 33 -2
+34 34 -2
+35 35 2
+end_quadratic
+quadratic
+name S(4,12)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+9 9 -2
+9 33 2
+10 10 -2
+10 34 2
+11 11 2
+11 35 2
+33 33 -2
+34 34 -2
+35 35 2
+end_quadratic
+quadratic
+name S(5,12)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+12 12 -2
+12 33 2
+13 13 -2
+13 34 2
+14 14 2
+14 35 2
+33 33 -2
+34 34 -2
+35 35 2
+end_quadratic
+quadratic
+name S(6,12)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+15 15 -2
+15 33 2
+16 16 -2
+16 34 2
+17 17 2
+17 35 2
+33 33 -2
+34 34 -2
+35 35 2
+end_quadratic
+quadratic
+name S(7,12)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+18 18 -2
+18 33 2
+19 19 -2
+19 34 2
+20 20 2
+20 35 2
+33 33 -2
+34 34 -2
+35 35 2
+end_quadratic
+quadratic
+name S(8,12)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+21 21 -2
+21 33 2
+22 22 -2
+22 34 2
+23 23 2
+23 35 2
+33 33 -2
+34 34 -2
+35 35 2
+end_quadratic
+quadratic
+name S(9,12)
+constant 0.0001
+linear 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+hessian_nnz 9
+24 24 -2
+24 33 2
+25 25 -2
+25 34 2
+26 26 2
+26 35 2
+33 33 -2
+34 34 -2
+35 35 2
+end_quadratic
+end_problem

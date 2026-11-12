@@ -1,0 +1,63 @@
+{
+  "schema": "default-ipopt-original-audit-qualification-v1",
+  "status": "PASS",
+  "tests": [
+    {
+      "test": "directed_decimal_sign_operations_preserve_more_than28_digits",
+      "passed": true
+    },
+    {
+      "test": "active_original_lower_bound_and_noncanonical_absent_upper",
+      "passed": true
+    },
+    {
+      "test": "native_point_uses_physical_certificate_vectors",
+      "passed": true
+    },
+    {
+      "test": "relaxed_bound_endpoint_audited_against_original_bound",
+      "passed": true
+    },
+    {
+      "test": "cancellation_and_exact_decimal_threshold",
+      "passed": true
+    },
+    {
+      "test": "indefinite_stationary_point_is_only_a_first_order_certificate",
+      "passed": true
+    },
+    {
+      "test": "nonzero_solver_return_does_not_override_original_certificate",
+      "passed": true
+    },
+    {
+      "test": "censored_observation_keeps_audited_point_separate",
+      "passed": true
+    },
+    {
+      "test": "missing_endpoint_is_indeterminate",
+      "passed": true
+    },
+    {
+      "test": "nonfinite_endpoint_is_indeterminate",
+      "passed": true
+    },
+    {
+      "test": "streaming_active_original_bound",
+      "passed": true
+    },
+    {
+      "test": "streaming_directed_decimal_threshold",
+      "passed": true
+    },
+    {
+      "test": "streaming160000_nonzero_coefficients_bounded_memory",
+      "passed": true,
+      "peak_traced_bytes": 420274,
+      "coefficients": 160000
+    }
+  ],
+  "optimizer_invocations": 0,
+  "qualified_first_order_threshold": "1e-6",
+  "new_solver_runs": 0
+}

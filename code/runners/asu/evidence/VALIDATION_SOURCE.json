@@ -1,0 +1,27 @@
+{
+  "schema": "bound-removal-kit-local-validation-v2",
+  "passed": true,
+  "generic_cpp_policy_checks": 73,
+  "policy_output": "73 policy checks passed",
+  "same_policy_on_off_profiles_checked": 6,
+  "changed_source_files": [
+    "include/lazyipdca_qcqp/settings.hpp",
+    "src/main.cpp",
+    "src/rank_presolve.cpp",
+    "src/research_equality_implied_bounds.hpp"
+  ],
+  "syntax_checked_translation_units": [],
+  "plan_cases": 503,
+  "cells": 12,
+  "tasks": 6036,
+  "synthetic_controller_checks": 4,
+  "native_proof_rejections": 5,
+  "exact_nonclock_mutation_checks": 3,
+  "pilot_selection_checked": true,
+  "original_source_preserved": true,
+  "optimizer_invocations": 0,
+  "ASU_solver_runs": 0,
+  "full_native_link_tested": false,
+  "TRX_runtime_qualified": false,
+  "scope": "Generic gate compiled; unchanged same-policy commands and exact patch anchors checked. Native translation units/link and endpoint/campaign qualification are separate."
+}

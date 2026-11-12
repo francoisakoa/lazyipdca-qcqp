@@ -1,0 +1,10 @@
+# Six direct QCQP candidates validated numerically by the exporter, followed by
+# two exact continuous QCQP liftings handled by reformulation=auto.
+BT1
+GOTTFR
+HIMMELBD
+DISCS
+HS116
+A4X12
+CORE1
+CORE2

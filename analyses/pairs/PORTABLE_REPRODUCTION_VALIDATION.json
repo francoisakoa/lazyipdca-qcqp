@@ -1,0 +1,108 @@
+{
+  "schema": "aligned-pairing-portable-validation-v1",
+  "executed_from_isolated_temporary_directory": true,
+  "workspace_source_not_used_by_scripts": true,
+  "tables_matched": 19,
+  "tables": [
+    {
+      "name": "complete_benchmark_ma27_aligned.tex",
+      "same_bytes": true,
+      "sha256": "14863e2305d42b736743d042e266ff5019f794dbf8e4857dbb1c1ee2d7f70c0d"
+    },
+    {
+      "name": "complete_benchmark_mumps_aligned.tex",
+      "same_bytes": true,
+      "sha256": "de4108c7304fa7cd852c09e16429982279fdeec16d62006d40f94a8fd3a68414"
+    },
+    {
+      "name": "composition_ma27_aligned.tex",
+      "same_bytes": true,
+      "sha256": "07b1582458cb97ed842414072b39f6dbce03d8f11315e8f7ac07ecbb03154fe4"
+    },
+    {
+      "name": "composition_mumps_aligned.tex",
+      "same_bytes": true,
+      "sha256": "199a3b710fba85f1c2f3d0e845e081da886d6948679f6b10f7fc55e89baced03"
+    },
+    {
+      "name": "coverage_all_16.tex",
+      "same_bytes": true,
+      "sha256": "6cde4b9fdf98e3c8789dbf18178db31080f10bbc81b06409f1ae2e499394046f"
+    },
+    {
+      "name": "crossed_R3_I_references.tex",
+      "same_bytes": true,
+      "sha256": "428d3e941bc34f7228ffa8d9e7fe8b29918f8dc3d17f1f9a0693a45d8649a4ce"
+    },
+    {
+      "name": "dataset_coverage_ma27_aligned.tex",
+      "same_bytes": true,
+      "sha256": "a7539be77e0f860b02916504cfbb255568287992af82a824393f07e062bf5ccb"
+    },
+    {
+      "name": "dataset_coverage_mumps_aligned.tex",
+      "same_bytes": true,
+      "sha256": "1cad524c913c921d1382a8c58436fb87938622c9ced612c66310d11e78f948bd"
+    },
+    {
+      "name": "native_backend_crossed.tex",
+      "same_bytes": true,
+      "sha256": "f8e4348db8cc0f0d9fb0d9c30a6348f37b28994907d81587578fa769d88bb30a"
+    },
+    {
+      "name": "objectives_M_ASU_rest_monotone.tex",
+      "same_bytes": true,
+      "sha256": "a2641bc7ec2e4dfb76f58ecb8e629c08f31ee183136bc7effc4e6e6d477f627e"
+    },
+    {
+      "name": "objectives_native_vs_monotone.tex",
+      "same_bytes": true,
+      "sha256": "243bb0b2c65b08e1864277b6c1e6f823edcfca3f4165976b86bf0a648d7af468"
+    },
+    {
+      "name": "paired_all_ma27_aligned.tex",
+      "same_bytes": true,
+      "sha256": "938eba4c74b5aa49188b370a6a99bac0e721ce93a496a5fa563d6d829d194c56"
+    },
+    {
+      "name": "paired_all_mumps_aligned.tex",
+      "same_bytes": true,
+      "sha256": "8140e788786c6bfdddf2b4a02f01ee88bc3a8f77ccbeef3aa6c68198cb376be3"
+    },
+    {
+      "name": "paired_over1s_ma27_aligned.tex",
+      "same_bytes": true,
+      "sha256": "47688dc959635f615521e492b2cd615032bfa1d9c7ffc32c4e50b434b220c926"
+    },
+    {
+      "name": "paired_over1s_mumps_aligned.tex",
+      "same_bytes": true,
+      "sha256": "78d95f05570becf6a55f66ee4a062d641f138fc9fbeaa7d56efc65da5bc9ce17"
+    },
+    {
+      "name": "timing_native_vs_monotone_over1s.tex",
+      "same_bytes": true,
+      "sha256": "0ab7f28301721e8289e610b455bb162b3c0a0079c4f782886aeea5f03910ca0b"
+    },
+    {
+      "name": "reference/reference_facility_precision.tex",
+      "same_bytes": true,
+      "sha256": "7baa0fae4abe424fa80959be9b089658e28d7bb5f8de5fb782bc96df03d9519d"
+    },
+    {
+      "name": "reference/reference_values_common_monotone.tex",
+      "same_bytes": true,
+      "sha256": "6772cd04612eb18eb60c2e1978a61493927253d61c71e394aed7f22f389b89b6"
+    },
+    {
+      "name": "reference/reference_values_summary.tex",
+      "same_bytes": true,
+      "sha256": "ab7516bdfbd4809e807a5602a34b7ec4a4378b9266bdadd5352cfe2bb53f6410"
+    }
+  ],
+  "pair_summary_rows": 630,
+  "pair_summaries_exactly_equal": true,
+  "optimizer_invocations": 0,
+  "endpoint_audits": 0,
+  "network_requests": 0
+}

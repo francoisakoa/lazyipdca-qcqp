@@ -1,0 +1,7 @@
+{
+  "version": "0.4.28r3p28g5-adaptive-dca",
+  "api_version": 4331,
+  "build_id": "v0.4.28r3p28g5-adaptive-dca-api-4331",
+  "branch": "filter-lazy-dca",
+  "parent": "0.4.28r3p28g4-persistent-dca"
+}

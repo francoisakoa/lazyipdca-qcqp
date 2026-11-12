@@ -1,0 +1,40 @@
+{
+  "checks": [
+    {
+      "kind": "dataset_coverage",
+      "backend": "ma27",
+      "rows": 28,
+      "numeric_cells": 252,
+      "matched": true
+    },
+    {
+      "kind": "process_time_pairings",
+      "backend": "ma27",
+      "rows": 28,
+      "numeric_cells": 140,
+      "matched": true
+    },
+    {
+      "kind": "dataset_coverage",
+      "backend": "mumps",
+      "rows": 28,
+      "numeric_cells": 252,
+      "matched": true
+    },
+    {
+      "kind": "process_time_pairings",
+      "backend": "mumps",
+      "rows": 28,
+      "numeric_cells": 140,
+      "matched": true
+    },
+    {
+      "kind": "strict_failure_totals",
+      "rows": 16,
+      "numeric_cells": 80,
+      "matched": true
+    }
+  ],
+  "total_numeric_cells": 864,
+  "all_matched": true
+}

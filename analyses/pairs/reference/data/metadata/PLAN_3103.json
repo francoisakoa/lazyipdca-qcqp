@@ -1,0 +1,97 @@
+{
+  "schema": "emfl-reference-conversion-subset-v1",
+  "cases": {
+    "MINLPLIB__emfl050_3_3": {
+      "input_sha256": "0109eadcf0920627a16ba867e28bce43b0f695971324ba9b55ab8654edd99b1b",
+      "source_record": {
+        "direct_qcqp": true,
+        "mathematical_scope": "public_continuous_original",
+        "n_integer": 0,
+        "n_binary": 0,
+        "export_parity": {
+          "performed": true,
+          "points": 2,
+          "scope": "raw public OSiL versus independently parsed native QCQP; no solve or certificate",
+          "source_lagrangian_gradient_relative_error_max": 0.0,
+          "source_value_relative_error_max": 1.1102230246251565e-16,
+          "threshold": 1e-09
+        },
+        "primary_instance_url": "https://minlplib.org/emfl050_3_3.html",
+        "source_sha256": {
+          "gms": "e0100040c0669259019c064066f2cb7bce0be2bd634e0c5ffa98c0d9c22458a3",
+          "osil": "697d84fb49740487e26a28c6b0f764aa3408926a32a0214b300b77cab6ddc464",
+          "py": "4a94660d694c7b394ecc5b1db5eeb58876766e3987e5d698acf50706aa7c4527"
+        }
+      }
+    },
+    "MINLPLIB__emfl050_5_5": {
+      "input_sha256": "88bc3a3ac07499ae7c6c0b91d40ae0f3f0e7cc9027ec9c2828708021a6702d8d",
+      "source_record": {
+        "direct_qcqp": true,
+        "mathematical_scope": "public_continuous_original",
+        "n_integer": 0,
+        "n_binary": 0,
+        "export_parity": {
+          "performed": true,
+          "points": 2,
+          "scope": "raw public OSiL versus independently parsed native QCQP; no solve or certificate",
+          "source_lagrangian_gradient_relative_error_max": 0.0,
+          "source_value_relative_error_max": 1.1102230246251565e-16,
+          "threshold": 1e-09
+        },
+        "primary_instance_url": "https://minlplib.org/emfl050_5_5.html",
+        "source_sha256": {
+          "gms": "0718b54348c78f0cbac77986fe56aac5d798b9d0ebae6bec69e44cf1f2ef3929",
+          "osil": "501dd45c154f214aab21dd7d8c12763f3eaa89b6fb7708bc1bd614d0b0cb8827",
+          "py": "44f668c8f22791ec976adbbd32205fbe1abe76cea475106614ed48434bc22e06"
+        }
+      }
+    },
+    "MINLPLIB__emfl100_3_3": {
+      "input_sha256": "eb9f2fd4a7ff97c1ba5807e574700b45a655e988074d6c43b8f5839f534e0ae6",
+      "source_record": {
+        "direct_qcqp": true,
+        "mathematical_scope": "public_continuous_original",
+        "n_integer": 0,
+        "n_binary": 0,
+        "export_parity": {
+          "performed": true,
+          "points": 2,
+          "scope": "raw public OSiL versus independently parsed native QCQP; no solve or certificate",
+          "source_lagrangian_gradient_relative_error_max": 0.0,
+          "source_value_relative_error_max": 1.1102230246251565e-16,
+          "threshold": 1e-09
+        },
+        "primary_instance_url": "https://minlplib.org/emfl100_3_3.html",
+        "source_sha256": {
+          "gms": "f70934e37669dddbcc5572470854603ac14f9f2f25ba54eb0b094ab4de049fdb",
+          "osil": "730d7ee662cdd7a26600fad219d345b108493a1e73d31c93206800989239db17",
+          "py": "819368ddb11e41e26b2892babdb9c02db443d535b63031f2ee966dcdf09ed0f2"
+        }
+      }
+    },
+    "MINLPLIB__emfl100_5_5": {
+      "input_sha256": "c3a889d15147ed4f24e3f0985b8690d5ea268d6241ce696333dfb40f28f7fc0e",
+      "source_record": {
+        "direct_qcqp": true,
+        "mathematical_scope": "public_continuous_original",
+        "n_integer": 0,
+        "n_binary": 0,
+        "export_parity": {
+          "performed": true,
+          "points": 2,
+          "scope": "raw public OSiL versus independently parsed native QCQP; no solve or certificate",
+          "source_lagrangian_gradient_relative_error_max": 0.0,
+          "source_value_relative_error_max": 1.1102230246251565e-16,
+          "threshold": 1e-09
+        },
+        "primary_instance_url": "https://minlplib.org/emfl100_5_5.html",
+        "source_sha256": {
+          "gms": "b23ee6517d5e48acccb7f0b0d067fa35d10c3698f359f76de3a5ec3cb930b26b",
+          "osil": "eeddebe5ff1be6ff2e8caf45eeb5ed0205cc23f1efc39cbb0d916ede64cf5779",
+          "py": "a2bf321178548f6a5ffe32013942b5379cabdfe42bce34d71bcd15e3d6c5956d"
+        }
+      }
+    }
+  }
+}

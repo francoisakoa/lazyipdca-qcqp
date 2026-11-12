@@ -1,0 +1,24 @@
+test_all_four_ids (__main__.AnalysisTests.test_all_four_ids) ... ok
+test_bad_option_unqualified (__main__.AnalysisTests.test_bad_option_unqualified) ... ok
+test_bad_original_decision_unqualified (__main__.AnalysisTests.test_bad_original_decision_unqualified) ... ok
+test_bound_budget_is_not_iteration_inference (__main__.AnalysisTests.test_bound_budget_is_not_iteration_inference) ... ok
+test_different_binary_rejected (__main__.AnalysisTests.test_different_binary_rejected) ... ok
+test_duplicate_rejected (__main__.AnalysisTests.test_duplicate_rejected) ... ok
+test_full_counts (__main__.AnalysisTests.test_full_counts) ... ok
+test_internal_success_kept_distinct (__main__.AnalysisTests.test_internal_success_kept_distinct) ... ok
+test_missing_not_numerical (__main__.AnalysisTests.test_missing_not_numerical) ... ok
+test_multiple_run_ids_rejected (__main__.AnalysisTests.test_multiple_run_ids_rejected) ... ok
+test_native_projection_excludes_old_ipopt (__main__.AnalysisTests.test_native_projection_excludes_old_ipopt) ... ok
+test_old_ipopt_never_relabelled (__main__.AnalysisTests.test_old_ipopt_never_relabelled) ... ok
+test_own_success_codes_not_python_bool (__main__.AnalysisTests.test_own_success_codes_not_python_bool) ... ok
+test_partial_line_only_last (__main__.AnalysisTests.test_partial_line_only_last) ... ok
+test_plan_actual_shape (__main__.AnalysisTests.test_plan_actual_shape) ... ok
+test_proven_nonstrict (__main__.AnalysisTests.test_proven_nonstrict) ... ok
+test_quantile_and_gap (__main__.AnalysisTests.test_quantile_and_gap) ... ok
+test_timing_strict_greater_than_one (__main__.AnalysisTests.test_timing_strict_greater_than_one) ... ok
+test_unregistered_extra_setting_rejected (__main__.AnalysisTests.test_unregistered_extra_setting_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.014s
+
+OK

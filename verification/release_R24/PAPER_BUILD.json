@@ -1,0 +1,65 @@
+{
+  "schema": "lazyqcqp-github-r24-paper-validation-v1",
+  "status": "passed",
+  "compile_steps": [
+    {
+      "round": 1,
+      "file": "Akoa_LazyQCQP_20261111_R24.tex",
+      "returncode": 0
+    },
+    {
+      "round": 1,
+      "file": "Akoa_LazyQCQP_20261111_R24_Supplement.tex",
+      "returncode": 0
+    },
+    {
+      "round": 2,
+      "file": "Akoa_LazyQCQP_20261111_R24.tex",
+      "returncode": 0
+    },
+    {
+      "round": 2,
+      "file": "Akoa_LazyQCQP_20261111_R24_Supplement.tex",
+      "returncode": 0
+    },
+    {
+      "round": 3,
+      "file": "Akoa_LazyQCQP_20261111_R24.tex",
+      "returncode": 0
+    },
+    {
+      "round": 3,
+      "file": "Akoa_LazyQCQP_20261111_R24_Supplement.tex",
+      "returncode": 0
+    }
+  ],
+  "documents": {
+    "Akoa_LazyQCQP_20261111_R24": {
+      "pages": 33,
+      "page_text_identical_to_canonical_r24": true,
+      "undefined_references": false,
+      "overfull_boxes": false,
+      "missing_glyphs": false,
+      "canonical_pdf_sha256": "1f6096b07de0343f38d949d1e7c3d3c86784fa994d899fb1b4902939502073b7"
+    },
+    "Akoa_LazyQCQP_20261111_R24_Supplement": {
+      "pages": 65,
+      "page_text_identical_to_canonical_r24": true,
+      "undefined_references": false,
+      "overfull_boxes": false,
+      "missing_glyphs": false,
+      "canonical_pdf_sha256": "ad02dc1d06448fdb43867229bd440f944521f98ffe2697044e41d0712b2d4ec9"
+    }
+  },
+  "abstract_words": 249,
+  "bibtex_references": 64,
+  "author_supplied_ai_declaration_preserved": true,
+  "visual_review": {
+    "status": "passed",
+    "pages_inspected": [
+      14,
+      15
+    ],
+    "scope": "Theorem 5.3, formula (24), spectral factor (25), proof, linearized-equality model (Pk) and Corollary 5.4 are readable and correctly laid out."
+  }
+}

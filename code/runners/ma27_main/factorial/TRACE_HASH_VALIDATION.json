@@ -1,0 +1,17 @@
+{
+  "schema": "factorial-state-hash-independent-check-v1",
+  "passed": true,
+  "native": "e84d06b95c2cf693913cb5454977998229693cd07521fcdc6eb11f9aedb272a5",
+  "python_hashlib": "e84d06b95c2cf693913cb5454977998229693cd07521fcdc6eb11f9aedb272a5",
+  "encoding": "length-prefixed unsigned64 little-endian lengths, then exact binary64 little-endian values for x,s,z,lambda",
+  "covers": [
+    "empty vector",
+    "negative zero",
+    "positive zero",
+    "smallest positive subnormal",
+    "large finite value",
+    "negative value"
+  ],
+  "source_sha256": "04d93cfae1798b27d3e2d1d9ce947a05903495fc3a65f2a2ad0adfab90a4fe17",
+  "corpus_gate_passed": false
+}

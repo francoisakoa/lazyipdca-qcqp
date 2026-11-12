@@ -1,0 +1,85 @@
+--- reference/include/lazyipdca_qcqp/settings.hpp
++++ research/include/lazyipdca_qcqp/settings.hpp
+@@ -17,6 +17,7 @@
+   bool dca_rank_presolve=false;
+   bool free_epigraph_presolve=true; // coefficient-certified; adaptive study only
+   std::string dca_rank_audit_mode="mapped"; // full, mapped, or check (dual audit; diagnostics only)
++  std::string research_equality_implied_bounds="profile"; // independent quadratic-equality bound rule only
+   bool dca_rank_implied_bounds=true; // explicit opt-in; the rank-start runner enables it
+   const ConstraintPresolve* rank_presolve_context=nullptr; // borrowed during solve
+ 
+--- reference/src/main.cpp
++++ research/src/main.cpp
+@@ -54,6 +54,7 @@
+     << "  --native-augmented-repair 0|1 native PHR/free-bound-face recovery, original QCQP KKT (0)\n"
+     << "  --free-epigraph-presolve 0|1  exact objective-free negative-square leaves; adaptive study only (1)\n"
+     << "  --dca-rank-implied-bounds 0|1  remove box sides proved by a retained quadratic (1)\n"
++    << "  --research-equality-implied-bounds profile|keep|remove  research override for quadratic-equality implied box sides\n"
+     << "  --dca-rank-presolve-report FILE  JSON of verified reductions\n"
+     << "  --dca-aggregate              certified aggregate barrier/Lagrangian quadratic DCA\n"
+     << "  --dca-aggregate-kkt-layout M persistent|dynamic border slots (persistent)\n"
+@@ -537,6 +538,11 @@
+         const std::string v=need(a.c_str());
+         if(v!="0"&&v!="1")throw std::invalid_argument(a+" must be 0 or 1");
+         st.dca_rank_implied_bounds=v=="1";
++      }
++      else if(a=="--research-equality-implied-bounds") {
++        st.research_equality_implied_bounds=need(a.c_str());
++        const auto& v=st.research_equality_implied_bounds;
++        if(v!="profile"&&v!="keep"&&v!="remove")throw std::invalid_argument(a+" expects profile|keep|remove");
+       }
+       else if(a=="--dca-rank-presolve-report")st.dca_rank_presolve_report_file=need(a.c_str());
+       else if(a=="--dca-aggregate-backend") st.dca_aggregate_backend=need(a.c_str());
+--- reference/src/rank_presolve.cpp
++++ research/src/rank_presolve.cpp
+@@ -1,4 +1,5 @@
+ #include "lazyipdca_qcqp/rank_presolve.hpp"
++#include "research_equality_implied_bounds.hpp"
+ #include "lazyipdca_qcqp/acceptable.hpp"
+ #include "lazyipdca_qcqp/terminal_multiplier_fit.hpp"
+ #include <algorithm>
+@@ -922,9 +923,9 @@
+   const double started_absolute=std::chrono::duration<double>(all_begin.time_since_epoch()).count();
+   auto attempt=[&](const Settings& st,bool enable_exact_fixed)->std::optional<Result> {
+   const auto begin=Clock::now();
+-  const bool equality_bounds=st.dca_rank_implied_bounds&&st.dca_engine=="majorants"&&
+-      (st.convexification_study=="HH"||st.convexification_study=="H0"||
+-       st.convexification_study=="HS"||st.convexification_study=="SH");
++  const bool equality_bounds=research::quadratic_equality_implied_bounds_enabled(
++      st.dca_rank_implied_bounds,st.dca_engine,st.convexification_study,
++      st.research_equality_implied_bounds);
+   const bool affine_equality_bounds=st.dca_rank_implied_bounds&&
+       st.dca_engine=="majorants"&&st.convexification_study=="off";
+   ConstraintPresolve reduction(p,st.dca_rank_implied_bounds,equality_bounds,
+@@ -935,7 +936,13 @@
+   if(!st.dca_rank_presolve_report_file.empty()){
+     std::ofstream f(st.dca_rank_presolve_report_file);
+     if(!f)throw std::runtime_error("cannot create rank-presolve report: "+st.dca_rank_presolve_report_file);
+-    f<<reduction.report_json()<<'\n';
++    const std::string report=reduction.report_json();
++    if(report.empty()||report.back()!='}')throw std::runtime_error("invalid native presolve report");
++    f<<report.substr(0,report.size()-1)
++      <<",\"research_equality_implied_bounds\":\""<<st.research_equality_implied_bounds<<"\""
++      <<",\"quadratic_equality_rule_enabled\":"<<(equality_bounds?"true":"false")
++      <<",\"affine_equality_rule_enabled\":"<<(affine_equality_bounds?"true":"false")
++      <<",\"radial_inequality_master_enabled\":"<<(st.dca_rank_implied_bounds?"true":"false")<<"}\n";
+     if(!f)throw std::runtime_error("cannot write rank-presolve report");
+   }
+   if(st.live_display_level!=0){const auto& s=reduction.statistics();
+--- reference/src/research_equality_implied_bounds.hpp
++++ research/src/research_equality_implied_bounds.hpp
+@@ -0,0 +1,14 @@
++#pragma once
++#include <stdexcept>
++#include <string>
++namespace lazyipdca::qcqp::research {
++inline bool quadratic_equality_implied_bounds_enabled(
++    bool master,const std::string& engine,const std::string& mode,
++    const std::string& policy) {
++  if(policy!="profile"&&policy!="keep"&&policy!="remove")
++    throw std::invalid_argument("research-equality-implied-bounds expects profile|keep|remove");
++  const bool historical=mode=="HH"||mode=="H0"||mode=="HS"||mode=="SH";
++  return master&&engine=="majorants"&&
++      (policy=="remove"||(policy=="profile"&&historical));
++}
++}

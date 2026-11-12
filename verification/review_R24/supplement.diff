@@ -1,0 +1,131 @@
+--- R23
++++ R24
+@@ -36,7 +36,7 @@
+ \newcommand{\eps}{\varepsilon}
+ \hypersetup{pdftitle={Supplementary Material: Tangent Excess and Persistent Difference-of-Convex Regularization for Nonconvex QCQPs},pdfauthor={Francois Akoa}}
+ 
+-\externaldocument[][nocite]{Akoa_LazyQCQP_20261111_R23}[Akoa_LazyQCQP_20261111_R23.pdf]
++\externaldocument[][nocite]{Akoa_LazyQCQP_20261111_R24}[Akoa_LazyQCQP_20261111_R24.pdf]
+ 
+ \usepackage{xcolor}
+ \newenvironment{scaledtable}[1][tbp]{\begin{tableorg}[#1]\centering}{\end{tableorg}}
+@@ -1178,10 +1178,9 @@
+ 
+ 
+ 
+-\section{A sharp smooth extension}\label{supp:smooth-sharp}
+-\paragraph{A sharp nonquadratic example.}
++\section{A nonquadratic example attaining the bound}\label{supp:smooth-attainment}
+ For $a,c,d>0$, consider
+-\begin{equation}\label{eq:smooth-sharp-example}
++\begin{equation}\label{eq:smooth-attainment-example}
+  \min_{s,t}\;s+\frac{a+c}{2}t^2
+  \quad\text{subject to}\quad
+  g(s,t)=-s-\frac c2t^2+\frac d4t^4\leq0.
+@@ -1216,9 +1215,8 @@
+ first update $s_k=O(t_k^2)$ near the solution, so the full primal error
+ has the same limiting ratio for every nonzero scalar starting point.
+ The case $d>0$ attains both bounds outside the QCQP class. Setting $d=0$
+-already gives a sharp QCQP: its model is affine and
+-$t_{k+1}=ct_k/(a+c)$ exactly. The quartic term illustrates the smooth
+-extension rather than being needed for sharpness.
++gives a QCQP attaining the bound: its inequality model is affine and
++$t_{k+1}=ct_k/(a+c)$ exactly. The quartic term extends the example to nonquadratic functions.
+ 
+ 
+ \section{Stabilized multiplier equations}\label{supp:stabilized}
+@@ -1296,7 +1294,7 @@
+ 
+ \FloatBarrier
+ \section{Benchmark sources and conversions}\label{app:benchmark-sources}
+-The collection contains 4,078 continuous QCQPs from 28 collections,
++The benchmark contains 4,078 continuous QCQPs from 28 collections,
+ combining public optimization instances, published model generators and
+ QCQPs constructed from application data. Sources include CUTEst, PGLib,
+ MINLPLib, QPLIB and CBLIB
+@@ -1309,8 +1307,8 @@
+ \citet{SchmidtEtAl2017GasLib,GasPowerModels2026,LuedtkeEtAl2020Pooling,
+ Ceccon2020PoolingNetwork}. The ASU radio-beamforming QCQPs are constructed
+ for this study from DeepMIMO ray-tracing data \citep{Alkhateeb2019DeepMIMO}.
+-Other beamforming collections instantiate multicast and constant-modulus
+-formulations or use published array-safety data
++Other beamforming collections use multicast and constant-modulus
++formulations or published array-safety data
+ \citep{SidiropoulosDavidsonLuo2006,He2021ConstantModulus,
+ BalajiLiCabric2026Data}. Application models also include robot-pose QCQPs
+ constructed from ARKOMA target data, trajectory smoothing, distance
+@@ -1331,7 +1329,7 @@
+ \section{Linear-algebra settings and KKT certification}\label{app:ipopt-protocol}
+ The external solver is Ipopt 3.14.11. MA27 and MUMPS are reported
+ separately. The principal reference uses the default monotone barrier
+-strategy with stopping precision aimed at the independent original-KKT
++strategy with stopping tolerances chosen for the independent original-KKT
+ certificate. The adaptive strategy is evaluated with identical stopping
+ precision and budgets. Table~\ref{tab:reference-settings-aligned} gives
+ the explicit settings. Both implementations link to the same MUMPS
+@@ -1418,8 +1416,8 @@
+ planned instances. The main table includes all twelve native policies
+ and these four references. The paired tables here compare each native
+ configuration with monotone Ipopt using the same linear solver. Every
+-coverage denominator retains all planned cases, while objectives and
+-times use the explicitly sized intersections of original certificates.
++coverage denominator includes all planned cases. Objective and time
++comparisons use the common certified cases, with their counts reported explicitly.
+ The adaptive strategy, at identical stopping targets, is the sensitivity
+ reference in the main coverage table and the accompanying numerical data.
+ 
+@@ -1514,7 +1512,7 @@
+ }
+ \end{scaledtable}
+ 
+-The I baseline/monotone-Ipopt comparison depends on the linear solver:
++In regime I, the comparison between the baseline and monotone Ipopt depends on the linear solver:
+ MA27 has 977 shared, 19 native-only and 31 Ipopt-only certificates;
+ MUMPS has 1,006 shared, 20 native-only and one Ipopt-only. The comparison matches
+ inputs, initial points, final residuals and execution records for each
+@@ -1786,9 +1784,9 @@
+ \paragraph{Incomplete experimental records.}
+ Table~\ref{tab:controlled-refinement-evidence} retains all 189 observations
+ with incomplete records. Of these, 152 cover 19 cases in all eight
+-configurations. The full logs and verified source locate a counter-recording
+-problem during the initial affine phase, before hybrid regularization
+-matrices are constructed; 143 of these final points pass the independent
++configurations. The logs and checked source code trace a counter-recording problem to
++the initial affine phase, before hybrid regularization matrices are
++constructed; 143 of these final points pass the independent
+ original-KKT audit. F/A iteration histories before refinement and first
+ hybrid regularization matrices agree on all 76 pairs, but the diagnostics
+ and phase records remain inconsistent. Their classifications and the
+@@ -1995,8 +1993,8 @@
+ The next four tables compare all twelve native configurations with both
+ default-stopping Ipopt references on common original certificates. Their
+ stopping rules differ, so these results describe the attained points on
+-those instances. Precision-matched comparisons use the separate sets
+-in Section~\ref{app:aligned-reference-results}.
++those instances. Section~\ref{app:aligned-reference-results} reports the comparisons with
++stopping tolerances chosen for the common certificate.
+ 
+ \begin{scaledtable}[!htbp]
+ \centering\scriptsize
+@@ -2528,8 +2526,7 @@
+ \section{Composition sensitivity in every regime}\label{app:composition}
+ Instance coverage weights each planned QCQP equally. We also average
+ coverage rates across families and collections, with equal weight for
+-each nonempty group within its partition. The omission calculation removes the largest collection in each
+-regime. Every planned instance stays in the corresponding denominator,
++each nonempty group within its partition. An additional summary excludes the largest collection in each regime. Every planned instance stays in the corresponding denominator,
+ including failures caused by execution or audit incidents.
+ These are descriptive corpus summaries; groups are not treated as independent
+ statistical repetitions.
+@@ -3603,8 +3600,9 @@
+ refinement and globalization while retaining quadratically implied bounds.
+ 
+ \subsection{Controlled implied-bound removal}\label{supp:asu-bounds}
+-All 503 ASU problems are crossed with R3, SS and HH, retained or removed
+-quadratically implied bounds, and MA27 or MUMPS: 6,036 observations.
++Each of the 503 ASU problems is solved with R3, SS and HH, with
++quadratically implied bounds retained or removed, using MA27 or MUMPS:
++6,036 observations.
+ A common implementation changes only the rule for bounds proved redundant
+ by a quadratic equality; inputs, raw starts, policy settings and budgets
+ are fixed within each pair. Other presolve rules remain fixed. Removal

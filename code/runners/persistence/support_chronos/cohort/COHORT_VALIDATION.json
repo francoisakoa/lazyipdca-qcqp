@@ -1,0 +1,27 @@
+{
+  "schema": "quiet-timing-cohort-validation-v1",
+  "source_sha256": "7b18eecc19859ce779aa8f9713908b88b5dc619e71241eb89e604e1cf23734d5",
+  "cohort_content_sha256": "5bcdf9267b9f3a0b5d8db57184993a45c3bb6abf46ef379d54f42fc47cc2dcea",
+  "counts": {
+    "pairs": 275,
+    "distinct_cases": 179,
+    "unique_case_configuration_jobs": 550,
+    "planned_solver_processes": 1650,
+    "cohorts": {
+      "ma27_I": 30,
+      "ma27_M": 89,
+      "mumps_I": 81,
+      "mumps_M": 75
+    }
+  },
+  "historical_three_repetitions_hours": 23.84260869958341,
+  "negative_and_matrix_tests": 4,
+  "optimizer_invocations": 0,
+  "future_observations_used": false,
+  "input_source_unchanged": true,
+  "files": {
+    "COHORTE_CHRONO_FIGEE.json": "84d84d9874c2275a05f22c7e0b2a7516730356e3c6b05575d477e78089b75221",
+    "TEST_COHORT.py": "89ec216dca1a94c5156d852950223524e088c9944f60c72c58510ddde4f315a4",
+    "BUILD_COHORT.py": "d6ea5a1e9a3b4abbc660d23d7c92ebe29a1e1416fdec5bdd8c29d2f64e5d102b"
+  }
+}

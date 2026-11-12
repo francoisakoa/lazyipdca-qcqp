@@ -1,0 +1,21 @@
+{
+  "schema": "aligned-paired-source-and-methods-v1",
+  "source_archive_name": "IPOPT_ALIGNE_A_TRANSMETTRE_20261110T015338_235cbb1c.zip",
+  "source_archive_sha256": "8efc0cdd2d3596833c1dff20570cbcf2f1b660766bd88a1dca3b8b4848cbc01f",
+  "compact_member": "DEPOUILLEMENT/DEPOUILLEMENT/OBSERVATIONS_ANALYSE_COMPACTES.jsonl.gz",
+  "compact_sha256": "7b18eecc19859ce779aa8f9713908b88b5dc619e71241eb89e604e1cf23734d5",
+  "configurations": 16,
+  "cases": 4078,
+  "records": 65248,
+  "native_rows_preserved_from_R13": 48936,
+  "native_changed_compared_fields": 0,
+  "optimizer_invocations": 0,
+  "new_endpoint_audits": 0,
+  "no_classification_changes": true,
+  "scope": "Archived original-certificate observations. Independent RESULT/AUDIT/options/budget verification is provided separately in ../audit. This pairing script checks residuals, input/start hashes, case metadata, cohorts and arithmetic; it does not reconstruct absent frozen coefficients or endpoints.",
+  "objective_gap": "(f_A-f_B)/max(1,abs(f_A),abs(f_B)); positive favors B",
+  "reference_gap": "(f-f_ref)/max(1,abs(f_ref)); published point values, not proven global optima",
+  "timing_clock": "declared solver-process elapsed; audit excluded, startup retained; >1s restriction applies to both A and B",
+  "quantiles": "empirical linear interpolation, type 7",
+  "native_detail_source": "Selected R3-MA27 source observations with exact input/start/result hash checks; no native error message invented. MUMPS iteration counts unavailable in the compact remain blank."
+}

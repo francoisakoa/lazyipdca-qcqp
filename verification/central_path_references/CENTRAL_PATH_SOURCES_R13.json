@@ -1,0 +1,30 @@
+{
+  "checked_at_utc_date": "2026-11-09",
+  "revision_directory_label": "R13_20261110",
+  "correct_author_spelling": "Eissa Nematollahi",
+  "references": [
+    {
+      "key": "DezaNematollahiTerlaky2008",
+      "doi": "10.1007/s10107-006-0044-x",
+      "publisher_url": "https://link.springer.com/article/10.1007/s10107-006-0044-x",
+      "primary_fulltext_url": "https://www.cas.mcmaster.ca/~deza/mp2008.pdf",
+      "publisher_ref": "turn141view1",
+      "fulltext_ref": "turn141view0",
+      "targeted_refs": ["turn142view2", "turn142view3"],
+      "problem_class": "linear programming",
+      "permitted_claim": "Redundant representations can change the central path while preserving the feasible polytope.",
+      "not_established": "Different stationary objective values in nonconvex QCQP or a causal explanation of the ASU objective gap."
+    },
+    {
+      "key": "NematollahiTerlaky2008Touching",
+      "doi": "10.1016/j.orl.2008.02.004",
+      "publisher_url": "https://www.sciencedirect.com/science/article/abs/pii/S0167637708000278",
+      "primary_fulltext_url": "https://optimization-online.org/wp-content/uploads/2008/01/1870.pdf",
+      "publisher_refs": ["turn140search0", "turn141search0"],
+      "fulltext_ref": "turn144view0",
+      "problem_class": "linear programming",
+      "permitted_claim": "The central-path effect can persist when all added redundant constraints touch the feasible region.",
+      "not_established": "Different stationary objective values in nonconvex QCQP or the efficacy of removing redundant bounds."
+    }
+  ]
+}

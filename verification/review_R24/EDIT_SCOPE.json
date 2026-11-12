@@ -1,0 +1,15 @@
+{
+  "abstract_words": 249,
+  "component_index": "i",
+  "equality_index": "j",
+  "labels_renamed": {
+    "eq:sharp-qcqp": "eq:attainment-qcqp",
+    "supp:smooth-sharp": "supp:smooth-attainment",
+    "eq:smooth-sharp-example": "eq:smooth-attainment-example"
+  },
+  "no_sharp_wording_in_manuscript_or_supplement": true,
+  "AI_declaration_unchanged": true,
+  "all_numerical_tokens_preserved": true,
+  "all_table_and_figure_environments_preserved": true,
+  "editorial_replacements": 35
+}

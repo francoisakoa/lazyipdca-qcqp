@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: Please cite the accompanying paper when using these research materials.
+title: 'LazyQCQP: paper, solver sources and reproducibility materials'
+type: software
+authors:
+- &id001
+  family-names: Akoa
+  given-names: François
+  affiliation: MAATAI-LAB, France
+version: R24
+date-released: '2026-11-11'
+url: https://github.com/francoisakoa/lazyqcqp
+preferred-citation:
+  type: article
+  title: Tangent Excess and Persistent Difference-of-Convex Regularization for Nonconvex
+    QCQPs
+  authors:
+  - *id001
+  year: 2026
+  version: R24
+  url: https://github.com/francoisakoa/lazyqcqp

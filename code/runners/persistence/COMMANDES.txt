@@ -1,0 +1,57 @@
+APRÈS TÉLÉCHARGEMENT — extraire et lancer l'étude complète
+Attendre la fin des autres calculs, y compris ASU et LazySQCQP.
+
+cd "$HOME/Téléchargements" &&
+python3 -m zipfile -e LAZYQCQP_ABLATION_PERSISTANCE_20261110_R1.zip . &&
+KIT="$HOME/Téléchargements/LAZYQCQP_ABLATION_PERSISTANCE_20261110_R1" &&
+bash "$KIT/LANCER_PERSISTANCE.sh"
+
+Cette commande construit les deux binaires, qualifie les 24 couples,
+effectue les trois répétitions par mode puis produit la synthèse.
+Même commande pour reprendre après interruption :
+
+KIT="$HOME/Téléchargements/LAZYQCQP_ABLATION_PERSISTANCE_20261110_R1"
+bash "$KIT/LANCER_PERSISTANCE.sh"
+
+SUIVI — autre terminal, lecture seule toutes les dix secondes
+
+KIT="$HOME/Téléchargements/LAZYQCQP_ABLATION_PERSISTANCE_20261110_R1"
+python3 "$KIT/SUIVRE_PERSISTANCE.py"
+
+Ctrl+C ferme uniquement ce suivi. Pour un affichage unique :
+
+python3 "$KIT/SUIVRE_PERSISTANCE.py" --once
+
+SYNTHÈSE — aucune nouvelle résolution
+
+python3 "$KIT/PERSISTANCE.py" synthese \
+  --out /extra/LAZYQCQP_PERSISTANCE_RESULTS/ETUDE_PERSISTANCE_20261110_R1/experience
+
+ARCHIVE À TRANSMETTRE — étude terminée ou bloquée, sources conservées
+
+python3 "$KIT/EXPORTER_EXPERIENCES.py" \
+  --run PERSISTANCE=/extra/LAZYQCQP_PERSISTANCE_RESULTS/ETUDE_PERSISTANCE_20261110_R1
+
+Le chemin de l'archive datée dans Téléchargements sera affiché.
+Les grands vecteurs endpoint sont omis par défaut et signalés ; ajouter
+--include-endpoints pour les inclure. Les originaux restent sur TRX.
+
+PHASES EXPLICITES — alternative au lanceur automatique, mêmes paramètres
+
+ETUDE=/extra/LAZYQCQP_PERSISTANCE_RESULTS/ETUDE_PERSISTANCE_20261110_R1
+python3 "$KIT/BUILD_PERSISTANCE.py" --out "$ETUDE/build" --cpu 0
+python3 "$KIT/PERSISTANCE.py" preparer \
+  --build "$ETUDE/build/BUILD_PERSISTANCE.json" --out "$ETUDE/experience"
+python3 "$KIT/PERSISTANCE.py" qualifier --out "$ETUDE/experience"
+python3 "$KIT/PERSISTANCE.py" lancer --out "$ETUDE/experience"
+python3 "$KIT/PERSISTANCE.py" synthese --out "$ETUDE/experience"
+
+La construction explicite demande un dossier neuf. Le lanceur automatique
+gère les reprises et conserve les constructions incomplètes à part.
+Un BUILD_PERSISTANCE.json déjà vérifié peut être transmis au lanceur :
+
+bash "$KIT/LANCER_PERSISTANCE.sh" --build /chemin/exact/BUILD_PERSISTANCE.json
+
+Les commandes de qualification et de chronométrage reprennent leurs preuves.
+La commande lancer exige une qualification complète vérifiée. Pour changer
+le code ou le protocole, conserver les sorties et utiliser un nouveau dossier.

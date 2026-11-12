@@ -1,0 +1,21 @@
+{
+  "schema": "factorial-coupling-driver-controller-tests-v1",
+  "passed": true,
+  "tests": [
+    "Inspector receives exact installation bindings and records the resolved path",
+    "Complete native inspection-only evidence accepted by the controller",
+    "changed blocks the factorial gate",
+    "unknown_phase blocks the factorial gate",
+    "numerical_work blocks the factorial gate",
+    "potential_shape blocks the factorial gate",
+    "different_model blocks the factorial gate",
+    "Actual source tree mutation after build is rejected",
+    "Old/MUMPS build cannot supply a new MA27 inspector runtime",
+    "All4078 hash-bound paths are retained independently of case-directory names",
+    "Missing explicit path blocks rather than reconstructing a canonical path",
+    "All installed input hashes are bound to the same frozen full corpus"
+  ],
+  "actual_native_corpus_inspections": 0,
+  "actual_optimizer_invocations": 0,
+  "scope": "Synthetic controller fixtures; no scientific applicability claim."
+}

@@ -1,0 +1,8 @@
+{
+  "schema": "asu-synthetic-qualification-tests-v2",
+  "passed": true,
+  "checks": 4,
+  "optimizer_invocations": 0,
+  "native_runtime_qualified": false,
+  "scope": "Synthetic pair passes clock-only differences; missing command, thread drift, and work-counter drift are rejected."
+}

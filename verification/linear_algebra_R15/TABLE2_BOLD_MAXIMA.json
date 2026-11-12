@@ -1,0 +1,62 @@
+{
+  "column_maxima": {
+    "I": 1026,
+    "M": 663,
+    "E": 1527,
+    "Q": 540,
+    "All": 3619
+  },
+  "highlighted_cells": [
+    {
+      "policy": "R3",
+      "backend": "MA27",
+      "column": "M",
+      "value": 663
+    },
+    {
+      "policy": "R3",
+      "backend": "MUMPS",
+      "column": "I",
+      "value": 1026
+    },
+    {
+      "policy": "R3",
+      "backend": "MUMPS",
+      "column": "Q",
+      "value": 540
+    },
+    {
+      "policy": "HH",
+      "backend": "MUMPS",
+      "column": "E",
+      "value": 1527
+    },
+    {
+      "policy": "HH",
+      "backend": "MUMPS",
+      "column": "All",
+      "value": 3619
+    },
+    {
+      "policy": "HS",
+      "backend": "MUMPS",
+      "column": "E",
+      "value": 1527
+    },
+    {
+      "policy": "SH",
+      "backend": "MUMPS",
+      "column": "E",
+      "value": 1527
+    },
+    {
+      "policy": "SS",
+      "backend": "MUMPS",
+      "column": "E",
+      "value": 1527
+    }
+  ],
+  "highlighted_count": 8,
+  "numerical_values_unchanged": true,
+  "ties_preserved": true
+}

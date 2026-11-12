@@ -1,0 +1,15 @@
+test_changed_binary_after_gate_blocks_seal (__main__.Tests.test_changed_binary_after_gate_blocks_seal) ... ok
+test_changed_source_audit_does_not_qualify_build (__main__.Tests.test_changed_source_audit_does_not_qualify_build) ... ok
+test_changed_static_study_blocks_seal (__main__.Tests.test_changed_static_study_blocks_seal) ... ok
+test_complete_bindings_can_seal_a_synthetic_fixture (__main__.Tests.test_complete_bindings_can_seal_a_synthetic_fixture) ... ok
+test_conflicting_existing_registration_is_preserved (__main__.Tests.test_conflicting_existing_registration_is_preserved) ... ok
+test_failed_real_gate_flag_blocks_seal (__main__.Tests.test_failed_real_gate_flag_blocks_seal) ... ok
+test_installed_MA27_bytes_cannot_change_after_qualification (__main__.Tests.test_installed_MA27_bytes_cannot_change_after_qualification) ... ok
+test_installed_MA27_reference_cannot_be_omitted (__main__.Tests.test_installed_MA27_reference_cannot_be_omitted) ... ok
+test_resume_reuses_exact_registration_without_changing_bytes (__main__.Tests.test_resume_reuses_exact_registration_without_changing_bytes) ... ok
+test_short_execution_count_blocks_seal (__main__.Tests.test_short_execution_count_blocks_seal) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.010s
+
+OK

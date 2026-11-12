@@ -1,0 +1,43 @@
+{
+  "schema": "independent-native-refinement-source-separation-audit-v1",
+  "at_utc": "2026-11-09T11:59:20.214989+00:00",
+  "passed": true,
+  "source_tree_sha256": "975efcc22cb89ef4ae6606f97f9ea0e1a182dfb771dbda59c1b1c8cad317cf9b",
+  "source_files": 825,
+  "reference_source_files": 823,
+  "reference_source_matches_current_plan": true,
+  "source_intervention_changed_files": 9,
+  "primary_cells": [
+    "FROZEN_GR3",
+    "FROZEN_GHS",
+    "REFINED_GR3",
+    "REFINED_GHS"
+  ],
+  "common_initialization": "construct_hybrid",
+  "common_objective": "exact",
+  "common_guards": "common_r3_guards_v1",
+  "common_representation": "original_qcqp",
+  "frozen_all_refinement_writers_blocked": true,
+  "initial_and_final_mathematical_metric_sha256": true,
+  "actual_primary_factor_call_observed": true,
+  "legacy_selectors_absent_preserve_original_paths": true,
+  "optimizer_invocations": 0,
+  "full_native_solver_build_by_reviewer": false,
+  "production_authorized": false,
+  "target_qualification_passed": false,
+  "scope": "Independent static intervention/source separation review plus local real-header and metric-observer tests. This source audit does not replace the 748 real target qualification runs and demonstrates no refinement benefit.",
+  "study_contract_sha256": "bb73bc927a7397fff847338f2a76e436e48177101994e37483919eddf260bbb3",
+  "qualification_cpu_affinity": [
+    23
+  ],
+  "production_cpu_affinity": [
+    23
+  ],
+  "qualification_jobs": 1,
+  "production_jobs": 1,
+  "native_build_jobs": 1,
+  "required_qualification_native_runs": 748,
+  "required_legacy_fidelity_runs": 700,
+  "required_intervention_runs": 48,
+  "installed_ma27_reference_runs_required": 100
+}

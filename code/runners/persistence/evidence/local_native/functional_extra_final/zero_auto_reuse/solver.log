@@ -1,0 +1,218 @@
+[SOLVER-ROUTE] stage=primary optimizer=Lazy fallback_policy=off full_primary_budget=1 global_seconds=30 input_x0_unchanged=1
+[STANDARD-AUTO] policy=auto mode=historical reason=no-quadratic-source-equality requested_engine=auto effective_engine=legacy configuration=R3 stabilization=0 GR=0 source_barrier=0 short_prox=0 positive_bound_product=0 consistent_bound_repair=0 consistent_bound_trigger=always exact_global_faces=0 atomic_regularization=1 initial_mu=0.0001 startup=legacy requested_startup=legacy rank_presolve=0 requested_rank_presolve=0 free_epigraph_presolve=0 requested_free_epigraph_presolve=0 checkpoint_requested=0 checkpoint_effective=0 builtin_checkpoint_skipped=0 full_source_rows=0 input_x0_unchanged=1 warm_initializer=0
+[GR-ADJUSTMENTS] active=0 constraint_increments=coefficients proximal_policy=historical fixed_centering_steps=0 residual_components=1 equality_Hessian=exact Armijo_unchanged=1 original_KKT_unchanged=1
+[LAZY-DCA] objective rank=0 shift=0.000000e+00 inner=lazyqp nonlinear_eq=0 equality_model=linearized constraint_set=full-affine-objective ws=0
+[LAZYQP-INIT] warm=0 fullwarm=0 warmreject=0 centered=1 mode=primal-dual-nonlinear-residual pushes=0 dual=0.000000e+00 pri=0.000000e+00 mu=1.000000e-02
+[MUMPS-ORDERING] phase=initial requested_ordering=5 requested_analysis=1 actual_ordering=5 actual_analysis=1
+[LAZYQP-KKT] n=2 eq=0 ineq=4 lowrank=0 representation=condensed kkt=full retained=0 dimension=6 full_dimension=6 fallback=0 symcache=miss symbolic=analyzed
+[LAZYQP] it=1 mu=5.000000e-05 dual=0.000000e+00 eq=0.000000e+00 pri=0.000000e+00 ineq=0.000000e+00 sigma=1.072128e-42 tau=1.000000e+00 ap=1.000000e+00 ad=9.950000e-01 apmax=1.000000e+00 admax=9.950000e-01 bt=0 qdef=0.000000e+00 scorr=1.000000e+00
+[LAZYQP] it=2 mu=2.500000e-07 dual=6.776264e-21 eq=0.000000e+00 pri=0.000000e+00 ineq=0.000000e+00 sigma=8.401071e-48 tau=1.000000e+00 ap=1.000000e+00 ad=9.950000e-01 apmax=1.000000e+00 admax=9.950000e-01 bt=0 qdef=0.000000e+00 scorr=1.000000e+00
+[LAZY-DCA] k=0 f=0 theta=0.000000000000e+00 step=6.557710980031e-16 alpha=1.000000000000e+00 eqmodel=affine-exact soc=0 ws=0 r0=0 inner=lazyqp
+[KKT-STOP-MAPPED] dual=6.776263578034e-21 comp=2.500000000000e-07 nlp=2.500000000000e-07 sd=1.000000000000e+00 sc=1.000000000000e+00 pass=1
+[NATIVE-AL-FALLBACK] attempted=0 accepted=0 reason="explicit-policy-off" primary_status=solved fallback_status=not-run primary_seconds=0.005447382 preflight_seconds=0 AL_seconds=0 final_audit_seconds=0 total_seconds=0.005451488 primary_outer_iterations=1 AL_accepted_Newton_steps=0 total_factorizations=2
+[SOLVER-ROUTE] endpoint=lazy fallback_accepted=0 original_QCQP_KKT=0 primary_retained=1
+====================================================================
+LazyIPDCA-QCQP 0.4.28r3p28g10-r7d15-majorants-r9-campaign-no-dey-stabilisation-r8-r1
+build                : v0.4.28r3p28g10-r7d15-majorants-r9-campaign-no-dey-stabilisation-r8-r1-api-4390
+Phase-I sparse Jv    : runtime-guarded candidate
+linear solver        : lazyqp/mumps_sym_indef_metis
+compiled linear      : native,ma27,mumps
+METIS ordering       : on
+persistent symbolic  : on
+problem              : generic_zero_model_fixture
+outer algorithm      : lazy-dca
+convex subproblem    : lazyqp
+LazyQP qp profile    : C + AMRS=on init=2 backend=mumps effective=mumps
+LazyQP qp IPM        : Mehrotra=on bound_push=0 bp_adaptive=on sigma_max=1e+14 model_tol=1e-12
+LazyQP qp DC controls: recorded; inactive for already-convex subproblems
+LazyQP KKT policy    : auto (auto threshold 32, hybrid retained/min-nnz 2/64)
+LazyQP low-rank form : auto (auto threshold 256)
+inner warm start     : off (guard 2)
+zero-dual continuation: off (mu cap 0.0001)
+n / eq / ineq        : 2 / 0 / 0
+status               : solved
+message              : original-QCQP KKT test satisfied by single-route Lazy-DCA
+objective            : 0
+feasibility          : 0.000000000000e+00
+  equality           : 0.000000000000e+00
+  inequality         : 0.000000000000e+00
+  bounds             : 0.000000000000e+00
+model stationarity   : 0.000000000000e+00
+KKT-stop dual infeas.: 6.776263578034e-21
+KKT-stop complement. : 2.500000000000e-07
+KKT-stop scaled NLP  : 2.500000000000e-07
+KKT-stop s_d / s_c   : 1.000000000000e+00 / 1.000000000000e+00
+KKT-stop ||y||1/||z||1: 0.000000000000e+00 / 1.000000000000e-06
+KKT-stop dims dual/comp: 4 / 4
+KKT multiplier source: inner-mapped
+KKT-stop terminal rescue: no
+multiplier refit att/acc: 0 / 0
+multiplier refit fallback: 0
+multiplier rowspace fact/solve: 0 / 0
+multiplier rowspace sym/reuse/fail: 0 / 0 / 0
+last multiplier refit stat: inf
+single-loop refit skip/fallback: 0 / 0
+single-loop bootstrap full fits: 0
+single-loop full refit calls: 0
+single-loop retract skip/fallback: 0 / 0
+KKT-stop desired test: PASS
+KKT-stop tol/dual/cv/comp: 1.000000000000e-06 / 1.000000000000e-06 / 1.000000000000e-06 / 1.000000000000e-06
+KKT-stop s_max       : 1.000000000000e+02
+last upper step      : 6.557710980031e-16
+last inner dual      : 6.776263578034e-21
+last inner equality  : 0.000000000000e+00
+last inner inequality: 0.000000000000e+00
+last inner primal res: 0.000000000000e+00
+last inner mu        : 2.500000000000e-07
+last inner scaled res: 0.000000000000e+00
+inner mu fallback tol: 1.000000000000e-06
+last inner fallback  : no
+KKT rho_x final/max  : 1.000000000000e-12 / 1.000000000000e-12
+KKT delta_d final/max: 1.000000000000e-12 / 1.000000000000e-12
+KKT max residual/berr: 4.440892098501e-16 / 2.209399053980e-16
+KKT reg retry/refine : 0 / 0
+original-KKT GMRES att/acc/it: 0 / 0 / 0
+prox regularization  : 0.000000000000e+00
+restoration it/restart: 0 / 0
+restoration solves   : 0
+restoration exact H  : 0
+restoration mf solves: 0
+restoration row-space: 0
+restoration harmonic att/acc/fact: 0 / 0 / 0
+restoration tangent att/acc/components: 0 / 0 / 0
+restoration tangent step: 0.000000000000e+00
+restoration profile s: harmonic=0.000000000000e+00 tangent=0.000000000000e+00 legacy=0.000000000000e+00 exact=0.000000000000e+00 minimax=0.000000000000e+00 restart=0.000000000000e+00 total=0.000000000000e+00
+restoration harmonic graph/unknown: 0 / 0
+restoration tangent rows/quad/cand: 0 / 0 / 0
+restoration CG iters : 0
+restoration exact ws/matvec: 0 / 0
+restoration OpenMP batches/teams: 0 / 0
+restoration sparse Jv batches/check/fallback: 0 / 0 / 0
+restoration LS backtr: 0
+restoration stagnation: 0
+restoration minimax QP: 0
+restoration minimax inner: 0
+restoration minimax fact: 0
+restoration minimax accept: 0
+restoration minimax backtr: 0
+restoration abs links: 0
+restoration eff. dim : 0
+restoration theta    : 0.000000000000e+00 -> 0.000000000000e+00 -> 0.000000000000e+00 -> 0.000000000000e+00
+outer / inner        : 1 / 3
+KKT factorizations   : 2
+KKT symbolic analyses: 1
+KKT symbolic reuse/inval: 1 / 0
+KKT numeric scatter build/reuse/inval: 0 / 0 / 0
+LazyQP forcing try/ok/strict/outer-retry: 0 / 0 / 0 / 0 model-eval=0 max-target=0
+LazyQP model support request/effective/build: 0 / 0 / 0 eligible/fallback=0 / 0 value/gradient-eval=0 / 0
+single-loop reduced bootstrap try/ok: 0 / 0
+single-loop effective baseline prox: 0.000000000000e+00
+single-loop direct start try/ok/nonfinite/bound/equality/theta: 0 / 0 / 0 / 0 / 0 / 0 theta0=inf violated/ws/filter=0/0/0
+single-loop direct recovery try/ok/nonfinite/bound/cap/h/unmodeled/latch: 0 / 0 / 0 / 0 / 0 / 0 / 0 / 0 ws-add=0 max-theta=0
+inner warm accept/full/reject: 0 / 0 / 0
+LazyQP zero-dual continuation try/ok/fallback/repairs: 0 / 0 / 0 / 0
+LazyQP zero-dual provenance mapped/direct: 0 / 0
+working-set primal transports: 0
+LazyQP reduced/full KKT fact: 0 / 2
+LazyQP reduced KKT fallback: 0
+LazyQP hybrid KKT try/fact/fallback: 0 / 0 / 0
+LazyQP hybrid retained total/max: 0 / 0
+LazyQP hybrid Schur avoided/border triplets: 0 / 0
+SOCP formulation try/build/reject/audit-fail: 0 / 0 / 0 / 0
+SOCP cones objective/quadratic/linear, max affine eq: 0 / 0 / 0 / 0
+SOCP max explicit lift dim/condensed Newton/max cone violation: 0 / 0 / 0
+LazyQP KKT triplet layout build/reuse/inval: 1 / 1 / 0
+LazyQP numeric reuse try/ok/fallback/krylov: 0 / 0 / 0 / 0
+LazyQP max KKT dim/full dim: 6 / 6
+LazyQP affine elim attempt/accept/fallback: 0 / 0 / 0
+LazyQP affine elim vars/eq, reduced n/eq: 0 / 0 / 0 / 0
+inner fallback accepts: 0
+line-search backtracks: 0
+Armijo rejections   : 0
+Lazy-DCA equality model : linearized
+condensed curvature    : ambient-large/projected-fallback rank-cap=64
+condensed adaptive normal / alpha predictor: off / off
+condensed post-retract WS expansion/cap: off / 8
+condensed modeled-side filter/limit: off / 1.000000000000e-03 recovery-margin=1.000000000000e+00
+Lazy-DCA elastic sub/acc: 0 / 0
+Lazy-DCA elastic last eta: 0
+Lazy-DCA linearized equality steps: 0
+Lazy-DCA equality f/h steps: 0 / 0
+Lazy-DCA last equality alpha/funnel: 1.000000000000e+00 / 1.000000000000e-06
+Lazy-DCA eq retract att/acc/rej: 0 / 0 / 0
+Lazy-DCA max eq retract: 0.000000000000e+00
+condensed retract att/acc/rej: 0 / 0 / 0
+condensed globally accepted steps: 0
+condensed continuation acc/att: 0 / 0
+condensed Newton/Krylov/backtr: 0 / 0 / 0
+condensed affine-normal reuses: 0
+condensed Newton endpoint reuses: 0
+condensed quadratic LS reuse/build/check: 0 / 0 / 0
+condensed quadratic LS early/rows-skipped: 0 / 0
+condensed normal fact/solve: 0 / 0
+condensed normal solves geometry/retraction: 0 / 0
+condensed bound-face fact/max-active: 0 / 0
+condensed symbolic ana/reuse/inval: 0 / 0 / 0
+condensed cached reg att/hit: 0 / 0
+condensed sparse eq evals / parallel batches: 0 / 0
+condensed normal refinement steps: 0
+condensed normal refinements geometry/retraction: 0 / 0
+condensed normal refine solves 0/1/2/3+: 0 / 0 / 0 / 0
+condensed normal relaxed/strict solves: 0 / 0
+condensed relaxed above-strict / strict retries: 0 / 0
+condensed normal berr initial max/mean: 0.000000000000e+00 / 0.000000000000e+00
+condensed normal berr final max/mean: 0.000000000000e+00 / 0.000000000000e+00
+condensed GMRES workspace growths: 0
+condensed zero-rhs solve skips: 0
+condensed alpha predictor uses/resets/skipped/retries: 0 / 0 / 0 / 0
+condensed outer extrapolation try/accept/fallback/streak/max-alpha: 0 / 0 / 0 / 0 / 0
+condensed outer rejects bound/side/funnel/filter/objective: 0 / 0 / 0 / 0 / 0
+condensed post-retract offenders modeled/omitted, WS expand/fallback: 0 / 0 / 0 / 0
+condensed modeled-side filter try/accept/recovery/fallback/margin-rows/max: 0 / 0 / 0 / 0 / 0 / 0.000000000000e+00
+condensed flow-lift Schur detected/dim/fact/fallback: 0 / 0 / 0 / 0
+condensed tangent calls/rank: 0 / 0
+condensed block-exact att/acc, blocks/active/max-block: 0 / 0 / 0 / 0 / 0
+condensed block partial spectrum att/acc/fallback: 0 / 0 / 0
+condensed multi-Ritz batches/fallbacks: 0 / 0
+condensed tangent inertia att/acc/shift: 0 / 0 / 0
+condensed scalar safeguard updates max: 0
+condensed tangent lambda: 0.000000000000e+00 -> 0.000000000000e+00
+condensed shift/normal-reg: 0.000000000000e+00 / 0.000000000000e+00
+condensed inertia max added shift: 0.000000000000e+00
+condensed residual/max-corr/ratio: 0.000000000000e+00 / 0.000000000000e+00 / 0.000000000000e+00
+Lazy-DCA corrector attempt/accept/reject: 0 / 0 / 0
+Lazy-DCA corrector inner/cold retry: 0 / 0
+Lazy-DCA iterated SOC attempt/restore/reject: 0 / 0 / 0
+Lazy-DCA warm suppress/skip: 0 / 0
+Lazy-DCA inner retry/cold/prox: 0 / 0 / 0
+Lazy-DCA step-control predict/retry: 0 / 0
+Lazy-DCA raw direction/target: 6.557710980031e-16 (max 6.557710980031e-16) / 1.010000000000e+00
+Lazy-DCA max model proximal: 0.000000000000e+00
+trust-region subproblems: 0
+trust-region accept/reject: 0 / 0
+trust-region contract/expand: 0 / 0
+trust-region feasibility steps: 0
+trust-region final radius: 0.000000000000e+00
+trust-region last rho/pred/ared: 0.000000000000e+00 / 0.000000000000e+00 / 0.000000000000e+00
+trust-region penalty       : 0.000000000000e+00
+trust-region merit pred/ared: 0.000000000000e+00 / 0.000000000000e+00
+SOC attempt/accept/reject: 0 / 0 / 0
+SOC inner/factorizations: 0 / 0
+curvature calls      : 1
+rank objective/ineq  : 0 / 0
+rank caps obj/constraint: 64 / 24
+DCA extra proximal   : 0
+constraint model     : DC majorants for inequalities; SQP-linearized equalities
+active Jacobian rank : 0
+tangent dimension    : 0
+reduced negative eigs: 0
+reduced min eigenvalue: 0.000000000000e+00
+terminal reduced attempts/accept/reject: 0 / 0 / 0
+terminal active stability/cutoff: 1 / 1e-08
+terminal legacy pivot drops: 0
+active inequalities  : 0
+working-set add/drop : 0 / 0
+affine box lazy WS   : on
+working-set drop patience: 3
+elapsed (s)          : 0.005451488
+====================================================================

@@ -1,0 +1,22 @@
+test_analysis_uses_new_four_configuration_observations (__main__.PilotTests.test_analysis_uses_new_four_configuration_observations) ... ok
+test_background_phase_has_heartbeat_without_child_output (__main__.PilotTests.test_background_phase_has_heartbeat_without_child_output) ... ok
+test_failed_child_is_visible_and_blocks_the_following_stage (__main__.PilotTests.test_failed_child_is_visible_and_blocks_the_following_stage) ... MOCK ÉCHEC — démarrage
+ok
+test_manifest_cannot_escape_its_kit (__main__.PilotTests.test_manifest_cannot_escape_its_kit) ... ok
+test_manifest_checks_immutable_files_and_ignores_mutable_launcher (__main__.PilotTests.test_manifest_checks_immutable_files_and_ignores_mutable_launcher) ... ok
+test_nonblocking_pipeline_lock_is_dedicated_and_exclusive (__main__.PilotTests.test_nonblocking_pipeline_lock_is_dedicated_and_exclusive) ... ok
+test_pid_start_time_prevents_reused_pid_signalling (__main__.PilotTests.test_pid_start_time_prevents_reused_pid_signalling) ... ok
+test_resume_requires_all_four_qualified_immutable_receipts (__main__.PilotTests.test_resume_requires_all_four_qualified_immutable_receipts) ... ok
+test_stop_only_terminates_owned_processes (__main__.PilotTests.test_stop_only_terminates_owned_processes) ... MOCK ATTENTE — démarrage
+MOCK ATTENTE — en cours, 0 s
+MOCK ATTENTE — en cours, 0 s
+MOCK ATTENTE — en cours, 0 s
+ARRÊT — fermeture des seuls processus possédés
+MOCK ATTENTE — en cours, 0 s
+ok
+test_wrapper_paths_are_quoted_and_shell_syntax_is_valid (__main__.PilotTests.test_wrapper_paths_are_quoted_and_shell_syntax_is_valid) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.369s
+
+OK

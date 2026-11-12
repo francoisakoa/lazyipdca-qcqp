@@ -1,0 +1,27 @@
+{
+  "schema": "factorial-explicit-frozen-bindings-validation-r2-v1",
+  "status": "PASS",
+  "checks": {
+    "qualifier_controller": 16,
+    "coupling_controller": 11
+  },
+  "new_coverage_tests": [
+    "full4078 explicit map",
+    "noncanonical filename accepted with exact bytes/start",
+    "absent explicit binding rejects despite canonical identical copy",
+    "input hash mismatch rejects",
+    "inspection driver receives same configuration and writes resolved path",
+    "coupling rows require identical installation SHA and resolved path"
+  ],
+  "source_sha256": {
+    "factorial/QUALIFIER_50.py": "b40c3dc6d35331afdd4d6b29e3b54e6a56d8643021d2b5b5118e1a547c733968",
+    "factorial/VERIFIER_COUPLAGE.py": "a2f53e9cb5e620338d797850692621315124e42c2d2e8b2d5ff34c5381896c9b",
+    "default_relaunch/PREPARER_FACTORIEL.py": "11efa6f1acab4c2365fd3f71d0fb29b0e9b08655fcee8af3448ee52488766a6d",
+    "factorial/TEST_QUALIFIER_50.py": "51133b616ee5552bcb69221f8736f5c725a6940de974d31b4e21f4c873bb0ec6",
+    "factorial/TEST_VERIFIER_COUPLAGE.py": "c780ceba13cd3857434ab7c42ca832a0ad42362b52095e401fb9f7808ef8260d"
+  },
+  "optimizer_invocations": 0,
+  "full1834_or_50_qualification_passed": false,
+  "numerical_models_modified": false,
+  "native_sources_modified": false
+}

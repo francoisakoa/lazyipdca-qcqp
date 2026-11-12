@@ -1,0 +1,393 @@
+{
+  "schema": "actual-native-final-functional-and-production-parsers-v1",
+  "passed": true,
+  "final_optimizer_invocations": 15,
+  "exploratory_pre_final_optimizer_invocations": 8,
+  "total_local_optimizer_invocations": 23,
+  "production_MA27_qualification": false,
+  "speed_claim": false,
+  "checks": [
+    {
+      "fixture": "nonconvex",
+      "expectation": "repeated_nonconvex_correction",
+      "strict_original_all_three": true,
+      "exact_baseline_reuse": true,
+      "exact_reuse_rebuild_except_cache": true,
+      "production_report_parser": true,
+      "production_trace_parser": true,
+      "production_endpoint_parser": true,
+      "trace_records": 30,
+      "reports": {
+        "reuse": {
+          "rows": [
+            {
+              "schema": "research-curvature-cache-summary-v1",
+              "model_instance": 1,
+              "mode": "reuse",
+              "preparations": 1,
+              "reanchors": 10,
+              "quadratic_row_builds": 1,
+              "corrected_rows": 1,
+              "construction_seconds": 3.4912e-05,
+              "rebuild_reset_seconds": 0,
+              "trace_records": 30,
+              "reuse_hits": 9,
+              "complete": true
+            }
+          ],
+          "session": {
+            "schema": "research-curvature-cache-session-v1",
+            "mode": "reuse",
+            "model_instances": 1,
+            "solver_returned": true
+          },
+          "totals": {
+            "preparations": 1,
+            "reanchors": 10,
+            "quadratic_row_builds": 1,
+            "corrected_rows": 1,
+            "trace_records": 30,
+            "reuse_hits": 9,
+            "construction_seconds": 3.4912e-05,
+            "rebuild_reset_seconds": 0
+          },
+          "model_instances": 1,
+          "mode": "reuse"
+        },
+        "rebuild": {
+          "rows": [
+            {
+              "schema": "research-curvature-cache-summary-v1",
+              "model_instance": 1,
+              "mode": "rebuild",
+              "preparations": 10,
+              "reanchors": 10,
+              "quadratic_row_builds": 10,
+              "corrected_rows": 1,
+              "construction_seconds": 0.000668991,
+              "rebuild_reset_seconds": 1.671e-06,
+              "trace_records": 30,
+              "reuse_hits": 0,
+              "complete": true
+            }
+          ],
+          "session": {
+            "schema": "research-curvature-cache-session-v1",
+            "mode": "rebuild",
+            "model_instances": 1,
+            "solver_returned": true
+          },
+          "totals": {
+            "preparations": 10,
+            "reanchors": 10,
+            "quadratic_row_builds": 10,
+            "corrected_rows": 1,
+            "trace_records": 30,
+            "reuse_hits": 0,
+            "construction_seconds": 0.000668991,
+            "rebuild_reset_seconds": 1.671e-06
+          },
+          "model_instances": 1,
+          "mode": "rebuild"
+        }
+      },
+      "outer_iterations": 10
+    },
+    {
+      "fixture": "convex",
+      "expectation": "no_correction",
+      "strict_original_all_three": true,
+      "exact_baseline_reuse": true,
+      "exact_reuse_rebuild_except_cache": true,
+      "production_report_parser": true,
+      "production_trace_parser": true,
+      "production_endpoint_parser": true,
+      "trace_records": 33,
+      "reports": {
+        "reuse": {
+          "rows": [
+            {
+              "schema": "research-curvature-cache-summary-v1",
+              "model_instance": 1,
+              "mode": "reuse",
+              "preparations": 1,
+              "reanchors": 11,
+              "quadratic_row_builds": 1,
+              "corrected_rows": 0,
+              "construction_seconds": 3.0776e-05,
+              "rebuild_reset_seconds": 0,
+              "trace_records": 33,
+              "reuse_hits": 10,
+              "complete": true
+            }
+          ],
+          "session": {
+            "schema": "research-curvature-cache-session-v1",
+            "mode": "reuse",
+            "model_instances": 1,
+            "solver_returned": true
+          },
+          "totals": {
+            "preparations": 1,
+            "reanchors": 11,
+            "quadratic_row_builds": 1,
+            "corrected_rows": 0,
+            "trace_records": 33,
+            "reuse_hits": 10,
+            "construction_seconds": 3.0776e-05,
+            "rebuild_reset_seconds": 0
+          },
+          "model_instances": 1,
+          "mode": "reuse"
+        },
+        "rebuild": {
+          "rows": [
+            {
+              "schema": "research-curvature-cache-summary-v1",
+              "model_instance": 1,
+              "mode": "rebuild",
+              "preparations": 11,
+              "reanchors": 11,
+              "quadratic_row_builds": 11,
+              "corrected_rows": 0,
+              "construction_seconds": 6.220300000000001e-05,
+              "rebuild_reset_seconds": 1.5109999999999998e-06,
+              "trace_records": 33,
+              "reuse_hits": 0,
+              "complete": true
+            }
+          ],
+          "session": {
+            "schema": "research-curvature-cache-session-v1",
+            "mode": "rebuild",
+            "model_instances": 1,
+            "solver_returned": true
+          },
+          "totals": {
+            "preparations": 11,
+            "reanchors": 11,
+            "quadratic_row_builds": 11,
+            "corrected_rows": 0,
+            "trace_records": 33,
+            "reuse_hits": 0,
+            "construction_seconds": 6.220300000000001e-05,
+            "rebuild_reset_seconds": 1.5109999999999998e-06
+          },
+          "model_instances": 1,
+          "mode": "rebuild"
+        }
+      },
+      "outer_iterations": 11
+    },
+    {
+      "fixture": "positive_spectral",
+      "expectation": "positive_part_continuation_gate",
+      "strict_original_all_three": true,
+      "exact_baseline_reuse": true,
+      "exact_reuse_rebuild_except_cache": true,
+      "production_report_parser": true,
+      "production_trace_parser": true,
+      "production_endpoint_parser": true,
+      "trace_records": 33,
+      "reports": {
+        "reuse": {
+          "rows": [
+            {
+              "schema": "research-curvature-cache-summary-v1",
+              "model_instance": 1,
+              "mode": "reuse",
+              "preparations": 1,
+              "reanchors": 11,
+              "quadratic_row_builds": 1,
+              "corrected_rows": 1,
+              "construction_seconds": 0.000143928,
+              "rebuild_reset_seconds": 0,
+              "trace_records": 33,
+              "reuse_hits": 10,
+              "complete": true
+            }
+          ],
+          "session": {
+            "schema": "research-curvature-cache-session-v1",
+            "mode": "reuse",
+            "model_instances": 1,
+            "solver_returned": true
+          },
+          "totals": {
+            "preparations": 1,
+            "reanchors": 11,
+            "quadratic_row_builds": 1,
+            "corrected_rows": 1,
+            "trace_records": 33,
+            "reuse_hits": 10,
+            "construction_seconds": 0.000143928,
+            "rebuild_reset_seconds": 0
+          },
+          "model_instances": 1,
+          "mode": "reuse"
+        },
+        "rebuild": {
+          "rows": [
+            {
+              "schema": "research-curvature-cache-summary-v1",
+              "model_instance": 1,
+              "mode": "rebuild",
+              "preparations": 11,
+              "reanchors": 11,
+              "quadratic_row_builds": 11,
+              "corrected_rows": 1,
+              "construction_seconds": 0.000234313,
+              "rebuild_reset_seconds": 2.085e-06,
+              "trace_records": 33,
+              "reuse_hits": 0,
+              "complete": true
+            }
+          ],
+          "session": {
+            "schema": "research-curvature-cache-session-v1",
+            "mode": "rebuild",
+            "model_instances": 1,
+            "solver_returned": true
+          },
+          "totals": {
+            "preparations": 11,
+            "reanchors": 11,
+            "quadratic_row_builds": 11,
+            "corrected_rows": 1,
+            "trace_records": 33,
+            "reuse_hits": 0,
+            "construction_seconds": 0.000234313,
+            "rebuild_reset_seconds": 2.085e-06
+          },
+          "model_instances": 1,
+          "mode": "rebuild"
+        }
+      },
+      "outer_iterations": 11
+    },
+    {
+      "fixture": "zero_model",
+      "expectation": "zero_preparations_and_anchors",
+      "strict_original_all_three": true,
+      "exact_baseline_reuse": true,
+      "exact_reuse_rebuild_except_cache": true,
+      "production_report_parser": true,
+      "production_trace_parser": true,
+      "production_endpoint_parser": true,
+      "trace_records": 0,
+      "reports": {
+        "reuse": {
+          "rows": [
+            {
+              "schema": "research-curvature-cache-summary-v1",
+              "model_instance": 1,
+              "mode": "reuse",
+              "preparations": 0,
+              "reanchors": 0,
+              "quadratic_row_builds": 0,
+              "corrected_rows": 0,
+              "construction_seconds": 0,
+              "rebuild_reset_seconds": 0,
+              "trace_records": 0,
+              "reuse_hits": 0,
+              "complete": true
+            }
+          ],
+          "session": {
+            "schema": "research-curvature-cache-session-v1",
+            "mode": "reuse",
+            "model_instances": 1,
+            "solver_returned": true
+          },
+          "totals": {
+            "preparations": 0,
+            "reanchors": 0,
+            "quadratic_row_builds": 0,
+            "corrected_rows": 0,
+            "trace_records": 0,
+            "reuse_hits": 0,
+            "construction_seconds": 0,
+            "rebuild_reset_seconds": 0
+          },
+          "model_instances": 1,
+          "mode": "reuse"
+        },
+        "rebuild": {
+          "rows": [
+            {
+              "schema": "research-curvature-cache-summary-v1",
+              "model_instance": 1,
+              "mode": "rebuild",
+              "preparations": 0,
+              "reanchors": 0,
+              "quadratic_row_builds": 0,
+              "corrected_rows": 0,
+              "construction_seconds": 0,
+              "rebuild_reset_seconds": 0,
+              "trace_records": 0,
+              "reuse_hits": 0,
+              "complete": true
+            }
+          ],
+          "session": {
+            "schema": "research-curvature-cache-session-v1",
+            "mode": "rebuild",
+            "model_instances": 1,
+            "solver_returned": true
+          },
+          "totals": {
+            "preparations": 0,
+            "reanchors": 0,
+            "quadratic_row_builds": 0,
+            "corrected_rows": 0,
+            "trace_records": 0,
+            "reuse_hits": 0,
+            "construction_seconds": 0,
+            "rebuild_reset_seconds": 0
+          },
+          "model_instances": 1,
+          "mode": "rebuild"
+        }
+      },
+      "outer_iterations": 0
+    },
+    {
+      "fixture": "zero_auto",
+      "expectation": "zero_model_instances",
+      "strict_original_all_three": true,
+      "exact_baseline_reuse": true,
+      "exact_reuse_rebuild_except_cache": true,
+      "production_report_parser": true,
+      "production_trace_parser": true,
+      "production_endpoint_parser": true,
+      "trace_records": 0,
+      "reports": {
+        "reuse": {
+          "rows": [],
+          "session": {
+            "schema": "research-curvature-cache-session-v1",
+            "mode": "reuse",
+            "model_instances": 0,
+            "solver_returned": true
+          },
+          "totals": {},
+          "model_instances": 0,
+          "mode": "reuse"
+        },
+        "rebuild": {
+          "rows": [],
+          "session": {
+            "schema": "research-curvature-cache-session-v1",
+            "mode": "rebuild",
+            "model_instances": 0,
+            "solver_returned": true
+          },
+          "totals": {},
+          "model_instances": 0,
+          "mode": "rebuild"
+        }
+      },
+      "outer_iterations": 1
+    }
+  ]
+}

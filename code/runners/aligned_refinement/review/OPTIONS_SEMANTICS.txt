@@ -1,0 +1,23 @@
+Revue de semantique des options Ipopt — 9 novembre 2026
+Source primaire consultee : https://coin-or.github.io/Ipopt/OPTIONS.html
+
+Ipopt demande conjointement tol sur l'erreur NLP mise a l'echelle et trois
+limites absolues non mises a l'echelle : dual_inf_tol, constr_viol_tol et
+compl_inf_tol. Mettre ces dernieres a 1e-6 aligne leurs seuils numeriques
+avec le certificat original; tol=1e-8 conserve une exigence relative
+supplementaire. Cela ne rend pas automatiquement identiques les definitions
+ni les decisions aux seuils du certificat independant.
+
+acceptable_iter=0 desactive l'arret acceptable. bound_relax_factor=0
+desactive la relaxation des bornes. option_file_name vide doit empecher un
+ipopt.opt ambiant d'ecraser le contrat. La methode de mise a l'echelle par
+defaut est gradient-based; elle reste un mecanisme interne d'Ipopt. Le point
+brut doit etre fourni sans warm start externe; Ipopt peut ensuite appliquer
+son initialisation interieure standard.
+
+Les limites max_cpu_time et max_wall_time sont controlees aux tests de
+convergence. Un watchdog du processus complete ces controles. Un statut
+interne succes reste distinct du certificat original recalcule separement.
+
+Portee : verification du sens des options; aucun resultat experimental ni
+preuve de disponibilite d'un backend ne decoule de cette seule lecture.

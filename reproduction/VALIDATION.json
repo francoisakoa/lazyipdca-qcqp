@@ -1,0 +1,433 @@
+{
+  "schema": "r18-offline-reproduction-v1",
+  "all_tables_matched": true,
+  "pair_summaries_exactly_equal": true,
+  "pair_summary_rows": 630,
+  "controlled_refinement_summary_exact": true,
+  "asu_persistence_summaries_exact": true,
+  "optimizer_invocations": 0,
+  "new_endpoint_audits": 0,
+  "network_requests": 0,
+  "optional_archived_report_audit": false,
+  "aligned_core_performance_profiles": {
+    "normalization": "fastest certified process time among all six native policies and the monotone certificate-matched Ipopt reference in each backend/regime panel; all planned cases in denominator",
+    "counts": [
+      {
+        "backend": "ma27",
+        "regime": "I",
+        "config": "R3_ma27",
+        "planned": 1037,
+        "certificates_with_positive_process_time": 996
+      },
+      {
+        "backend": "ma27",
+        "regime": "I",
+        "config": "HH_ma27",
+        "planned": 1037,
+        "certificates_with_positive_process_time": 888
+      },
+      {
+        "backend": "ma27",
+        "regime": "I",
+        "config": "HS_ma27",
+        "planned": 1037,
+        "certificates_with_positive_process_time": 889
+      },
+      {
+        "backend": "ma27",
+        "regime": "I",
+        "config": "SH_ma27",
+        "planned": 1037,
+        "certificates_with_positive_process_time": 887
+      },
+      {
+        "backend": "ma27",
+        "regime": "I",
+        "config": "SS_ma27",
+        "planned": 1037,
+        "certificates_with_positive_process_time": 889
+      },
+      {
+        "backend": "ma27",
+        "regime": "I",
+        "config": "SS_legacy_ma27",
+        "planned": 1037,
+        "certificates_with_positive_process_time": 682
+      },
+      {
+        "backend": "ma27",
+        "regime": "I",
+        "config": "ipopt_ma27_monotone_aligned",
+        "planned": 1037,
+        "certificates_with_positive_process_time": 1008
+      },
+      {
+        "backend": "ma27",
+        "regime": "M",
+        "config": "R3_ma27",
+        "planned": 797,
+        "certificates_with_positive_process_time": 663
+      },
+      {
+        "backend": "ma27",
+        "regime": "M",
+        "config": "HH_ma27",
+        "planned": 797,
+        "certificates_with_positive_process_time": 661
+      },
+      {
+        "backend": "ma27",
+        "regime": "M",
+        "config": "HS_ma27",
+        "planned": 797,
+        "certificates_with_positive_process_time": 622
+      },
+      {
+        "backend": "ma27",
+        "regime": "M",
+        "config": "SH_ma27",
+        "planned": 797,
+        "certificates_with_positive_process_time": 661
+      },
+      {
+        "backend": "ma27",
+        "regime": "M",
+        "config": "SS_ma27",
+        "planned": 797,
+        "certificates_with_positive_process_time": 660
+      },
+      {
+        "backend": "ma27",
+        "regime": "M",
+        "config": "SS_legacy_ma27",
+        "planned": 797,
+        "certificates_with_positive_process_time": 51
+      },
+      {
+        "backend": "ma27",
+        "regime": "M",
+        "config": "ipopt_ma27_monotone_aligned",
+        "planned": 797,
+        "certificates_with_positive_process_time": 438
+      },
+      {
+        "backend": "mumps",
+        "regime": "I",
+        "config": "R3_mumps",
+        "planned": 1037,
+        "certificates_with_positive_process_time": 1026
+      },
+      {
+        "backend": "mumps",
+        "regime": "I",
+        "config": "HH_mumps",
+        "planned": 1037,
+        "certificates_with_positive_process_time": 895
+      },
+      {
+        "backend": "mumps",
+        "regime": "I",
+        "config": "HS_mumps",
+        "planned": 1037,
+        "certificates_with_positive_process_time": 891
+      },
+      {
+        "backend": "mumps",
+        "regime": "I",
+        "config": "SH_mumps",
+        "planned": 1037,
+        "certificates_with_positive_process_time": 894
+      },
+      {
+        "backend": "mumps",
+        "regime": "I",
+        "config": "SS_mumps",
+        "planned": 1037,
+        "certificates_with_positive_process_time": 891
+      },
+      {
+        "backend": "mumps",
+        "regime": "I",
+        "config": "SS_legacy_mumps",
+        "planned": 1037,
+        "certificates_with_positive_process_time": 685
+      },
+      {
+        "backend": "mumps",
+        "regime": "I",
+        "config": "ipopt_mumps_monotone_aligned",
+        "planned": 1037,
+        "certificates_with_positive_process_time": 1007
+      },
+      {
+        "backend": "mumps",
+        "regime": "M",
+        "config": "R3_mumps",
+        "planned": 797,
+        "certificates_with_positive_process_time": 660
+      },
+      {
+        "backend": "mumps",
+        "regime": "M",
+        "config": "HH_mumps",
+        "planned": 797,
+        "certificates_with_positive_process_time": 660
+      },
+      {
+        "backend": "mumps",
+        "regime": "M",
+        "config": "HS_mumps",
+        "planned": 797,
+        "certificates_with_positive_process_time": 621
+      },
+      {
+        "backend": "mumps",
+        "regime": "M",
+        "config": "SH_mumps",
+        "planned": 797,
+        "certificates_with_positive_process_time": 660
+      },
+      {
+        "backend": "mumps",
+        "regime": "M",
+        "config": "SS_mumps",
+        "planned": 797,
+        "certificates_with_positive_process_time": 659
+      },
+      {
+        "backend": "mumps",
+        "regime": "M",
+        "config": "SS_legacy_mumps",
+        "planned": 797,
+        "certificates_with_positive_process_time": 52
+      },
+      {
+        "backend": "mumps",
+        "regime": "M",
+        "config": "ipopt_mumps_monotone_aligned",
+        "planned": 797,
+        "certificates_with_positive_process_time": 423
+      }
+    ]
+  },
+  "aligned_equality_performance_profiles": {
+    "normalization": "fastest certified process time among all six native policies and the monotone certificate-matched Ipopt reference in each backend/regime panel; all planned cases in denominator",
+    "counts": [
+      {
+        "backend": "ma27",
+        "regime": "E",
+        "config": "R3_ma27",
+        "planned": 1704,
+        "certificates_with_positive_process_time": 1324
+      },
+      {
+        "backend": "ma27",
+        "regime": "E",
+        "config": "HH_ma27",
+        "planned": 1704,
+        "certificates_with_positive_process_time": 1492
+      },
+      {
+        "backend": "ma27",
+        "regime": "E",
+        "config": "HS_ma27",
+        "planned": 1704,
+        "certificates_with_positive_process_time": 1492
+      },
+      {
+        "backend": "ma27",
+        "regime": "E",
+        "config": "SH_ma27",
+        "planned": 1704,
+        "certificates_with_positive_process_time": 1492
+      },
+      {
+        "backend": "ma27",
+        "regime": "E",
+        "config": "SS_ma27",
+        "planned": 1704,
+        "certificates_with_positive_process_time": 1492
+      },
+      {
+        "backend": "ma27",
+        "regime": "E",
+        "config": "SS_legacy_ma27",
+        "planned": 1704,
+        "certificates_with_positive_process_time": 1248
+      },
+      {
+        "backend": "ma27",
+        "regime": "E",
+        "config": "ipopt_ma27_monotone_aligned",
+        "planned": 1704,
+        "certificates_with_positive_process_time": 1485
+      },
+      {
+        "backend": "ma27",
+        "regime": "Q",
+        "config": "R3_ma27",
+        "planned": 540,
+        "certificates_with_positive_process_time": 537
+      },
+      {
+        "backend": "ma27",
+        "regime": "Q",
+        "config": "HH_ma27",
+        "planned": 540,
+        "certificates_with_positive_process_time": 536
+      },
+      {
+        "backend": "ma27",
+        "regime": "Q",
+        "config": "HS_ma27",
+        "planned": 540,
+        "certificates_with_positive_process_time": 536
+      },
+      {
+        "backend": "ma27",
+        "regime": "Q",
+        "config": "SH_ma27",
+        "planned": 540,
+        "certificates_with_positive_process_time": 536
+      },
+      {
+        "backend": "ma27",
+        "regime": "Q",
+        "config": "SS_ma27",
+        "planned": 540,
+        "certificates_with_positive_process_time": 536
+      },
+      {
+        "backend": "ma27",
+        "regime": "Q",
+        "config": "SS_legacy_ma27",
+        "planned": 540,
+        "certificates_with_positive_process_time": 519
+      },
+      {
+        "backend": "ma27",
+        "regime": "Q",
+        "config": "ipopt_ma27_monotone_aligned",
+        "planned": 540,
+        "certificates_with_positive_process_time": 534
+      },
+      {
+        "backend": "mumps",
+        "regime": "E",
+        "config": "R3_mumps",
+        "planned": 1704,
+        "certificates_with_positive_process_time": 1314
+      },
+      {
+        "backend": "mumps",
+        "regime": "E",
+        "config": "HH_mumps",
+        "planned": 1704,
+        "certificates_with_positive_process_time": 1527
+      },
+      {
+        "backend": "mumps",
+        "regime": "E",
+        "config": "HS_mumps",
+        "planned": 1704,
+        "certificates_with_positive_process_time": 1527
+      },
+      {
+        "backend": "mumps",
+        "regime": "E",
+        "config": "SH_mumps",
+        "planned": 1704,
+        "certificates_with_positive_process_time": 1527
+      },
+      {
+        "backend": "mumps",
+        "regime": "E",
+        "config": "SS_mumps",
+        "planned": 1704,
+        "certificates_with_positive_process_time": 1527
+      },
+      {
+        "backend": "mumps",
+        "regime": "E",
+        "config": "SS_legacy_mumps",
+        "planned": 1704,
+        "certificates_with_positive_process_time": 1249
+      },
+      {
+        "backend": "mumps",
+        "regime": "E",
+        "config": "ipopt_mumps_monotone_aligned",
+        "planned": 1704,
+        "certificates_with_positive_process_time": 1153
+      },
+      {
+        "backend": "mumps",
+        "regime": "Q",
+        "config": "R3_mumps",
+        "planned": 540,
+        "certificates_with_positive_process_time": 540
+      },
+      {
+        "backend": "mumps",
+        "regime": "Q",
+        "config": "HH_mumps",
+        "planned": 540,
+        "certificates_with_positive_process_time": 537
+      },
+      {
+        "backend": "mumps",
+        "regime": "Q",
+        "config": "HS_mumps",
+        "planned": 540,
+        "certificates_with_positive_process_time": 537
+      },
+      {
+        "backend": "mumps",
+        "regime": "Q",
+        "config": "SH_mumps",
+        "planned": 540,
+        "certificates_with_positive_process_time": 536
+      },
+      {
+        "backend": "mumps",
+        "regime": "Q",
+        "config": "SS_mumps",
+        "planned": 540,
+        "certificates_with_positive_process_time": 536
+      },
+      {
+        "backend": "mumps",
+        "regime": "Q",
+        "config": "SS_legacy_mumps",
+        "planned": 540,
+        "certificates_with_positive_process_time": 519
+      },
+      {
+        "backend": "mumps",
+        "regime": "Q",
+        "config": "ipopt_mumps_monotone_aligned",
+        "planned": 540,
+        "certificates_with_positive_process_time": 536
+      }
+    ]
+  },
+  "profile_coverage_cells_verified": 56,
+  "tested_environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "matplotlib": "3.10.8"
+  },
+  "complete_wrapper_test": {
+    "all_tables_matched": true,
+    "table_count": 30,
+    "pair_summary_rows": 630,
+    "pair_summaries_exactly_equal": true,
+    "controlled_refinement_summary_exact": true,
+    "asu_persistence_summaries_exact": true,
+    "performance_profile_outputs_present": true,
+    "controlled_geometry_output_present": true,
+    "optimizer_invocations": 0,
+    "new_endpoint_audits": 0,
+    "network_requests": 0
+  }
+}

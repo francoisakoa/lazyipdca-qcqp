@@ -1,0 +1,9 @@
+{
+  "schema": "previous-device-ma27-full-matrix-controller-tests-v1",
+  "passed": true,
+  "tests_run": 6,
+  "optimizer_invocations": 0,
+  "principal_tasks": 32624,
+  "crossed_tasks": 39960,
+  "source": "/workspace/scratch/da3e31fd0a48/mega_ma27/campaign/test_ma27_mega_matrix.py"
+}

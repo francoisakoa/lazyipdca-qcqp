@@ -1,0 +1,12 @@
+test_Ipopt_arrays_status_and_limits (__main__.ContractTests.test_Ipopt_arrays_status_and_limits) ... ok
+test_actual_original_KKT_ignores_native_status (__main__.ContractTests.test_actual_original_KKT_ignores_native_status) ... ok
+test_invalid_configuration_or_nonfinite_cannot_qualify (__main__.ContractTests.test_invalid_configuration_or_nonfinite_cannot_qualify) ... ok
+test_missing_arrays_audits_and_censures_stay_indeterminate (__main__.ContractTests.test_missing_arrays_audits_and_censures_stay_indeterminate) ... ok
+test_shared_inclusive_budgets_enforced (__main__.ContractTests.test_shared_inclusive_budgets_enforced) ... ok
+test_stationarity_and_complementarity_are_not_feasibility (__main__.ContractTests.test_stationarity_and_complementarity_are_not_feasibility) ... ok
+test_wrong_optimizer_route_cannot_qualify (__main__.ContractTests.test_wrong_optimizer_route_cannot_qualify) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.025s
+
+OK

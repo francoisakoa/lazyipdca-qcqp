@@ -1,0 +1,28 @@
+{
+  "schema": "curvature-persistence-controller-validation-v1",
+  "utc": "2026-11-10T13:49:54.344655+00:00",
+  "passed": true,
+  "tests": 14,
+  "optimizer_invocations": 0,
+  "synthetic_processes_only": true,
+  "controller_sha256": "00157a8fde9f966cb3baa70e3a8bd354f2be0a1e406649e81f91f49b67b213cf",
+  "tests_sha256": "8ba8c6342952aa020209125b4529388b46fd64c385e848de2e4a9939dc32120e",
+  "independent_review_passed": true,
+  "checks": [
+    "72qualification_144timed_unique_balanced_plan",
+    "same_binary_and_mode_only_command_intervention",
+    "binary64_signed_zero_and_JSON_minus_zero_and_scalar_type_identity",
+    "closed_model_and_session_counter_proofs",
+    "zero_model_completion_contract",
+    "exact_trace_controller_origin_and_work_refusal",
+    "command_thread_audit_bindings",
+    "qualification_receipt_mutation_refusal",
+    "finalized_failure_crash_recovery_without_rerun",
+    "contaminated_attempt_retention",
+    "malformed_endpoint_and_malformed_or_misbound_audit_indeterminate_finalization",
+    "timed_endpoint_work_parity_and_repeat_stability",
+    "active_cache_cost_ratio_without_post_timing_selection",
+    "inactive_pairs_retained_descriptive_only",
+    "qualification_required_before_timed_summary"
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "schema": "independent-persistence-review-v1",
+  "reviewed_utc": "2026-11-10T13:47:31.753448+00:00",
+  "status": "passed_native_source_and_method_review",
+  "qcqp_optimizer_invocations": 0,
+  "source_review": {
+    "baseline_sha256": "a26129c817203ea4a2e8da03f1c7d2efb9fd894cec48284143e814e8ca6e11ba",
+    "fixed_scope": "R3 deterministic inequality curvature; convexification_study=off; objective_lazy_convexification=false"
+  },
+  "critical_invariants": [
+    "Clear full row Curvature caches and corrected row indices before reconstruction; keep immutable pattern/extension eligibility and solver symbolic caches.",
+    "Do not reconstruct twice at first anchor after the initial preparation.",
+    "Preserve current positive_spectral_count exactly because barrier continuation reads it.",
+    "Report actual constructions/reuses separately from legacy cumulative diagnostic counters.",
+    "Include construction time in direct process runtime; disable costly hash/trace work entirely for timed phase.",
+    "Define repeated reanchor restoration at unchanged center explicitly.",
+    "Qualify correction identity and observed primal-dual accepted states independently of endpoint certification.",
+    "Preserve all attempts and finalized numerical failures on resume; validate live owned child before launching again.",
+    "Never present an adaptive atom reset as a pure cache ablation."
+  ],
+  "cohort_review": {
+    "cases": 12,
+    "backend_pairs": 24,
+    "qualification_runs": 72,
+    "timed_runs": 144,
+    "future_timings_used": false,
+    "selection_fixed_before_new_measurements": true,
+    "scope": "targeted conditional historical cohort, not global corpus speed"
+  },
+  "patch_sha256": "1be41035782fea59cd6615a1795402ae5cb19c93b0fa1c8b55d537681fde80a4",
+  "native_source_review": {
+    "scope_guard": "majorants/auto fixed study-off objective-lazy-off only",
+    "first_anchor": "one initial preparation, later reanchors reconstruct only inrebuild",
+    "full_numeric_row_cache_reset": true,
+    "positive_spectral_gate_preserved": true,
+    "immutable_patterns_and_spectral_eligibility_retained": true,
+    "primal_dual_and_solver_factor_caches_untouched": true,
+    "installed_model_matrices_and_maps_hashed": true,
+    "main_accepted_state_direction_controller_trace": true,
+    "expensive_identity_computation_disabled_in_timed_phase": true,
+    "completion_session_links_all_model_instances_including_zero_models": true,
+    "trace_limit": "mainaccepted steps and reanchors, not every rejected trial",
+    "no_instance_or_dataset_specific_solver_rule": true
+  },
+  "independent_compiled_checks": {
+    "sha256_vectors_vs_hashlib": 11,
+    "signed_zero_distinguished": true,
+    "two_translation_unit_inline_counter_shared": true,
+    "qcqp_solver_invocations": 0
+  },
+  "resolved_findings": [
+    {
+      "id": "trace-event-schema",
+      "problem": "Native emitted controller events but parser initially rejected them and ignored outer/origin",
+      "resolution": "Parser accepts controller and compares allordered fields exceptmode, plusperinstance tracecounts/order",
+      "state": "source_verified_corrected"
+    },
+    {
+      "id": "incomplete-summary",
+      "problem": "Missing/empty model summary could hide unrecorded construction",
+      "resolution": "RequirecompleteTrue perrow and global finalsession counts; zero models onlynativeexplicitmodelcount0",
+      "state": "source_verified_corrected"
+    },
+    {
+      "id": "timed-parity",
+      "problem": "Shared traces onlyqualify controls; later timedresults stillneed mathematical/work parity",
+      "resolution": "Timedendpoint/work core hashes compared acrossallthree repetitions/modes and drift separatelyreported",
+      "state": "source_verified_corrected"
+    }
+  ],
+  "native_functional_evidence": "Final-session-patch fresh native build and generic MUMPS checks are owned and reported separately by persistence_build. This source review does not claim TRX/MA27 qualification or timing results.",
+  "review_scope": "Independent native implementation and experimental-method review; final controller validation has its own reviewer.",
+  "controller_sha256_at_last_source_read": "a7f4b68d40f5434a95fb371552a965001ca9df7066e4ba7bc58d8bac85aee14e",
+  "unresolved_blocking_native_findings": [],
+  "independent_check_receipts": [
+    "review/sha256/VALIDATION_SHA256.json",
+    "review/inline_counter/VALIDATION_COUNTER.json"
+  ],
+  "measurement_scope_limits": [
+    "Reconstructs fixed deterministic R3 inequality curvature, not adaptive learned-memory reset.",
+    "Immutable sparsity slots and spectral-eligibility policy, primal-dual state, objective/equality stabilization and linear symbolic/factor caches remain fixed.",
+    "A repeated installation at the same center counts as a reconstruction event by predefined protocol.",
+    "Exact identities cover installed matrices, main accepted steps and reanchors; rejected trial states are not fully traced.",
+    "Timings include constructor/reset and low-cost summary instrumentation; expensive proof traces are disabled.",
+    "Selection uses a targeted historical cohort, and no whole-corpus speed effect is implied."
+  ]
+}

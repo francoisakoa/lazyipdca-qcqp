@@ -1,0 +1,9 @@
+# Small/diagnostic CUTEst QCQPs used in the existing LazyIPDCA-QCQP work.
+BT2
+BT4
+EIGENA2
+GOTTFR
+HS116
+
+# exact q*abs(q) QCQP lifting
+CORE2

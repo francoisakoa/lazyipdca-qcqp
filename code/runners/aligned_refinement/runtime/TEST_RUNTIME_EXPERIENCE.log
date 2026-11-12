@@ -1,0 +1,29 @@
+test_backend_dense_fallback_not_called_ma27 (__main__.Tests.test_backend_dense_fallback_not_called_ma27) ... ok
+test_backend_is_explicit_and_ma27_requires_library (__main__.Tests.test_backend_is_explicit_and_ma27_requires_library) ... ok
+test_committed_state_hash_is_required (__main__.Tests.test_committed_state_hash_is_required) ... ok
+test_concurrent_finishes_preserve_common_guard_violation (__main__.Tests.test_concurrent_finishes_preserve_common_guard_violation) ... ok
+test_continuous_queue_has_no_dataset_barrier (__main__.Tests.test_continuous_queue_has_no_dataset_barrier) ... ok
+test_different_globalization_may_reach_different_initial_models (__main__.Tests.test_different_globalization_may_reach_different_initial_models) ... ok
+test_exact_pre_model_return_is_explicit_not_observed_backend (__main__.Tests.test_exact_pre_model_return_is_explicit_not_observed_backend) ... ok
+test_final_intervention_receipt_requires_all_native_proofs (__main__.Tests.test_final_intervention_receipt_requires_all_native_proofs) ... ok
+test_frozen_actual_committed_metric_change_refused (__main__.Tests.test_frozen_actual_committed_metric_change_refused) ... ok
+test_frozen_metric_any_attempt_refused (__main__.Tests.test_frozen_metric_any_attempt_refused) ... ok
+test_initial_model_sequence_hash_refused (__main__.Tests.test_initial_model_sequence_hash_refused) ... ok
+test_native_budget_never_overrides_process_budget (__main__.Tests.test_native_budget_never_overrides_process_budget) ... ok
+test_new_output_cannot_overlap_existing_inputs (__main__.Tests.test_new_output_cannot_overlap_existing_inputs) ... ok
+test_original_objective_not_exact_refused (__main__.Tests.test_original_objective_not_exact_refused) ... ok
+test_owned_monitor_does_not_show_stale_active_work (__main__.Tests.test_owned_monitor_does_not_show_stale_active_work) ... ok
+test_persisted_intervention_violation_blocks_resume (__main__.Tests.test_persisted_intervention_violation_blocks_resume) ... ok
+test_production_ablation_pool_is_cpu23_only (__main__.Tests.test_production_ablation_pool_is_cpu23_only) ... ok
+test_profile_intervention_only_declared_two_factors (__main__.Tests.test_profile_intervention_only_declared_two_factors) ... ok
+test_promotion_requires_completed_gate_with_exact_binding (__main__.Tests.test_promotion_requires_completed_gate_with_exact_binding) ... ok
+test_recovery_without_resource_proof_never_restarts_solver (__main__.Tests.test_recovery_without_resource_proof_never_restarts_solver) ... ok
+test_same_globalization_model_reach_mismatch_is_persisted (__main__.Tests.test_same_globalization_model_reach_mismatch_is_persisted) ... ok
+test_trace_guard_change_refused (__main__.Tests.test_trace_guard_change_refused) ... ok
+test_treatment_order_is_balanced_not_seeded_starts (__main__.Tests.test_treatment_order_is_balanced_not_seeded_starts) ... ok
+test_valid_frozen_trace_and_sequence_reconcile (__main__.Tests.test_valid_frozen_trace_and_sequence_reconcile) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 0.018s
+
+OK

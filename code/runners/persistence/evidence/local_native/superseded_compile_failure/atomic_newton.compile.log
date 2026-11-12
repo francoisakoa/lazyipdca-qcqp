@@ -1,0 +1,10 @@
+In file included from /workspace/scratch/da3e31fd0a48/persistence_20261110/local_native_validation/research_source/src/dca_filter_engine.hpp:624,
+                 from /workspace/scratch/da3e31fd0a48/persistence_20261110/local_native_validation/research_source/src/atomic_newton.cpp:2514:
+/workspace/scratch/da3e31fd0a48/persistence_20261110/local_native_validation/research_source/src/dca_inequality_majorant_engine.hpp: In function ‘lazyipdca::qcqp::Result lazyipdca::qcqp::{anonymous}::solve_inequality_majorants(const lazyipdca::qcqp::QCQPProblem&, const lazyipdca::qcqp::Settings&, bool)’:
+/workspace/scratch/da3e31fd0a48/persistence_20261110/local_native_validation/research_source/src/dca_inequality_majorant_engine.hpp:5341:13: error: ‘accepted_kkt_segment’ was not declared in this scope; did you mean ‘accepted_kkt_soc’?
+ 5341 |             accepted_kkt_segment?"kkt-segment":bound_product_curve?"product-central":
+      |             ^~~~~~~~~~~~~~~~~~~~
+      |             accepted_kkt_soc
+/workspace/scratch/da3e31fd0a48/persistence_20261110/local_native_validation/research_source/src/dca_inequality_majorant_engine.hpp:5342:13: error: ‘linear_source_product_curve’ was not declared in this scope
+ 5342 |             linear_source_product_curve?"source-product-central":"auxiliary");
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~

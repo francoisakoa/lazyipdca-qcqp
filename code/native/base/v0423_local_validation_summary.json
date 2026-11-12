@@ -1,0 +1,31 @@
+{
+  "version": "0.4.23-reference-globalization",
+  "api": 4230,
+  "release_ctest": {"passed": 58, "failed": 0},
+  "asan_ubsan_ctest": {"passed": 58, "failed": 0},
+  "equality_qp_mixed_scale": {
+    "inner_dual_inf": 0.0,
+    "inner_equality_inf": 0.0,
+    "refinement_steps": 2
+  },
+  "equality_retraction": {
+    "strict_alpha": 0.0009765625,
+    "retracted_alpha": 1.0,
+    "correction_inf": 0.292893,
+    "equality_inf": 2.25575e-12,
+    "route": "lazy-dca"
+  },
+  "row_space_restoration": {
+    "n": 600,
+    "equalities": 200,
+    "row_space_solves": 3,
+    "final_feasibility": 7.91381e-10
+  },
+  "aljazzaf_nonregression": {
+    "iterations": 14,
+    "matrix_free_solves": 13,
+    "cg_iterations": 66,
+    "final_feasibility": 1.86265e-9
+  },
+  "external_exact_cutest_validation_pending": ["CATENARY", "CATENA", "CORE2"]
+}

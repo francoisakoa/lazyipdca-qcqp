@@ -1,0 +1,655 @@
+{
+  "schema": "outcome-blind-qualification50-v2",
+  "selection_seed": "LazyQCQP-refinement-globalization-common-guards-qualification50-v2-20261109",
+  "study_contract_sha256": "bb73bc927a7397fff847338f2a76e436e48177101994e37483919eddf260bbb3",
+  "corpus_file_sha256": "9f9daf83b5dffa719bb0f043d335e3f21b7f34e09a36535b56327f20980d6eaa",
+  "cases": [
+    {
+      "case_id": "cops_camshape_n0032_alpha3500",
+      "regime": "I",
+      "dataset": "COPS_camshape",
+      "input_sha256": "e1793b572182d8082e568b47a9f0997db205e2e1118df225be7cbae601c59453",
+      "start_sha256": "2e9d7c1451cf6840e0bd9dee4afef92d0c3139a2daf6788590df0ca81e285082",
+      "n": 32
+    },
+    {
+      "case_id": "multicast__rayleigh_N8_K16_seed2025",
+      "regime": "I",
+      "dataset": "multicast_beamforming",
+      "input_sha256": "a8d943cee540c8538dec10ce511b3e20a31680e57bc282564f4f2442bcbd4fca",
+      "start_sha256": "bc5728962818bb5e4832e0657dbbc91e94535694fd979973d63f300c0f1e7d2b",
+      "n": 16
+    },
+    {
+      "case_id": "two_ellipsoid__n20_cond100_r06",
+      "regime": "I",
+      "dataset": "two_ellipsoid_qcqp",
+      "input_sha256": "3bca47367881818d881240010df464a736adcd87630424633d527736a6848412",
+      "start_sha256": "7b61b802857d783f3b112b0414368ea28db5e10f6dc6ae1ce731142fbfec3727",
+      "n": 20
+    },
+    {
+      "case_id": "CBLIB__nb",
+      "regime": "I",
+      "dataset": "CBLIB_SOC_reference",
+      "input_sha256": "8038bf99c8f544837844d2743e2ed2c3c82c91950ebf6645c13370a01a388f1f",
+      "start_sha256": "ad0c4149c83236f17e6240beb2201a6e796d678488cef9c26459528c7dca8d76",
+      "n": 2383
+    },
+    {
+      "case_id": "controlled_kappa__hyperbola_m10_k10_c1",
+      "regime": "I",
+      "dataset": "controlled_kappa",
+      "input_sha256": "046927b7d3bf82a640c30c1e480275f0a2d6e43c92140f661a911670ea6de288",
+      "start_sha256": "f03235610775b9c39dc637f3735779e39ededa927872d1b6a774db7add662875",
+      "n": 20
+    },
+    {
+      "case_id": "GASPOWER__GasLib11_case5_OPF_QP",
+      "regime": "I",
+      "dataset": "gas_power",
+      "input_sha256": "c4a78f32643b79738436318cee1051915f03ca8b1d3f0486445ff769991b8569",
+      "start_sha256": "fdc020812859b033eaae24483d15a070dbae14450e5b6a65e04dd44ead5a8756",
+      "n": 82
+    },
+    {
+      "case_id": "QPLIB__1922",
+      "regime": "I",
+      "dataset": "QPLIB_reference",
+      "input_sha256": "57dd60e03174c5e521168e73e48ff49ccfff0870149501a3efb8dfb07bff6403",
+      "start_sha256": "85c3cb14cd8f59a6d332b875bcd70cecbcd6d64d74261195461df82b910bc085",
+      "n": 30
+    },
+    {
+      "case_id": "pooling_pair__pooling_sppb5pq__reduced",
+      "regime": "I",
+      "dataset": "pooling_reduced",
+      "input_sha256": "948fa003d60b4769de14d095bcd7be181662a6954cbc2635a3f5b6dbdb9394bb",
+      "start_sha256": "aca7f061feb1fcf78aa125cf1e86d39e8ddfe1dbef9b053a7ded82c47d0fe0c6",
+      "n": 1027
+    },
+    {
+      "case_id": "mitt_distributed_dist2_n0004_b150",
+      "regime": "I",
+      "dataset": "Mittelmann_distributed_dist2",
+      "input_sha256": "4f15b9403b6a8217b4f52373e54db0875e427d1e50ecec79efda5938fdbe882b",
+      "start_sha256": "8ce9fca47d27c6ab6037a8772ce065d5ccc40b642322f114d3fcbb6fe11ca28b",
+      "n": 36
+    },
+    {
+      "case_id": "IJOC2023_0424__bilinear__n50__p0058",
+      "regime": "I",
+      "dataset": "IJOC_partition_QCQP",
+      "input_sha256": "911a8688a23d4ecec67a9e5bd23bfb9dc276d289db9325f2594850e46808014f",
+      "start_sha256": "56cae9b0461497b65e9046f1935d5b3b13cb09c73fd01a5256d4e89d9df23c12",
+      "n": 50
+    },
+    {
+      "case_id": "geometry_path__N010_O5_c250",
+      "regime": "I",
+      "dataset": "obstacle_path_smoothing",
+      "input_sha256": "734cdb9fcd3ed4a8e00d48051da23062cb37abcfa81a4cce1d5c623d88b20919",
+      "start_sha256": "b18e393e5d88564f0fd6a4b6bfedabf9c2a38721af04dd257597366a6ac7b6c6",
+      "n": 42
+    },
+    {
+      "case_id": "cops_minsurf_epi_nx0008_ny0008",
+      "regime": "I",
+      "dataset": "COPS_minimal_surface",
+      "input_sha256": "927a676e239768434235ad20a0374f8359e14c93fc7b21854ccc59572f3fff2e",
+      "start_sha256": "6b2318c38bfd768e4a3095bdd00295e9467b3bb66c60abdf814fc5544a69a0cc",
+      "n": 262
+    },
+    {
+      "case_id": "CUTEst__HS10",
+      "regime": "I",
+      "dataset": "CUTEst",
+      "input_sha256": "d6ca757a38467a6e765c25b2d0277178720be6a30b06ab9a4708b0650dfa4e31",
+      "start_sha256": "6f3f727a5acc6c3c9d771126bb81b93f2cbbe34103c3ddca9e11a793592870da",
+      "n": 2
+    },
+    {
+      "case_id": "mitt_boundary_cont6_n0004",
+      "regime": "I",
+      "dataset": "Mittelmann_boundary_cont6",
+      "input_sha256": "67751749bc17bfa9da0e103ded86f1d5d306dd2956870cddbb4fd6472b69664e",
+      "start_sha256": "84ccd79aeaa00b83e2427e988c2c77bfb56f7aa327cee080980c3c0714cc5944",
+      "n": 36
+    },
+    {
+      "case_id": "geometry_packing__unit_square_n010",
+      "regime": "I",
+      "dataset": "packing_equal_disks",
+      "input_sha256": "b863a7ac73a109ec7c5591bf8c3cfb4945866c0c6d8ab28be1ee002fb1b07db7",
+      "start_sha256": "a13f62deafe9d14674a8dbb042c237a96ce4321063f3908b37913fbaa473df11",
+      "n": 21
+    },
+    {
+      "case_id": "MINLPLIB__emfl050_3_3",
+      "regime": "I",
+      "dataset": "MINLPLIB",
+      "input_sha256": "0109eadcf0920627a16ba867e28bce43b0f695971324ba9b55ab8654edd99b1b",
+      "start_sha256": "4fdc6e7ec49c77478eff08d112a2378b54bb3a38abbef2994b113861f7039ded",
+      "n": 1611
+    },
+    {
+      "case_id": "cops_camshape_n0032_alpha4000",
+      "regime": "I",
+      "dataset": "COPS_camshape",
+      "input_sha256": "e94a2f5d8b0ebbc5b58a791a2ff260ca083cb7432f3844e456ea22dce337ce7d",
+      "start_sha256": "2e9d7c1451cf6840e0bd9dee4afef92d0c3139a2daf6788590df0ca81e285082",
+      "n": 32
+    },
+    {
+      "case_id": "multicast__rayleigh_N8_K16_seed2024",
+      "regime": "I",
+      "dataset": "multicast_beamforming",
+      "input_sha256": "f8140d43765374d4d9492dc0594a3c2f76d50de822698a968c60d9ed005e1eec",
+      "start_sha256": "24a187d821e24d4ad5b3cc71513b287872ca3665c76a1569ccc3a057aada0a4f",
+      "n": 16
+    },
+    {
+      "case_id": "two_ellipsoid__n20_cond100_r01",
+      "regime": "I",
+      "dataset": "two_ellipsoid_qcqp",
+      "input_sha256": "f11c646c109a3158d607bc1822e75caaab6f66b4df6940d9e4eb931d01ef6faa",
+      "start_sha256": "7b61b802857d783f3b112b0414368ea28db5e10f6dc6ae1ce731142fbfec3727",
+      "n": 20
+    },
+    {
+      "case_id": "CBLIB__sched_50_50_orig",
+      "regime": "I",
+      "dataset": "CBLIB_SOC_reference",
+      "input_sha256": "6f4818ef2eeb25d01069f6565151d152e05f7b45812271e179c0c81e991fb5f2",
+      "start_sha256": "fd0cfb10da4b6c4b8a46babd48127dc783e557e0df3d4f950b1a385cc80789f9",
+      "n": 4979
+    },
+    {
+      "case_id": "controlled_kappa__exterior_circle_m10_k3_c1",
+      "regime": "I",
+      "dataset": "controlled_kappa",
+      "input_sha256": "27b62ae69a72daf572aaeb8a32755d74f3bbcbda3197c7bef43104c614541d3f",
+      "start_sha256": "e56990d21981755a7a95e2f8f8f031b720d5448316175a3c6d9a613574b78a9e",
+      "n": 20
+    },
+    {
+      "case_id": "QPLIB__1507",
+      "regime": "I",
+      "dataset": "QPLIB_reference",
+      "input_sha256": "f7ab069916f57d5b5e74a25a61e2f1c2123bc36b4a475ab2c0759b161ac14c1b",
+      "start_sha256": "85c3cb14cd8f59a6d332b875bcd70cecbcd6d64d74261195461df82b910bc085",
+      "n": 30
+    },
+    {
+      "case_id": "pooling_pair__pooling_sppc3pq__reduced",
+      "regime": "I",
+      "dataset": "pooling_reduced",
+      "input_sha256": "1711aa1097c1ea75cd8b149771f904a3e3e81af3540a4ee26c6fc338fc59b929",
+      "start_sha256": "f4e4f59d8061b04c0e06b293c3be7a9cae384a076bdcc51a0bcd3f13a1031aef",
+      "n": 1421
+    },
+    {
+      "case_id": "mitt_distributed_dist2_n0004_b125",
+      "regime": "I",
+      "dataset": "Mittelmann_distributed_dist2",
+      "input_sha256": "25bd3cac6e52ac9e61cba8cac517c0c027f6f56a180644bb9f6506419c672b6f",
+      "start_sha256": "8ce9fca47d27c6ab6037a8772ce065d5ccc40b642322f114d3fcbb6fe11ca28b",
+      "n": 36
+    },
+    {
+      "case_id": "IJOC2023_0424__bilinear__n50__p0061",
+      "regime": "I",
+      "dataset": "IJOC_partition_QCQP",
+      "input_sha256": "c57168f29fa305e1f2fce0af31c7fa72eb4ed6a33463b7330fdb54e04fc8ec8d",
+      "start_sha256": "56cae9b0461497b65e9046f1935d5b3b13cb09c73fd01a5256d4e89d9df23c12",
+      "n": 50
+    },
+    {
+      "case_id": "multicast_constant_modulus__N16_K32_r08",
+      "regime": "M",
+      "dataset": "multicast_beamforming",
+      "input_sha256": "7f4199278c923b72df0d9adee21a47dd8a9a36090891e157a5ad0f48d02fbb75",
+      "start_sha256": "ca14dfb2a466b2b2bf3f40d71e33fc29fed6c9a771452c2c1ed891f6da846b89",
+      "n": 96
+    },
+    {
+      "case_id": "CUTEst__DISC2",
+      "regime": "M",
+      "dataset": "CUTEst",
+      "input_sha256": "c56202c67c46f429f9ad5465769916bedeb38388163dbb75ad4fc82f98d24db4",
+      "start_sha256": "5e9cbd1cc034893721d4a26b3d72526bc03ad5ebd90699576bb2df3648b2042c",
+      "n": 29
+    },
+    {
+      "case_id": "geometry_linkage__L010_O3_c250",
+      "regime": "M",
+      "dataset": "obstacle_path_smoothing",
+      "input_sha256": "eb7968ee2c4beaaefdae543686b7928819a69899083a299713c3eda82cd81367",
+      "start_sha256": "ade7624d584f3bcd2923fc6efe7a29cac35d2947bb1c44cd14b9a2393c934f69",
+      "n": 22
+    },
+    {
+      "case_id": "PGLIB__case3_lmbd",
+      "regime": "M",
+      "dataset": "PGLIB",
+      "input_sha256": "7e2cc27898c96bea9cfb6d4842c199ac2bf6aacfae3ade3da92d4c0066437d27",
+      "start_sha256": "7c6c674d3b50b131f1e4c1b828f0a89c8d25bf2abd973acccbe221de231a9724",
+      "n": 24
+    },
+    {
+      "case_id": "gastransnlp",
+      "regime": "M",
+      "dataset": "gas_transport",
+      "input_sha256": "5e1203863f9e9f32bc0de3eacd4c530c9301690269c6d88647ff16f3383656fd",
+      "start_sha256": "6ecd3ad5b8f34e8dd65d833c9ce5329ce0f928c053cc8aa0a613fb1273679499",
+      "n": 85
+    },
+    {
+      "case_id": "gaspower__GasLib11_case5__branch1_out",
+      "regime": "M",
+      "dataset": "gas_power",
+      "input_sha256": "11627ba094a6a80c48623fc8f01618eb3b7fbf3d3ed54fc02e16e99dd979ab20",
+      "start_sha256": "c6c37978ba3a2f0fe510fa0b4ace553ffd171f3e57715b0c855aaf2e8ee55e9a",
+      "n": 82
+    },
+    {
+      "case_id": "robot__ur10__posture",
+      "regime": "M",
+      "dataset": "robot_arm",
+      "input_sha256": "51076102d8fa0806c79648a13db23a9731bd9fd01a349ea5ae172c0ae299bcce",
+      "start_sha256": "a19b97d72525deb8b9b0523ddac6a50a1062b7a49769f56eee5ef20289a95c48",
+      "n": 30
+    },
+    {
+      "case_id": "water__wastewater02m1",
+      "regime": "M",
+      "dataset": "water_networks",
+      "input_sha256": "370172a82ef834cb2fbfec0c89697835664fbd39656a4f6ecb4cbb3d7c2ebee5",
+      "start_sha256": "2d5f3b9931d68e34ff0f43907b328a9ae5fbe5113116c61a4d6b961edd6a5d8c",
+      "n": 19
+    },
+    {
+      "case_id": "beam__asu_u1_rf2",
+      "regime": "M",
+      "dataset": "beam_structural",
+      "input_sha256": "c90be7fe0d1c5b4278788d5d6f3ece9c6ce1d58ea07221d0dba75799090f6f85",
+      "start_sha256": "bb857ac26ab5a85b7bc9b40737788e4ff834690946688b992aa0c81a34cbfdc0",
+      "n": 32
+    },
+    {
+      "case_id": "pooling__haverly",
+      "regime": "M",
+      "dataset": "pooling_MINLPLIB",
+      "input_sha256": "301b09cd66da07728d34c1b342617ec6885f98caf0386f5d27f60432acdc95ce",
+      "start_sha256": "d344ac4f78c8be4e9706d310cbc77ffad41b10480cfa274984455324873d8e98",
+      "n": 12
+    },
+    {
+      "case_id": "multicast_constant_modulus__N16_K32_r09",
+      "regime": "M",
+      "dataset": "multicast_beamforming",
+      "input_sha256": "aa44e8846e38c927fed9ec230c7fc31a42f72246c6e2c92c811b8b96d7317e97",
+      "start_sha256": "d1d99ab02a835c628fb1fc0e6227c9a3a93cfde34f5676b4d209fda8228293e5",
+      "n": 96
+    },
+    {
+      "case_id": "CUTEst__DISCS",
+      "regime": "M",
+      "dataset": "CUTEst",
+      "input_sha256": "9323c1ece11fff5fd4fb5516d95a8a201acdc01879e1666ea6ccfe544aced398",
+      "start_sha256": "9f36cb671e6373de5827f6cc47b4388f0006f8e98c5326a3fe1e2342b4f11877",
+      "n": 36
+    },
+    {
+      "case_id": "geometry_linkage__L010_O5_c125",
+      "regime": "M",
+      "dataset": "obstacle_path_smoothing",
+      "input_sha256": "e5700d4aacb8c1ed20e97da121c1e30c10323ff52cd9daf28380a357494c9a6b",
+      "start_sha256": "ade7624d584f3bcd2923fc6efe7a29cac35d2947bb1c44cd14b9a2393c934f69",
+      "n": 22
+    },
+    {
+      "case_id": "PGLIB__case3_lmbd__api",
+      "regime": "M",
+      "dataset": "PGLIB",
+      "input_sha256": "2cc0400e4ef5cc70585c61611f7e921cc2ea03b1fd329d59e919209b74f77548",
+      "start_sha256": "b34b01c995fc91fb589c27f714c725ea3d0ef980165c9efd00439d49400a9198",
+      "n": 24
+    },
+    {
+      "case_id": "gaspower__GasLib11_case5__base",
+      "regime": "M",
+      "dataset": "gas_power",
+      "input_sha256": "2527b485d38fcc73bc9fe3a7ace61fc8d872c29f98f3d7d089e928907e70506e",
+      "start_sha256": "3512b5731f7c458b4944f3f05421feaa705c1494d0a3373305d9809453c37113",
+      "n": 86
+    },
+    {
+      "case_id": "robot__ur10__feasibility",
+      "regime": "M",
+      "dataset": "robot_arm",
+      "input_sha256": "cb5cb3312273a64d32f5e766177cc925b2be307b6e3ad7048d2f45d69cd97063",
+      "start_sha256": "a19b97d72525deb8b9b0523ddac6a50a1062b7a49769f56eee5ef20289a95c48",
+      "n": 30
+    },
+    {
+      "case_id": "water__wastewater04m1",
+      "regime": "M",
+      "dataset": "water_networks",
+      "input_sha256": "e47a5c4edee76f8695352c5fa68ac9c7f827b5cdbde57bd88e36e0330431636b",
+      "start_sha256": "2ce0f3027972ae77927e514afa7746928b9fd7d6d04367081aff581d8120ae31",
+      "n": 23
+    },
+    {
+      "case_id": "beam__asu_u2_rf2",
+      "regime": "M",
+      "dataset": "beam_structural",
+      "input_sha256": "68f52f2ae829d1ae858343bfab74cf1f2f6bf547425c0fea03fe8b21ab2ab382",
+      "start_sha256": "bb857ac26ab5a85b7bc9b40737788e4ff834690946688b992aa0c81a34cbfdc0",
+      "n": 32
+    },
+    {
+      "case_id": "pooling__pooling_digabel16",
+      "regime": "M",
+      "dataset": "pooling_MINLPLIB",
+      "input_sha256": "bd68d5033a7de008e708ce06568c700a24797a16118912fc571fbd36284ba3e2",
+      "start_sha256": "91312bfa4e82b0f881a32c6001f0101d67073564abf2f6853637ef20537f2f84",
+      "n": 171
+    },
+    {
+      "case_id": "multicast_constant_modulus__N16_K32_r06",
+      "regime": "M",
+      "dataset": "multicast_beamforming",
+      "input_sha256": "96cbfed2b7dc35eb4ed3952ed66bf542807a7a6feb60ad63c7667c69680375b2",
+      "start_sha256": "208f460d00a175c06526a6d157104ebef9430e48850bdda4d46c6045a3f20036",
+      "n": 96
+    },
+    {
+      "case_id": "CUTEst__SWOPF",
+      "regime": "M",
+      "dataset": "CUTEst",
+      "input_sha256": "41e64d90878f9569f3bc522b950cdd67d60d0fdac614db88c4c0839a6cbf3d91",
+      "start_sha256": "fe57bbd5657a585c2c69b91868f2f3e34a669fc301872ede83de49490469e943",
+      "n": 83
+    },
+    {
+      "case_id": "geometry_linkage__L010_O1_c125",
+      "regime": "M",
+      "dataset": "obstacle_path_smoothing",
+      "input_sha256": "248f9aa75965c42f723273b80c18cde3d8af41838a720a06771adc29a92341ac",
+      "start_sha256": "ade7624d584f3bcd2923fc6efe7a29cac35d2947bb1c44cd14b9a2393c934f69",
+      "n": 22
+    },
+    {
+      "case_id": "PGLIB__case3_lmbd__sad",
+      "regime": "M",
+      "dataset": "PGLIB",
+      "input_sha256": "02a83c02bed413541e4f7a1295cd42eee501405890444bbb57c469ff12ab9fae",
+      "start_sha256": "7c6c674d3b50b131f1e4c1b828f0a89c8d25bf2abd973acccbe221de231a9724",
+      "n": 24
+    },
+    {
+      "case_id": "robot__schunk_lwa4d__posture",
+      "regime": "M",
+      "dataset": "robot_arm",
+      "input_sha256": "fd226bfc2da418be96a8fc24a7afee2bf8ba7f43b0da414d9ad47aee365757be",
+      "start_sha256": "f05a02bc88bc0bc6a5f03960cee3a70cb9204f38aa4492144563520cd4702774",
+      "n": 36
+    },
+    {
+      "case_id": "water__waterund01",
+      "regime": "M",
+      "dataset": "water_networks",
+      "input_sha256": "9da579d42f8a1ab658f6402b174eb4b3c08cfa24781c8ff2ff4561625160e856",
+      "start_sha256": "d76e87eeffcb80d70b1dc434fef4d5dffd0369b41788266fafe8fa562322b9b1",
+      "n": 40
+    }
+  ],
+  "selection_uses_outcomes": false,
+  "qualification_dimension_cap": 10000,
+  "stratum_coverage": [
+    {
+      "regime": "I",
+      "dataset": "CBLIB_SOC_reference",
+      "source_cases": 6,
+      "eligible_cases": 3,
+      "selected_cases": 2,
+      "eligible_fraction": 0.5,
+      "selected_fraction": 0.3333333333333333
+    },
+    {
+      "regime": "I",
+      "dataset": "COPS_camshape",
+      "source_cases": 104,
+      "eligible_cases": 104,
+      "selected_cases": 2,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 0.019230769230769232
+    },
+    {
+      "regime": "I",
+      "dataset": "COPS_minimal_surface",
+      "source_cases": 100,
+      "eligible_cases": 97,
+      "selected_cases": 1,
+      "eligible_fraction": 0.97,
+      "selected_fraction": 0.01
+    },
+    {
+      "regime": "I",
+      "dataset": "CUTEst",
+      "source_cases": 52,
+      "eligible_cases": 49,
+      "selected_cases": 1,
+      "eligible_fraction": 0.9423076923076923,
+      "selected_fraction": 0.019230769230769232
+    },
+    {
+      "regime": "I",
+      "dataset": "IJOC_partition_QCQP",
+      "source_cases": 150,
+      "eligible_cases": 150,
+      "selected_cases": 2,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 0.013333333333333334
+    },
+    {
+      "regime": "I",
+      "dataset": "MINLPLIB",
+      "source_cases": 4,
+      "eligible_cases": 4,
+      "selected_cases": 1,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 0.25
+    },
+    {
+      "regime": "I",
+      "dataset": "Mittelmann_boundary_cont6",
+      "source_cases": 100,
+      "eligible_cases": 95,
+      "selected_cases": 1,
+      "eligible_fraction": 0.95,
+      "selected_fraction": 0.01
+    },
+    {
+      "regime": "I",
+      "dataset": "Mittelmann_distributed_dist2",
+      "source_cases": 100,
+      "eligible_cases": 100,
+      "selected_cases": 2,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 0.02
+    },
+    {
+      "regime": "I",
+      "dataset": "QPLIB_reference",
+      "source_cases": 49,
+      "eligible_cases": 42,
+      "selected_cases": 2,
+      "eligible_fraction": 0.8571428571428571,
+      "selected_fraction": 0.04081632653061224
+    },
+    {
+      "regime": "I",
+      "dataset": "controlled_kappa",
+      "source_cases": 60,
+      "eligible_cases": 60,
+      "selected_cases": 2,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 0.03333333333333333
+    },
+    {
+      "regime": "I",
+      "dataset": "gas_power",
+      "source_cases": 1,
+      "eligible_cases": 1,
+      "selected_cases": 1,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 1.0
+    },
+    {
+      "regime": "I",
+      "dataset": "multicast_beamforming",
+      "source_cases": 99,
+      "eligible_cases": 99,
+      "selected_cases": 2,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 0.020202020202020204
+    },
+    {
+      "regime": "I",
+      "dataset": "obstacle_path_smoothing",
+      "source_cases": 60,
+      "eligible_cases": 60,
+      "selected_cases": 1,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 0.016666666666666666
+    },
+    {
+      "regime": "I",
+      "dataset": "packing_equal_disks",
+      "source_cases": 60,
+      "eligible_cases": 60,
+      "selected_cases": 1,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 0.016666666666666666
+    },
+    {
+      "regime": "I",
+      "dataset": "pooling_reduced",
+      "source_cases": 2,
+      "eligible_cases": 2,
+      "selected_cases": 2,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 1.0
+    },
+    {
+      "regime": "I",
+      "dataset": "two_ellipsoid_qcqp",
+      "source_cases": 90,
+      "eligible_cases": 90,
+      "selected_cases": 2,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 0.022222222222222223
+    },
+    {
+      "regime": "M",
+      "dataset": "CUTEst",
+      "source_cases": 5,
+      "eligible_cases": 5,
+      "selected_cases": 3,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 0.6
+    },
+    {
+      "regime": "M",
+      "dataset": "PGLIB",
+      "source_cases": 198,
+      "eligible_cases": 63,
+      "selected_cases": 3,
+      "eligible_fraction": 0.3181818181818182,
+      "selected_fraction": 0.015151515151515152
+    },
+    {
+      "regime": "M",
+      "dataset": "beam_safety",
+      "source_cases": 3,
+      "eligible_cases": 0,
+      "selected_cases": 0,
+      "eligible_fraction": 0.0,
+      "selected_fraction": 0.0
+    },
+    {
+      "regime": "M",
+      "dataset": "beam_structural",
+      "source_cases": 503,
+      "eligible_cases": 503,
+      "selected_cases": 2,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 0.003976143141153081
+    },
+    {
+      "regime": "M",
+      "dataset": "gas_power",
+      "source_cases": 2,
+      "eligible_cases": 2,
+      "selected_cases": 2,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 1.0
+    },
+    {
+      "regime": "M",
+      "dataset": "gas_transport",
+      "source_cases": 1,
+      "eligible_cases": 1,
+      "selected_cases": 1,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 1.0
+    },
+    {
+      "regime": "M",
+      "dataset": "multicast_beamforming",
+      "source_cases": 30,
+      "eligible_cases": 30,
+      "selected_cases": 3,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 0.1
+    },
+    {
+      "regime": "M",
+      "dataset": "obstacle_path_smoothing",
+      "source_cases": 30,
+      "eligible_cases": 30,
+      "selected_cases": 3,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 0.1
+    },
+    {
+      "regime": "M",
+      "dataset": "pooling_MINLPLIB",
+      "source_cases": 4,
+      "eligible_cases": 4,
+      "selected_cases": 2,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 0.5
+    },
+    {
+      "regime": "M",
+      "dataset": "robot_arm",
+      "source_cases": 4,
+      "eligible_cases": 4,
+      "selected_cases": 3,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 0.75
+    },
+    {
+      "regime": "M",
+      "dataset": "water_networks",
+      "source_cases": 17,
+      "eligible_cases": 17,
+      "selected_cases": 3,
+      "eligible_fraction": 1.0,
+      "selected_fraction": 0.17647058823529413
+    }
+  ]
+}

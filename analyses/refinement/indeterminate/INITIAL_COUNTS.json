@@ -1,0 +1,67 @@
+{
+  "Accepted metric phase is unavailable": {
+    "n": 152,
+    "datasets": {
+      "CBLIB_SOC_reference": 8,
+      "pooling_MINLPLIB": 8,
+      "water_networks": 136
+    },
+    "original_audit_classes": {
+      "nonstrict": 9,
+      "strict": 143
+    },
+    "original_strict": 143,
+    "cells": {
+      "FROZEN_GR3_ma27": 19,
+      "REFINED_GR3_ma27": 19,
+      "FROZEN_GHS_mumps": 19,
+      "FROZEN_GR3_mumps": 19,
+      "FROZEN_GHS_ma27": 19,
+      "REFINED_GHS_mumps": 19,
+      "REFINED_GR3_mumps": 19,
+      "REFINED_GHS_ma27": 19
+    }
+  },
+  "None": {
+    "n": 29,
+    "datasets": {
+      "PGLIB": 1,
+      "beam_safety": 20,
+      "CBLIB_SOC_reference": 8
+    },
+    "original_audit_classes": {
+      "None": 29
+    },
+    "original_strict": 0,
+    "cells": {
+      "FROZEN_GR3_mumps": 5,
+      "REFINED_GR3_mumps": 4,
+      "REFINED_GHS_ma27": 3,
+      "REFINED_GR3_ma27": 3,
+      "FROZEN_GR3_ma27": 3,
+      "FROZEN_GHS_mumps": 4,
+      "FROZEN_GHS_ma27": 3,
+      "REFINED_GHS_mumps": 4
+    }
+  },
+  "Pas accept\u00e9 avant une initialisation absente": {
+    "n": 8,
+    "datasets": {
+      "CUTEst": 8
+    },
+    "original_audit_classes": {
+      "nonstrict": 8
+    },
+    "original_strict": 0,
+    "cells": {
+      "FROZEN_GR3_ma27": 1,
+      "FROZEN_GHS_ma27": 1,
+      "REFINED_GR3_mumps": 1,
+      "FROZEN_GR3_mumps": 1,
+      "FROZEN_GHS_mumps": 1,
+      "REFINED_GHS_ma27": 1,
+      "REFINED_GHS_mumps": 1,
+      "REFINED_GR3_ma27": 1
+    }
+  }
+}

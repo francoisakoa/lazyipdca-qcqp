@@ -1,0 +1,10 @@
+test_actual_4078_bindings_and_four_cell_queue (__main__.Integration.test_actual_4078_bindings_and_four_cell_queue) ... ok
+test_allocations_and_scopes (__main__.Integration.test_allocations_and_scopes) ... ok
+test_export_cannot_promote_truncated_or_duplicate_observations (__main__.Integration.test_export_cannot_promote_truncated_or_duplicate_observations) ... ok
+test_ipopt_full_command_chain (__main__.Integration.test_ipopt_full_command_chain) ... ok
+test_native_full_command_chain (__main__.Integration.test_native_full_command_chain) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.222s
+
+OK

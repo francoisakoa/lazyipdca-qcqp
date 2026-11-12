@@ -1,0 +1,938 @@
+{
+  "budgets": {
+    "outer": 5000,
+    "restoration_shared": 600,
+    "seconds": 7200,
+    "tolerance": 1e-06
+  },
+  "cases": 503,
+  "classification_counts": {
+    "indeterminate": 22,
+    "nonstrict": 1729,
+    "strict": 4285
+  },
+  "common_cohort_counts": {
+    "ma27": 305,
+    "mumps": 304
+  },
+  "comparisons": [
+    {
+      "N_selected": 503,
+      "backend": "ma27",
+      "both_strict": 312,
+      "gained_strict_on_removal": 0,
+      "keep_strict": 375,
+      "lost_remove_classification": {
+        "nonstrict": 63
+      },
+      "lost_remove_status": {
+        "max_outer_iterations": 63
+      },
+      "lost_strict_on_removal": 63,
+      "normalized_gap": {
+        "max": 0.3700642164409929,
+        "median": 0.16756297155144648,
+        "min": -0.008668833027051324,
+        "q1": 0.09912075391887157,
+        "q3": 0.22174504518871618
+      },
+      "objective_range": [
+        0.002569882608702149,
+        4.749413489982394
+      ],
+      "ordinary_relative_decrease_from_keep": {
+        "max": 0.9721245527798611,
+        "median": 0.16865427819179551,
+        "min": -0.008744638841046221,
+        "q1": 0.0992924257615769,
+        "q3": 0.22221221215618325
+      },
+      "policy": "R3",
+      "remove_strict": 312,
+      "scope": "all_planned",
+      "thresholds": {
+        "0.0001": {
+          "equivalent": 1,
+          "keep_lower": 1,
+          "remove_lower": 310
+        },
+        "0.001": {
+          "equivalent": 2,
+          "keep_lower": 1,
+          "remove_lower": 309
+        },
+        "0.01": {
+          "equivalent": 7,
+          "keep_lower": 0,
+          "remove_lower": 305
+        },
+        "1e-06": {
+          "equivalent": 1,
+          "keep_lower": 1,
+          "remove_lower": 310
+        }
+      }
+    },
+    {
+      "N_selected": 305,
+      "backend": "ma27",
+      "both_strict": 305,
+      "gained_strict_on_removal": 0,
+      "keep_strict": 305,
+      "lost_remove_classification": {},
+      "lost_remove_status": {},
+      "lost_strict_on_removal": 0,
+      "normalized_gap": {
+        "max": 0.3700642164409929,
+        "median": 0.16239990992942338,
+        "min": -0.008668833027051324,
+        "q1": 0.09827760396854507,
+        "q3": 0.2196384809513567
+      },
+      "objective_range": [
+        0.002569882608702149,
+        4.749413489982394
+      ],
+      "ordinary_relative_decrease_from_keep": {
+        "max": 0.9721245527798611,
+        "median": 0.16256561741318296,
+        "min": -0.008744638841046221,
+        "q1": 0.09871131885993069,
+        "q3": 0.21970056268249732
+      },
+      "policy": "R3",
+      "remove_strict": 305,
+      "scope": "six_common_certificates",
+      "thresholds": {
+        "0.0001": {
+          "equivalent": 1,
+          "keep_lower": 1,
+          "remove_lower": 303
+        },
+        "0.001": {
+          "equivalent": 2,
+          "keep_lower": 1,
+          "remove_lower": 302
+        },
+        "0.01": {
+          "equivalent": 7,
+          "keep_lower": 0,
+          "remove_lower": 298
+        },
+        "1e-06": {
+          "equivalent": 1,
+          "keep_lower": 1,
+          "remove_lower": 303
+        }
+      }
+    },
+    {
+      "N_selected": 503,
+      "backend": "ma27",
+      "both_strict": 334,
+      "gained_strict_on_removal": 0,
+      "keep_strict": 374,
+      "lost_remove_classification": {
+        "indeterminate": 3,
+        "nonstrict": 37
+      },
+      "lost_remove_status": {
+        "controller_interrupted_resources_unavailable": 3,
+        "max_outer_iterations": 37
+      },
+      "lost_strict_on_removal": 40,
+      "normalized_gap": {
+        "max": 0.3644686372204675,
+        "median": 0.16060579592596516,
+        "min": -0.00434039561218084,
+        "q1": 0.10468700651663335,
+        "q3": 0.22084961776355433
+      },
+      "objective_range": [
+        0.0025698870184024383,
+        4.627902201228902
+      ],
+      "ordinary_relative_decrease_from_keep": {
+        "max": 0.9721245049440964,
+        "median": 0.16099594105128856,
+        "min": -0.004359316771568262,
+        "q1": 0.10532990960119205,
+        "q3": 0.22145155639634273
+      },
+      "policy": "SS",
+      "remove_strict": 334,
+      "scope": "all_planned",
+      "thresholds": {
+        "0.0001": {
+          "equivalent": 0,
+          "keep_lower": 2,
+          "remove_lower": 332
+        },
+        "0.001": {
+          "equivalent": 0,
+          "keep_lower": 2,
+          "remove_lower": 332
+        },
+        "0.01": {
+          "equivalent": 9,
+          "keep_lower": 0,
+          "remove_lower": 325
+        },
+        "1e-06": {
+          "equivalent": 0,
+          "keep_lower": 2,
+          "remove_lower": 332
+        }
+      }
+    },
+    {
+      "N_selected": 305,
+      "backend": "ma27",
+      "both_strict": 305,
+      "gained_strict_on_removal": 0,
+      "keep_strict": 305,
+      "lost_remove_classification": {},
+      "lost_remove_status": {},
+      "lost_strict_on_removal": 0,
+      "normalized_gap": {
+        "max": 0.3468611136135439,
+        "median": 0.15691868056786012,
+        "min": -0.00434039561218084,
+        "q1": 0.09322476057175161,
+        "q3": 0.21219868988654642
+      },
+      "objective_range": [
+        0.0025698870184024383,
+        4.627902201228902
+      ],
+      "ordinary_relative_decrease_from_keep": {
+        "max": 0.9721245049440964,
+        "median": 0.15695416878800617,
+        "min": -0.004359316771568262,
+        "q1": 0.09416225860059478,
+        "q3": 0.21303042114033682
+      },
+      "policy": "SS",
+      "remove_strict": 305,
+      "scope": "six_common_certificates",
+      "thresholds": {
+        "0.0001": {
+          "equivalent": 0,
+          "keep_lower": 2,
+          "remove_lower": 303
+        },
+        "0.001": {
+          "equivalent": 0,
+          "keep_lower": 2,
+          "remove_lower": 303
+        },
+        "0.01": {
+          "equivalent": 9,
+          "keep_lower": 0,
+          "remove_lower": 296
+        },
+        "1e-06": {
+          "equivalent": 0,
+          "keep_lower": 2,
+          "remove_lower": 303
+        }
+      }
+    },
+    {
+      "N_selected": 503,
+      "backend": "ma27",
+      "both_strict": 374,
+      "gained_strict_on_removal": 0,
+      "keep_strict": 374,
+      "lost_remove_classification": {},
+      "lost_remove_status": {},
+      "lost_strict_on_removal": 0,
+      "normalized_gap": {
+        "max": 0.35929065652668596,
+        "median": 0.1800217655342631,
+        "min": -0.005770360581054887,
+        "q1": 0.12234696843575182,
+        "q3": 0.24914028520276485
+      },
+      "objective_range": [
+        0.002569930771823955,
+        4.601569637204189
+      ],
+      "ordinary_relative_decrease_from_keep": {
+        "max": 0.9721240285088305,
+        "median": 0.1810119673055297,
+        "min": -0.00580385089346888,
+        "q1": 0.12379379655208034,
+        "q3": 0.24984949739418655
+      },
+      "policy": "HH",
+      "remove_strict": 374,
+      "scope": "all_planned",
+      "thresholds": {
+        "0.0001": {
+          "equivalent": 0,
+          "keep_lower": 4,
+          "remove_lower": 370
+        },
+        "0.001": {
+          "equivalent": 2,
+          "keep_lower": 3,
+          "remove_lower": 369
+        },
+        "0.01": {
+          "equivalent": 12,
+          "keep_lower": 0,
+          "remove_lower": 362
+        },
+        "1e-06": {
+          "equivalent": 0,
+          "keep_lower": 4,
+          "remove_lower": 370
+        }
+      }
+    },
+    {
+      "N_selected": 305,
+      "backend": "ma27",
+      "both_strict": 305,
+      "gained_strict_on_removal": 0,
+      "keep_strict": 305,
+      "lost_remove_classification": {},
+      "lost_remove_status": {},
+      "lost_strict_on_removal": 0,
+      "normalized_gap": {
+        "max": 0.33748834163890157,
+        "median": 0.16213890917024282,
+        "min": -0.005770360581054887,
+        "q1": 0.10917215210036066,
+        "q3": 0.21754443611057828
+      },
+      "objective_range": [
+        0.002569930771823955,
+        4.601569637204189
+      ],
+      "ordinary_relative_decrease_from_keep": {
+        "max": 0.9721240285088305,
+        "median": 0.16322286985040593,
+        "min": -0.00580385089346888,
+        "q1": 0.11003673619155838,
+        "q3": 0.2185330744171435
+      },
+      "policy": "HH",
+      "remove_strict": 305,
+      "scope": "six_common_certificates",
+      "thresholds": {
+        "0.0001": {
+          "equivalent": 0,
+          "keep_lower": 4,
+          "remove_lower": 301
+        },
+        "0.001": {
+          "equivalent": 2,
+          "keep_lower": 3,
+          "remove_lower": 300
+        },
+        "0.01": {
+          "equivalent": 12,
+          "keep_lower": 0,
+          "remove_lower": 293
+        },
+        "1e-06": {
+          "equivalent": 0,
+          "keep_lower": 4,
+          "remove_lower": 301
+        }
+      }
+    },
+    {
+      "N_selected": 503,
+      "backend": "mumps",
+      "both_strict": 312,
+      "gained_strict_on_removal": 0,
+      "keep_strict": 375,
+      "lost_remove_classification": {
+        "nonstrict": 63
+      },
+      "lost_remove_status": {
+        "max_outer_iterations": 63
+      },
+      "lost_strict_on_removal": 63,
+      "normalized_gap": {
+        "max": 0.3700642164409936,
+        "median": 0.1675629715514469,
+        "min": -0.008668833026761334,
+        "q1": 0.09912075391886918,
+        "q3": 0.2217450451887156
+      },
+      "objective_range": [
+        0.002569882608702144,
+        4.749413489982895
+      ],
+      "ordinary_relative_decrease_from_keep": {
+        "max": 0.9721245527798612,
+        "median": 0.16865427819179574,
+        "min": -0.008744638840751136,
+        "q1": 0.09929242576157613,
+        "q3": 0.22221221215618242
+      },
+      "policy": "R3",
+      "remove_strict": 312,
+      "scope": "all_planned",
+      "thresholds": {
+        "0.0001": {
+          "equivalent": 1,
+          "keep_lower": 1,
+          "remove_lower": 310
+        },
+        "0.001": {
+          "equivalent": 2,
+          "keep_lower": 1,
+          "remove_lower": 309
+        },
+        "0.01": {
+          "equivalent": 7,
+          "keep_lower": 0,
+          "remove_lower": 305
+        },
+        "1e-06": {
+          "equivalent": 1,
+          "keep_lower": 1,
+          "remove_lower": 310
+        }
+      }
+    },
+    {
+      "N_selected": 304,
+      "backend": "mumps",
+      "both_strict": 304,
+      "gained_strict_on_removal": 0,
+      "keep_strict": 304,
+      "lost_remove_classification": {},
+      "lost_remove_status": {},
+      "lost_strict_on_removal": 0,
+      "normalized_gap": {
+        "max": 0.3700642164409936,
+        "median": 0.16183044822164058,
+        "min": -0.008668833026761334,
+        "q1": 0.09819875487723156,
+        "q3": 0.21868008925145763
+      },
+      "objective_range": [
+        0.002569882608702144,
+        4.749413489982895
+      ],
+      "ordinary_relative_decrease_from_keep": {
+        "max": 0.9721245527798612,
+        "median": 0.1624827636713036,
+        "min": -0.008744638840751136,
+        "q1": 0.09860289013708361,
+        "q3": 0.21965400138414093
+      },
+      "policy": "R3",
+      "remove_strict": 304,
+      "scope": "six_common_certificates",
+      "thresholds": {
+        "0.0001": {
+          "equivalent": 1,
+          "keep_lower": 1,
+          "remove_lower": 302
+        },
+        "0.001": {
+          "equivalent": 2,
+          "keep_lower": 1,
+          "remove_lower": 301
+        },
+        "0.01": {
+          "equivalent": 7,
+          "keep_lower": 0,
+          "remove_lower": 297
+        },
+        "1e-06": {
+          "equivalent": 1,
+          "keep_lower": 1,
+          "remove_lower": 302
+        }
+      }
+    },
+    {
+      "N_selected": 503,
+      "backend": "mumps",
+      "both_strict": 333,
+      "gained_strict_on_removal": 0,
+      "keep_strict": 374,
+      "lost_remove_classification": {
+        "indeterminate": 4,
+        "nonstrict": 37
+      },
+      "lost_remove_status": {
+        "controller_interrupted_resources_unavailable": 4,
+        "max_outer_iterations": 37
+      },
+      "lost_strict_on_removal": 41,
+      "normalized_gap": {
+        "max": 0.3644686372204672,
+        "median": 0.16024141035357076,
+        "min": -0.004340395612287962,
+        "q1": 0.10457563582825793,
+        "q3": 0.22100208129217638
+      },
+      "objective_range": [
+        0.0025698870184024366,
+        4.627902201228902
+      ],
+      "ordinary_relative_decrease_from_keep": {
+        "max": 0.9721245049440963,
+        "median": 0.16097018149835793,
+        "min": -0.004359316771676319,
+        "q1": 0.10502111858175867,
+        "q3": 0.22160138143106473
+      },
+      "policy": "SS",
+      "remove_strict": 333,
+      "scope": "all_planned",
+      "thresholds": {
+        "0.0001": {
+          "equivalent": 0,
+          "keep_lower": 2,
+          "remove_lower": 331
+        },
+        "0.001": {
+          "equivalent": 1,
+          "keep_lower": 2,
+          "remove_lower": 330
+        },
+        "0.01": {
+          "equivalent": 9,
+          "keep_lower": 0,
+          "remove_lower": 324
+        },
+        "1e-06": {
+          "equivalent": 0,
+          "keep_lower": 2,
+          "remove_lower": 331
+        }
+      }
+    },
+    {
+      "N_selected": 304,
+      "backend": "mumps",
+      "both_strict": 304,
+      "gained_strict_on_removal": 0,
+      "keep_strict": 304,
+      "lost_remove_classification": {},
+      "lost_remove_status": {},
+      "lost_strict_on_removal": 0,
+      "normalized_gap": {
+        "max": 0.34686111361354427,
+        "median": 0.1568324667606471,
+        "min": -0.004340395612287962,
+        "q1": 0.0932232631001195,
+        "q3": 0.21215674110971577
+      },
+      "objective_range": [
+        0.0025698870184024366,
+        4.627902201228902
+      ],
+      "ordinary_relative_decrease_from_keep": {
+        "max": 0.9721245049440963,
+        "median": 0.1569364246779325,
+        "min": -0.004359316771676319,
+        "q1": 0.09392788409338351,
+        "q3": 0.21240662269999463
+      },
+      "policy": "SS",
+      "remove_strict": 304,
+      "scope": "six_common_certificates",
+      "thresholds": {
+        "0.0001": {
+          "equivalent": 0,
+          "keep_lower": 2,
+          "remove_lower": 302
+        },
+        "0.001": {
+          "equivalent": 1,
+          "keep_lower": 2,
+          "remove_lower": 301
+        },
+        "0.01": {
+          "equivalent": 9,
+          "keep_lower": 0,
+          "remove_lower": 295
+        },
+        "1e-06": {
+          "equivalent": 0,
+          "keep_lower": 2,
+          "remove_lower": 302
+        }
+      }
+    },
+    {
+      "N_selected": 503,
+      "backend": "mumps",
+      "both_strict": 374,
+      "gained_strict_on_removal": 0,
+      "keep_strict": 374,
+      "lost_remove_classification": {},
+      "lost_remove_status": {},
+      "lost_strict_on_removal": 0,
+      "normalized_gap": {
+        "max": 0.35929065652668535,
+        "median": 0.18002176553426302,
+        "min": -0.005770360581215037,
+        "q1": 0.12234696843575171,
+        "q3": 0.249140285202765
+      },
+      "objective_range": [
+        0.002569930771823961,
+        4.601569637204189
+      ],
+      "ordinary_relative_decrease_from_keep": {
+        "max": 0.9721240285088304,
+        "median": 0.18101196730552982,
+        "min": -0.005803850893630894,
+        "q1": 0.12379379655208039,
+        "q3": 0.24984949739418638
+      },
+      "policy": "HH",
+      "remove_strict": 374,
+      "scope": "all_planned",
+      "thresholds": {
+        "0.0001": {
+          "equivalent": 0,
+          "keep_lower": 4,
+          "remove_lower": 370
+        },
+        "0.001": {
+          "equivalent": 2,
+          "keep_lower": 3,
+          "remove_lower": 369
+        },
+        "0.01": {
+          "equivalent": 12,
+          "keep_lower": 0,
+          "remove_lower": 362
+        },
+        "1e-06": {
+          "equivalent": 0,
+          "keep_lower": 4,
+          "remove_lower": 370
+        }
+      }
+    },
+    {
+      "N_selected": 304,
+      "backend": "mumps",
+      "both_strict": 304,
+      "gained_strict_on_removal": 0,
+      "keep_strict": 304,
+      "lost_remove_classification": {},
+      "lost_remove_status": {},
+      "lost_strict_on_removal": 0,
+      "normalized_gap": {
+        "max": 0.3374883416389012,
+        "median": 0.1618694151027083,
+        "min": -0.005770360581215037,
+        "q1": 0.10911094383645698,
+        "q3": 0.21741009544690085
+      },
+      "objective_range": [
+        0.002569930771823961,
+        4.601569637204189
+      ],
+      "ordinary_relative_decrease_from_keep": {
+        "max": 0.9721240285088304,
+        "median": 0.16268088951032436,
+        "min": -0.005803850893630894,
+        "q1": 0.10982059016875625,
+        "q3": 0.21779159568721965
+      },
+      "policy": "HH",
+      "remove_strict": 304,
+      "scope": "six_common_certificates",
+      "thresholds": {
+        "0.0001": {
+          "equivalent": 0,
+          "keep_lower": 4,
+          "remove_lower": 300
+        },
+        "0.001": {
+          "equivalent": 2,
+          "keep_lower": 3,
+          "remove_lower": 299
+        },
+        "0.01": {
+          "equivalent": 12,
+          "keep_lower": 0,
+          "remove_lower": 292
+        },
+        "1e-06": {
+          "equivalent": 0,
+          "keep_lower": 4,
+          "remove_lower": 300
+        }
+      }
+    }
+  ],
+  "csv_pair_gaps_verified": 11662,
+  "frozen_input_and_start_identical_for_all_12_cells_per_case": true,
+  "interpretation": [
+    "Toggle of the equality-implied redundant-bound removal rule changes the returned objective at identical raw starts and input hashes; this supports a controlled intervention effect within this computational protocol.",
+    "Objective comparisons are conditional on both endpoints being certified. Six-common cohorts control cohort variation across R3/SS/HH.",
+    "The normalized gap uses max(1,abs(f_keep),abs(f_remove)); some objectives are below 1, so it is not an ordinary percentage decrease. The latter is recomputed separately.",
+    "Removing bounds lowers objectives for nearly every jointly certified case, while decreasing certified coverage of R3 and SS. HH keeps the same strict certified case set.",
+    "Twenty-two records are indeterminate due to controller interruption and unavailable resources; these must not be relabelled numerical failures.",
+    "No Ipopt reference objective is in the paired CSV. Quantifying closure of the Lazy/Ipopt gap needs a frozen-reference join on case/input/start binding.",
+    "This is a parallel 22-worker campaign with one observation per cell, not a quiet three-repetition timing study; avoid causal runtime or global-optimality claims."
+  ],
+  "method_rows": [
+    {
+      "N": 503,
+      "budget_verified": 500,
+      "indeterminate": 3,
+      "intervention_verified": 500,
+      "method": "HH_keep_ma27",
+      "nonstrict": 126,
+      "removed_side_counts": {
+        "0": 500,
+        "unavailable": 3
+      },
+      "status_counts": {
+        "controller_interrupted_resources_unavailable": 3,
+        "inner_failure": 4,
+        "line_search_failure": 122,
+        "solved": 374
+      },
+      "strict": 374
+    },
+    {
+      "N": 503,
+      "budget_verified": 500,
+      "indeterminate": 3,
+      "intervention_verified": 500,
+      "method": "HH_keep_mumps",
+      "nonstrict": 126,
+      "removed_side_counts": {
+        "0": 500,
+        "unavailable": 3
+      },
+      "status_counts": {
+        "controller_interrupted_resources_unavailable": 3,
+        "inner_failure": 2,
+        "line_search_failure": 124,
+        "solved": 374
+      },
+      "strict": 374
+    },
+    {
+      "N": 503,
+      "budget_verified": 501,
+      "indeterminate": 2,
+      "intervention_verified": 501,
+      "method": "HH_remove_ma27",
+      "nonstrict": 127,
+      "removed_side_counts": {
+        "128": 499,
+        "64": 2,
+        "unavailable": 2
+      },
+      "status_counts": {
+        "controller_interrupted_resources_unavailable": 2,
+        "inner_failure": 6,
+        "line_search_failure": 121,
+        "solved": 374
+      },
+      "strict": 374
+    },
+    {
+      "N": 503,
+      "budget_verified": 501,
+      "indeterminate": 2,
+      "intervention_verified": 501,
+      "method": "HH_remove_mumps",
+      "nonstrict": 127,
+      "removed_side_counts": {
+        "128": 499,
+        "64": 2,
+        "unavailable": 2
+      },
+      "status_counts": {
+        "controller_interrupted_resources_unavailable": 2,
+        "inner_failure": 3,
+        "line_search_failure": 124,
+        "solved": 374
+      },
+      "strict": 374
+    },
+    {
+      "N": 503,
+      "budget_verified": 503,
+      "indeterminate": 0,
+      "intervention_verified": 503,
+      "method": "R3_keep_ma27",
+      "nonstrict": 128,
+      "removed_side_counts": {
+        "0": 503
+      },
+      "status_counts": {
+        "inner_failure": 1,
+        "line_search_failure": 127,
+        "solved": 375
+      },
+      "strict": 375
+    },
+    {
+      "N": 503,
+      "budget_verified": 503,
+      "indeterminate": 0,
+      "intervention_verified": 503,
+      "method": "R3_keep_mumps",
+      "nonstrict": 128,
+      "removed_side_counts": {
+        "0": 503
+      },
+      "status_counts": {
+        "inner_failure": 1,
+        "line_search_failure": 127,
+        "solved": 375
+      },
+      "strict": 375
+    },
+    {
+      "N": 503,
+      "budget_verified": 503,
+      "indeterminate": 0,
+      "intervention_verified": 503,
+      "method": "R3_remove_ma27",
+      "nonstrict": 191,
+      "removed_side_counts": {
+        "128": 501,
+        "64": 2
+      },
+      "status_counts": {
+        "inner_failure": 5,
+        "line_search_failure": 123,
+        "max_outer_iterations": 63,
+        "solved": 312
+      },
+      "strict": 312
+    },
+    {
+      "N": 503,
+      "budget_verified": 503,
+      "indeterminate": 0,
+      "intervention_verified": 503,
+      "method": "R3_remove_mumps",
+      "nonstrict": 191,
+      "removed_side_counts": {
+        "128": 501,
+        "64": 2
+      },
+      "status_counts": {
+        "inner_failure": 2,
+        "line_search_failure": 126,
+        "max_outer_iterations": 63,
+        "solved": 312
+      },
+      "strict": 312
+    },
+    {
+      "N": 503,
+      "budget_verified": 502,
+      "indeterminate": 1,
+      "intervention_verified": 502,
+      "method": "SS_keep_ma27",
+      "nonstrict": 128,
+      "removed_side_counts": {
+        "0": 502,
+        "unavailable": 1
+      },
+      "status_counts": {
+        "controller_interrupted_resources_unavailable": 1,
+        "inner_failure": 1,
+        "line_search_failure": 127,
+        "solved": 374
+      },
+      "strict": 374
+    },
+    {
+      "N": 503,
+      "budget_verified": 501,
+      "indeterminate": 2,
+      "intervention_verified": 501,
+      "method": "SS_keep_mumps",
+      "nonstrict": 127,
+      "removed_side_counts": {
+        "0": 501,
+        "unavailable": 2
+      },
+      "status_counts": {
+        "controller_interrupted_resources_unavailable": 2,
+        "inner_failure": 1,
+        "line_search_failure": 126,
+        "solved": 374
+      },
+      "strict": 374
+    },
+    {
+      "N": 503,
+      "budget_verified": 499,
+      "indeterminate": 4,
+      "intervention_verified": 499,
+      "method": "SS_remove_ma27",
+      "nonstrict": 165,
+      "removed_side_counts": {
+        "128": 497,
+        "64": 2,
+        "unavailable": 4
+      },
+      "status_counts": {
+        "controller_interrupted_resources_unavailable": 4,
+        "inner_failure": 5,
+        "line_search_failure": 123,
+        "max_outer_iterations": 37,
+        "solved": 334
+      },
+      "strict": 334
+    },
+    {
+      "N": 503,
+      "budget_verified": 498,
+      "indeterminate": 5,
+      "intervention_verified": 498,
+      "method": "SS_remove_mumps",
+      "nonstrict": 165,
+      "removed_side_counts": {
+        "128": 496,
+        "64": 2,
+        "unavailable": 5
+      },
+      "status_counts": {
+        "controller_interrupted_resources_unavailable": 5,
+        "inner_failure": 5,
+        "line_search_failure": 123,
+        "max_outer_iterations": 37,
+        "solved": 333
+      },
+      "strict": 333
+    }
+  ],
+  "methods": [
+    "HH_keep_ma27",
+    "HH_keep_mumps",
+    "HH_remove_ma27",
+    "HH_remove_mumps",
+    "R3_keep_ma27",
+    "R3_keep_mumps",
+    "R3_remove_ma27",
+    "R3_remove_mumps",
+    "SS_keep_ma27",
+    "SS_keep_mumps",
+    "SS_remove_ma27",
+    "SS_remove_mumps"
+  ],
+  "no_ipopt_reference_rows_in_bundle": true,
+  "recorded": 6036,
+  "schema": "independent-asu-bound-statistics-v1",
+  "source_sha256": "45bd109ed34a1312fadc4e30a04688c5e8ec45688b3778cf11ff8dc2f39d02ed",
+  "status": "PASS"
+}

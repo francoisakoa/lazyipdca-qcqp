@@ -1,0 +1,8 @@
+{
+  "paired_rows": 128,
+  "distinct_case_ids": 32,
+  "same_backend_rows": 64,
+  "every_native_has_explicit_finite_residual_above_tolerance": true,
+  "every_Ipopt_has_three_finite_original_residuals_at_most_1e_6": true,
+  "note": "Archived original-audit evidence, not a new endpoint or coefficient audit."
+}

@@ -1,0 +1,11 @@
+test_changed_compact_audit_is_rejected (__main__.Tests.test_changed_compact_audit_is_rejected) ... ok
+test_eight_methods_and_incomplete_states_remain_separate (__main__.Tests.test_eight_methods_and_incomplete_states_remain_separate) ... ok
+test_factorial_full_contract_is_ingested_by_real_analyzer (__main__.Tests.test_factorial_full_contract_is_ingested_by_real_analyzer) ... ok
+test_mixed_run_is_rejected (__main__.Tests.test_mixed_run_is_rejected) ... ok
+test_objectives_and_time_cohorts_compare_all_historical_variants (__main__.Tests.test_objectives_and_time_cohorts_compare_all_historical_variants) ... ok
+test_plan_contract_and_backend_changes_are_rejected (__main__.Tests.test_plan_contract_and_backend_changes_are_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 3.438s
+
+OK

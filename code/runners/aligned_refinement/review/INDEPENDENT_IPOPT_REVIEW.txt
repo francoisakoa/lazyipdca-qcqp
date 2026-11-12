@@ -1,0 +1,55 @@
+REVUE INDEPENDANTE — IPOPT ALIGNE, 9 NOVEMBRE 2026
+
+Avis favorable dans le perimetre des sources et preuves locales relues.
+Aucun acces TRX et aucun optimiseur lance par le relecteur. Les quatre
+smokes sur la cible restent obligatoires, notamment les deux MA 27.
+
+Le plan comprend 4078 QCQP, quatre cellules monotone/adaptive x MA 27/MUMPS,
+soit 16312 nouvelles resolutions, sur CPU 0..21 a 22 travaux. L'ablation reste
+independante sur CPU 23 avec un travail. Les pilotes, sorties et verrous
+sont distincts ; le lancement commun n'introduit pas de barriere entre eux.
+
+Le contrat d'options est fixe dans l'API et le CLI. Les setters refusent une
+option rejetee; les valeurs effectives sont relues apres Initialize. Le
+fichier ipopt.opt ambiant est desactive et un fichier hostile est teste.
+Les sorties conservent les options et la preuve du backend reel. Le nom
+MUMPS en majuscules dans le vrai banner a motive un correctif du parseur ;
+les deux vrais fichiers locaux passent maintenant le controle de production.
+
+Les bornes finies au-dela du seuil d'infini par defaut sont preservees par
+une sentinelle adaptee et declaree. Aucun endpoint anterieur n'est utilise
+comme depart. L'evaluateur original reste independant du statut Ipopt. Le
+controle de budget exige conjointement temps mur processus, CPU processus,
+temps natif et iterations. Une preuve native ne masque pas un depassement.
+
+Les dependances et transitives, headers et sources sont lies aux empreintes.
+Le mode de qualification locale ne peut autoriser la production. La reprise
+revalide les quatre recus de preparation et les endpoints/audits/ressources ;
+l'arret identifie les processus par PID et date de creation.
+
+Verification locale du relecteur :48 tests Python relances et reussis
+(19 runtime,10 pilote,19 analyseur). Recalcul independant des deux endpoints
+MUMPS generes par l'agent source : les trois residus sont sous 1e-6, lambda
+d'inegalite vaut environ 3 et la difference des multiplicateurs de borne de
+la variable fixe vaut 0.5. Ce recalcul ne constitue pas un nouveau solve.
+
+L'analyse compare les quatre nouveaux Ipopt entre eux et aux douze variantes
+Lazy explicites ; les anciens Ipopt sont exclus de l'import. Les regimes
+sont premiers dans la lecture, avec decomposition par collection et famille,
+et les cas techniques conservent leurs preuves sans etre inventes comme
+echecs numeriques audites. Les taux de certification gardent tous les cas
+prevus au denominateur. Les comparaisons temporelles indiquent leur cohorte
+et leur horloge ; les comparaisons archivees restent descriptives.
+
+Limite de l'avis : aucun resultat de la nouvelle campagne n'est etabli.
+Les seuils absolus sont alignes ; l'exigence relative supplementaire et
+la mise a l'echelle interne d'Ipopt empechent de parler de tests identiques.
+Aucun avantage de solveur n'est presume par le dispositif.
+
+Fermeture finale des grandes bornes
+Le lecteur du header gele reproduit la regle C++ de sentinelle et produit
+une table complete des4 078 representations. La table et son hash sont lies
+a la preparation, puis l'endpoint doit presenter les seuils et declarations
+attendus pour son propre cas. La preparation elle-meme est liee par SHA
+a l'installation. Les19 tests runtime passent depuis le repertoire final
+de livraison ; les deux vrais MUMPS ont ete relus avec ce dispositif final.

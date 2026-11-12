@@ -1,0 +1,2275 @@
+{
+  "url": "https://qplib.zib.de/qplib.solu",
+  "retrieved_date": "2026-11-09",
+  "source_refs": [
+    "turn132view0",
+    "turn134view0"
+  ],
+  "values": [
+    {
+      "status": "=best=",
+      "id": "0018",
+      "value": -6.386014982
+    },
+    {
+      "status": "=best=",
+      "id": "0031",
+      "value": 15.38637379
+    },
+    {
+      "status": "=best=",
+      "id": "0032",
+      "value": 10.12639121
+    },
+    {
+      "status": "=best=",
+      "id": "0067",
+      "value": -110942
+    },
+    {
+      "status": "=best=",
+      "id": "0343",
+      "value": -6.386014982
+    },
+    {
+      "status": "=best=",
+      "id": "0633",
+      "value": 79.56070622
+    },
+    {
+      "status": "=best=",
+      "id": "0678",
+      "value": 48000000
+    },
+    {
+      "status": "=best=",
+      "id": "0681",
+      "value": 45.24444817
+    },
+    {
+      "status": "=best=",
+      "id": "0682",
+      "value": 39.6096563
+    },
+    {
+      "status": "=best=",
+      "id": "0684",
+      "value": 9.2266
+    },
+    {
+      "status": "=unkn=",
+      "id": "0685",
+      "value": null
+    },
+    {
+      "status": "=unkn=",
+      "id": "0686",
+      "value": null
+    },
+    {
+      "status": "=unkn=",
+      "id": "0687",
+      "value": null
+    },
+    {
+      "status": "=unkn=",
+      "id": "0688",
+      "value": null
+    },
+    {
+      "status": "=best=",
+      "id": "0689",
+      "value": 115.0613338
+    },
+    {
+      "status": "=best=",
+      "id": "0690",
+      "value": 226.49
+    },
+    {
+      "status": "=best=",
+      "id": "0696",
+      "value": 1086187.137
+    },
+    {
+      "status": "=best=",
+      "id": "0698",
+      "value": 1086187.137
+    },
+    {
+      "status": "=best=",
+      "id": "0752",
+      "value": 24071
+    },
+    {
+      "status": "=best=",
+      "id": "0911",
+      "value": -32.14755832
+    },
+    {
+      "status": "=best=",
+      "id": "0975",
+      "value": -37.85351052
+    },
+    {
+      "status": "=best=",
+      "id": "10001",
+      "value": -25766.82
+    },
+    {
+      "status": "=best=",
+      "id": "10002",
+      "value": -21931.57
+    },
+    {
+      "status": "=best=",
+      "id": "10003",
+      "value": -21944.87
+    },
+    {
+      "status": "=best=",
+      "id": "10004",
+      "value": -2588.21
+    },
+    {
+      "status": "=best=",
+      "id": "10005",
+      "value": -9820.91
+    },
+    {
+      "status": "=best=",
+      "id": "10006",
+      "value": -12527.2
+    },
+    {
+      "status": "=best=",
+      "id": "10007",
+      "value": -17869.72
+    },
+    {
+      "status": "=best=",
+      "id": "10008",
+      "value": -23176.19
+    },
+    {
+      "status": "=best=",
+      "id": "10009",
+      "value": -23176.19
+    },
+    {
+      "status": "=best=",
+      "id": "10010",
+      "value": -23003.31
+    },
+    {
+      "status": "=best=",
+      "id": "10011",
+      "value": -23176.19
+    },
+    {
+      "status": "=best=",
+      "id": "10012",
+      "value": -23176.19
+    },
+    {
+      "status": "=best=",
+      "id": "10013",
+      "value": 27642056.81
+    },
+    {
+      "status": "=best=",
+      "id": "10014",
+      "value": 25579413.86
+    },
+    {
+      "status": "=best=",
+      "id": "10015",
+      "value": 27069722.86
+    },
+    {
+      "status": "=best=",
+      "id": "10016",
+      "value": 29934289.13
+    },
+    {
+      "status": "=best=",
+      "id": "10017",
+      "value": 31154937.63
+    },
+    {
+      "status": "=best=",
+      "id": "10018",
+      "value": 34222560.14
+    },
+    {
+      "status": "=best=",
+      "id": "10019",
+      "value": 40389511.78
+    },
+    {
+      "status": "=best=",
+      "id": "10020",
+      "value": 33161690.23
+    },
+    {
+      "status": "=best=",
+      "id": "10021",
+      "value": 305256.2943
+    },
+    {
+      "status": "=best=",
+      "id": "10022",
+      "value": 1070374.161
+    },
+    {
+      "status": "=best=",
+      "id": "10023",
+      "value": 721348.9732
+    },
+    {
+      "status": "=best=",
+      "id": "10024",
+      "value": 115311.7109
+    },
+    {
+      "status": "=best=",
+      "id": "10025",
+      "value": 128.9160937
+    },
+    {
+      "status": "=best=",
+      "id": "10026",
+      "value": 143.8460104
+    },
+    {
+      "status": "=best=",
+      "id": "10027",
+      "value": 130.5620185
+    },
+    {
+      "status": "=best=",
+      "id": "10028",
+      "value": 125.061293
+    },
+    {
+      "status": "=best=",
+      "id": "10029",
+      "value": 133.9004219
+    },
+    {
+      "status": "=best=",
+      "id": "10030",
+      "value": 14509419100
+    },
+    {
+      "status": "=best=",
+      "id": "10031",
+      "value": 14426128900
+    },
+    {
+      "status": "=best=",
+      "id": "10032",
+      "value": 14465997920
+    },
+    {
+      "status": "=best=",
+      "id": "10033",
+      "value": 14487197400
+    },
+    {
+      "status": "=best=",
+      "id": "10034",
+      "value": -0.06601017605
+    },
+    {
+      "status": "=best=",
+      "id": "10035",
+      "value": 0.0005420935803
+    },
+    {
+      "status": "=best=",
+      "id": "10036",
+      "value": 0.06666666666
+    },
+    {
+      "status": "=best=",
+      "id": "10037",
+      "value": 0.06637131601
+    },
+    {
+      "status": "=best=",
+      "id": "10038",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "10039",
+      "value": 2.316338609
+    },
+    {
+      "status": "=best=",
+      "id": "10040",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "10041",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "10042",
+      "value": -20.8819262
+    },
+    {
+      "status": "=best=",
+      "id": "10043",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "10044",
+      "value": -7.868866549
+    },
+    {
+      "status": "=best=",
+      "id": "10045",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "10046",
+      "value": -0.7127002361
+    },
+    {
+      "status": "=best=",
+      "id": "10047",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "10048",
+      "value": -13.56267356
+    },
+    {
+      "status": "=best=",
+      "id": "10049",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "10050",
+      "value": -25.69766163
+    },
+    {
+      "status": "=best=",
+      "id": "10051",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "10052",
+      "value": -11.81057614
+    },
+    {
+      "status": "=best=",
+      "id": "10053",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "10054",
+      "value": -10.19706381
+    },
+    {
+      "status": "=best=",
+      "id": "10055",
+      "value": -1.258548474
+    },
+    {
+      "status": "=best=",
+      "id": "10056",
+      "value": -33.85678866
+    },
+    {
+      "status": "=best=",
+      "id": "10057",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "10058",
+      "value": -3.566525619
+    },
+    {
+      "status": "=best=",
+      "id": "10059",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "10060",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "10061",
+      "value": -23.99855941
+    },
+    {
+      "status": "=best=",
+      "id": "10062",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "10063",
+      "value": -42.51597243
+    },
+    {
+      "status": "=best=",
+      "id": "10064",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "10065",
+      "value": -29.82242097
+    },
+    {
+      "status": "=best=",
+      "id": "10066",
+      "value": -32.97988603
+    },
+    {
+      "status": "=best=",
+      "id": "10067",
+      "value": -31.56870096
+    },
+    {
+      "status": "=best=",
+      "id": "10068",
+      "value": -31.6396972
+    },
+    {
+      "status": "=best=",
+      "id": "10069",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "10070",
+      "value": -25.33284987
+    },
+    {
+      "status": "=best=",
+      "id": "10071",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "10072",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "10073",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "10074",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "1055",
+      "value": -33.03702314
+    },
+    {
+      "status": "=best=",
+      "id": "1143",
+      "value": -57.24667411
+    },
+    {
+      "status": "=best=",
+      "id": "1157",
+      "value": -10.94820362
+    },
+    {
+      "status": "=best=",
+      "id": "1353",
+      "value": -7.714162166
+    },
+    {
+      "status": "=best=",
+      "id": "1423",
+      "value": -14.96746772
+    },
+    {
+      "status": "=best=",
+      "id": "1437",
+      "value": -7.789172855
+    },
+    {
+      "status": "=best=",
+      "id": "1451",
+      "value": -87.5764866
+    },
+    {
+      "status": "=best=",
+      "id": "1493",
+      "value": -43.16043152
+    },
+    {
+      "status": "=best=",
+      "id": "1507",
+      "value": -8.301376966
+    },
+    {
+      "status": "=best=",
+      "id": "1535",
+      "value": -11.5861351
+    },
+    {
+      "status": "=best=",
+      "id": "1619",
+      "value": -9.217302263
+    },
+    {
+      "status": "=best=",
+      "id": "1661",
+      "value": -15.95489773
+    },
+    {
+      "status": "=best=",
+      "id": "1675",
+      "value": -75.66868248
+    },
+    {
+      "status": "=best=",
+      "id": "1703",
+      "value": -132.8020247
+    },
+    {
+      "status": "=best=",
+      "id": "1745",
+      "value": -72.37658976
+    },
+    {
+      "status": "=best=",
+      "id": "1773",
+      "value": -14.64186129
+    },
+    {
+      "status": "=best=",
+      "id": "1886",
+      "value": -78.67156135
+    },
+    {
+      "status": "=best=",
+      "id": "1913",
+      "value": -52.1084813
+    },
+    {
+      "status": "=best=",
+      "id": "1922",
+      "value": -35.9505868
+    },
+    {
+      "status": "=best=",
+      "id": "1931",
+      "value": -55.70887522
+    },
+    {
+      "status": "=best=",
+      "id": "1940",
+      "value": -38.31010813
+    },
+    {
+      "status": "=best=",
+      "id": "1967",
+      "value": -107.5813416
+    },
+    {
+      "status": "=best=",
+      "id": "1976",
+      "value": -9594
+    },
+    {
+      "status": "=best=",
+      "id": "2017",
+      "value": -22984
+    },
+    {
+      "status": "=best=",
+      "id": "2022",
+      "value": -22747.5
+    },
+    {
+      "status": "=best=",
+      "id": "2029",
+      "value": -34704
+    },
+    {
+      "status": "=best=",
+      "id": "2036",
+      "value": -30820
+    },
+    {
+      "status": "=best=",
+      "id": "2047",
+      "value": 1182604.5
+    },
+    {
+      "status": "=best=",
+      "id": "2055",
+      "value": 3389110
+    },
+    {
+      "status": "=best=",
+      "id": "2060",
+      "value": 2528144
+    },
+    {
+      "status": "=best=",
+      "id": "2067",
+      "value": 3311060
+    },
+    {
+      "status": "=best=",
+      "id": "2073",
+      "value": 7600750
+    },
+    {
+      "status": "=best=",
+      "id": "2077",
+      "value": 2373966
+    },
+    {
+      "status": "=best=",
+      "id": "2085",
+      "value": 7034580
+    },
+    {
+      "status": "=best=",
+      "id": "2087",
+      "value": 3312579
+    },
+    {
+      "status": "=best=",
+      "id": "2096",
+      "value": 7025720
+    },
+    {
+      "status": "=best=",
+      "id": "2165",
+      "value": 11
+    },
+    {
+      "status": "=best=",
+      "id": "2166",
+      "value": 83
+    },
+    {
+      "status": "=best=",
+      "id": "2167",
+      "value": 6
+    },
+    {
+      "status": "=best=",
+      "id": "2168",
+      "value": 36
+    },
+    {
+      "status": "=best=",
+      "id": "2169",
+      "value": 29
+    },
+    {
+      "status": "=best=",
+      "id": "2170",
+      "value": 6
+    },
+    {
+      "status": "=best=",
+      "id": "2171",
+      "value": 25
+    },
+    {
+      "status": "=best=",
+      "id": "2173",
+      "value": 11
+    },
+    {
+      "status": "=best=",
+      "id": "2174",
+      "value": 147
+    },
+    {
+      "status": "=best=",
+      "id": "2181",
+      "value": 22
+    },
+    {
+      "status": "=best=",
+      "id": "2187",
+      "value": 13
+    },
+    {
+      "status": "=best=",
+      "id": "2192",
+      "value": 10
+    },
+    {
+      "status": "=best=",
+      "id": "2195",
+      "value": 9
+    },
+    {
+      "status": "=best=",
+      "id": "2202",
+      "value": 30
+    },
+    {
+      "status": "=best=",
+      "id": "2203",
+      "value": 33
+    },
+    {
+      "status": "=best=",
+      "id": "2204",
+      "value": 38
+    },
+    {
+      "status": "=best=",
+      "id": "2205",
+      "value": 86
+    },
+    {
+      "status": "=best=",
+      "id": "2206",
+      "value": 13
+    },
+    {
+      "status": "=best=",
+      "id": "2315",
+      "value": -29432
+    },
+    {
+      "status": "=best=",
+      "id": "2353",
+      "value": -1674
+    },
+    {
+      "status": "=best=",
+      "id": "2357",
+      "value": -647
+    },
+    {
+      "status": "=best=",
+      "id": "2359",
+      "value": -648
+    },
+    {
+      "status": "=best=",
+      "id": "2416",
+      "value": 9.988706875
+    },
+    {
+      "status": "=best=",
+      "id": "2430",
+      "value": -3.256119092
+    },
+    {
+      "status": "=best=",
+      "id": "2445",
+      "value": 323.5051042
+    },
+    {
+      "status": "=best=",
+      "id": "2456",
+      "value": -0.9449662766
+    },
+    {
+      "status": "=best=",
+      "id": "2468",
+      "value": -0.9364048895
+    },
+    {
+      "status": "=best=",
+      "id": "2480",
+      "value": -4.27849041
+    },
+    {
+      "status": "=best=",
+      "id": "2482",
+      "value": -0.9681989608
+    },
+    {
+      "status": "=best=",
+      "id": "2483",
+      "value": 1812.170327
+    },
+    {
+      "status": "=best=",
+      "id": "2492",
+      "value": 2724
+    },
+    {
+      "status": "=best=",
+      "id": "2505",
+      "value": 1564.957983
+    },
+    {
+      "status": "=best=",
+      "id": "2512",
+      "value": 135028
+    },
+    {
+      "status": "=best=",
+      "id": "2519",
+      "value": -0.9511095024
+    },
+    {
+      "status": "=best=",
+      "id": "2540",
+      "value": 124.3594463
+    },
+    {
+      "status": "=best=",
+      "id": "2546",
+      "value": -8668213.409
+    },
+    {
+      "status": "=best=",
+      "id": "2590",
+      "value": 10.93834722
+    },
+    {
+      "status": "=best=",
+      "id": "2626",
+      "value": -6.382103498
+    },
+    {
+      "status": "=best=",
+      "id": "2635",
+      "value": 75.10582011
+    },
+    {
+      "status": "=best=",
+      "id": "2650",
+      "value": 5.316106579
+    },
+    {
+      "status": "=best=",
+      "id": "2658",
+      "value": 7.164500275
+    },
+    {
+      "status": "=best=",
+      "id": "2676",
+      "value": -0.9670769923
+    },
+    {
+      "status": "=best=",
+      "id": "2693",
+      "value": 5.783005108
+    },
+    {
+      "status": "=best=",
+      "id": "2696",
+      "value": -38011.57283
+    },
+    {
+      "status": "=best=",
+      "id": "2698",
+      "value": 1201.038462
+    },
+    {
+      "status": "=best=",
+      "id": "2702",
+      "value": 2814.190749
+    },
+    {
+      "status": "=best=",
+      "id": "2703",
+      "value": -4.275658867
+    },
+    {
+      "status": "=best=",
+      "id": "2707",
+      "value": 6.340367535
+    },
+    {
+      "status": "=best=",
+      "id": "2708",
+      "value": 1033013.037
+    },
+    {
+      "status": "=best=",
+      "id": "2712",
+      "value": 0.01286883278
+    },
+    {
+      "status": "=best=",
+      "id": "2714",
+      "value": 1.119122703
+    },
+    {
+      "status": "=best=",
+      "id": "2733",
+      "value": 5358
+    },
+    {
+      "status": "=best=",
+      "id": "2738",
+      "value": -4.284146268
+    },
+    {
+      "status": "=best=",
+      "id": "2758",
+      "value": 2127.115385
+    },
+    {
+      "status": "=best=",
+      "id": "2761",
+      "value": 0.001048529199
+    },
+    {
+      "status": "=best=",
+      "id": "2784",
+      "value": -0.9460284722
+    },
+    {
+      "status": "=best=",
+      "id": "2819",
+      "value": 797.9771512
+    },
+    {
+      "status": "=best=",
+      "id": "2823",
+      "value": 6.295168217
+    },
+    {
+      "status": "=best=",
+      "id": "2834",
+      "value": 365.7836065
+    },
+    {
+      "status": "=best=",
+      "id": "2862",
+      "value": -0.931383145
+    },
+    {
+      "status": "=best=",
+      "id": "2880",
+      "value": 1167256
+    },
+    {
+      "status": "=best=",
+      "id": "2881",
+      "value": 0.03090042153
+    },
+    {
+      "status": "=best=",
+      "id": "2882",
+      "value": 22.38189652
+    },
+    {
+      "status": "=best=",
+      "id": "2894",
+      "value": 4.999875265
+    },
+    {
+      "status": "=best=",
+      "id": "2935",
+      "value": 23.46428571
+    },
+    {
+      "status": "=best=",
+      "id": "2957",
+      "value": 3596
+    },
+    {
+      "status": "=best=",
+      "id": "2958",
+      "value": 131.6531381
+    },
+    {
+      "status": "=best=",
+      "id": "2967",
+      "value": 10.92820323
+    },
+    {
+      "status": "=best=",
+      "id": "2981",
+      "value": -8668219.079
+    },
+    {
+      "status": "=best=",
+      "id": "2987",
+      "value": 513.0008681
+    },
+    {
+      "status": "=best=",
+      "id": "2993",
+      "value": 109.401405
+    },
+    {
+      "status": "=best=",
+      "id": "3029",
+      "value": -6.295315542
+    },
+    {
+      "status": "=best=",
+      "id": "3034",
+      "value": 681.4104707
+    },
+    {
+      "status": "=best=",
+      "id": "3049",
+      "value": -38011.57283
+    },
+    {
+      "status": "=best=",
+      "id": "3060",
+      "value": -128.9348188
+    },
+    {
+      "status": "=best=",
+      "id": "3080",
+      "value": -8668219.095
+    },
+    {
+      "status": "=best=",
+      "id": "3083",
+      "value": 1358.663378
+    },
+    {
+      "status": "=best=",
+      "id": "3088",
+      "value": -0.9460285027
+    },
+    {
+      "status": "=best=",
+      "id": "3089",
+      "value": 312.9215405
+    },
+    {
+      "status": "=best=",
+      "id": "3105",
+      "value": -0.9378032911
+    },
+    {
+      "status": "=best=",
+      "id": "3120",
+      "value": 1285.005897
+    },
+    {
+      "status": "=best=",
+      "id": "3122",
+      "value": -48603430420
+    },
+    {
+      "status": "=best=",
+      "id": "3147",
+      "value": 565.3430361
+    },
+    {
+      "status": "=best=",
+      "id": "3170",
+      "value": 638.7167531
+    },
+    {
+      "status": "=best=",
+      "id": "3177",
+      "value": -4.274219874
+    },
+    {
+      "status": "=best=",
+      "id": "3181",
+      "value": 381396.6032
+    },
+    {
+      "status": "=best=",
+      "id": "3185",
+      "value": -0.9350528778
+    },
+    {
+      "status": "=best=",
+      "id": "3192",
+      "value": 783.9509681
+    },
+    {
+      "status": "=best=",
+      "id": "3225",
+      "value": 511.5267124
+    },
+    {
+      "status": "=best=",
+      "id": "3240",
+      "value": 1201.038462
+    },
+    {
+      "status": "=best=",
+      "id": "3247",
+      "value": 0.01223092249
+    },
+    {
+      "status": "=best=",
+      "id": "3279",
+      "value": 873535.3578
+    },
+    {
+      "status": "=best=",
+      "id": "3297",
+      "value": -8668219.094
+    },
+    {
+      "status": "=best=",
+      "id": "3307",
+      "value": 1240
+    },
+    {
+      "status": "=best=",
+      "id": "3312",
+      "value": -0.9332596231
+    },
+    {
+      "status": "=best=",
+      "id": "3318",
+      "value": 9.945287281
+    },
+    {
+      "status": "=best=",
+      "id": "3326",
+      "value": -38011.57283
+    },
+    {
+      "status": "=best=",
+      "id": "3334",
+      "value": 744.0833799
+    },
+    {
+      "status": "=best=",
+      "id": "3337",
+      "value": -100000000
+    },
+    {
+      "status": "=best=",
+      "id": "3338",
+      "value": 662.8070384
+    },
+    {
+      "status": "=best=",
+      "id": "3347",
+      "value": 3818879
+    },
+    {
+      "status": "=best=",
+      "id": "3358",
+      "value": 2.848720213
+    },
+    {
+      "status": "=best=",
+      "id": "3361",
+      "value": 88700
+    },
+    {
+      "status": "=best=",
+      "id": "3369",
+      "value": 583.5215161
+    },
+    {
+      "status": "=best=",
+      "id": "3380",
+      "value": 56161.9323
+    },
+    {
+      "status": "=best=",
+      "id": "3385",
+      "value": 586.6800191
+    },
+    {
+      "status": "=best=",
+      "id": "3387",
+      "value": 403.1959738
+    },
+    {
+      "status": "=best=",
+      "id": "3402",
+      "value": 224416
+    },
+    {
+      "status": "=best=",
+      "id": "3413",
+      "value": 2192
+    },
+    {
+      "status": "=best=",
+      "id": "3416",
+      "value": 556.6751626
+    },
+    {
+      "status": "=best=",
+      "id": "3496",
+      "value": 191.7295481
+    },
+    {
+      "status": "=unkn=",
+      "id": "3502",
+      "value": null
+    },
+    {
+      "status": "=best=",
+      "id": "3505",
+      "value": -1.127284376
+    },
+    {
+      "status": "=best=",
+      "id": "3506",
+      "value": 478
+    },
+    {
+      "status": "=best=",
+      "id": "3508",
+      "value": -1.151205516
+    },
+    {
+      "status": "=best=",
+      "id": "3510",
+      "value": 113658343.3
+    },
+    {
+      "status": "=best=",
+      "id": "3511",
+      "value": -1.140252838
+    },
+    {
+      "status": "=best=",
+      "id": "3512",
+      "value": 45.29656579
+    },
+    {
+      "status": "=best=",
+      "id": "3513",
+      "value": 85.44891308
+    },
+    {
+      "status": "=best=",
+      "id": "3514",
+      "value": 366.6218167
+    },
+    {
+      "status": "=best=",
+      "id": "3515",
+      "value": 950960.1503
+    },
+    {
+      "status": "=best=",
+      "id": "3522",
+      "value": 84.62501274
+    },
+    {
+      "status": "=best=",
+      "id": "3523",
+      "value": -615
+    },
+    {
+      "status": "=best=",
+      "id": "3524",
+      "value": 4683.868286
+    },
+    {
+      "status": "=best=",
+      "id": "3525",
+      "value": 4026.58369
+    },
+    {
+      "status": "=best=",
+      "id": "3529",
+      "value": -46376.205
+    },
+    {
+      "status": "=best=",
+      "id": "3533",
+      "value": 484.3286442
+    },
+    {
+      "status": "=best=",
+      "id": "3547",
+      "value": -0.56000837
+    },
+    {
+      "status": "=best=",
+      "id": "3549",
+      "value": -1.111602303
+    },
+    {
+      "status": "=best=",
+      "id": "3554",
+      "value": 424.5441036
+    },
+    {
+      "status": "=best=",
+      "id": "3562",
+      "value": 15
+    },
+    {
+      "status": "=best=",
+      "id": "3565",
+      "value": 282
+    },
+    {
+      "status": "=best=",
+      "id": "3580",
+      "value": 539635.469
+    },
+    {
+      "status": "=best=",
+      "id": "3582",
+      "value": 469619.8376
+    },
+    {
+      "status": "=best=",
+      "id": "3584",
+      "value": -25386
+    },
+    {
+      "status": "=best=",
+      "id": "3587",
+      "value": 15595
+    },
+    {
+      "status": "=best=",
+      "id": "3588",
+      "value": -1.129530785
+    },
+    {
+      "status": "=best=",
+      "id": "3592",
+      "value": 388214
+    },
+    {
+      "status": "=best=",
+      "id": "3596",
+      "value": -1961.815672
+    },
+    {
+      "status": "=best=",
+      "id": "3600",
+      "value": 300176.5637
+    },
+    {
+      "status": "=best=",
+      "id": "3605",
+      "value": 4792.32775
+    },
+    {
+      "status": "=best=",
+      "id": "3614",
+      "value": 14409
+    },
+    {
+      "status": "=best=",
+      "id": "3620",
+      "value": 132.5476009
+    },
+    {
+      "status": "=best=",
+      "id": "3621",
+      "value": 85.44891308
+    },
+    {
+      "status": "=best=",
+      "id": "3622",
+      "value": 197.3338812
+    },
+    {
+      "status": "=best=",
+      "id": "3624",
+      "value": 263.8991613
+    },
+    {
+      "status": "=best=",
+      "id": "3625",
+      "value": 106.3541548
+    },
+    {
+      "status": "=best=",
+      "id": "3631",
+      "value": 486.0998677
+    },
+    {
+      "status": "=best=",
+      "id": "3642",
+      "value": 1034
+    },
+    {
+      "status": "=best=",
+      "id": "3643",
+      "value": 205.1370794
+    },
+    {
+      "status": "=best=",
+      "id": "3645",
+      "value": -0.1050046074
+    },
+    {
+      "status": "=best=",
+      "id": "3646",
+      "value": 230.2021495
+    },
+    {
+      "status": "=best=",
+      "id": "3648",
+      "value": 94.6112071
+    },
+    {
+      "status": "=best=",
+      "id": "3650",
+      "value": 922
+    },
+    {
+      "status": "=best=",
+      "id": "3651",
+      "value": 85.44891245
+    },
+    {
+      "status": "=best=",
+      "id": "3659",
+      "value": 38025000
+    },
+    {
+      "status": "=unkn=",
+      "id": "3661",
+      "value": null
+    },
+    {
+      "status": "=best=",
+      "id": "3662",
+      "value": 562617.8818
+    },
+    {
+      "status": "=best=",
+      "id": "3670",
+      "value": 114.9487764
+    },
+    {
+      "status": "=best=",
+      "id": "3676",
+      "value": 430.5766374
+    },
+    {
+      "status": "=best=",
+      "id": "3677",
+      "value": 363.0938483
+    },
+    {
+      "status": "=best=",
+      "id": "3678",
+      "value": -0.1100882335
+    },
+    {
+      "status": "=best=",
+      "id": "3680",
+      "value": 347691.4107
+    },
+    {
+      "status": "=best=",
+      "id": "3683",
+      "value": 397992.2951
+    },
+    {
+      "status": "=best=",
+      "id": "3690",
+      "value": 557.84865
+    },
+    {
+      "status": "=best=",
+      "id": "3692",
+      "value": 502.417829
+    },
+    {
+      "status": "=best=",
+      "id": "3693",
+      "value": 1154
+    },
+    {
+      "status": "=best=",
+      "id": "3694",
+      "value": 263.8991613
+    },
+    {
+      "status": "=best=",
+      "id": "3697",
+      "value": 832795.5853
+    },
+    {
+      "status": "=best=",
+      "id": "3698",
+      "value": 363.0938483
+    },
+    {
+      "status": "=best=",
+      "id": "3699",
+      "value": 3128.558124
+    },
+    {
+      "status": "=best=",
+      "id": "3701",
+      "value": 115.2394293
+    },
+    {
+      "status": "=best=",
+      "id": "3703",
+      "value": 388214
+    },
+    {
+      "status": "=best=",
+      "id": "3705",
+      "value": 384
+    },
+    {
+      "status": "=best=",
+      "id": "3706",
+      "value": 682
+    },
+    {
+      "status": "=best=",
+      "id": "3708",
+      "value": -9411.998908
+    },
+    {
+      "status": "=best=",
+      "id": "3709",
+      "value": 5710645
+    },
+    {
+      "status": "=best=",
+      "id": "3713",
+      "value": 85.00707752
+    },
+    {
+      "status": "=best=",
+      "id": "3714",
+      "value": 1183
+    },
+    {
+      "status": "=best=",
+      "id": "3719",
+      "value": 417188.8105
+    },
+    {
+      "status": "=best=",
+      "id": "3725",
+      "value": 85.44891308
+    },
+    {
+      "status": "=best=",
+      "id": "3726",
+      "value": 3483.58288
+    },
+    {
+      "status": "=best=",
+      "id": "3727",
+      "value": 209.2548902
+    },
+    {
+      "status": "=best=",
+      "id": "3728",
+      "value": 205054.4585
+    },
+    {
+      "status": "=best=",
+      "id": "3729",
+      "value": -1.120343714
+    },
+    {
+      "status": "=best=",
+      "id": "3733",
+      "value": 106.3541548
+    },
+    {
+      "status": "=best=",
+      "id": "3734",
+      "value": -46377.99065
+    },
+    {
+      "status": "=best=",
+      "id": "3738",
+      "value": 422
+    },
+    {
+      "status": "=best=",
+      "id": "3745",
+      "value": 334
+    },
+    {
+      "status": "=best=",
+      "id": "3748",
+      "value": 281408.6353
+    },
+    {
+      "status": "=best=",
+      "id": "3750",
+      "value": 6348
+    },
+    {
+      "status": "=best=",
+      "id": "3751",
+      "value": 2312
+    },
+    {
+      "status": "=best=",
+      "id": "3752",
+      "value": -1306
+    },
+    {
+      "status": "=best=",
+      "id": "3757",
+      "value": -563
+    },
+    {
+      "status": "=best=",
+      "id": "3762",
+      "value": -296
+    },
+    {
+      "status": "=best=",
+      "id": "3772",
+      "value": -940
+    },
+    {
+      "status": "=best=",
+      "id": "3775",
+      "value": 3990
+    },
+    {
+      "status": "=best=",
+      "id": "3780",
+      "value": 90.6
+    },
+    {
+      "status": "=best=",
+      "id": "3785",
+      "value": 508718.0468
+    },
+    {
+      "status": "=best=",
+      "id": "3790",
+      "value": 97.90443626
+    },
+    {
+      "status": "=best=",
+      "id": "3792",
+      "value": 557.84865
+    },
+    {
+      "status": "=best=",
+      "id": "3794",
+      "value": -1.127904351
+    },
+    {
+      "status": "=best=",
+      "id": "3797",
+      "value": 5122.564501
+    },
+    {
+      "status": "=best=",
+      "id": "3798",
+      "value": 110.3275823
+    },
+    {
+      "status": "=best=",
+      "id": "3803",
+      "value": -7360
+    },
+    {
+      "status": "=best=",
+      "id": "3809",
+      "value": 472093.078
+    },
+    {
+      "status": "=best=",
+      "id": "3813",
+      "value": 402.48853
+    },
+    {
+      "status": "=best=",
+      "id": "3814",
+      "value": 0.6259674725
+    },
+    {
+      "status": "=best=",
+      "id": "3815",
+      "value": -65
+    },
+    {
+      "status": "=best=",
+      "id": "3816",
+      "value": 7.3936
+    },
+    {
+      "status": "=best=",
+      "id": "3822",
+      "value": 850
+    },
+    {
+      "status": "=best=",
+      "id": "3825",
+      "value": 112.071483
+    },
+    {
+      "status": "=best=",
+      "id": "3832",
+      "value": 554
+    },
+    {
+      "status": "=best=",
+      "id": "3834",
+      "value": 3760.715066
+    },
+    {
+      "status": "=best=",
+      "id": "3838",
+      "value": 746
+    },
+    {
+      "status": "=best=",
+      "id": "3840",
+      "value": -1.138586607
+    },
+    {
+      "status": "=best=",
+      "id": "3841",
+      "value": -1817
+    },
+    {
+      "status": "=best=",
+      "id": "3850",
+      "value": 1198
+    },
+    {
+      "status": "=best=",
+      "id": "3852",
+      "value": 234
+    },
+    {
+      "status": "=best=",
+      "id": "3854",
+      "value": 94.6112071
+    },
+    {
+      "status": "=best=",
+      "id": "3855",
+      "value": 598.9191764
+    },
+    {
+      "status": "=best=",
+      "id": "3856",
+      "value": -1.030991192
+    },
+    {
+      "status": "=best=",
+      "id": "3857",
+      "value": -0.1291145306
+    },
+    {
+      "status": "=best=",
+      "id": "3859",
+      "value": -1.126956249
+    },
+    {
+      "status": "=best=",
+      "id": "3860",
+      "value": -20161
+    },
+    {
+      "status": "=best=",
+      "id": "3861",
+      "value": 430.5765521
+    },
+    {
+      "status": "=best=",
+      "id": "3863",
+      "value": -1.115657192
+    },
+    {
+      "status": "=best=",
+      "id": "3865",
+      "value": 6301723
+    },
+    {
+      "status": "=best=",
+      "id": "3870",
+      "value": -1148
+    },
+    {
+      "status": "=best=",
+      "id": "3871",
+      "value": 197.3338812
+    },
+    {
+      "status": "=best=",
+      "id": "3872",
+      "value": 85.44891308
+    },
+    {
+      "status": "=best=",
+      "id": "3877",
+      "value": 602
+    },
+    {
+      "status": "=best=",
+      "id": "3879",
+      "value": -1.162171094
+    },
+    {
+      "status": "=best=",
+      "id": "3883",
+      "value": -788
+    },
+    {
+      "status": "=best=",
+      "id": "3913",
+      "value": 42.925
+    },
+    {
+      "status": "=best=",
+      "id": "3923",
+      "value": 64.1
+    },
+    {
+      "status": "=best=",
+      "id": "3931",
+      "value": 79.93
+    },
+    {
+      "status": "=best=",
+      "id": "3980",
+      "value": 6.325
+    },
+    {
+      "status": "=best=",
+      "id": "4095",
+      "value": 99.48264489
+    },
+    {
+      "status": "=best=",
+      "id": "4270",
+      "value": 99.48264828
+    },
+    {
+      "status": "=best=",
+      "id": "4455",
+      "value": 1039
+    },
+    {
+      "status": "=best=",
+      "id": "4722",
+      "value": 2639
+    },
+    {
+      "status": "=best=",
+      "id": "4805",
+      "value": 10729661.15
+    },
+    {
+      "status": "=best=",
+      "id": "5023",
+      "value": 495029.001
+    },
+    {
+      "status": "=best=",
+      "id": "5442",
+      "value": 884268627.4
+    },
+    {
+      "status": "=best=",
+      "id": "5527",
+      "value": 30599020.27
+    },
+    {
+      "status": "=best=",
+      "id": "5543",
+      "value": 37594528.33
+    },
+    {
+      "status": "=best=",
+      "id": "5554",
+      "value": 32746998.03
+    },
+    {
+      "status": "=best=",
+      "id": "5573",
+      "value": 33695951.51
+    },
+    {
+      "status": "=best=",
+      "id": "5577",
+      "value": 7193179.495
+    },
+    {
+      "status": "=best=",
+      "id": "5721",
+      "value": 8579363
+    },
+    {
+      "status": "=best=",
+      "id": "5725",
+      "value": 33611981
+    },
+    {
+      "status": "=best=",
+      "id": "5755",
+      "value": 24838942
+    },
+    {
+      "status": "=best=",
+      "id": "5875",
+      "value": 43757
+    },
+    {
+      "status": "=best=",
+      "id": "5881",
+      "value": 13067
+    },
+    {
+      "status": "=best=",
+      "id": "5882",
+      "value": 25388
+    },
+    {
+      "status": "=best=",
+      "id": "5909",
+      "value": 35726
+    },
+    {
+      "status": "=best=",
+      "id": "5922",
+      "value": 128339
+    },
+    {
+      "status": "=best=",
+      "id": "5924",
+      "value": 118609.831
+    },
+    {
+      "status": "=best=",
+      "id": "5925",
+      "value": 124.091252
+    },
+    {
+      "status": "=best=",
+      "id": "5926",
+      "value": 176.6593991
+    },
+    {
+      "status": "=best=",
+      "id": "5927",
+      "value": 169.5734994
+    },
+    {
+      "status": "=best=",
+      "id": "5935",
+      "value": 4758
+    },
+    {
+      "status": "=best=",
+      "id": "5944",
+      "value": 1829
+    },
+    {
+      "status": "=best=",
+      "id": "5962",
+      "value": 6962
+    },
+    {
+      "status": "=best=",
+      "id": "5971",
+      "value": 2377
+    },
+    {
+      "status": "=best=",
+      "id": "5980",
+      "value": 895
+    },
+    {
+      "status": "=best=",
+      "id": "6287",
+      "value": -2410.687687
+    },
+    {
+      "status": "=best=",
+      "id": "6310",
+      "value": -689.1605698
+    },
+    {
+      "status": "=best=",
+      "id": "6311",
+      "value": -4539.912185
+    },
+    {
+      "status": "=best=",
+      "id": "6324",
+      "value": 159
+    },
+    {
+      "status": "=best=",
+      "id": "6487",
+      "value": 344592
+    },
+    {
+      "status": "=best=",
+      "id": "6597",
+      "value": 6491721
+    },
+    {
+      "status": "=best=",
+      "id": "6647",
+      "value": 2
+    },
+    {
+      "status": "=best=",
+      "id": "6757",
+      "value": 9
+    },
+    {
+      "status": "=best=",
+      "id": "6764",
+      "value": 9
+    },
+    {
+      "status": "=best=",
+      "id": "6799",
+      "value": 9
+    },
+    {
+      "status": "=best=",
+      "id": "6941",
+      "value": 9
+    },
+    {
+      "status": "=best=",
+      "id": "7127",
+      "value": 0
+    },
+    {
+      "status": "=best=",
+      "id": "7139",
+      "value": 621
+    },
+    {
+      "status": "=best=",
+      "id": "7144",
+      "value": 813
+    },
+    {
+      "status": "=best=",
+      "id": "7149",
+      "value": 959
+    },
+    {
+      "status": "=best=",
+      "id": "7154",
+      "value": 1159
+    },
+    {
+      "status": "=best=",
+      "id": "7159",
+      "value": 1363
+    },
+    {
+      "status": "=best=",
+      "id": "7164",
+      "value": 1551
+    },
+    {
+      "status": "=best=",
+      "id": "7579",
+      "value": -0.1026336752
+    },
+    {
+      "status": "=best=",
+      "id": "8009",
+      "value": -1.114112248
+    },
+    {
+      "status": "=best=",
+      "id": "8153",
+      "value": -1.076351999
+    },
+    {
+      "status": "=best=",
+      "id": "8381",
+      "value": -1.103431777
+    },
+    {
+      "status": "=best=",
+      "id": "8495",
+      "value": 42857.49639
+    },
+    {
+      "status": "=best=",
+      "id": "8500",
+      "value": 0.01792173763
+    },
+    {
+      "status": "=best=",
+      "id": "8505",
+      "value": -4974.50005
+    },
+    {
+      "status": "=best=",
+      "id": "8515",
+      "value": 319.9999887
+    },
+    {
+      "status": "=best=",
+      "id": "8547",
+      "value": -0.007398469784
+    },
+    {
+      "status": "=best=",
+      "id": "8553",
+      "value": 1.311996694
+    },
+    {
+      "status": "=best=",
+      "id": "8559",
+      "value": 74223239.83
+    },
+    {
+      "status": "=best=",
+      "id": "8567",
+      "value": 78965987.95
+    },
+    {
+      "status": "=best=",
+      "id": "8585",
+      "value": 5.389672119
+    },
+    {
+      "status": "=best=",
+      "id": "8595",
+      "value": 10731.25
+    },
+    {
+      "status": "=best=",
+      "id": "8602",
+      "value": 27353.3872
+    },
+    {
+      "status": "=best=",
+      "id": "8605",
+      "value": -20.34056648
+    },
+    {
+      "status": "=best=",
+      "id": "8616",
+      "value": 245.0685978
+    },
+    {
+      "status": "=unkn=",
+      "id": "8683",
+      "value": null
+    },
+    {
+      "status": "=best=",
+      "id": "8685",
+      "value": 100
+    },
+    {
+      "status": "=best=",
+      "id": "8758",
+      "value": -41.87500005
+    },
+    {
+      "status": "=best=",
+      "id": "8777",
+      "value": -2238983072
+    },
+    {
+      "status": "=best=",
+      "id": "8784",
+      "value": -0.0683939176
+    },
+    {
+      "status": "=best=",
+      "id": "8785",
+      "value": 7867.491149
+    },
+    {
+      "status": "=best=",
+      "id": "8790",
+      "value": -0.0001562421091
+    },
+    {
+      "status": "=best=",
+      "id": "8792",
+      "value": 3593.518355
+    },
+    {
+      "status": "=best=",
+      "id": "8803",
+      "value": 293.8760751
+    },
+    {
+      "status": "=best=",
+      "id": "8810",
+      "value": 74653384040
+    },
+    {
+      "status": "=best=",
+      "id": "8815",
+      "value": -0.03155633953
+    },
+    {
+      "status": "=best=",
+      "id": "8845",
+      "value": 10907992.49
+    },
+    {
+      "status": "=best=",
+      "id": "8906",
+      "value": 2699111.513
+    },
+    {
+      "status": "=best=",
+      "id": "8938",
+      "value": -35.77945295
+    },
+    {
+      "status": "=best=",
+      "id": "8991",
+      "value": -0.001667867378
+    },
+    {
+      "status": "=unkn=",
+      "id": "9002",
+      "value": null
+    },
+    {
+      "status": "=best=",
+      "id": "9004",
+      "value": 2.766394482
+    },
+    {
+      "status": "=best=",
+      "id": "9008",
+      "value": -0.07472027822
+    },
+    {
+      "status": "=best=",
+      "id": "9030",
+      "value": 375818
+    },
+    {
+      "status": "=best=",
+      "id": "9048",
+      "value": -1.165682
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "version": "0.4.28r3p28g9-preconditioned-dca",
+  "api_version": 4335,
+  "build_id": "v0.4.28r3p28g9-preconditioned-dca-api-4335",
+  "branch": "filter-lazy-dca-krylov-research",
+  "parent": "0.4.28r3p28g8-adaptive-local-dca",
+  "performance_target_met": null,
+  "package_revision": 0
+}

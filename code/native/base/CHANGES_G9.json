@@ -1,0 +1,97 @@
+[
+  {
+    "path": "src/main.cpp",
+    "new": false,
+    "sha256": "aa2b47e849f22e7953f2ecd180addb9e105e44fd4644ef03668ed915499eea71"
+  },
+  {
+    "path": "src/dca_filter_engine.hpp",
+    "new": false,
+    "sha256": "44494738e0019434f0d6e4c2707ec9ba62679fce6babf1e2c6f1d2fc6a8bda60"
+  },
+  {
+    "path": "src/io.cpp",
+    "new": false,
+    "sha256": "4c928ec5acdf00cdbaa8409f32c27a51570732f4ae6d5cf9ea7e534488731ef3"
+  },
+  {
+    "path": "src/dca_krylov.hpp",
+    "new": true,
+    "sha256": "b3bae6fa1c368ef340f524f7e88e4d3400d312f9e22f06f738d723c4b1db1ef5"
+  },
+  {
+    "path": "src/atomic_newton.cpp",
+    "new": false,
+    "sha256": "98cc4e670bfa20a78bf0ebced01393a23c9690cf0590ae354dd24520371fe1a4"
+  },
+  {
+    "path": "include/lazyipdca_qcqp/result.hpp",
+    "new": false,
+    "sha256": "2be0871330caf708208b07ffaba9144ad4c913a81fac7d3af770099d7baecedf"
+  },
+  {
+    "path": "include/lazyipdca_qcqp/version.hpp",
+    "new": false,
+    "sha256": "4b9962fb64dd0a116cd181f8fcf88e671894f9935e87a66ed76a5681321e6c51"
+  },
+  {
+    "path": "include/lazyipdca_qcqp/settings.hpp",
+    "new": false,
+    "sha256": "3c8c085375c4f020eb17edc542adf8173e36fe41e7c69eae433aa261b9791a18"
+  },
+  {
+    "path": "tests/test_lazy_newton_regression.py",
+    "new": false,
+    "sha256": "a9f69a5a68beffd32d1c4c4631ba43c1aaeceb5b0e3171bc58401e384b308e2b"
+  },
+  {
+    "path": "tests/test_g9_krylov_rollback.cpp",
+    "new": true,
+    "sha256": "161a1fc356fff5b1fd02deab7be86b58f6174b41e752422336180115c440414a"
+  },
+  {
+    "path": "tests/test_g9_krylov.cpp",
+    "new": true,
+    "sha256": "923f64d4a4dd5e7feb64a6602d786b1afe9c1530ab131f4765bbf1b50945316f"
+  },
+  {
+    "path": "tests/test_g3_campaign_contract.py",
+    "new": false,
+    "sha256": "3e9d43779ce245bd6868119d86058352227014616c94cd75d2276fab6a6f67da"
+  },
+  {
+    "path": "tests/test_exporter_pglib_contract_r3p22.py",
+    "new": false,
+    "sha256": "e20276bd945908f80ad43ea71527c17c2fc8a512e229a7449c9bf14121a14ed8"
+  },
+  {
+    "path": "tests/test_g9_runner_contract.py",
+    "new": true,
+    "sha256": "5f2ecbc613a562bd67a866292ec24ee4c508c6d0a0230659efb37d303b85c033"
+  },
+  {
+    "path": "python/benchmark_filter_dca_g9.py",
+    "new": true,
+    "sha256": "e4d757e6dc47f1af03a3098a9de63f23bddf9f580afba93992068f35e1837c22"
+  },
+  {
+    "path": "tools/build_g9.sh",
+    "new": true,
+    "sha256": "23586b0be373660838ff13d3d60f2e50ba75582a151016fd6c42585398eee3ae"
+  },
+  {
+    "path": "tools/package_g9.py",
+    "new": true,
+    "sha256": "6b1aa59fb2cfee585804c880968b76be54c7860dd7c73438ad8aab0fa06e2d23"
+  },
+  {
+    "path": "tools/install_and_test_g9.sh",
+    "new": true,
+    "sha256": "552a8a284ac9d8b2f833dcb03bc4204cae8d3059aba2ed2ac4fdcc0d22771a0b"
+  },
+  {
+    "path": "tools/run_g9.sh",
+    "new": true,
+    "sha256": "796f7f85c1490e3082fc5a77a6436d7c0f259a425d6e26c8700e6ab5d55268fd"
+  }
+]

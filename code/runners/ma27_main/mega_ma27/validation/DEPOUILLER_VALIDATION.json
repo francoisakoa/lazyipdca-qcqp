@@ -1,0 +1,25 @@
+{
+  "schema": "recovered-mega-ma27-extraction-tests-v1",
+  "passed": true,
+  "tests": 6,
+  "optimizer_invocations": 0,
+  "scope": "Synthetic finalized mega receipts, including full39960 planned matrix and actual preregistered analyzer ingestion; no numerical or remote qualification.",
+  "tested": [
+    "strict/nonstrict/indeterminate/missing remain distinct",
+    "internal acceptable and original nonstrict separate",
+    "mixed run rejected",
+    "mutated compact audit rejected",
+    "wrong backend rejected",
+    "all historical objective/time comparisons",
+    "four research cells ingested with zero binding issues",
+    "Lossless compact plan reconstructs original JSON value digest"
+  ],
+  "full_matrix": 39960,
+  "actual_synthetic_records": 4,
+  "source_sha256": {
+    "DEPOUILLER.py": "a9321737f678b95879c05414576a0b35229f3419b255e98e4c3886409f0411a3",
+    "TEST_DEPOUILLER.py": "2029a88d4479fb2ddd8affd089cabe62fff27dbb5785836c1194429b16fa7c85",
+    "DEPOUILLEMENT.txt": "e7c2bfb527a5c3a43f3abdbc3f8498e3249beb44a1af89b0c132664faa7b7aec"
+  },
+  "direction_origins_scope": "Only four research cells; no inferred full-six historical fraction."
+}

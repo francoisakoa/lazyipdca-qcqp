@@ -1,0 +1,32 @@
+LAZYQCQP — JOGO R24 — 11 novembre 2026
+
+Manuscrit : 33 pages. Résumé : 249 mots. Supplément : 65 pages.
+
+Les corrections de l'objectif et des inégalités sont notées M_i, avec
+l'indice i utilisé dans le théorème de la borne et sa preuve. L'indice j
+est conservé pour les égalités.
+
+L'interprétation de kappa reprend la phrase convenue :
+Thus, kappa is the largest ratio of added DC curvature to original
+Lagrangian curvature over nonzero tangent directions.
+
+La borne est présentée avec une construction qui l'atteint dans la classe
+des QCQPs. La formulation précise que l'instance et sa correction sont
+choisies pour cette construction. Le supplément décrit également
+l'exemple non quadratique qui atteint la borne.
+
+La distinction entre l'ensemble des indices d'inégalités actives et la
+matrice comprenant leurs gradients et ceux de toutes les égalités est
+explicite. La prose a été simplifiée dans le manuscrit et le supplément.
+
+Les résultats numériques, tableaux, figures, hypothèses et formules sont
+conservés, à renommage des indices muets et des labels près. Les 155
+fichiers d'analyse et les 10 figures sont inchangés, comme la bibliographie
+BibTeX et la déclaration IA fournie par l'auteur.
+
+Les deux PDF ont été compilés et contrôlés : renvois résolus, aucun
+caractère manquant ni débordement signalé par LaTeX ; pages modifiées
+inspectées visuellement.
+
+Compilation : cd manuscript && bash build.sh
+Validation : verification/review_R24/

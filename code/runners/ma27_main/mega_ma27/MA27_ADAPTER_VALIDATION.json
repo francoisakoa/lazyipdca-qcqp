@@ -1,0 +1,45 @@
+{
+  "schema": "lazyqcqp-ma27-support-adapter-validation-v1",
+  "status": "PASS_LOCAL_CONDITIONAL_TARGET_HSL_QUALIFICATION_PENDING",
+  "python_tests": 7,
+  "compiled_pure_cpp_checks": 39,
+  "real_HSL_invocations": 0,
+  "local_MA27_certificates": 0,
+  "source_maps_checked": [
+    "qualified823",
+    "factorial825"
+  ],
+  "adapted_source_files_added_or_removed": 0,
+  "changed_file_count": 10,
+  "adapter_sha256": "145fe2ffa9521f864374fc38ee32565b14a588ad42c2807e5813f82a3f634b47",
+  "tests_sha256": "225b5c5e44c3e475b16f75b7133d92b64a5df6b160ad682716fb9609dbbad9c4",
+  "independent_review_sha256": "a083ebc911515ce1e56328c131c05e7471d637f71a5f2c3e491e3ad93835cdca",
+  "original_qualified_source_signature": "ca51c188c9e0c3c1ea708457947aaff571e564f14157eb3fdf0b367c32333fd0",
+  "original_factorial_source_signature": "58bfdda4101d7aaf17b06fab9fc251151f300789aa6e8c0cd24c1ffb3729e2a2",
+  "adapted_factorial_signature": "efa63ae3e8120b87272b876cf0a827bd2dd20a76624bfefe5bb5fa5634ad6f9e",
+  "scope": [
+    "existing MA27+METIS native policies admitted",
+    "existing valid INFO(15) inertia made available to generic curvature and inertia guards",
+    "same requested MA27 backend for sparse PSD classification",
+    "bounded restoration supports MA27 with numerical A/IW workspace cap",
+    "truthful backend label",
+    "all canonical profile acceleration and substitution flags remain off"
+  ],
+  "not_claimed": [
+    "no real HSL ABI/numerical qualification locally",
+    "no 1834 structural gate or 50-case same-MA27 trajectory parity locally",
+    "no target six-profile or corpus outcome claim"
+  ],
+  "MA27_pivot_strategy_modified": false,
+  "original_original_KKT_acceptance_tests_modified": false,
+  "expanded_Newton_residual_tests_modified": false,
+  "fortran_ABI_modified": false,
+  "needed_target_checks": [
+    "real licensed HSL symbols and ABI",
+    "analytic original-KKT controls with MA27",
+    "six published profiles under explicit MA27",
+    "source-bound same-MA27 baseline-observer-research 50-case gate",
+    "original full-QCQP audit for every production endpoint"
+  ],
+  "production_authorized": false
+}

@@ -1,0 +1,103 @@
+{
+  "schema": "actual-native-curvature-cache-functional-check-v1",
+  "passed": true,
+  "binary": "/workspace/scratch/da3e31fd0a48/persistence_20261110/local_native_validation/research_build_final/lazyipdca_qcqp_cli",
+  "binary_sha256": "f6bacd17c94effb90b13805bcacaae95fc488185f328a2b80690a528d4af32ce",
+  "reference_binary": "/workspace/scratch/da3e31fd0a48/persistence_20261110/local_native_validation/reference_build/lazyipdca_qcqp_cli",
+  "reference_binary_sha256": "4c0622fea09c2b3ddc8ed7e058cfd29db993a8524d797a7b2f5b11b1f6d46b47",
+  "optimizer_invocations": 6,
+  "backend": "mumps",
+  "production_MA27_qualification": false,
+  "production_timing_campaign_run": false,
+  "scope": "Two generic fixtures only; exact intervention/trajectory and independent original KKT checks, no speed claim.",
+  "fixtures": [
+    {
+      "fixture": "nonconvex",
+      "input_sha256": "42e10622c308d39be65cd0d3bba7f9a282079e8baedd515010d79884efda96b5",
+      "all_original_KKT_strict": true,
+      "baseline_reuse_nonclock_endpoint_exact": true,
+      "reuse_rebuild_noncache_endpoint_exact": true,
+      "matrix_and_trajectory_trace_exact": true,
+      "trace_records": 30,
+      "outer_iterations": 10,
+      "reports": {
+        "reuse": [
+          {
+            "schema": "research-curvature-cache-summary-v1",
+            "model_instance": 1,
+            "mode": "reuse",
+            "preparations": 1,
+            "reanchors": 10,
+            "quadratic_row_builds": 1,
+            "corrected_rows": 1,
+            "construction_seconds": 3.4912e-05,
+            "rebuild_reset_seconds": 0,
+            "trace_records": 30,
+            "reuse_hits": 9,
+            "complete": true
+          }
+        ],
+        "rebuild": [
+          {
+            "schema": "research-curvature-cache-summary-v1",
+            "model_instance": 1,
+            "mode": "rebuild",
+            "preparations": 10,
+            "reanchors": 10,
+            "quadratic_row_builds": 10,
+            "corrected_rows": 1,
+            "construction_seconds": 0.000668991,
+            "rebuild_reset_seconds": 1.671e-06,
+            "trace_records": 30,
+            "reuse_hits": 0,
+            "complete": true
+          }
+        ]
+      }
+    },
+    {
+      "fixture": "convex",
+      "input_sha256": "1d12d2936e7ffcdb7fbb550b954178377595a9ff51e158110dc44e44b15f0ad3",
+      "all_original_KKT_strict": true,
+      "baseline_reuse_nonclock_endpoint_exact": true,
+      "reuse_rebuild_noncache_endpoint_exact": true,
+      "matrix_and_trajectory_trace_exact": true,
+      "trace_records": 33,
+      "outer_iterations": 11,
+      "reports": {
+        "reuse": [
+          {
+            "schema": "research-curvature-cache-summary-v1",
+            "model_instance": 1,
+            "mode": "reuse",
+            "preparations": 1,
+            "reanchors": 11,
+            "quadratic_row_builds": 1,
+            "corrected_rows": 0,
+            "construction_seconds": 3.0776e-05,
+            "rebuild_reset_seconds": 0,
+            "trace_records": 33,
+            "reuse_hits": 10,
+            "complete": true
+          }
+        ],
+        "rebuild": [
+          {
+            "schema": "research-curvature-cache-summary-v1",
+            "model_instance": 1,
+            "mode": "rebuild",
+            "preparations": 11,
+            "reanchors": 11,
+            "quadratic_row_builds": 11,
+            "corrected_rows": 0,
+            "construction_seconds": 6.220300000000001e-05,
+            "rebuild_reset_seconds": 1.5109999999999998e-06,
+            "trace_records": 33,
+            "reuse_hits": 0,
+            "complete": true
+          }
+        ]
+      }
+    }
+  ]
+}

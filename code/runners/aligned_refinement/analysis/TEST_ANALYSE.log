@@ -1,0 +1,35 @@
+test_backends_are_averaged_not_added (__main__.Tests.test_backends_are_averaged_not_added) ... ok
+test_bad_budget_remains_unknown_not_a_numeric_failure (__main__.Tests.test_bad_budget_remains_unknown_not_a_numeric_failure) ... ok
+test_binary_mismatch_rejected_across_backend_blocks (__main__.Tests.test_binary_mismatch_rejected_across_backend_blocks) ... ok
+test_binary_must_match_registered_build_not_just_other_rows (__main__.Tests.test_binary_must_match_registered_build_not_just_other_rows) ... ok
+test_different_experiments_rejected (__main__.Tests.test_different_experiments_rejected) ... ok
+test_discordance_rule_is_not_marginal_ratio (__main__.Tests.test_discordance_rule_is_not_marginal_ratio) ... ok
+test_duplicate_rejected (__main__.Tests.test_duplicate_rejected) ... ok
+test_effective_command_unregistered_numerical_change_rejected (__main__.Tests.test_effective_command_unregistered_numerical_change_rejected) ... ok
+test_family_macro_can_reverse_a_positive_raw_gain (__main__.Tests.test_family_macro_can_reverse_a_positive_raw_gain) ... ok
+test_final_SOC_origin_is_not_pure_majorant (__main__.Tests.test_final_SOC_origin_is_not_pure_majorant) ... ok
+test_frozen_attempt_without_accepted_update_is_invalid (__main__.Tests.test_frozen_attempt_without_accepted_update_is_invalid) ... ok
+test_frozen_may_not_refine (__main__.Tests.test_frozen_may_not_refine) ... ok
+test_globalization_may_exit_before_M0_in_only_one_globalization (__main__.Tests.test_globalization_may_exit_before_M0_in_only_one_globalization) ... ok
+test_guard_mismatch_invalidates_cell (__main__.Tests.test_guard_mismatch_invalidates_cell) ... ok
+test_initialization_mismatch_rejected (__main__.Tests.test_initialization_mismatch_rejected) ... ok
+test_native_common_guard_digest_mismatch_is_fatal (__main__.Tests.test_native_common_guard_digest_mismatch_is_fatal) ... ok
+test_native_pre_model_solution_needs_no_fake_matrix_digest (__main__.Tests.test_native_pre_model_solution_needs_no_fake_matrix_digest) ... ok
+test_normalize_actual_controller_suffix_and_provenance (__main__.Tests.test_normalize_actual_controller_suffix_and_provenance) ... ok
+test_one_backend_cannot_substitute_for_other (__main__.Tests.test_one_backend_cannot_substitute_for_other) ... ok
+test_one_collection_dominates_even_when_total_gain_large (__main__.Tests.test_one_collection_dominates_even_when_total_gain_large) ... ok
+test_one_definitively_negative_backend_precludes_general_claim (__main__.Tests.test_one_definitively_negative_backend_precludes_general_claim) ... ok
+test_positive_rule_pairwise_and_exact_half_concentration (__main__.Tests.test_positive_rule_pairwise_and_exact_half_concentration) ... ok
+test_production_study_hash_mismatch_does_not_become_numerical_failure (__main__.Tests.test_production_study_hash_mismatch_does_not_become_numerical_failure) ... ok
+test_reached_and_not_reached_cells_cannot_be_merged (__main__.Tests.test_reached_and_not_reached_cells_cannot_be_merged) ... ok
+test_residual_mismatch_invalidates_claimed_certificate (__main__.Tests.test_residual_mismatch_invalidates_claimed_certificate) ... ok
+test_secondary_does_not_use_nonstrict_or_subsecond_pairs (__main__.Tests.test_secondary_does_not_use_nonstrict_or_subsecond_pairs) ... ok
+test_technical_pair_can_leave_primary_unidentified (__main__.Tests.test_technical_pair_can_leave_primary_unidentified) ... ok
+test_unknown_direction_origin_is_bounded_not_claimed_identified (__main__.Tests.test_unknown_direction_origin_is_bounded_not_claimed_identified) ... ok
+test_valid_proof_and_strict_original_alias (__main__.Tests.test_valid_proof_and_strict_original_alias) ... ok
+test_wrong_actual_backend_is_not_a_certified_backend_run (__main__.Tests.test_wrong_actual_backend_is_not_a_certified_backend_run) ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 0.025s
+
+OK

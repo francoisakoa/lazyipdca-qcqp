@@ -1,0 +1,25 @@
+{
+  "version": "0.4.24-reference-proximal-chain",
+  "api": 4240,
+  "release_ctest": {"passed": 60, "failed": 0},
+  "asan_ubsan_ctest": {"passed": 60, "failed": 0},
+  "catenary_200": {
+    "catena": {"initial": 0.28, "harmonic": 0.28, "final": 1.09447e-7, "iterations": 57},
+    "catenary": {"initial": 28655.4, "harmonic": 0.819097, "final": 8.36735e-11, "iterations": 9}
+  },
+  "catenary_1000_3003_variables": {
+    "catena": {"initial": 0.28, "harmonic": 0.28, "final": 7.25267e-8, "iterations": 14},
+    "catenary": {"initial": 719279.0, "harmonic": 0.81982, "final": 4.94765e-9, "iterations": 12},
+    "combined_wall_seconds_native": 3.00,
+    "peak_rss_kb": 104964
+  },
+  "dca_step_control": {
+    "retries": 1,
+    "raw_direction_inf": 1.01,
+    "target_inf": 1.01,
+    "model_proximal": 9.90099,
+    "accepted_alpha": 1.0
+  },
+  "a4x12_like": {"step_control_retries": 0, "status": "solved"},
+  "exact_cutest_external_validation_required": ["CATENA", "CATENARY", "CORE2"]
+}

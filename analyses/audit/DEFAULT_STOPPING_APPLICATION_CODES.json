@@ -1,0 +1,517 @@
+{
+  "elapsed": 1.373638610002672,
+  "missing_codes": 16,
+  "counts": [
+    {
+      "method": "ipopt_mumps",
+      "regime": "E",
+      "code": "-1",
+      "classification": "nonstrict",
+      "count": 59
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "E",
+      "code": "-10",
+      "classification": "indeterminate",
+      "count": 19
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "E",
+      "code": "-2",
+      "classification": "nonstrict",
+      "count": 2
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "E",
+      "code": "-3",
+      "classification": "nonstrict",
+      "count": 6
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "E",
+      "code": "0",
+      "classification": "nonstrict",
+      "count": 219
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "E",
+      "code": "0",
+      "classification": "strict",
+      "count": 1166
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "E",
+      "code": "1",
+      "classification": "nonstrict",
+      "count": 137
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "E",
+      "code": "1",
+      "classification": "strict",
+      "count": 49
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "E",
+      "code": "2",
+      "classification": "nonstrict",
+      "count": 40
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "E",
+      "code": "2",
+      "classification": "strict",
+      "count": 1
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "E",
+      "code": "5",
+      "classification": "indeterminate",
+      "count": 4
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "E",
+      "code": "None",
+      "classification": "indeterminate",
+      "count": 2
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "I",
+      "code": "-1",
+      "classification": "nonstrict",
+      "count": 6
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "I",
+      "code": "-2",
+      "classification": "nonstrict",
+      "count": 2
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "I",
+      "code": "0",
+      "classification": "nonstrict",
+      "count": 162
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "I",
+      "code": "0",
+      "classification": "strict",
+      "count": 836
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "I",
+      "code": "1",
+      "classification": "strict",
+      "count": 1
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "I",
+      "code": "2",
+      "classification": "nonstrict",
+      "count": 28
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "I",
+      "code": "5",
+      "classification": "indeterminate",
+      "count": 1
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "I",
+      "code": "None",
+      "classification": "indeterminate",
+      "count": 1
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "M",
+      "code": "-1",
+      "classification": "nonstrict",
+      "count": 7
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "M",
+      "code": "-10",
+      "classification": "indeterminate",
+      "count": 4
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "M",
+      "code": "-2",
+      "classification": "nonstrict",
+      "count": 10
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "M",
+      "code": "0",
+      "classification": "nonstrict",
+      "count": 199
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "M",
+      "code": "0",
+      "classification": "strict",
+      "count": 420
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "M",
+      "code": "1",
+      "classification": "nonstrict",
+      "count": 20
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "M",
+      "code": "1",
+      "classification": "strict",
+      "count": 3
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "M",
+      "code": "2",
+      "classification": "nonstrict",
+      "count": 129
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "M",
+      "code": "3",
+      "classification": "nonstrict",
+      "count": 1
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "M",
+      "code": "5",
+      "classification": "indeterminate",
+      "count": 2
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "M",
+      "code": "None",
+      "classification": "indeterminate",
+      "count": 2
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "Q",
+      "code": "-3",
+      "classification": "nonstrict",
+      "count": 1
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "Q",
+      "code": "0",
+      "classification": "nonstrict",
+      "count": 3
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "Q",
+      "code": "0",
+      "classification": "strict",
+      "count": 532
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "Q",
+      "code": "1",
+      "classification": "nonstrict",
+      "count": 1
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "Q",
+      "code": "1",
+      "classification": "strict",
+      "count": 1
+    },
+    {
+      "method": "ipopt_mumps",
+      "regime": "Q",
+      "code": "2",
+      "classification": "nonstrict",
+      "count": 2
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "E",
+      "code": "-1",
+      "classification": "nonstrict",
+      "count": 51
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "E",
+      "code": "-10",
+      "classification": "indeterminate",
+      "count": 19
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "E",
+      "code": "-2",
+      "classification": "nonstrict",
+      "count": 1
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "E",
+      "code": "-3",
+      "classification": "nonstrict",
+      "count": 3
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "E",
+      "code": "0",
+      "classification": "nonstrict",
+      "count": 1198
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "E",
+      "code": "0",
+      "classification": "strict",
+      "count": 96
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "E",
+      "code": "1",
+      "classification": "nonstrict",
+      "count": 262
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "E",
+      "code": "1",
+      "classification": "strict",
+      "count": 60
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "E",
+      "code": "2",
+      "classification": "nonstrict",
+      "count": 8
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "E",
+      "code": "5",
+      "classification": "indeterminate",
+      "count": 3
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "E",
+      "code": "None",
+      "classification": "indeterminate",
+      "count": 3
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "I",
+      "code": "-1",
+      "classification": "nonstrict",
+      "count": 3
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "I",
+      "code": "-2",
+      "classification": "nonstrict",
+      "count": 1
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "I",
+      "code": "0",
+      "classification": "nonstrict",
+      "count": 166
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "I",
+      "code": "0",
+      "classification": "strict",
+      "count": 834
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "I",
+      "code": "2",
+      "classification": "nonstrict",
+      "count": 26
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "I",
+      "code": "5",
+      "classification": "indeterminate",
+      "count": 3
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "I",
+      "code": "None",
+      "classification": "indeterminate",
+      "count": 4
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "M",
+      "code": "-1",
+      "classification": "nonstrict",
+      "count": 6
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "M",
+      "code": "-10",
+      "classification": "indeterminate",
+      "count": 4
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "M",
+      "code": "-2",
+      "classification": "nonstrict",
+      "count": 14
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "M",
+      "code": "-3",
+      "classification": "nonstrict",
+      "count": 1
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "M",
+      "code": "0",
+      "classification": "nonstrict",
+      "count": 202
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "M",
+      "code": "0",
+      "classification": "strict",
+      "count": 406
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "M",
+      "code": "1",
+      "classification": "nonstrict",
+      "count": 26
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "M",
+      "code": "1",
+      "classification": "strict",
+      "count": 1
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "M",
+      "code": "2",
+      "classification": "nonstrict",
+      "count": 128
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "M",
+      "code": "3",
+      "classification": "nonstrict",
+      "count": 5
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "M",
+      "code": "3",
+      "classification": "strict",
+      "count": 1
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "M",
+      "code": "None",
+      "classification": "indeterminate",
+      "count": 3
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "Q",
+      "code": "-1",
+      "classification": "nonstrict",
+      "count": 1
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "Q",
+      "code": "0",
+      "classification": "nonstrict",
+      "count": 3
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "Q",
+      "code": "0",
+      "classification": "strict",
+      "count": 531
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "Q",
+      "code": "1",
+      "classification": "nonstrict",
+      "count": 2
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "Q",
+      "code": "2",
+      "classification": "nonstrict",
+      "count": 2
+    },
+    {
+      "method": "ipopt_qcqp",
+      "regime": "Q",
+      "code": "None",
+      "classification": "indeterminate",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "schema": "lazyqcqp-github-native-source-v1",
+  "api": 4390,
+  "native_base": "native/base",
+  "base_profile": "mumps",
+  "profiles": {
+    "mumps": {
+      "file_count": 823,
+      "bytes": 12434693,
+      "manifest_sha256": "57ac9f2155dcf123c75293022c0b6002e525345a83db136a96b44e386ca41548",
+      "parent": null,
+      "overlay_files": []
+    },
+    "ma27": {
+      "file_count": 823,
+      "bytes": 12439535,
+      "manifest_sha256": "fb05838a38d92a9d35b0e6463649a069c8cc34617b072c216dbe252915c39640",
+      "parent": "mumps",
+      "overlay_files": [
+        "include/lazyipdca_qcqp/majorant_equality_stabilization.hpp",
+        "include/lazyipdca_qcqp/standard_auto.hpp",
+        "src/dca_convexification_study_models.hpp",
+        "src/dca_inequality_majorant_engine.hpp",
+        "src/hsl_ma27_factorization.hpp",
+        "src/linear_solver.cpp",
+        "src/main.cpp",
+        "src/positive_square_epigraph_restoration.hpp",
+        "src/restoration.cpp",
+        "src/solver.cpp"
+      ]
+    },
+    "asu": {
+      "file_count": 824,
+      "bytes": 12441180,
+      "manifest_sha256": "8c0594e6b5a28b12fa76935d2a9e8f9e9ff3a99381d46cb762bf101f26076a9f",
+      "parent": "ma27",
+      "overlay_files": [
+        "include/lazyipdca_qcqp/settings.hpp",
+        "src/main.cpp",
+        "src/rank_presolve.cpp",
+        "src/research_equality_implied_bounds.hpp"
+      ]
+    },
+    "persistence": {
+      "file_count": 824,
+      "bytes": 12452014,
+      "manifest_sha256": "2be7722f271c7772acc6ac2cfd964f3ad32f34f4f10fb5cf56e11c0c5efec52c",
+      "parent": "ma27",
+      "overlay_files": [
+        "include/lazyipdca_qcqp/settings.hpp",
+        "src/atomic_newton.cpp",
+        "src/dca_inequality_majorant_engine.hpp",
+        "src/dca_inequality_majorant_models.hpp",
+        "src/main.cpp",
+        "src/research_curvature_support.hpp"
+      ]
+    },
+    "refinement": {
+      "file_count": 825,
+      "bytes": 12475159,
+      "manifest_sha256": "8c73f8016ee7abcaa5779f06e8b3c30420d2a2471042c0af12d407ad484e91fe",
+      "parent": "ma27",
+      "overlay_files": [
+        "include/lazyipdca_qcqp/settings.hpp",
+        "include/lazyipdca_qcqp/standard_auto.hpp",
+        "src/atomic_newton.cpp",
+        "src/dca_convexification_study_models.hpp",
+        "src/dca_inequality_majorant_engine.hpp",
+        "src/dca_inequality_majorant_models.hpp",
+        "src/factorial_structure_inspection.hpp",
+        "src/factorial_trace.hpp",
+        "src/main.cpp",
+        "src/native_signed_square_reduction.hpp",
+        "src/rank_presolve.cpp",
+        "src/solver.cpp"
+      ]
+    },
+    "factorial_observer": {
+      "file_count": 825,
+      "bytes": 12456667,
+      "manifest_sha256": "f5bd089a60e53486d472fdc52dd196a11c7a39b3905d440fa45094ac9454ea7e",
+      "parent": "mumps",
+      "overlay_files": [
+        "include/lazyipdca_qcqp/settings.hpp",
+        "include/lazyipdca_qcqp/standard_auto.hpp",
+        "src/atomic_newton.cpp",
+        "src/dca_convexification_study_models.hpp",
+        "src/dca_inequality_majorant_engine.hpp",
+        "src/dca_inequality_majorant_models.hpp",
+        "src/factorial_structure_inspection.hpp",
+        "src/factorial_trace.hpp",
+        "src/main.cpp",
+        "src/native_signed_square_reduction.hpp",
+        "src/rank_presolve.cpp",
+        "src/solver.cpp"
+      ]
+    }
+  },
+  "archived_byte_checks": {
+    "mumps_source_identity": true,
+    "asu_base": true,
+    "asu_research": true,
+    "persistence_base": true,
+    "persistence_research": true
+  },
+  "external_dependencies": [
+    "C++17 compiler",
+    "Boost.Multiprecision headers",
+    "BLAS/LAPACK",
+    "MUMPS and METIS",
+    "licensed HSL MA27 for MA27 runs",
+    "Ipopt 3.14.11 for comparisons"
+  ],
+  "frozen_campaign_inputs": "Original 4078 frozen coefficient/start files are external; original manifests and readers are included.",
+  "binaries_redistributed": false,
+  "license": "No new license is assigned. Existing third-party terms remain applicable."
+}

@@ -1,0 +1,51 @@
+{
+  "schema": "lazyqcqp-clean-package-relocation-validation-v1",
+  "at_utc": "2026-11-09T12:14:52.321254+00:00",
+  "stage": "/workspace/scratch/da3e31fd0a48/factorial_20261109/staging/LAZYQCQP_IPOPT_ALIGNE_RAFFINEMENT_20261109_R1",
+  "passed": true,
+  "optimizer_invocations": 0,
+  "actual_Trx_access": false,
+  "target_qualification_passed": false,
+  "scope": "Actual renamed extracted tree; Python parsers/imports and hand-offs use synthetic temporary stage receipts. Tests do not establish native campaign outcomes.",
+  "local_tests": {
+    "integration": 5,
+    "ipopt_runtime": 19,
+    "ipopt_analysis": 19,
+    "total": 43,
+    "all_passed": true
+  },
+  "shell_wrappers_syntax_checked": 18,
+  "both_root_manifest_checks_passed": true,
+  "manifest_files": 1934,
+  "manifest_sha256": "f65f79f82f563b662c5c5e20c74d902d19610f5a3ef83b099059f074bd2a3fcb",
+  "exact_reference_source_files": 823,
+  "experiment_source_files": 825,
+  "experiment_source_tree_sha256": "975efcc22cb89ef4ae6606f97f9ea0e1a182dfb771dbda59c1b1c8cad317cf9b",
+  "reference_matches_current_published_plan": true,
+  "source_separation_audit_bound": true,
+  "unused_previous_source_trees_omitted": true,
+  "active_script_paths_and_command_interfaces_resolved_in_renamed_tree": true,
+  "critical_files_sha256": {
+    "PILOTER.py": "d8f4f8e2e2422d1ce51e90710003b4c9ac5be07494e2ab6d2a6d154e708b7208",
+    "PILOTER_IPOPT.py": "c807f2a31cf3ce2d556c96dff3f31a7a6f55f76759e2638e0f0f71ab7cd59ee6",
+    "EXPORTER_RESULTATS.py": "95255230b324fa3374f39c82cd9f25e0cdd9969fc9a13acc3ba3f295303dc9d3",
+    "SUIVRE_TOUT.py": "d65fdcd2290e4b2e1628622276826643719a2ca1027e3024b13cf5614b20da70",
+    "TEST_INTEGRATION.py": "55c7b340070cdb70fd9eba693644cfb2c24254aae001196a030df865a3171f34",
+    "BUILD_EXPERIMENT.py": "aa52d916fe6028df4d74342ac1c6449df11089c829b9cac015e1f8dee1a0792b",
+    "STUDY_CONTRACT.json": "bb73bc927a7397fff847338f2a76e436e48177101994e37483919eddf260bbb3",
+    "ipopt_aligned/IPOPT_ALIGNE_CONTRACT.py": "22e90630f117b3bc9ccc9281e45f1809fa3e8c79864e78a711e29ad2612cb01d",
+    "ipopt_aligned/PREPARER_IPOPT_ALIGNE.py": "b84d424b2bfb5fe55c147cc9bf1728102fff47c3f2606c129216812fb1428855",
+    "ipopt_aligned/CONTROLEUR_IPOPT_ALIGNE.py": "058935064453eba4160cae091bf3b6592e8133dc4a2d3522af8b5d1f505b9d19",
+    "ipopt_aligned/ANALYSER_IPOPT_ALIGNE.py": "32235bbab71062023be3a8c8264424569b3078f5c93ff4f46ae3d7bcf301f0f9"
+  },
+  "logs": {
+    "STAGED_RUNTIME_IPOPT.log": "a885cc91071abe9efcbe69f964dc269961012ded9b4d11d72b99b8ae4d930708",
+    "STAGED_INTEGRATION.log": "4fc919b1bf979132810389f40d22e3eeb7cc0d9d5cd6d0d9200e2d3cf9f8be6a",
+    "STAGED_ANALYSER_IPOPT.log": "c007eb3404222132d69212d3031b1e8723d687fbaa42a610778521b39a4cf372"
+  },
+  "remaining_requirements": [
+    "Real target MA27/MUMPS smoke qualification before Ipopt production",
+    "Complete native build and748 real qualification executions before refinement production",
+    "Actual new solver runs and independent original-QCQP audits"
+  ]
+}

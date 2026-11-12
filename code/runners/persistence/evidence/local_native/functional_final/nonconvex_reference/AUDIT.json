@@ -1,0 +1,53 @@
+{
+  "schema": "ipopt-default-original-interval-audit-v1",
+  "input_sha256": "42e10622c308d39be65cd0d3bba7f9a282079e8baedd515010d79884efda96b5",
+  "endpoint_sha256": "f3423f8dd6dae6871dc436f103a1fb797083af64a1b8891e8e64a3f80356fe92",
+  "audit_available": true,
+  "strict_qcqp": true,
+  "observation_classification": "strict_original_qcqp",
+  "indeterminate_reasons": [],
+  "original_KKT_endpoint_strict": true,
+  "classification": "strict",
+  "primal": 0.0,
+  "dual": 6.399514389137747e-07,
+  "complementarity": 1.600004550842781e-07,
+  "objective": 1.0000001599979744,
+  "audit_precision": "outward_binary64_fsum",
+  "case_id": null,
+  "method": null,
+  "dataset": null,
+  "regime": null,
+  "optimizer_invocations": 0,
+  "tolerance": "1e-6",
+  "precision": "outward_binary64_fsum",
+  "storage_mode": "sparse_model",
+  "intervals": {
+    "objective": {
+      "lower": "1.0000001599979738",
+      "upper": "1.000000159997975"
+    },
+    "primal": {
+      "lower": "0.0",
+      "upper": "0.0"
+    },
+    "dual": {
+      "lower": "6.399514381366182e-07",
+      "upper": "6.399514389137747e-07"
+    },
+    "complementarity": {
+      "lower": "1.6000045508427796e-07",
+      "upper": "1.600004550842781e-07"
+    }
+  },
+  "residual_upper": {
+    "primal": 0.0,
+    "dual": 6.399514389137747e-07,
+    "complementarity": 1.600004550842781e-07
+  },
+  "original_bounds_used": true,
+  "absent_bound_semantics": "A bound side is absent iff its frozen value is infinite, regardless of sign; finite bounds unchanged",
+  "solver_status": "solved",
+  "solver_success_is_not_certificate": true,
+  "reason_list": [],
+  "audit_seconds": 0.00896156599628739
+}

@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "compiler": "/usr/bin/g++",
+    "cmake": null,
+    "boost_headers": null,
+    "dependency_root": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/casadi"
+  },
+  "profile": "mumps",
+  "optimizer_invocations": 0,
+  "compiled": false,
+  "error": "Missing build dependencies: cmake, boost_headers"
+}

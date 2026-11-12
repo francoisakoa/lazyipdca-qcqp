@@ -1,0 +1,53 @@
+{
+  "test": "actual MEGA.continuous_loop, fake numeric and audit workers only",
+  "workers": 22,
+  "cpus": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+  ],
+  "methods": [
+    "R3",
+    "HH",
+    "HS",
+    "SH",
+    "SS",
+    "SS_legacy",
+    "ipopt_qcqp",
+    "ipopt_mumps"
+  ],
+  "peak": 22,
+  "completed": 328,
+  "no_dataset_barrier": true,
+  "next_dataset_start_seconds": {
+    "multicast_beamforming": 0.0658642390044406,
+    "PGLIB": 0.09020160399813903,
+    "pooling_luedtke": 0.11545741200097837
+  },
+  "last_slow_CUTEst_end_seconds": 0.7090482790008537,
+  "uncertain_audit_counted_indeterminate": true,
+  "Dey_denominator_injection_refused": true,
+  "solvers_launched": 0,
+  "remote_run": false,
+  "numerical_qualification": false,
+  "pass": true
+}

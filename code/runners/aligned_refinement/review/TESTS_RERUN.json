@@ -1,0 +1,21 @@
+[
+  {
+    "name": "TEST_RUNTIME_IPOPT_ALIGNE",
+    "tests": 19,
+    "passed": true,
+    "log_sha256": "3c1e30aacc783bcd8b878b2c73c5dbe48ef0f70cc7aae55331e54a87ef51acb4",
+    "execution_path": "staged release tree"
+  },
+  {
+    "name": "TEST_PILOTER_IPOPT",
+    "tests": 10,
+    "passed": true,
+    "log_sha256": "3f87a1f7a6964d9aa22a4d48901625841e89243ff6911897000b686dbc05da04"
+  },
+  {
+    "name": "TEST_ANALYSER_IPOPT_ALIGNE",
+    "tests": 19,
+    "passed": true,
+    "log_sha256": "afca5fa2b98b1e2c877990b72c46ee56325676cbcfb5fae8176b0cbacb004104"
+  }
+]

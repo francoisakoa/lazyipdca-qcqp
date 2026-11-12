@@ -1,0 +1,26 @@
+{
+  "ma27_main": {
+    "manifest_files": 1880,
+    "missing": [],
+    "mismatch": [],
+    "optimizer_invocations": 0
+  },
+  "aligned_refinement": {
+    "manifest_files": 1936,
+    "missing": [],
+    "mismatch": [],
+    "optimizer_invocations": 0
+  },
+  "asu": {
+    "manifest_files": 854,
+    "missing": [],
+    "mismatch": [],
+    "optimizer_invocations": 0
+  },
+  "persistence": {
+    "manifest_files": 986,
+    "missing": [],
+    "mismatch": [],
+    "optimizer_invocations": 0
+  }
+}

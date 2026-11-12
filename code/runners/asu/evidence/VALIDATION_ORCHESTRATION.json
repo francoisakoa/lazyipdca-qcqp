@@ -1,0 +1,11 @@
+{
+  "schema": "asu-synthetic-orchestration-tests-v2",
+  "passed": true,
+  "checks": 9,
+  "pilot_observations_reused": 144,
+  "full_pending_without_redo": 5892,
+  "optimizer_invocations": 0,
+  "local_native_numerical_runs": 0,
+  "native_runtime_qualified": false,
+  "scope": "Synthetic receipts only; exact promotion/resume, idempotent preparation, copied-artifact mutation and budget rejection."
+}

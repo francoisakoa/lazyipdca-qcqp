@@ -1,0 +1,67 @@
+{
+  "schema": "lazyqcqp-local-delivery-validation-v1",
+  "ipopt": {
+    "complete_real_adapter_compilation": true,
+    "library_version": "3.14.11",
+    "library_sha256": "2cbc643d9d2717cb084321394cc886fb67d4dbcddd3e88a36bee9f4f02d7cc97",
+    "final_real_mumps_smokes": 2,
+    "final_smokes_original_kkt_strict": true,
+    "real_ma27_tested": false,
+    "target_four_smokes_required_before_production": true,
+    "production_campaign_runs_performed": 0
+  },
+  "refinement": {
+    "reference_sources": 823,
+    "experiment_sources": 825,
+    "complete_native_build_performed": false,
+    "local_build_limitation": "Boost.Multiprecision headers unavailable locally",
+    "target_qualification_required": 748,
+    "target_qualification_performed": 0,
+    "production_campaign_runs_performed": 0,
+    "scientific_benefit_demonstrated": false
+  },
+  "allocation": {
+    "ipopt": {
+      "cpus": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "jobs": 22,
+      "instances": 4078,
+      "configurations": 4,
+      "tasks": 16312
+    },
+    "refinement": {
+      "cpus": [
+        23
+      ],
+      "jobs": 1,
+      "instances": 1834,
+      "configurations": 8,
+      "tasks": 14672
+    }
+  },
+  "relocated_package_tests": 43,
+  "shell_entrypoints_checked": 18,
+  "production_authorized_by_local_delivery": false
+}

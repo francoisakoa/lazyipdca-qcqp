@@ -1,0 +1,51 @@
+{
+  "version": "0.4.28r3p22-modeled-side-filter-sparse-feas",
+  "api": 4305,
+  "tests": {
+    "cpp_registered_passed": 75,
+    "python_registered_passed": 17,
+    "cli_registered_passed": 3,
+    "total_passed": 95,
+    "failed": 0
+  },
+  "case118_local_controlled_ab": {
+    "ordering_note": "same identity-ordering METIS stub on both sides; absolute timing is not target-host timing",
+    "filter_off": {
+      "status": "solved",
+      "elapsed_seconds": 31.249646785,
+      "outer_iterations": 144,
+      "inner_iterations": 1891,
+      "kkt_factorizations": 1734,
+      "line_search_backtracks": 174,
+      "side_rejections": 158
+    },
+    "r3p22_profile": {
+      "status": "solved",
+      "elapsed_seconds": 13.551346642,
+      "objective": 97213.60739507593,
+      "equality_violation": 9.015010959956271e-14,
+      "inequality_violation": 2.220446049250313e-16,
+      "dual_infeasibility_inf": 6.734283059507944e-7,
+      "outer_iterations": 49,
+      "inner_iterations": 711,
+      "kkt_factorizations": 653,
+      "line_search_backtracks": 36,
+      "side_rejections": 15,
+      "modeled_side_filter_attempts": 30,
+      "modeled_side_filter_acceptances": 15,
+      "modeled_side_filter_recovery_acceptances": 6,
+      "modeled_side_filter_fallbacks": 15,
+      "modeled_side_filter_recovery_margin_rows": 72,
+      "modeled_side_filter_max_accepted_violation": 3.075215822034849e-5
+    },
+    "elapsed_ratio": 0.4336479940152386,
+    "elapsed_reduction": 0.5663520059847613
+  },
+  "target_host": {
+    "r3p21_median_seconds": 13.044472375,
+    "projected_r3p22_seconds_non_certifying": 5.656709278405945,
+    "required_repetitions": 5,
+    "target_median_seconds": 10.0,
+    "verified": false
+  }
+}

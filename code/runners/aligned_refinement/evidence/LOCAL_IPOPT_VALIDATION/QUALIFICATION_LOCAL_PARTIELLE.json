@@ -1,0 +1,102 @@
+{
+  "schema": "ipopt-aligned-qualification-v1",
+  "passed": false,
+  "local_partial_passed": true,
+  "cases": 2,
+  "runs": 2,
+  "build": "/workspace/scratch/da3e31fd0a48/factorial_20261109/local_ipopt_build_final/BUILD.json",
+  "build_sha256": "bc021992da5893b0a09f01cbce18eca8cf04416f369d584df2fb60e034ab4df1",
+  "binary_sha256": "c6e021e676f7dfb11f04b44df21923af236c97863e474614adb5a0d0ee81c15b",
+  "options_verified": true,
+  "original_audit_verified": true,
+  "backends": [
+    "mumps"
+  ],
+  "strategies": [
+    "adaptive",
+    "monotone"
+  ],
+  "ipopt_version": "3.14.11",
+  "production_dependencies_verified": false,
+  "ambient_hostile_option_file_ignored": true,
+  "input_sha256": "c63e477fa9f0492b4d669948c59b61921d7845493906be4b64df7a94a55eb817",
+  "start_sha256": "a12d91b10443dbe2341a9a54d09fb79f0ee510e87c840b906399f65301a96a7a",
+  "dependencies_rehashed_after_smokes": true,
+  "seconds": 0.2073812929993437,
+  "smokes": [
+    {
+      "backend": "mumps",
+      "strategy": "adaptive",
+      "command": [
+        "/workspace/scratch/da3e31fd0a48/factorial_20261109/local_ipopt_build_final/ipopt_aligned_cli",
+        "--problem",
+        "/workspace/scratch/da3e31fd0a48/factorial_20261109/local_ipopt_smokes_final/input.qcq",
+        "--frozen-start",
+        "/workspace/scratch/da3e31fd0a48/factorial_20261109/local_ipopt_smokes_final/raw_start.json",
+        "--json",
+        "/workspace/scratch/da3e31fd0a48/factorial_20261109/local_ipopt_smokes_final/mumps_adaptive.json",
+        "--mu-strategy",
+        "adaptive",
+        "--linear-solver",
+        "mumps",
+        "--max-iter",
+        "5000",
+        "--time-limit",
+        "7200",
+        "--print-level",
+        "5"
+      ],
+      "returncode": 0,
+      "log": "/workspace/scratch/da3e31fd0a48/factorial_20261109/local_ipopt_smokes_final/mumps_adaptive.log",
+      "log_sha256": "313e81559cee9baa08f5ced58151cd7354b8d710e93705ac52e92623a68748ee",
+      "passed": true,
+      "options_verified": true,
+      "original_audit": {
+        "primal": 0.0,
+        "dual": 2.020561170784379e-12,
+        "complementarity": 1.0498268920968237e-11,
+        "strict": true,
+        "method": "independent analytic original-QCQP audit; includes fixed variable and all bounds"
+      },
+      "endpoint": "/workspace/scratch/da3e31fd0a48/factorial_20261109/local_ipopt_smokes_final/mumps_adaptive.json",
+      "endpoint_sha256": "946c8b558805e4e1277f7e53cebd23f74ecc201877537cd2741b2768a0b7ac41"
+    },
+    {
+      "backend": "mumps",
+      "strategy": "monotone",
+      "command": [
+        "/workspace/scratch/da3e31fd0a48/factorial_20261109/local_ipopt_build_final/ipopt_aligned_cli",
+        "--problem",
+        "/workspace/scratch/da3e31fd0a48/factorial_20261109/local_ipopt_smokes_final/input.qcq",
+        "--frozen-start",
+        "/workspace/scratch/da3e31fd0a48/factorial_20261109/local_ipopt_smokes_final/raw_start.json",
+        "--json",
+        "/workspace/scratch/da3e31fd0a48/factorial_20261109/local_ipopt_smokes_final/mumps_monotone.json",
+        "--mu-strategy",
+        "monotone",
+        "--linear-solver",
+        "mumps",
+        "--max-iter",
+        "5000",
+        "--time-limit",
+        "7200",
+        "--print-level",
+        "5"
+      ],
+      "returncode": 0,
+      "log": "/workspace/scratch/da3e31fd0a48/factorial_20261109/local_ipopt_smokes_final/mumps_monotone.log",
+      "log_sha256": "aa8f6f779aaa442f92c9b9c02540c0459262c36d4d4c1fcc6418eb599e196fd2",
+      "passed": true,
+      "options_verified": true,
+      "original_audit": {
+        "primal": 0.0,
+        "dual": 7.600264828385351e-12,
+        "complementarity": 2.5086056635219206e-09,
+        "strict": true,
+        "method": "independent analytic original-QCQP audit; includes fixed variable and all bounds"
+      },
+      "endpoint": "/workspace/scratch/da3e31fd0a48/factorial_20261109/local_ipopt_smokes_final/mumps_monotone.json",
+      "endpoint_sha256": "d56a34f10be0954d96fd836c511daad4e7aceeea05d6f7c605fe7d2cd2a57fdd"
+    }
+  ]
+}

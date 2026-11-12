@@ -1,0 +1,2898 @@
+LAZYIPDCA_QCQP_V2
+name cops_minsurf_epi_nx0010_ny0008
+n 318
+x0 0 0 0 0 0 0 0 0 0 0 0.33057851239669434 0.33057851239669434 0.33057851239669434 0.33057851239669434 0.33057851239669434 0.33057851239669434 0.33057851239669434 0.33057851239669434 0.33057851239669434 0.33057851239669434 0.5950413223140496 0.5950413223140496 0.5950413223140496 0.5950413223140496 0.5950413223140496 0.5950413223140496 0.5950413223140496 0.5950413223140496 0.5950413223140496 0.5950413223140496 0.79338842975206614 0.79338842975206614 0.79338842975206614 0.79338842975206614 0.79338842975206614 0.79338842975206614 0.79338842975206614 0.79338842975206614 0.79338842975206614 0.79338842975206614 0.92561983471074383 0.92561983471074383 0.92561983471074383 0.92561983471074383 0.92561983471074383 0.92561983471074383 0.92561983471074383 0.92561983471074383 0.92561983471074383 0.92561983471074383 0.99173553719008267 0.99173553719008267 0.99173553719008267 0.99173553719008267 0.99173553719008267 0.99173553719008267 0.99173553719008267 0.99173553719008267 0.99173553719008267 0.99173553719008267 0.99173553719008267 0.99173553719008267 0.99173553719008267 0.99173553719008267 0.99173553719008267 0.99173553719008267 0.99173553719008267 0.99173553719008267 0.99173553719008267 0.99173553719008267 0.92561983471074383 0.92561983471074383 0.92561983471074383 0.92561983471074383 0.92561983471074383 0.92561983471074383 0.92561983471074383 0.92561983471074383 0.92561983471074383 0.92561983471074383 0.79338842975206614 0.79338842975206614 0.79338842975206614 0.79338842975206614 0.79338842975206614 0.79338842975206614 0.79338842975206614 0.79338842975206614 0.79338842975206614 0.79338842975206614 0.59504132231404938 0.59504132231404938 0.59504132231404938 0.59504132231404938 0.59504132231404938 0.59504132231404938 0.59504132231404938 0.59504132231404938 0.59504132231404938 0.59504132231404938 0.330578512396694 0.330578512396694 0.330578512396694 0.330578512396694 0.330578512396694 0.330578512396694 0.330578512396694 0.330578512396694 0.330578512396694 0.330578512396694 0 0 0 0 0 0 0 0 0 0 3.7713579113984634 3.7713579113984634 3.7713579113984634 3.7713579113984634 3.7713579113984634 3.7713579113984634 3.7713579113984634 3.7713579113984634 3.7713579113984634 3.0761680573979322 3.0761680573979322 3.0761680573979322 3.0761680573979322 3.0761680573979322 3.0761680573979322 3.0761680573979322 3.0761680573979322 3.0761680573979322 2.4000688695352888 2.4000688695352888 2.4000688695352888 2.4000688695352888 2.4000688695352888 2.4000688695352888 2.4000688695352888 2.4000688695352888 2.4000688695352888 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.0000000000000002 1.0000000000000002 1.0000000000000002 1.0000000000000002 1.0000000000000002 1.0000000000000002 1.0000000000000002 1.0000000000000002 1.0000000000000002 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 2.400068869535291 2.400068869535291 2.400068869535291 2.400068869535291 2.400068869535291 2.400068869535291 2.400068869535291 2.400068869535291 2.400068869535291 3.0761680573979335 3.0761680573979335 3.0761680573979335 3.0761680573979335 3.0761680573979335 3.0761680573979335 3.0761680573979335 3.0761680573979335 3.0761680573979335 3.7713579113984599 3.7713579113984599 3.7713579113984599 3.7713579113984599 3.7713579113984599 3.7713579113984599 3.7713579113984599 3.7713579113984599 3.7713579113984599 3.7713579113984634 3.7713579113984634 3.7713579113984634 3.7713579113984634 3.7713579113984634 3.7713579113984634 3.7713579113984634 3.7713579113984634 3.7713579113984634 3.0761680573979322 3.0761680573979322 3.0761680573979322 3.0761680573979322 3.0761680573979322 3.0761680573979322 3.0761680573979322 3.0761680573979322 3.0761680573979322 2.4000688695352888 2.4000688695352888 2.4000688695352888 2.4000688695352888 2.4000688695352888 2.4000688695352888 2.4000688695352888 2.4000688695352888 2.4000688695352888 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.0000000000000002 1.0000000000000002 1.0000000000000002 1.0000000000000002 1.0000000000000002 1.0000000000000002 1.0000000000000002 1.0000000000000002 1.0000000000000002 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.2364973189759496 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 1.7651352580861457 2.400068869535291 2.400068869535291 2.400068869535291 2.400068869535291 2.400068869535291 2.400068869535291 2.400068869535291 2.400068869535291 2.400068869535291 3.0761680573979335 3.0761680573979335 3.0761680573979335 3.0761680573979335 3.0761680573979335 3.0761680573979335 3.0761680573979335 3.0761680573979335 3.0761680573979335 3.7713579113984599 3.7713579113984599 3.7713579113984599 3.7713579113984599 3.7713579113984599 3.7713579113984599 3.7713579113984599 3.7713579113984599 3.7713579113984599
+lb 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ub inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf inf
+objective
+quadratic
+name surface_epigraph_objective
+constant 0
+linear_nnz 198
+120 0.0050505050505050501
+121 0.0050505050505050501
+122 0.0050505050505050501
+123 0.0050505050505050501
+124 0.0050505050505050501
+125 0.0050505050505050501
+126 0.0050505050505050501
+127 0.0050505050505050501
+128 0.0050505050505050501
+129 0.0050505050505050501
+130 0.0050505050505050501
+131 0.0050505050505050501
+132 0.0050505050505050501
+133 0.0050505050505050501
+134 0.0050505050505050501
+135 0.0050505050505050501
+136 0.0050505050505050501
+137 0.0050505050505050501
+138 0.0050505050505050501
+139 0.0050505050505050501
+140 0.0050505050505050501
+141 0.0050505050505050501
+142 0.0050505050505050501
+143 0.0050505050505050501
+144 0.0050505050505050501
+145 0.0050505050505050501
+146 0.0050505050505050501
+147 0.0050505050505050501
+148 0.0050505050505050501
+149 0.0050505050505050501
+150 0.0050505050505050501
+151 0.0050505050505050501
+152 0.0050505050505050501
+153 0.0050505050505050501
+154 0.0050505050505050501
+155 0.0050505050505050501
+156 0.0050505050505050501
+157 0.0050505050505050501
+158 0.0050505050505050501
+159 0.0050505050505050501
+160 0.0050505050505050501
+161 0.0050505050505050501
+162 0.0050505050505050501
+163 0.0050505050505050501
+164 0.0050505050505050501
+165 0.0050505050505050501
+166 0.0050505050505050501
+167 0.0050505050505050501
+168 0.0050505050505050501
+169 0.0050505050505050501
+170 0.0050505050505050501
+171 0.0050505050505050501
+172 0.0050505050505050501
+173 0.0050505050505050501
+174 0.0050505050505050501
+175 0.0050505050505050501
+176 0.0050505050505050501
+177 0.0050505050505050501
+178 0.0050505050505050501
+179 0.0050505050505050501
+180 0.0050505050505050501
+181 0.0050505050505050501
+182 0.0050505050505050501
+183 0.0050505050505050501
+184 0.0050505050505050501
+185 0.0050505050505050501
+186 0.0050505050505050501
+187 0.0050505050505050501
+188 0.0050505050505050501
+189 0.0050505050505050501
+190 0.0050505050505050501
+191 0.0050505050505050501
+192 0.0050505050505050501
+193 0.0050505050505050501
+194 0.0050505050505050501
+195 0.0050505050505050501
+196 0.0050505050505050501
+197 0.0050505050505050501
+198 0.0050505050505050501
+199 0.0050505050505050501
+200 0.0050505050505050501
+201 0.0050505050505050501
+202 0.0050505050505050501
+203 0.0050505050505050501
+204 0.0050505050505050501
+205 0.0050505050505050501
+206 0.0050505050505050501
+207 0.0050505050505050501
+208 0.0050505050505050501
+209 0.0050505050505050501
+210 0.0050505050505050501
+211 0.0050505050505050501
+212 0.0050505050505050501
+213 0.0050505050505050501
+214 0.0050505050505050501
+215 0.0050505050505050501
+216 0.0050505050505050501
+217 0.0050505050505050501
+218 0.0050505050505050501
+219 0.0050505050505050501
+220 0.0050505050505050501
+221 0.0050505050505050501
+222 0.0050505050505050501
+223 0.0050505050505050501
+224 0.0050505050505050501
+225 0.0050505050505050501
+226 0.0050505050505050501
+227 0.0050505050505050501
+228 0.0050505050505050501
+229 0.0050505050505050501
+230 0.0050505050505050501
+231 0.0050505050505050501
+232 0.0050505050505050501
+233 0.0050505050505050501
+234 0.0050505050505050501
+235 0.0050505050505050501
+236 0.0050505050505050501
+237 0.0050505050505050501
+238 0.0050505050505050501
+239 0.0050505050505050501
+240 0.0050505050505050501
+241 0.0050505050505050501
+242 0.0050505050505050501
+243 0.0050505050505050501
+244 0.0050505050505050501
+245 0.0050505050505050501
+246 0.0050505050505050501
+247 0.0050505050505050501
+248 0.0050505050505050501
+249 0.0050505050505050501
+250 0.0050505050505050501
+251 0.0050505050505050501
+252 0.0050505050505050501
+253 0.0050505050505050501
+254 0.0050505050505050501
+255 0.0050505050505050501
+256 0.0050505050505050501
+257 0.0050505050505050501
+258 0.0050505050505050501
+259 0.0050505050505050501
+260 0.0050505050505050501
+261 0.0050505050505050501
+262 0.0050505050505050501
+263 0.0050505050505050501
+264 0.0050505050505050501
+265 0.0050505050505050501
+266 0.0050505050505050501
+267 0.0050505050505050501
+268 0.0050505050505050501
+269 0.0050505050505050501
+270 0.0050505050505050501
+271 0.0050505050505050501
+272 0.0050505050505050501
+273 0.0050505050505050501
+274 0.0050505050505050501
+275 0.0050505050505050501
+276 0.0050505050505050501
+277 0.0050505050505050501
+278 0.0050505050505050501
+279 0.0050505050505050501
+280 0.0050505050505050501
+281 0.0050505050505050501
+282 0.0050505050505050501
+283 0.0050505050505050501
+284 0.0050505050505050501
+285 0.0050505050505050501
+286 0.0050505050505050501
+287 0.0050505050505050501
+288 0.0050505050505050501
+289 0.0050505050505050501
+290 0.0050505050505050501
+291 0.0050505050505050501
+292 0.0050505050505050501
+293 0.0050505050505050501
+294 0.0050505050505050501
+295 0.0050505050505050501
+296 0.0050505050505050501
+297 0.0050505050505050501
+298 0.0050505050505050501
+299 0.0050505050505050501
+300 0.0050505050505050501
+301 0.0050505050505050501
+302 0.0050505050505050501
+303 0.0050505050505050501
+304 0.0050505050505050501
+305 0.0050505050505050501
+306 0.0050505050505050501
+307 0.0050505050505050501
+308 0.0050505050505050501
+309 0.0050505050505050501
+310 0.0050505050505050501
+311 0.0050505050505050501
+312 0.0050505050505050501
+313 0.0050505050505050501
+314 0.0050505050505050501
+315 0.0050505050505050501
+316 0.0050505050505050501
+317 0.0050505050505050501
+hessian_nnz 0
+end_quadratic
+equalities 44
+quadratic
+name b1_0
+constant 0
+linear_nnz 1
+0 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b2_0
+constant 0
+linear_nnz 1
+110 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b1_1
+constant 0
+linear_nnz 1
+1 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b2_1
+constant 0
+linear_nnz 1
+111 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b1_2
+constant 0
+linear_nnz 1
+2 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b2_2
+constant 0
+linear_nnz 1
+112 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b1_3
+constant 0
+linear_nnz 1
+3 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b2_3
+constant 0
+linear_nnz 1
+113 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b1_4
+constant 0
+linear_nnz 1
+4 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b2_4
+constant 0
+linear_nnz 1
+114 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b1_5
+constant 0
+linear_nnz 1
+5 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b2_5
+constant 0
+linear_nnz 1
+115 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b1_6
+constant 0
+linear_nnz 1
+6 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b2_6
+constant 0
+linear_nnz 1
+116 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b1_7
+constant 0
+linear_nnz 1
+7 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b2_7
+constant 0
+linear_nnz 1
+117 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b1_8
+constant 0
+linear_nnz 1
+8 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b2_8
+constant 0
+linear_nnz 1
+118 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b1_9
+constant 0
+linear_nnz 1
+9 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b2_9
+constant 0
+linear_nnz 1
+119 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b3_0
+constant -0
+linear_nnz 1
+0 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b4_0
+constant -0
+linear_nnz 1
+9 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b3_1
+constant -0.33057851239669434
+linear_nnz 1
+10 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b4_1
+constant -0.33057851239669434
+linear_nnz 1
+19 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b3_2
+constant -0.5950413223140496
+linear_nnz 1
+20 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b4_2
+constant -0.5950413223140496
+linear_nnz 1
+29 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b3_3
+constant -0.79338842975206614
+linear_nnz 1
+30 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b4_3
+constant -0.79338842975206614
+linear_nnz 1
+39 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b3_4
+constant -0.92561983471074383
+linear_nnz 1
+40 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b4_4
+constant -0.92561983471074383
+linear_nnz 1
+49 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b3_5
+constant -0.99173553719008267
+linear_nnz 1
+50 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b4_5
+constant -0.99173553719008267
+linear_nnz 1
+59 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b3_6
+constant -0.99173553719008267
+linear_nnz 1
+60 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b4_6
+constant -0.99173553719008267
+linear_nnz 1
+69 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b3_7
+constant -0.92561983471074383
+linear_nnz 1
+70 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b4_7
+constant -0.92561983471074383
+linear_nnz 1
+79 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b3_8
+constant -0.79338842975206614
+linear_nnz 1
+80 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b4_8
+constant -0.79338842975206614
+linear_nnz 1
+89 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b3_9
+constant -0.59504132231404938
+linear_nnz 1
+90 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b4_9
+constant -0.59504132231404938
+linear_nnz 1
+99 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b3_10
+constant -0.330578512396694
+linear_nnz 1
+100 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b4_10
+constant -0.330578512396694
+linear_nnz 1
+109 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b3_11
+constant -0
+linear_nnz 1
+110 1
+hessian_nnz 0
+end_quadratic
+quadratic
+name b4_11
+constant -0
+linear_nnz 1
+119 1
+hessian_nnz 0
+end_quadratic
+inequalities 198
+quadratic
+name positive_triangle_norm_0
+constant 1
+linear_nnz 0
+hessian_nnz 6
+0 0 404
+0 1 -162
+0 10 -242
+1 1 162
+10 10 242
+120 120 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_1
+constant 1
+linear_nnz 0
+hessian_nnz 6
+1 1 404
+1 2 -162
+1 11 -242
+2 2 162
+11 11 242
+121 121 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_2
+constant 1
+linear_nnz 0
+hessian_nnz 6
+2 2 404
+2 3 -162
+2 12 -242
+3 3 162
+12 12 242
+122 122 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_3
+constant 1
+linear_nnz 0
+hessian_nnz 6
+3 3 404
+3 4 -162
+3 13 -242
+4 4 162
+13 13 242
+123 123 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_4
+constant 1
+linear_nnz 0
+hessian_nnz 6
+4 4 404
+4 5 -162
+4 14 -242
+5 5 162
+14 14 242
+124 124 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_5
+constant 1
+linear_nnz 0
+hessian_nnz 6
+5 5 404
+5 6 -162
+5 15 -242
+6 6 162
+15 15 242
+125 125 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_6
+constant 1
+linear_nnz 0
+hessian_nnz 6
+6 6 404
+6 7 -162
+6 16 -242
+7 7 162
+16 16 242
+126 126 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_7
+constant 1
+linear_nnz 0
+hessian_nnz 6
+7 7 404
+7 8 -162
+7 17 -242
+8 8 162
+17 17 242
+127 127 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_8
+constant 1
+linear_nnz 0
+hessian_nnz 6
+8 8 404
+8 9 -162
+8 18 -242
+9 9 162
+18 18 242
+128 128 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_9
+constant 1
+linear_nnz 0
+hessian_nnz 6
+10 10 404
+10 11 -162
+10 20 -242
+11 11 162
+20 20 242
+129 129 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_10
+constant 1
+linear_nnz 0
+hessian_nnz 6
+11 11 404
+11 12 -162
+11 21 -242
+12 12 162
+21 21 242
+130 130 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_11
+constant 1
+linear_nnz 0
+hessian_nnz 6
+12 12 404
+12 13 -162
+12 22 -242
+13 13 162
+22 22 242
+131 131 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_12
+constant 1
+linear_nnz 0
+hessian_nnz 6
+13 13 404
+13 14 -162
+13 23 -242
+14 14 162
+23 23 242
+132 132 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_13
+constant 1
+linear_nnz 0
+hessian_nnz 6
+14 14 404
+14 15 -162
+14 24 -242
+15 15 162
+24 24 242
+133 133 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_14
+constant 1
+linear_nnz 0
+hessian_nnz 6
+15 15 404
+15 16 -162
+15 25 -242
+16 16 162
+25 25 242
+134 134 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_15
+constant 1
+linear_nnz 0
+hessian_nnz 6
+16 16 404
+16 17 -162
+16 26 -242
+17 17 162
+26 26 242
+135 135 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_16
+constant 1
+linear_nnz 0
+hessian_nnz 6
+17 17 404
+17 18 -162
+17 27 -242
+18 18 162
+27 27 242
+136 136 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_17
+constant 1
+linear_nnz 0
+hessian_nnz 6
+18 18 404
+18 19 -162
+18 28 -242
+19 19 162
+28 28 242
+137 137 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_18
+constant 1
+linear_nnz 0
+hessian_nnz 6
+20 20 404
+20 21 -162
+20 30 -242
+21 21 162
+30 30 242
+138 138 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_19
+constant 1
+linear_nnz 0
+hessian_nnz 6
+21 21 404
+21 22 -162
+21 31 -242
+22 22 162
+31 31 242
+139 139 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_20
+constant 1
+linear_nnz 0
+hessian_nnz 6
+22 22 404
+22 23 -162
+22 32 -242
+23 23 162
+32 32 242
+140 140 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_21
+constant 1
+linear_nnz 0
+hessian_nnz 6
+23 23 404
+23 24 -162
+23 33 -242
+24 24 162
+33 33 242
+141 141 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_22
+constant 1
+linear_nnz 0
+hessian_nnz 6
+24 24 404
+24 25 -162
+24 34 -242
+25 25 162
+34 34 242
+142 142 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_23
+constant 1
+linear_nnz 0
+hessian_nnz 6
+25 25 404
+25 26 -162
+25 35 -242
+26 26 162
+35 35 242
+143 143 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_24
+constant 1
+linear_nnz 0
+hessian_nnz 6
+26 26 404
+26 27 -162
+26 36 -242
+27 27 162
+36 36 242
+144 144 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_25
+constant 1
+linear_nnz 0
+hessian_nnz 6
+27 27 404
+27 28 -162
+27 37 -242
+28 28 162
+37 37 242
+145 145 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_26
+constant 1
+linear_nnz 0
+hessian_nnz 6
+28 28 404
+28 29 -162
+28 38 -242
+29 29 162
+38 38 242
+146 146 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_27
+constant 1
+linear_nnz 0
+hessian_nnz 6
+30 30 404
+30 31 -162
+30 40 -242
+31 31 162
+40 40 242
+147 147 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_28
+constant 1
+linear_nnz 0
+hessian_nnz 6
+31 31 404
+31 32 -162
+31 41 -242
+32 32 162
+41 41 242
+148 148 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_29
+constant 1
+linear_nnz 0
+hessian_nnz 6
+32 32 404
+32 33 -162
+32 42 -242
+33 33 162
+42 42 242
+149 149 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_30
+constant 1
+linear_nnz 0
+hessian_nnz 6
+33 33 404
+33 34 -162
+33 43 -242
+34 34 162
+43 43 242
+150 150 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_31
+constant 1
+linear_nnz 0
+hessian_nnz 6
+34 34 404
+34 35 -162
+34 44 -242
+35 35 162
+44 44 242
+151 151 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_32
+constant 1
+linear_nnz 0
+hessian_nnz 6
+35 35 404
+35 36 -162
+35 45 -242
+36 36 162
+45 45 242
+152 152 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_33
+constant 1
+linear_nnz 0
+hessian_nnz 6
+36 36 404
+36 37 -162
+36 46 -242
+37 37 162
+46 46 242
+153 153 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_34
+constant 1
+linear_nnz 0
+hessian_nnz 6
+37 37 404
+37 38 -162
+37 47 -242
+38 38 162
+47 47 242
+154 154 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_35
+constant 1
+linear_nnz 0
+hessian_nnz 6
+38 38 404
+38 39 -162
+38 48 -242
+39 39 162
+48 48 242
+155 155 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_36
+constant 1
+linear_nnz 0
+hessian_nnz 6
+40 40 404
+40 41 -162
+40 50 -242
+41 41 162
+50 50 242
+156 156 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_37
+constant 1
+linear_nnz 0
+hessian_nnz 6
+41 41 404
+41 42 -162
+41 51 -242
+42 42 162
+51 51 242
+157 157 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_38
+constant 1
+linear_nnz 0
+hessian_nnz 6
+42 42 404
+42 43 -162
+42 52 -242
+43 43 162
+52 52 242
+158 158 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_39
+constant 1
+linear_nnz 0
+hessian_nnz 6
+43 43 404
+43 44 -162
+43 53 -242
+44 44 162
+53 53 242
+159 159 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_40
+constant 1
+linear_nnz 0
+hessian_nnz 6
+44 44 404
+44 45 -162
+44 54 -242
+45 45 162
+54 54 242
+160 160 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_41
+constant 1
+linear_nnz 0
+hessian_nnz 6
+45 45 404
+45 46 -162
+45 55 -242
+46 46 162
+55 55 242
+161 161 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_42
+constant 1
+linear_nnz 0
+hessian_nnz 6
+46 46 404
+46 47 -162
+46 56 -242
+47 47 162
+56 56 242
+162 162 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_43
+constant 1
+linear_nnz 0
+hessian_nnz 6
+47 47 404
+47 48 -162
+47 57 -242
+48 48 162
+57 57 242
+163 163 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_44
+constant 1
+linear_nnz 0
+hessian_nnz 6
+48 48 404
+48 49 -162
+48 58 -242
+49 49 162
+58 58 242
+164 164 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_45
+constant 1
+linear_nnz 0
+hessian_nnz 6
+50 50 404
+50 51 -162
+50 60 -242
+51 51 162
+60 60 242
+165 165 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_46
+constant 1
+linear_nnz 0
+hessian_nnz 6
+51 51 404
+51 52 -162
+51 61 -242
+52 52 162
+61 61 242
+166 166 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_47
+constant 1
+linear_nnz 0
+hessian_nnz 6
+52 52 404
+52 53 -162
+52 62 -242
+53 53 162
+62 62 242
+167 167 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_48
+constant 1
+linear_nnz 0
+hessian_nnz 6
+53 53 404
+53 54 -162
+53 63 -242
+54 54 162
+63 63 242
+168 168 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_49
+constant 1
+linear_nnz 0
+hessian_nnz 6
+54 54 404
+54 55 -162
+54 64 -242
+55 55 162
+64 64 242
+169 169 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_50
+constant 1
+linear_nnz 0
+hessian_nnz 6
+55 55 404
+55 56 -162
+55 65 -242
+56 56 162
+65 65 242
+170 170 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_51
+constant 1
+linear_nnz 0
+hessian_nnz 6
+56 56 404
+56 57 -162
+56 66 -242
+57 57 162
+66 66 242
+171 171 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_52
+constant 1
+linear_nnz 0
+hessian_nnz 6
+57 57 404
+57 58 -162
+57 67 -242
+58 58 162
+67 67 242
+172 172 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_53
+constant 1
+linear_nnz 0
+hessian_nnz 6
+58 58 404
+58 59 -162
+58 68 -242
+59 59 162
+68 68 242
+173 173 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_54
+constant 1
+linear_nnz 0
+hessian_nnz 6
+60 60 404
+60 61 -162
+60 70 -242
+61 61 162
+70 70 242
+174 174 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_55
+constant 1
+linear_nnz 0
+hessian_nnz 6
+61 61 404
+61 62 -162
+61 71 -242
+62 62 162
+71 71 242
+175 175 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_56
+constant 1
+linear_nnz 0
+hessian_nnz 6
+62 62 404
+62 63 -162
+62 72 -242
+63 63 162
+72 72 242
+176 176 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_57
+constant 1
+linear_nnz 0
+hessian_nnz 6
+63 63 404
+63 64 -162
+63 73 -242
+64 64 162
+73 73 242
+177 177 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_58
+constant 1
+linear_nnz 0
+hessian_nnz 6
+64 64 404
+64 65 -162
+64 74 -242
+65 65 162
+74 74 242
+178 178 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_59
+constant 1
+linear_nnz 0
+hessian_nnz 6
+65 65 404
+65 66 -162
+65 75 -242
+66 66 162
+75 75 242
+179 179 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_60
+constant 1
+linear_nnz 0
+hessian_nnz 6
+66 66 404
+66 67 -162
+66 76 -242
+67 67 162
+76 76 242
+180 180 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_61
+constant 1
+linear_nnz 0
+hessian_nnz 6
+67 67 404
+67 68 -162
+67 77 -242
+68 68 162
+77 77 242
+181 181 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_62
+constant 1
+linear_nnz 0
+hessian_nnz 6
+68 68 404
+68 69 -162
+68 78 -242
+69 69 162
+78 78 242
+182 182 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_63
+constant 1
+linear_nnz 0
+hessian_nnz 6
+70 70 404
+70 71 -162
+70 80 -242
+71 71 162
+80 80 242
+183 183 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_64
+constant 1
+linear_nnz 0
+hessian_nnz 6
+71 71 404
+71 72 -162
+71 81 -242
+72 72 162
+81 81 242
+184 184 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_65
+constant 1
+linear_nnz 0
+hessian_nnz 6
+72 72 404
+72 73 -162
+72 82 -242
+73 73 162
+82 82 242
+185 185 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_66
+constant 1
+linear_nnz 0
+hessian_nnz 6
+73 73 404
+73 74 -162
+73 83 -242
+74 74 162
+83 83 242
+186 186 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_67
+constant 1
+linear_nnz 0
+hessian_nnz 6
+74 74 404
+74 75 -162
+74 84 -242
+75 75 162
+84 84 242
+187 187 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_68
+constant 1
+linear_nnz 0
+hessian_nnz 6
+75 75 404
+75 76 -162
+75 85 -242
+76 76 162
+85 85 242
+188 188 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_69
+constant 1
+linear_nnz 0
+hessian_nnz 6
+76 76 404
+76 77 -162
+76 86 -242
+77 77 162
+86 86 242
+189 189 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_70
+constant 1
+linear_nnz 0
+hessian_nnz 6
+77 77 404
+77 78 -162
+77 87 -242
+78 78 162
+87 87 242
+190 190 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_71
+constant 1
+linear_nnz 0
+hessian_nnz 6
+78 78 404
+78 79 -162
+78 88 -242
+79 79 162
+88 88 242
+191 191 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_72
+constant 1
+linear_nnz 0
+hessian_nnz 6
+80 80 404
+80 81 -162
+80 90 -242
+81 81 162
+90 90 242
+192 192 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_73
+constant 1
+linear_nnz 0
+hessian_nnz 6
+81 81 404
+81 82 -162
+81 91 -242
+82 82 162
+91 91 242
+193 193 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_74
+constant 1
+linear_nnz 0
+hessian_nnz 6
+82 82 404
+82 83 -162
+82 92 -242
+83 83 162
+92 92 242
+194 194 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_75
+constant 1
+linear_nnz 0
+hessian_nnz 6
+83 83 404
+83 84 -162
+83 93 -242
+84 84 162
+93 93 242
+195 195 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_76
+constant 1
+linear_nnz 0
+hessian_nnz 6
+84 84 404
+84 85 -162
+84 94 -242
+85 85 162
+94 94 242
+196 196 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_77
+constant 1
+linear_nnz 0
+hessian_nnz 6
+85 85 404
+85 86 -162
+85 95 -242
+86 86 162
+95 95 242
+197 197 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_78
+constant 1
+linear_nnz 0
+hessian_nnz 6
+86 86 404
+86 87 -162
+86 96 -242
+87 87 162
+96 96 242
+198 198 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_79
+constant 1
+linear_nnz 0
+hessian_nnz 6
+87 87 404
+87 88 -162
+87 97 -242
+88 88 162
+97 97 242
+199 199 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_80
+constant 1
+linear_nnz 0
+hessian_nnz 6
+88 88 404
+88 89 -162
+88 98 -242
+89 89 162
+98 98 242
+200 200 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_81
+constant 1
+linear_nnz 0
+hessian_nnz 6
+90 90 404
+90 91 -162
+90 100 -242
+91 91 162
+100 100 242
+201 201 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_82
+constant 1
+linear_nnz 0
+hessian_nnz 6
+91 91 404
+91 92 -162
+91 101 -242
+92 92 162
+101 101 242
+202 202 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_83
+constant 1
+linear_nnz 0
+hessian_nnz 6
+92 92 404
+92 93 -162
+92 102 -242
+93 93 162
+102 102 242
+203 203 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_84
+constant 1
+linear_nnz 0
+hessian_nnz 6
+93 93 404
+93 94 -162
+93 103 -242
+94 94 162
+103 103 242
+204 204 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_85
+constant 1
+linear_nnz 0
+hessian_nnz 6
+94 94 404
+94 95 -162
+94 104 -242
+95 95 162
+104 104 242
+205 205 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_86
+constant 1
+linear_nnz 0
+hessian_nnz 6
+95 95 404
+95 96 -162
+95 105 -242
+96 96 162
+105 105 242
+206 206 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_87
+constant 1
+linear_nnz 0
+hessian_nnz 6
+96 96 404
+96 97 -162
+96 106 -242
+97 97 162
+106 106 242
+207 207 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_88
+constant 1
+linear_nnz 0
+hessian_nnz 6
+97 97 404
+97 98 -162
+97 107 -242
+98 98 162
+107 107 242
+208 208 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_89
+constant 1
+linear_nnz 0
+hessian_nnz 6
+98 98 404
+98 99 -162
+98 108 -242
+99 99 162
+108 108 242
+209 209 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_90
+constant 1
+linear_nnz 0
+hessian_nnz 6
+100 100 404
+100 101 -162
+100 110 -242
+101 101 162
+110 110 242
+210 210 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_91
+constant 1
+linear_nnz 0
+hessian_nnz 6
+101 101 404
+101 102 -162
+101 111 -242
+102 102 162
+111 111 242
+211 211 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_92
+constant 1
+linear_nnz 0
+hessian_nnz 6
+102 102 404
+102 103 -162
+102 112 -242
+103 103 162
+112 112 242
+212 212 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_93
+constant 1
+linear_nnz 0
+hessian_nnz 6
+103 103 404
+103 104 -162
+103 113 -242
+104 104 162
+113 113 242
+213 213 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_94
+constant 1
+linear_nnz 0
+hessian_nnz 6
+104 104 404
+104 105 -162
+104 114 -242
+105 105 162
+114 114 242
+214 214 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_95
+constant 1
+linear_nnz 0
+hessian_nnz 6
+105 105 404
+105 106 -162
+105 115 -242
+106 106 162
+115 115 242
+215 215 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_96
+constant 1
+linear_nnz 0
+hessian_nnz 6
+106 106 404
+106 107 -162
+106 116 -242
+107 107 162
+116 116 242
+216 216 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_97
+constant 1
+linear_nnz 0
+hessian_nnz 6
+107 107 404
+107 108 -162
+107 117 -242
+108 108 162
+117 117 242
+217 217 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_98
+constant 1
+linear_nnz 0
+hessian_nnz 6
+108 108 404
+108 109 -162
+108 118 -242
+109 109 162
+118 118 242
+218 218 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_99
+constant 1
+linear_nnz 0
+hessian_nnz 6
+1 1 242
+1 11 -242
+10 10 162
+10 11 -162
+11 11 404
+219 219 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_100
+constant 1
+linear_nnz 0
+hessian_nnz 6
+2 2 242
+2 12 -242
+11 11 162
+11 12 -162
+12 12 404
+220 220 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_101
+constant 1
+linear_nnz 0
+hessian_nnz 6
+3 3 242
+3 13 -242
+12 12 162
+12 13 -162
+13 13 404
+221 221 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_102
+constant 1
+linear_nnz 0
+hessian_nnz 6
+4 4 242
+4 14 -242
+13 13 162
+13 14 -162
+14 14 404
+222 222 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_103
+constant 1
+linear_nnz 0
+hessian_nnz 6
+5 5 242
+5 15 -242
+14 14 162
+14 15 -162
+15 15 404
+223 223 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_104
+constant 1
+linear_nnz 0
+hessian_nnz 6
+6 6 242
+6 16 -242
+15 15 162
+15 16 -162
+16 16 404
+224 224 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_105
+constant 1
+linear_nnz 0
+hessian_nnz 6
+7 7 242
+7 17 -242
+16 16 162
+16 17 -162
+17 17 404
+225 225 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_106
+constant 1
+linear_nnz 0
+hessian_nnz 6
+8 8 242
+8 18 -242
+17 17 162
+17 18 -162
+18 18 404
+226 226 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_107
+constant 1
+linear_nnz 0
+hessian_nnz 6
+9 9 242
+9 19 -242
+18 18 162
+18 19 -162
+19 19 404
+227 227 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_108
+constant 1
+linear_nnz 0
+hessian_nnz 6
+11 11 242
+11 21 -242
+20 20 162
+20 21 -162
+21 21 404
+228 228 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_109
+constant 1
+linear_nnz 0
+hessian_nnz 6
+12 12 242
+12 22 -242
+21 21 162
+21 22 -162
+22 22 404
+229 229 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_110
+constant 1
+linear_nnz 0
+hessian_nnz 6
+13 13 242
+13 23 -242
+22 22 162
+22 23 -162
+23 23 404
+230 230 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_111
+constant 1
+linear_nnz 0
+hessian_nnz 6
+14 14 242
+14 24 -242
+23 23 162
+23 24 -162
+24 24 404
+231 231 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_112
+constant 1
+linear_nnz 0
+hessian_nnz 6
+15 15 242
+15 25 -242
+24 24 162
+24 25 -162
+25 25 404
+232 232 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_113
+constant 1
+linear_nnz 0
+hessian_nnz 6
+16 16 242
+16 26 -242
+25 25 162
+25 26 -162
+26 26 404
+233 233 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_114
+constant 1
+linear_nnz 0
+hessian_nnz 6
+17 17 242
+17 27 -242
+26 26 162
+26 27 -162
+27 27 404
+234 234 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_115
+constant 1
+linear_nnz 0
+hessian_nnz 6
+18 18 242
+18 28 -242
+27 27 162
+27 28 -162
+28 28 404
+235 235 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_116
+constant 1
+linear_nnz 0
+hessian_nnz 6
+19 19 242
+19 29 -242
+28 28 162
+28 29 -162
+29 29 404
+236 236 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_117
+constant 1
+linear_nnz 0
+hessian_nnz 6
+21 21 242
+21 31 -242
+30 30 162
+30 31 -162
+31 31 404
+237 237 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_118
+constant 1
+linear_nnz 0
+hessian_nnz 6
+22 22 242
+22 32 -242
+31 31 162
+31 32 -162
+32 32 404
+238 238 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_119
+constant 1
+linear_nnz 0
+hessian_nnz 6
+23 23 242
+23 33 -242
+32 32 162
+32 33 -162
+33 33 404
+239 239 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_120
+constant 1
+linear_nnz 0
+hessian_nnz 6
+24 24 242
+24 34 -242
+33 33 162
+33 34 -162
+34 34 404
+240 240 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_121
+constant 1
+linear_nnz 0
+hessian_nnz 6
+25 25 242
+25 35 -242
+34 34 162
+34 35 -162
+35 35 404
+241 241 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_122
+constant 1
+linear_nnz 0
+hessian_nnz 6
+26 26 242
+26 36 -242
+35 35 162
+35 36 -162
+36 36 404
+242 242 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_123
+constant 1
+linear_nnz 0
+hessian_nnz 6
+27 27 242
+27 37 -242
+36 36 162
+36 37 -162
+37 37 404
+243 243 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_124
+constant 1
+linear_nnz 0
+hessian_nnz 6
+28 28 242
+28 38 -242
+37 37 162
+37 38 -162
+38 38 404
+244 244 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_125
+constant 1
+linear_nnz 0
+hessian_nnz 6
+29 29 242
+29 39 -242
+38 38 162
+38 39 -162
+39 39 404
+245 245 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_126
+constant 1
+linear_nnz 0
+hessian_nnz 6
+31 31 242
+31 41 -242
+40 40 162
+40 41 -162
+41 41 404
+246 246 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_127
+constant 1
+linear_nnz 0
+hessian_nnz 6
+32 32 242
+32 42 -242
+41 41 162
+41 42 -162
+42 42 404
+247 247 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_128
+constant 1
+linear_nnz 0
+hessian_nnz 6
+33 33 242
+33 43 -242
+42 42 162
+42 43 -162
+43 43 404
+248 248 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_129
+constant 1
+linear_nnz 0
+hessian_nnz 6
+34 34 242
+34 44 -242
+43 43 162
+43 44 -162
+44 44 404
+249 249 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_130
+constant 1
+linear_nnz 0
+hessian_nnz 6
+35 35 242
+35 45 -242
+44 44 162
+44 45 -162
+45 45 404
+250 250 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_131
+constant 1
+linear_nnz 0
+hessian_nnz 6
+36 36 242
+36 46 -242
+45 45 162
+45 46 -162
+46 46 404
+251 251 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_132
+constant 1
+linear_nnz 0
+hessian_nnz 6
+37 37 242
+37 47 -242
+46 46 162
+46 47 -162
+47 47 404
+252 252 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_133
+constant 1
+linear_nnz 0
+hessian_nnz 6
+38 38 242
+38 48 -242
+47 47 162
+47 48 -162
+48 48 404
+253 253 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_134
+constant 1
+linear_nnz 0
+hessian_nnz 6
+39 39 242
+39 49 -242
+48 48 162
+48 49 -162
+49 49 404
+254 254 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_135
+constant 1
+linear_nnz 0
+hessian_nnz 6
+41 41 242
+41 51 -242
+50 50 162
+50 51 -162
+51 51 404
+255 255 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_136
+constant 1
+linear_nnz 0
+hessian_nnz 6
+42 42 242
+42 52 -242
+51 51 162
+51 52 -162
+52 52 404
+256 256 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_137
+constant 1
+linear_nnz 0
+hessian_nnz 6
+43 43 242
+43 53 -242
+52 52 162
+52 53 -162
+53 53 404
+257 257 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_138
+constant 1
+linear_nnz 0
+hessian_nnz 6
+44 44 242
+44 54 -242
+53 53 162
+53 54 -162
+54 54 404
+258 258 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_139
+constant 1
+linear_nnz 0
+hessian_nnz 6
+45 45 242
+45 55 -242
+54 54 162
+54 55 -162
+55 55 404
+259 259 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_140
+constant 1
+linear_nnz 0
+hessian_nnz 6
+46 46 242
+46 56 -242
+55 55 162
+55 56 -162
+56 56 404
+260 260 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_141
+constant 1
+linear_nnz 0
+hessian_nnz 6
+47 47 242
+47 57 -242
+56 56 162
+56 57 -162
+57 57 404
+261 261 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_142
+constant 1
+linear_nnz 0
+hessian_nnz 6
+48 48 242
+48 58 -242
+57 57 162
+57 58 -162
+58 58 404
+262 262 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_143
+constant 1
+linear_nnz 0
+hessian_nnz 6
+49 49 242
+49 59 -242
+58 58 162
+58 59 -162
+59 59 404
+263 263 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_144
+constant 1
+linear_nnz 0
+hessian_nnz 6
+51 51 242
+51 61 -242
+60 60 162
+60 61 -162
+61 61 404
+264 264 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_145
+constant 1
+linear_nnz 0
+hessian_nnz 6
+52 52 242
+52 62 -242
+61 61 162
+61 62 -162
+62 62 404
+265 265 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_146
+constant 1
+linear_nnz 0
+hessian_nnz 6
+53 53 242
+53 63 -242
+62 62 162
+62 63 -162
+63 63 404
+266 266 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_147
+constant 1
+linear_nnz 0
+hessian_nnz 6
+54 54 242
+54 64 -242
+63 63 162
+63 64 -162
+64 64 404
+267 267 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_148
+constant 1
+linear_nnz 0
+hessian_nnz 6
+55 55 242
+55 65 -242
+64 64 162
+64 65 -162
+65 65 404
+268 268 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_149
+constant 1
+linear_nnz 0
+hessian_nnz 6
+56 56 242
+56 66 -242
+65 65 162
+65 66 -162
+66 66 404
+269 269 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_150
+constant 1
+linear_nnz 0
+hessian_nnz 6
+57 57 242
+57 67 -242
+66 66 162
+66 67 -162
+67 67 404
+270 270 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_151
+constant 1
+linear_nnz 0
+hessian_nnz 6
+58 58 242
+58 68 -242
+67 67 162
+67 68 -162
+68 68 404
+271 271 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_152
+constant 1
+linear_nnz 0
+hessian_nnz 6
+59 59 242
+59 69 -242
+68 68 162
+68 69 -162
+69 69 404
+272 272 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_153
+constant 1
+linear_nnz 0
+hessian_nnz 6
+61 61 242
+61 71 -242
+70 70 162
+70 71 -162
+71 71 404
+273 273 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_154
+constant 1
+linear_nnz 0
+hessian_nnz 6
+62 62 242
+62 72 -242
+71 71 162
+71 72 -162
+72 72 404
+274 274 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_155
+constant 1
+linear_nnz 0
+hessian_nnz 6
+63 63 242
+63 73 -242
+72 72 162
+72 73 -162
+73 73 404
+275 275 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_156
+constant 1
+linear_nnz 0
+hessian_nnz 6
+64 64 242
+64 74 -242
+73 73 162
+73 74 -162
+74 74 404
+276 276 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_157
+constant 1
+linear_nnz 0
+hessian_nnz 6
+65 65 242
+65 75 -242
+74 74 162
+74 75 -162
+75 75 404
+277 277 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_158
+constant 1
+linear_nnz 0
+hessian_nnz 6
+66 66 242
+66 76 -242
+75 75 162
+75 76 -162
+76 76 404
+278 278 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_159
+constant 1
+linear_nnz 0
+hessian_nnz 6
+67 67 242
+67 77 -242
+76 76 162
+76 77 -162
+77 77 404
+279 279 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_160
+constant 1
+linear_nnz 0
+hessian_nnz 6
+68 68 242
+68 78 -242
+77 77 162
+77 78 -162
+78 78 404
+280 280 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_161
+constant 1
+linear_nnz 0
+hessian_nnz 6
+69 69 242
+69 79 -242
+78 78 162
+78 79 -162
+79 79 404
+281 281 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_162
+constant 1
+linear_nnz 0
+hessian_nnz 6
+71 71 242
+71 81 -242
+80 80 162
+80 81 -162
+81 81 404
+282 282 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_163
+constant 1
+linear_nnz 0
+hessian_nnz 6
+72 72 242
+72 82 -242
+81 81 162
+81 82 -162
+82 82 404
+283 283 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_164
+constant 1
+linear_nnz 0
+hessian_nnz 6
+73 73 242
+73 83 -242
+82 82 162
+82 83 -162
+83 83 404
+284 284 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_165
+constant 1
+linear_nnz 0
+hessian_nnz 6
+74 74 242
+74 84 -242
+83 83 162
+83 84 -162
+84 84 404
+285 285 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_166
+constant 1
+linear_nnz 0
+hessian_nnz 6
+75 75 242
+75 85 -242
+84 84 162
+84 85 -162
+85 85 404
+286 286 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_167
+constant 1
+linear_nnz 0
+hessian_nnz 6
+76 76 242
+76 86 -242
+85 85 162
+85 86 -162
+86 86 404
+287 287 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_168
+constant 1
+linear_nnz 0
+hessian_nnz 6
+77 77 242
+77 87 -242
+86 86 162
+86 87 -162
+87 87 404
+288 288 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_169
+constant 1
+linear_nnz 0
+hessian_nnz 6
+78 78 242
+78 88 -242
+87 87 162
+87 88 -162
+88 88 404
+289 289 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_170
+constant 1
+linear_nnz 0
+hessian_nnz 6
+79 79 242
+79 89 -242
+88 88 162
+88 89 -162
+89 89 404
+290 290 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_171
+constant 1
+linear_nnz 0
+hessian_nnz 6
+81 81 242
+81 91 -242
+90 90 162
+90 91 -162
+91 91 404
+291 291 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_172
+constant 1
+linear_nnz 0
+hessian_nnz 6
+82 82 242
+82 92 -242
+91 91 162
+91 92 -162
+92 92 404
+292 292 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_173
+constant 1
+linear_nnz 0
+hessian_nnz 6
+83 83 242
+83 93 -242
+92 92 162
+92 93 -162
+93 93 404
+293 293 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_174
+constant 1
+linear_nnz 0
+hessian_nnz 6
+84 84 242
+84 94 -242
+93 93 162
+93 94 -162
+94 94 404
+294 294 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_175
+constant 1
+linear_nnz 0
+hessian_nnz 6
+85 85 242
+85 95 -242
+94 94 162
+94 95 -162
+95 95 404
+295 295 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_176
+constant 1
+linear_nnz 0
+hessian_nnz 6
+86 86 242
+86 96 -242
+95 95 162
+95 96 -162
+96 96 404
+296 296 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_177
+constant 1
+linear_nnz 0
+hessian_nnz 6
+87 87 242
+87 97 -242
+96 96 162
+96 97 -162
+97 97 404
+297 297 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_178
+constant 1
+linear_nnz 0
+hessian_nnz 6
+88 88 242
+88 98 -242
+97 97 162
+97 98 -162
+98 98 404
+298 298 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_179
+constant 1
+linear_nnz 0
+hessian_nnz 6
+89 89 242
+89 99 -242
+98 98 162
+98 99 -162
+99 99 404
+299 299 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_180
+constant 1
+linear_nnz 0
+hessian_nnz 6
+91 91 242
+91 101 -242
+100 100 162
+100 101 -162
+101 101 404
+300 300 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_181
+constant 1
+linear_nnz 0
+hessian_nnz 6
+92 92 242
+92 102 -242
+101 101 162
+101 102 -162
+102 102 404
+301 301 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_182
+constant 1
+linear_nnz 0
+hessian_nnz 6
+93 93 242
+93 103 -242
+102 102 162
+102 103 -162
+103 103 404
+302 302 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_183
+constant 1
+linear_nnz 0
+hessian_nnz 6
+94 94 242
+94 104 -242
+103 103 162
+103 104 -162
+104 104 404
+303 303 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_184
+constant 1
+linear_nnz 0
+hessian_nnz 6
+95 95 242
+95 105 -242
+104 104 162
+104 105 -162
+105 105 404
+304 304 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_185
+constant 1
+linear_nnz 0
+hessian_nnz 6
+96 96 242
+96 106 -242
+105 105 162
+105 106 -162
+106 106 404
+305 305 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_186
+constant 1
+linear_nnz 0
+hessian_nnz 6
+97 97 242
+97 107 -242
+106 106 162
+106 107 -162
+107 107 404
+306 306 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_187
+constant 1
+linear_nnz 0
+hessian_nnz 6
+98 98 242
+98 108 -242
+107 107 162
+107 108 -162
+108 108 404
+307 307 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_188
+constant 1
+linear_nnz 0
+hessian_nnz 6
+99 99 242
+99 109 -242
+108 108 162
+108 109 -162
+109 109 404
+308 308 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_189
+constant 1
+linear_nnz 0
+hessian_nnz 6
+101 101 242
+101 111 -242
+110 110 162
+110 111 -162
+111 111 404
+309 309 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_190
+constant 1
+linear_nnz 0
+hessian_nnz 6
+102 102 242
+102 112 -242
+111 111 162
+111 112 -162
+112 112 404
+310 310 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_191
+constant 1
+linear_nnz 0
+hessian_nnz 6
+103 103 242
+103 113 -242
+112 112 162
+112 113 -162
+113 113 404
+311 311 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_192
+constant 1
+linear_nnz 0
+hessian_nnz 6
+104 104 242
+104 114 -242
+113 113 162
+113 114 -162
+114 114 404
+312 312 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_193
+constant 1
+linear_nnz 0
+hessian_nnz 6
+105 105 242
+105 115 -242
+114 114 162
+114 115 -162
+115 115 404
+313 313 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_194
+constant 1
+linear_nnz 0
+hessian_nnz 6
+106 106 242
+106 116 -242
+115 115 162
+115 116 -162
+116 116 404
+314 314 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_195
+constant 1
+linear_nnz 0
+hessian_nnz 6
+107 107 242
+107 117 -242
+116 116 162
+116 117 -162
+117 117 404
+315 315 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_196
+constant 1
+linear_nnz 0
+hessian_nnz 6
+108 108 242
+108 118 -242
+117 117 162
+117 118 -162
+118 118 404
+316 316 -2
+end_quadratic
+quadratic
+name positive_triangle_norm_197
+constant 1
+linear_nnz 0
+hessian_nnz 6
+109 109 242
+109 119 -242
+118 118 162
+118 119 -162
+119 119 404
+317 317 -2
+end_quadratic
+end_problem

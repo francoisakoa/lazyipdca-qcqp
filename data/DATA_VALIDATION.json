@@ -1,0 +1,29 @@
+{
+  "schema": "lazyqcqp-data-release-validation-r24-v1",
+  "status": "passed",
+  "benchmark_cases": 4078,
+  "dataset_labels": 28,
+  "regimes": {
+    "I": 1037,
+    "Q": 540,
+    "E": 1704,
+    "M": 797
+  },
+  "observations": 65248,
+  "configurations": 16,
+  "unique_input_hash_per_case": true,
+  "unique_start_hash_per_case": true,
+  "primary_manifest_hash_matches_main_observations": true,
+  "legacy_serialization_hashes_retained": 120,
+  "included_frozen_cases": 9,
+  "included_frozen_bytes": 6395435,
+  "collector_complete_subset_test": {
+    "cases": 3,
+    "returncode": 0
+  },
+  "collector_missing_input_test": {
+    "cases": 1,
+    "returncode": 2
+  },
+  "optimizer_invocations": 0
+}

@@ -1,0 +1,19 @@
+\begin{tabular}{@{}llrcr@{}}
+\toprule
+Linear solver & Pair & $N$ & Median $[Q_1,Q_3]$ (\%) & Exact equal\\
+\midrule
+MA27 & SS/SH & 337 & 16.10 [10.88,22.61] & 0\\
+MA27 & SS/HS & 337 & 16.10 [10.50,22.16] & 0\\
+MA27 & SS/HH & 337 & 16.10 [10.88,22.61] & 0\\
+MA27 & HH/SH & 337 & 0.00 [0.00,0.00] & 336\\
+MA27 & HH/HS & 337 & 0.00 [-0.02,0.00] & 0\\
+MA27 & SH/HS & 337 & 0.00 [-0.02,0.00] & 0\\
+\addlinespace
+MUMPS & SS/SH & 337 & 16.10 [10.88,22.61] & 0\\
+MUMPS & SS/HS & 337 & 16.10 [10.50,22.16] & 0\\
+MUMPS & SS/HH & 337 & 16.10 [10.88,22.61] & 0\\
+MUMPS & HH/SH & 337 & 0.00 [0.00,0.00] & 337\\
+MUMPS & HH/HS & 337 & 0.00 [-0.02,0.00] & 0\\
+MUMPS & SH/HS & 337 & 0.00 [-0.02,0.00] & 0\\
+\bottomrule
+\end{tabular}

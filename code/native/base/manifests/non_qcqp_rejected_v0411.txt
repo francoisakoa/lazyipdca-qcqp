@@ -1,0 +1,5 @@
+# These models appeared in the former 8-problem campaign but are not direct
+# QCQPs. The v0.4.11 multi-scale reconstruction gate must reject them.
+BT2
+BT4
+EIGENA2

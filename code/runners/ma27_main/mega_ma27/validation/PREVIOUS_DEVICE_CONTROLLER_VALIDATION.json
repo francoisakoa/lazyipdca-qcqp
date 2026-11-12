@@ -1,0 +1,94 @@
+{
+  "schema": "recovered-previous-mega-ma27-controller-validation-v1",
+  "status": "PASS_CONTROLLER_ONLY",
+  "original_runtime_recovery": "repair_R2/previous_runtime/SOURCE_AUDIT.json",
+  "runtime_files_matched_to_published_previous_device": 32,
+  "controller_kind": "adapted previous MEGA.continuous_loop, executor resource/audit and dataset machinery; no replacement scheduler",
+  "modes": {
+    "principal": {
+      "tasks": 32624,
+      "methods": [
+        "R3",
+        "HH",
+        "HS",
+        "SH",
+        "SS",
+        "SS_legacy",
+        "ipopt_qcqp",
+        "ipopt_mumps"
+      ],
+      "method_order": "published eight-method order"
+    },
+    "with_crossed": {
+      "tasks": 39960,
+      "research_only_IM": [
+        "F_R3",
+        "F_X1",
+        "F_X2",
+        "F_H0"
+      ],
+      "research_each": 1834,
+      "order": "balanced deterministic rotations across12I/M and8E/Q, seed20261108"
+    }
+  },
+  "scientific_model_or_start_changes": false,
+  "sourcecontroller_numerical_algorithm_changes": false,
+  "explicit_backend_change": "all six historical native policies MA27; default Ipopt MA27 and MUMPS",
+  "input_path_policy": "PREPARATION.json authoritative case input; no filename reconstruction or frozen import",
+  "cpu_policy": "same22 continuous0-21; lifetime global CPU lock shared with preparation/default tools",
+  "directions": "final accepted origins available only for four instrumented research cells; historical six remain unavailable",
+  "tests": {
+    "full_matrix_and_new_controller": 6,
+    "original_continuous22_loop": 1,
+    "original_progress": 6,
+    "original_observation_contract": 8,
+    "original_publication": 1,
+    "default_bridge_protocol": 13,
+    "archived_real_default_mumps_logs": 4
+  },
+  "optimizers_invoked_by_controller_tests": 0,
+  "real_ma27_qualification_completed_locally": false,
+  "full1834_or_fixed50_gate_passed": false,
+  "source_changes": [
+    {
+      "path": "MEGA.py",
+      "original_sha256": "041035211863f0218d0ed1ba8a219f6d2dfaa1500f8005333c78ae6ad1cd2ea2",
+      "current_sha256": "041035211863f0218d0ed1ba8a219f6d2dfaa1500f8005333c78ae6ad1cd2ea2"
+    },
+    {
+      "path": "campaign/MEGA.py",
+      "original_sha256": "e76aa45da847f62a88ef694d2a8311b63685ee932bde70d304983c6db7ff4e7d",
+      "current_sha256": "15619b5becea8d93d022268df9ed8087ae09c80945102b86c889cc32b2760b19"
+    },
+    {
+      "path": "campaign/executor.py",
+      "original_sha256": "787ccb60e2b5412d743010b49c533ff2e806c3287d60ff7a9d3626672dfb824d",
+      "current_sha256": "7bcaed29d42dba1be06e1880537e8b6f4165e292c6ccce2d884a97088cd2f5e1"
+    },
+    {
+      "path": "campaign/dataset_schedule.py",
+      "original_sha256": "028863f4155686bb999629487c60a66324eab3b2044ab9645d3510d2ed6b4daf",
+      "current_sha256": "2256cb19f7da641f90113ff20aacf5647a463c6bef9cd9a80697bf61be6f53ef"
+    },
+    {
+      "path": "campaign/progress.py",
+      "original_sha256": "9bd002673eb9a394aab413e79a2b31397e50bb6d6876f656fd1fa450be2ac934",
+      "current_sha256": "19da2d0946262daf3569e661c148f77f98152a3ef4e5fc2760bf6a279206f091"
+    },
+    {
+      "path": "campaign/factorial_runtime.py",
+      "original_sha256": null,
+      "current_sha256": "ccde6df466024ae1501d89fabb82677f6c5762dd9a229bb43b3821f0c5b61de7"
+    },
+    {
+      "path": "campaign/ipopt_worker.py",
+      "original_sha256": "0b63aa5f4b6aa33feb7cda1c267ac53589695a34d05e63a1b7cc8c0a2782a5bb",
+      "current_sha256": "824f00051f33b15823fa51f2fe789d85b12f14313ca897308eb237fd9814ee3d"
+    },
+    {
+      "path": "setup_runtime.py",
+      "original_sha256": "8058b3dc95be41e9f36f43aba4e37bbb21f602538f8ea5aa7b72abdc0fbfc639",
+      "current_sha256": "27afb6cf375c181982d96fa3cd5f40559ed13e8c929a47cae34e8af2556843d8"
+    }
+  ]
+}

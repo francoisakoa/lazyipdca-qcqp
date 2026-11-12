@@ -1,0 +1,200 @@
+{
+  "schema": "refinement-archive-integrity-audit-v1",
+  "passed": true,
+  "archive_path": "/workspace/scratch/da3e31fd0a48/upload/RAFFINEMENT_TERMINE_20261110T121503_184817Z.zip",
+  "archive_sha256": "64bfb6ef47f95327744610803a67369fff6bbc98bb5aad33313cab6899b1df62",
+  "archived_members": 103651,
+  "manifest_original_file_entries": 103635,
+  "verified_complete_or_excerpt_members": 103649,
+  "verified_uncompressed_bytes": 1639882201,
+  "explicitly_excerpted_source_files": 14,
+  "classes": {
+    "strict": 12970,
+    "nonstrict": 1513,
+    "indeterminate": 189
+  },
+  "strict_archived_certificates_checked": 12970,
+  "nonstrict_archived_rejections_checked": 1513,
+  "indeterminate_with_strict_archived_original_audit": 143,
+  "early_indeterminate_installation_binding_absent": [
+    {
+      "case_id": "PGLIB__case30000_goc__sad",
+      "method": "FROZEN_GR3_mumps"
+    },
+    {
+      "case_id": "beam_safety__case_1",
+      "method": "REFINED_GR3_mumps"
+    },
+    {
+      "case_id": "beam_safety__case_1",
+      "method": "REFINED_GHS_ma27"
+    },
+    {
+      "case_id": "beam_safety__case_1",
+      "method": "REFINED_GR3_ma27"
+    },
+    {
+      "case_id": "beam_safety__case_1",
+      "method": "FROZEN_GR3_ma27"
+    },
+    {
+      "case_id": "beam_safety__case_1",
+      "method": "FROZEN_GR3_mumps"
+    },
+    {
+      "case_id": "beam_safety__case_2",
+      "method": "FROZEN_GHS_mumps"
+    },
+    {
+      "case_id": "beam_safety__case_1",
+      "method": "FROZEN_GHS_ma27"
+    },
+    {
+      "case_id": "beam_safety__case_2",
+      "method": "REFINED_GR3_ma27"
+    },
+    {
+      "case_id": "beam_safety__case_2",
+      "method": "REFINED_GR3_mumps"
+    },
+    {
+      "case_id": "beam_safety__case_1",
+      "method": "FROZEN_GHS_mumps"
+    },
+    {
+      "case_id": "beam_safety__case_2",
+      "method": "FROZEN_GR3_mumps"
+    },
+    {
+      "case_id": "beam_safety__case_1",
+      "method": "REFINED_GHS_mumps"
+    },
+    {
+      "case_id": "beam_safety__case_2",
+      "method": "REFINED_GHS_ma27"
+    },
+    {
+      "case_id": "beam_safety__case_2",
+      "method": "REFINED_GHS_mumps"
+    },
+    {
+      "case_id": "beam_safety__case_2",
+      "method": "FROZEN_GHS_ma27"
+    },
+    {
+      "case_id": "beam_safety__case_2",
+      "method": "FROZEN_GR3_ma27"
+    },
+    {
+      "case_id": "beam_safety__case_3",
+      "method": "REFINED_GR3_mumps"
+    },
+    {
+      "case_id": "beam_safety__case_3",
+      "method": "FROZEN_GR3_mumps"
+    },
+    {
+      "case_id": "CBLIB__db-plate-yield-line-fox",
+      "method": "FROZEN_GR3_mumps"
+    },
+    {
+      "case_id": "CBLIB__db-plate-yield-line-fox",
+      "method": "FROZEN_GHS_mumps"
+    },
+    {
+      "case_id": "CBLIB__db-plate-yield-line-fox",
+      "method": "FROZEN_GHS_ma27"
+    },
+    {
+      "case_id": "CBLIB__db-plate-yield-line-fox",
+      "method": "REFINED_GHS_mumps"
+    },
+    {
+      "case_id": "CBLIB__db-plate-yield-line-fox",
+      "method": "REFINED_GHS_ma27"
+    },
+    {
+      "case_id": "CBLIB__db-plate-yield-line-fox",
+      "method": "FROZEN_GR3_ma27"
+    },
+    {
+      "case_id": "CBLIB__db-plate-yield-line-fox",
+      "method": "REFINED_GR3_ma27"
+    },
+    {
+      "case_id": "CBLIB__db-plate-yield-line-fox",
+      "method": "REFINED_GR3_mumps"
+    },
+    {
+      "case_id": "beam_safety__case_3",
+      "method": "REFINED_GHS_mumps"
+    },
+    {
+      "case_id": "beam_safety__case_3",
+      "method": "FROZEN_GHS_mumps"
+    }
+  ],
+  "matrix_cases": 1834,
+  "methods": [
+    "FROZEN_GHS_ma27",
+    "FROZEN_GHS_mumps",
+    "FROZEN_GR3_ma27",
+    "FROZEN_GR3_mumps",
+    "REFINED_GHS_ma27",
+    "REFINED_GHS_mumps",
+    "REFINED_GR3_ma27",
+    "REFINED_GR3_mumps"
+  ],
+  "common_declared_input_sha256_and_raw_start_bindings": true,
+  "common_guard_hashes": {
+    "mumps": [
+      "313d8cda7338500f18e976aa703e6a65a921863e86ea5a96c066466e22f9e662"
+    ],
+    "ma27": [
+      "7d1d0b13248b4ae25c65a92555f481d6ab66c357dbb903faa13c657be507f766"
+    ]
+  },
+  "initial_metric_pair_groups_checked": 7242,
+  "initial_metric_complete_pairs_checked": 7241,
+  "initial_metric_single_available_records": 1,
+  "archive_crc_members_verified": 103651,
+  "binding_references_verified": 295,
+  "metadata_binding_coverage": {
+    "source_snapshot_hash_only_refs": 107,
+    "archived_source_snapshot_refs": 36
+  },
+  "archive_manifest_missing_files": 137,
+  "missing_files_by_classification": {
+    "indeterminate": 137
+  },
+  "export_reported_disk_inconsistencies": [],
+  "qualification_passed": true,
+  "qualification_native_runs": 748,
+  "registration_sealed_utc": "2026-11-10T06:41:08.888509+00:00",
+  "production_started_utc": "2026-11-10T06:41:09.781139+00:00",
+  "original_failed_gate_retained": true,
+  "final_production_intervention_check": {
+    "passed": false,
+    "intervention_integrity_verified": true,
+    "expected_tasks": 14672,
+    "finalized_observations": 14672,
+    "verified_native_interventions": 14483,
+    "incomplete_native_interventions": 189,
+    "failures": [],
+    "finished": true,
+    "case_matrix_sha256": "c6dff8271ec1ec829f6d382aeada395d32e323f2e4d03cb4bdbfe959938de8af",
+    "study_contract_sha256": "1594f649957921bb1ca890ebacc117638e6051dc0a1a5302bac1607d3dbbc480"
+  },
+  "generated_manifest_and_indeterminate_csv_crc_verified": true,
+  "issues": [],
+  "limitations": [
+    "No raw original QCQP inputs or general solver endpoint vectors were supplied; this validates archived audits and bindings, not fresh original KKT residuals.",
+    "Full accepted traces for qualified runs are represented by archived proof/sidecar hashes and summaries, not replayed here.",
+    "Full hashes of excerpted solver logs cannot be recomputed from excerpts; only head/tail members are verified.",
+    "Native binaries/libraries, raw source trees and most original qualification task artifacts remain hash references, not byte-verified local files.",
+    "Production completed does not imply the final intervention check passed; its189 incomplete observations remain indeterminate."
+  ],
+  "optimizer_invocations": 0,
+  "fresh_endpoint_audits": 0,
+  "classification_changes": 0
+}

@@ -1,0 +1,2 @@
+{"schema":"research-curvature-cache-summary-v1","model_instance":1,"mode":"rebuild","preparations":10,"reanchors":10,"quadratic_row_builds":10,"corrected_rows":1,"construction_seconds":0.00066899099999999997,"rebuild_reset_seconds":1.671e-06,"trace_records":30,"reuse_hits":0,"complete":true}
+{"schema":"research-curvature-cache-session-v1","mode":"rebuild","model_instances":1,"solver_returned":true}

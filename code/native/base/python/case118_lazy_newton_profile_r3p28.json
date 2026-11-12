@@ -1,0 +1,17 @@
+[
+  "--algorithm",
+  "lazy-newton",
+  "--linear-backend",
+  "ldl",
+  "--qp-backend",
+  "ldl",
+  "--feas-tol",
+  "1e-6",
+  "--opt-tol",
+  "1e-6",
+  "--dual-inf-tol",
+  "1e-6",
+  "--compl-inf-tol",
+  "1e-6",
+  "--no-live-iterations"
+]

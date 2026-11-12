@@ -1,0 +1,310 @@
+{
+  "schema": "quartet-source-and-observed-preprocessing-audit-v1",
+  "conclusion": "The archived quartet is not a pure 2x2 representation-only ablation: SS differs in exact implied-bound preprocessing, and that difference is effective on all503ASU cases in the MA27 observations.",
+  "optimizer_invocations": 0,
+  "numerical_endpoint_audits": 0,
+  "source_roots": {
+    "mumps": "campaign_20261109/recovered/article/reproduction/qualified_native_source",
+    "ma27": "factorial_20261109/staging/LAZYQCQP_IPOPT_ALIGNE_RAFFINEMENT_20261109_R1/native/reference_source"
+  },
+  "source_validation": {
+    "mumps": {
+      "manifest_files": 823,
+      "identical": 823,
+      "missing": [],
+      "mismatch": []
+    },
+    "ma27": {
+      "manifest_files": 823,
+      "identical": 823,
+      "missing": [],
+      "mismatch": []
+    }
+  },
+  "published_profile_vectors": {
+    "arguments_each": 204,
+    "differences_relative_to_HH": {
+      "HH": [],
+      "HS": [
+        {
+          "index": 133,
+          "HH": "HH",
+          "other": "HS"
+        }
+      ],
+      "SH": [
+        {
+          "index": 133,
+          "HH": "HH",
+          "other": "SH"
+        }
+      ],
+      "SS": [
+        {
+          "index": 133,
+          "HH": "HH",
+          "other": "SS"
+        }
+      ]
+    }
+  },
+  "observed_ma27_asu_runtime_commands": {
+    "cases": 503,
+    "records": 2012,
+    "differences_after_normalizing_mode_and_output_paths": []
+  },
+  "observed_ma27_asu_preprocessing": {
+    "HH": [
+      {
+        "implied_bound_sides": 64,
+        "n_original": 32,
+        "n_reduced": 32,
+        "presolve_applied": true,
+        "cases": 2
+      },
+      {
+        "implied_bound_sides": 128,
+        "n_original": 64,
+        "n_reduced": 64,
+        "presolve_applied": true,
+        "cases": 501
+      }
+    ],
+    "HS": [
+      {
+        "implied_bound_sides": 64,
+        "n_original": 32,
+        "n_reduced": 32,
+        "presolve_applied": true,
+        "cases": 2
+      },
+      {
+        "implied_bound_sides": 128,
+        "n_original": 64,
+        "n_reduced": 64,
+        "presolve_applied": true,
+        "cases": 501
+      }
+    ],
+    "SH": [
+      {
+        "implied_bound_sides": 64,
+        "n_original": 32,
+        "n_reduced": 32,
+        "presolve_applied": true,
+        "cases": 2
+      },
+      {
+        "implied_bound_sides": 128,
+        "n_original": 64,
+        "n_reduced": 64,
+        "presolve_applied": true,
+        "cases": 501
+      }
+    ],
+    "SS": [
+      {
+        "implied_bound_sides": 0,
+        "n_original": 32,
+        "n_reduced": 32,
+        "presolve_applied": false,
+        "cases": 2
+      },
+      {
+        "implied_bound_sides": 0,
+        "n_original": 64,
+        "n_reduced": 64,
+        "presolve_applied": false,
+        "cases": 501
+      }
+    ]
+  },
+  "source_evidence": [
+    {
+      "path": "src/rank_presolve.cpp",
+      "lines": [
+        925,
+        931
+      ],
+      "finding": "Mode-dependent equality-implied-bound removal enabled for HH/HS/SH and disabled for SS.",
+      "sha256_mumps": "0ef623f2465076ab1c6ab194fa029d498867bf27d84eb9ec8a595307a15f9773",
+      "sha256_ma27": "0ef623f2465076ab1c6ab194fa029d498867bf27d84eb9ec8a595307a15f9773"
+    },
+    {
+      "path": "src/rank_presolve.cpp",
+      "lines": [
+        418,
+        446
+      ],
+      "finding": "Exact removal of bounds implied by diagonal quadratic equalities; removes barrier bound rows while retaining original equality.",
+      "sha256_mumps": "0ef623f2465076ab1c6ab194fa029d498867bf27d84eb9ec8a595307a15f9773",
+      "sha256_ma27": "0ef623f2465076ab1c6ab194fa029d498867bf27d84eb9ec8a595307a15f9773"
+    },
+    {
+      "path": "src/dca_inequality_majorant_engine.hpp",
+      "lines": [
+        1771,
+        1775
+      ],
+      "finding": "All quartet modes enter the same support-study group and r3 controller when requested.",
+      "sha256_mumps": "0d3b63f8768989658f3b51ec777156d6811b547d84736322fcda3a1a7a3778dc",
+      "sha256_ma27": "43e4358e1d9adfbccbf3e5c853dbd89f2275eeeb83796c7025422340aeb43ba6"
+    },
+    {
+      "path": "src/dca_inequality_majorant_engine.hpp",
+      "lines": [
+        1851,
+        1877
+      ],
+      "finding": "Equality treatment, original filter and single auxiliary Newton route controlled by common r3_hybrid boolean for quartet.",
+      "sha256_mumps": "0d3b63f8768989658f3b51ec777156d6811b547d84736322fcda3a1a7a3778dc",
+      "sha256_ma27": "43e4358e1d9adfbccbf3e5c853dbd89f2275eeeb83796c7025422340aeb43ba6"
+    },
+    {
+      "path": "include/lazyipdca_qcqp/convexification_study.hpp",
+      "lines": [
+        156,
+        163
+      ],
+      "finding": "H/S letters select correction family by role; all quartet modes use support correction.",
+      "sha256_mumps": "8b3baaadde08136ffdc5a46b98754b7e998ce1c7e2b37b6ec17ec6e3f55bdb08",
+      "sha256_ma27": "8b3baaadde08136ffdc5a46b98754b7e998ce1c7e2b37b6ec17ec6e3f55bdb08"
+    },
+    {
+      "path": "include/lazyipdca_qcqp/convexification_study.hpp",
+      "lines": [
+        618,
+        640
+      ],
+      "finding": "Hybrid and support-scalar initial constructors share the same initial correction; certified original PSD gives zero correction.",
+      "sha256_mumps": "8b3baaadde08136ffdc5a46b98754b7e998ce1c7e2b37b6ec17ec6e3f55bdb08",
+      "sha256_ma27": "8b3baaadde08136ffdc5a46b98754b7e998ce1c7e2b37b6ec17ec6e3f55bdb08"
+    },
+    {
+      "path": "src/dca_convexification_study_models.hpp",
+      "lines": [
+        334,
+        438
+      ],
+      "finding": "Common model-update/rollback controller, with family-dependent hybrid enrichment and scalar residual refinement.",
+      "sha256_mumps": "bce38cb6c7df8b026763d023dd18f95585c1ab3162dbb0ac3f1a6477675cff99",
+      "sha256_ma27": "4a5db2a642a0e6847a752f2445ec78a313f5d93a1f4446febceb846797c30978"
+    },
+    {
+      "path": "src/dca_convexification_study_models.hpp",
+      "lines": [
+        194,
+        198
+      ],
+      "finding": "Committed study objective rho is represented by rho_lagrangian, not generic lazy_newton_objective_correction_rank.",
+      "sha256_mumps": "bce38cb6c7df8b026763d023dd18f95585c1ab3162dbb0ac3f1a6477675cff99",
+      "sha256_ma27": "4a5db2a642a0e6847a752f2445ec78a313f5d93a1f4446febceb846797c30978"
+    }
+  ],
+  "observed_example": [
+    {
+      "case_id": "beam__asu_public_g0001_u4_rf4",
+      "method": "HH",
+      "backend": "ma27",
+      "classification": "strict",
+      "input_sha256": "53831baff93ccae0455352cbadd53172ce185b91c2038be8c2c2c4bf8899d572",
+      "start_sha256": "f7f689854a1bb9cdee94af425e246592cfcf319f12eb11a418398414080d613e",
+      "rank_presolve_applied": true,
+      "rank_presolve_implied_bound_sides": 128,
+      "original_variables": 64,
+      "reduced_variables": 64,
+      "original_equalities": 32,
+      "reduced_equalities": 32,
+      "objective": 1.6072014512860424,
+      "source_record_sha256": "490093e2745d6414f053a8eee6eaa8ce2c79c737bdc0056e4b42bfc6090bce56"
+    },
+    {
+      "case_id": "beam__asu_public_g0001_u4_rf4",
+      "method": "HS",
+      "backend": "ma27",
+      "classification": "strict",
+      "input_sha256": "53831baff93ccae0455352cbadd53172ce185b91c2038be8c2c2c4bf8899d572",
+      "start_sha256": "f7f689854a1bb9cdee94af425e246592cfcf319f12eb11a418398414080d613e",
+      "rank_presolve_applied": true,
+      "rank_presolve_implied_bound_sides": 128,
+      "original_variables": 64,
+      "reduced_variables": 64,
+      "original_equalities": 32,
+      "reduced_equalities": 32,
+      "objective": 1.607201451335409,
+      "source_record_sha256": "a307a62529ea6d9f3e58df85deda0eed414fc8ec73025912f3134900d057ef0b"
+    },
+    {
+      "case_id": "beam__asu_public_g0001_u4_rf4",
+      "method": "SH",
+      "backend": "ma27",
+      "classification": "strict",
+      "input_sha256": "53831baff93ccae0455352cbadd53172ce185b91c2038be8c2c2c4bf8899d572",
+      "start_sha256": "f7f689854a1bb9cdee94af425e246592cfcf319f12eb11a418398414080d613e",
+      "rank_presolve_applied": true,
+      "rank_presolve_implied_bound_sides": 128,
+      "original_variables": 64,
+      "reduced_variables": 64,
+      "original_equalities": 32,
+      "reduced_equalities": 32,
+      "objective": 1.6072014512860424,
+      "source_record_sha256": "5648a33bd41731660913735f6e69ff0c926ac737367e409384cb1046bb39305c"
+    },
+    {
+      "case_id": "beam__asu_public_g0001_u4_rf4",
+      "method": "SS",
+      "backend": "ma27",
+      "classification": "strict",
+      "input_sha256": "53831baff93ccae0455352cbadd53172ce185b91c2038be8c2c2c4bf8899d572",
+      "start_sha256": "f7f689854a1bb9cdee94af425e246592cfcf319f12eb11a418398414080d613e",
+      "rank_presolve_applied": false,
+      "rank_presolve_implied_bound_sides": 0,
+      "original_variables": 64,
+      "reduced_variables": 64,
+      "original_equalities": 32,
+      "reduced_equalities": 32,
+      "objective": 2.2405146425161866,
+      "source_record_sha256": "43e183c1ca90749219e67292a57a801b8a7458c8eec654b43dd8dd3703c4b372"
+    }
+  ],
+  "clean_conditional_edges": [
+    "SH versus HH: objective representation only, shared hybrid inequality and implied-bound treatment.",
+    "HS versus HH: inequality representation only, shared hybrid objective and implied-bound treatment."
+  ],
+  "confounded_edges": [
+    "SS versus SH",
+    "SS versus HS",
+    "SS versus HH"
+  ],
+  "objective_zero_question": {
+    "established": false,
+    "reason": "ASU frozen coefficients and committed construction/update traces are absent locally; generic objective-rank counters cannot certify a zero study correction.",
+    "code_condition": "If the original objective is certified PSD, both constructors keep zero correction; otherwise history-dependent hybrid refinement may differ.",
+    "HH_SH_endpoint_equality_is_insufficient": true
+  },
+  "mumps_runtime_limit": "Exact source and profile path are authenticated. Archived MUMPS projection omits the detailed rank-preprocessing counters, so MA27 observed per-case counts are not represented as separately measured MUMPS counters.",
+  "input_sha256": {
+    "MA27_observations": "d082f3d73e5e0d50d5ba8f76931494d1aa31507e919693cc984f48cd7cba85fe",
+    "MA27_plan": "cdc04a1838096618fe82ea651daecc8837b9a7ee48348cd2d7d2ce3064af8be3",
+    "published_mumps_context": "de32c4f51979f5844b110a9e2cd8ea10d1c60aa108e606fff6d3f62cccdbba20"
+  },
+  "outputs": {
+    "csv_sha256": "115afad5dce3bb2a0b66aee9bc903ec2d0c06eb4adb72bafc15169a04d8d10d9"
+  },
+  "ongoing_refinement_design_readonly_check": {
+    "optimizer_invocations": 0,
+    "remote_campaign_touched": false,
+    "all_eight_cells_common_guards": "r3",
+    "all_eight_cells_same_convexification_mode": "HH",
+    "shared_initial_inequality_representation": "hybrid",
+    "planned_varied_factor": "continued refinement frozen versus adaptive, crossed with declared globalization",
+    "historical_SS_mode_asymmetry_reintroduced": false,
+    "basis": "PROFILES_EXPERIENCE.py:10,38\u201342 fixes common guards r3; settings.hpp:40\u201348 selects preprocessing by common guard; rank_presolve.cpp:925\u2013931 uses that selector when factorial is active.",
+    "limit": "Source-design inspection only, not a qualification of remote execution or completed outcomes.",
+    "source_sha256": {
+      "factorial_20261109/kit/LAZYQCQP_REFINEMENT_ABLATION_20261109_R1/runtime/PROFILES_EXPERIENCE.py": "63710b2884bf3e3585d1f497daf75a4578b8c370275a4b247a37113821d755a7",
+      "factorial_20261109/kit/LAZYQCQP_REFINEMENT_ABLATION_20261109_R1/native/experiment_source/include/lazyipdca_qcqp/settings.hpp": "cf7e2b3128022802b8d0a98adcf190456eaaf5ba55ac49b8ddb80c258d9aa357",
+      "factorial_20261109/kit/LAZYQCQP_REFINEMENT_ABLATION_20261109_R1/native/experiment_source/src/rank_presolve.cpp": "3965303c1b31275768be1b49e76408f3a302db4286fa8111c03c3ba48e290c7b"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+The available observation counters do not establish that all ASU objective corrections vanish.
+
+The native source has two separate notions:
+- study correction storage, committed via study_install and q.study_model_scalar;
+- generic lazy_newton_objective_correction_rank / objective_atoms counters.
+The latter are zero in the example across the quartet, but this does not certify a zero committed study correction. The source records the committed study scalar in dca_filter.rho_lagrangian (dca_convexification_study_models.hpp:194-198), which is not present in the exported internal_work map examined here.
+
+A certified PSD original objective causes both construct_hybrid and construct_support_scalar to retain zero correction (convexification_study.hpp:618-640). The scalar constructor calls the hybrid initial constructor, then changes the family label. If the original objective is indefinite or its PSD status is unresolved, the two policies can later differ by hybrid enrichment. Equality of final objectives cannot decide which case occurred.
+
+To close this narrower question without new optimization, retrieve either frozen ASU objective coefficients with input-hash binding, or existing solver.log CONVEXIFICATION objective construct/committed model events (including Q, rho and hybrid atoms). The supplied archives only catalogue the ASU input hashes; no ASU input.qcq or committed model logs were found locally.

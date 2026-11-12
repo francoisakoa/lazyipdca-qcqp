@@ -1,0 +1,56 @@
+{
+  "version": "0.4.26-reference-tangent-activation",
+  "api": 4260,
+  "release_ctest": {
+    "passed": 62,
+    "total": 62
+  },
+  "sanitizer_targeted": {
+    "passed": 4,
+    "total": 4,
+    "sanitizers": [
+      "address",
+      "undefined"
+    ]
+  },
+  "catenary_like_200": {
+    "initial_feasibility": 28655.4,
+    "harmonic_feasibility": 0.819097,
+    "tangent_activation_feasibility": 0.0904517,
+    "final_feasibility": 8.53306e-08,
+    "phase1_iterations": 28,
+    "minimum_y_edge": 0.381773,
+    "maximum_y_edge": 0.890613,
+    "ablation_minimum_y_edge": 0.0,
+    "activation_components": 1
+  },
+  "catena_like_200": {
+    "initial_feasibility": 0.28,
+    "harmonic_feasibility": 0.28,
+    "final_feasibility": 1.09447e-07,
+    "phase1_iterations": 57,
+    "activation_acceptances": 0
+  },
+  "first_majorant_step_control": {
+    "predictions": 1,
+    "retries": 0,
+    "raw_direction_inf": 0.918182,
+    "target_inf": 1.01,
+    "model_proximal": 10.8911,
+    "accepted_alpha": 1.0
+  },
+  "catenary_multiplier_transport_50": {
+    "status": "solved",
+    "dual_infeasibility": 2.75122e-10,
+    "outer_iterations": 42,
+    "multiplier_refit_successes": 83,
+    "row_space_factorizations": 86,
+    "row_space_solves": 86,
+    "terminal_kkt_accepted_steps": 2
+  },
+  "external_validation_required": [
+    "CATENARY",
+    "CATENA",
+    "CORE2"
+  ]
+}

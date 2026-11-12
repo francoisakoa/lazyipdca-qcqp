@@ -1,0 +1,25 @@
+{
+  "extraction": "ASU scalar fields are copied without rounding from campaign RESULTS.jsonl. Persistence fields are copied from finalized run RESULT.json, preserving selected artifact hashes and numerical-core digests.",
+  "raw_archives": [
+    {
+      "bytes": 215861539,
+      "filename": "BORNES_CHRONOS_RESULTATS_20261110T200057_295779Z.zip",
+      "sha256": "1c77b18364c4a402d23c229890f15c1fdfbfa124a9c7b340012ffed2805c8489"
+    },
+    {
+      "bytes": 79822882,
+      "filename": "BORNES_CHRONOS_RESULTATS_20261111T055025_708477Z.zip",
+      "sha256": "2808f5a40cacada1acb422ef3e7202d3da75b33cc6087437a5dbdf74cfd8b796"
+    }
+  ],
+  "retained_counts": {
+    "asu_observations": 6036,
+    "persistence_qualification": 72,
+    "persistence_timed_observations": 144
+  },
+  "scalar_sources": {
+    "ASU/campagne/RESULTS.jsonl": "45bd109ed34a1312fadc4e30a04688c5e8ec45688b3778cf11ff8dc2f39d02ed"
+  },
+  "schema": "two-campaign-r18-compact-provenance-v1",
+  "scope": "Scalar extracts and verified audit/control receipts; no new optimization or endpoint-vector recertification."
+}

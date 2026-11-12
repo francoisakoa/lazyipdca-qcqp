@@ -1,0 +1,196 @@
+{
+  "status": "PASS",
+  "scope": "503 fixed ASU cases, 3 native policies, 2 bound states and 2 linear backends",
+  "sole_intervention": "Gate of the existing arithmetic-proof quadratic-equality-implied bound removal; all other solver options matched within policy/backend",
+  "patch_reconstruction": {
+    "reference_files": 823,
+    "research_files": 824,
+    "receipt_exact": true,
+    "changed_files": [
+      "include/lazyipdca_qcqp/settings.hpp",
+      "src/main.cpp",
+      "src/rank_presolve.cpp",
+      "src/research_equality_implied_bounds.hpp"
+    ],
+    "optimizer_invocations": 0
+  },
+  "runtime_source_hash_matches": [
+    "BOUNDS.py",
+    "PROFILES_BOUNDS.py",
+    "REFERENCE_PROFILES.json",
+    "NATIVE_PROOF.py",
+    "REUSE_BOUNDS.py",
+    "QUALIFIER_BOUNDS.py",
+    "runtime_base/CAMPAGNE.py",
+    "runtime_base/FROZEN_INPUTS.py",
+    "runtime_base/AUDIT_ORIGINAL.py",
+    "runtime_base/frozen_qcqp_reader.py"
+  ],
+  "profile_pair_checks": [
+    {
+      "policy": "R3",
+      "backend": "ma27",
+      "sole_changed_option": "--research-equality-implied-bounds keep|remove"
+    },
+    {
+      "policy": "SS",
+      "backend": "ma27",
+      "sole_changed_option": "--research-equality-implied-bounds keep|remove"
+    },
+    {
+      "policy": "HH",
+      "backend": "ma27",
+      "sole_changed_option": "--research-equality-implied-bounds keep|remove"
+    },
+    {
+      "policy": "R3",
+      "backend": "mumps",
+      "sole_changed_option": "--research-equality-implied-bounds keep|remove"
+    },
+    {
+      "policy": "SS",
+      "backend": "mumps",
+      "sole_changed_option": "--research-equality-implied-bounds keep|remove"
+    },
+    {
+      "policy": "HH",
+      "backend": "mumps",
+      "sole_changed_option": "--research-equality-implied-bounds keep|remove"
+    }
+  ],
+  "qualification": {
+    "observations": 144,
+    "pairs": 72,
+    "all_reference_profile_controls_pass": true,
+    "clock_exclusions": "dictionary keys ending _seconds only",
+    "historical_mumps_equivalence_claimed": false,
+    "homogeneous_common_reference": true
+  },
+  "frozen_input_and_start_identities": {
+    "cases": 503,
+    "same_per_case_across_all_12_cells": true
+  },
+  "intervention_observation_count": {
+    "verified": 6014,
+    "indeterminate_without_proof": 22
+  },
+  "certification_counts": {
+    "SS_remove_ma27": {
+      "strict": 334,
+      "nonstrict": 165,
+      "indeterminate": 4
+    },
+    "SS_keep_mumps": {
+      "strict": 374,
+      "nonstrict": 127,
+      "indeterminate": 2
+    },
+    "R3_keep_ma27": {
+      "strict": 375,
+      "nonstrict": 128
+    },
+    "R3_keep_mumps": {
+      "strict": 375,
+      "nonstrict": 128
+    },
+    "HH_remove_mumps": {
+      "strict": 374,
+      "nonstrict": 127,
+      "indeterminate": 2
+    },
+    "R3_remove_ma27": {
+      "strict": 312,
+      "nonstrict": 191
+    },
+    "SS_remove_mumps": {
+      "strict": 333,
+      "nonstrict": 165,
+      "indeterminate": 5
+    },
+    "HH_remove_ma27": {
+      "strict": 374,
+      "nonstrict": 127,
+      "indeterminate": 2
+    },
+    "R3_remove_mumps": {
+      "strict": 312,
+      "nonstrict": 191
+    },
+    "SS_keep_ma27": {
+      "strict": 374,
+      "nonstrict": 128,
+      "indeterminate": 1
+    },
+    "HH_keep_mumps": {
+      "strict": 374,
+      "nonstrict": 126,
+      "indeterminate": 3
+    },
+    "HH_keep_ma27": {
+      "strict": 374,
+      "nonstrict": 126,
+      "indeterminate": 3
+    }
+  },
+  "removed_bound_sides": {
+    "SS_remove_ma27": {
+      "128": 497,
+      "64": 2
+    },
+    "SS_keep_mumps": {
+      "0": 501
+    },
+    "R3_keep_ma27": {
+      "0": 503
+    },
+    "R3_keep_mumps": {
+      "0": 503
+    },
+    "HH_remove_mumps": {
+      "128": 499,
+      "64": 2
+    },
+    "R3_remove_ma27": {
+      "128": 501,
+      "64": 2
+    },
+    "SS_remove_mumps": {
+      "128": 496,
+      "64": 2
+    },
+    "HH_remove_ma27": {
+      "128": 499,
+      "64": 2
+    },
+    "R3_remove_mumps": {
+      "128": 501,
+      "64": 2
+    },
+    "SS_keep_ma27": {
+      "0": 502
+    },
+    "HH_keep_mumps": {
+      "0": 500
+    },
+    "HH_keep_ma27": {
+      "0": 500
+    }
+  },
+  "extra_counts": {
+    "budget_verified": 6014,
+    "inequality-majorants/ma27": 3008,
+    "pilot_promoted": 144,
+    "inequality-majorants/mumps": 3006
+  },
+  "proof_explanation": "A retained equality sum_j a_j x_j^2 + c = 0 with a_j>0 and c<0 implies |x_j| <= sqrt(-c/a_j). A box side with a_j*b^2+c>=0 is redundant. This sign is certified by guarded FMA error-free expansions at exact binary64 input coefficients. The equality remains; uncertain arithmetic rejects removal. Affine equality and radial inequality rules are unchanged.",
+  "limitations": [
+    "Original input QCQ files are not in the export; no fresh coefficient-by-coefficient reproof of all 503 cases was executed here.",
+    "Endpoint vectors were omitted; original audit records are inspected rather than recomputed from raw final vectors.",
+    "One run per configuration under up to 22 concurrent tasks; no quiet repeated timing claim follows.",
+    "Objective gains are conditional on joint original-KKT certification; report loss of R3/SS certificate coverage alongside objective medians.",
+    "The six-cell common cohort is a useful sensitivity check, but remains a post-treatment success intersection.",
+    "No global optimality follows from better objectives and KKT certificates.",
+    "Policy comparisons also change their declared globalization/controller options; only keep/remove within a fixed policy/backend isolates bounds.",
+    "No Ipopt ablation is included; do not attribute 100% of an old Ipopt objective gap to bounds or silently equate the common research MUMPS source with its historical producer."
+  ]
+}

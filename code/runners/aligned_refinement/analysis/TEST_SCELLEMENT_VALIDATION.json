@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "tests": 10,
+  "failures": 0,
+  "errors": 0,
+  "sealer_sha256": "8a808dda5ce22600fcb9cb50f6389143fccd034087d9fca41f2f6a3f326a071e",
+  "scope": "Synthetic file/provenance fixtures only; no real native qualification or production authorization",
+  "optimizer_invocations": 0
+}

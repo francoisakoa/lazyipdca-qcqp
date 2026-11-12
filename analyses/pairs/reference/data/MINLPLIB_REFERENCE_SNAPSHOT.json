@@ -1,0 +1,78 @@
+{
+  "schema": "minlplib-reference-point-snapshot-v1",
+  "retrieved_date": "2026-11-09",
+  "reference_scope": "published primal-bound group, reported infeasibility <=1e-8; not certified global optima",
+  "high_precision_sensitivity_threshold": 1e-09,
+  "instances": {
+    "emfl050_3_3": {
+      "points": [
+        [
+          10.40173999,
+          1e-10
+        ],
+        [
+          10.40173793,
+          2e-10
+        ],
+        [
+          10.40180127,
+          3e-11
+        ]
+      ],
+      "dual": 10.40173999
+    },
+    "emfl050_5_5": {
+      "points": [
+        [
+          18.91343512,
+          1e-10
+        ],
+        [
+          18.91340776,
+          8e-10
+        ],
+        [
+          18.91351081,
+          4e-11
+        ],
+        [
+          18.91165289,
+          1e-08
+        ]
+      ],
+      "dual": 18.91340776
+    },
+    "emfl100_3_3": {
+      "points": [
+        [
+          18.13236088,
+          1e-08
+        ],
+        [
+          18.13265099,
+          2e-10
+        ],
+        [
+          18.13262446,
+          1e-10
+        ]
+      ],
+      "dual": 18.13262446
+    },
+    "emfl100_5_5": {
+      "points": [
+        [
+          32.63818348,
+          1e-10
+        ]
+      ],
+      "dual": 32.63818348
+    }
+  },
+  "source_urls": {
+    "emfl050_3_3": "https://www.minlplib.org/emfl050_3_3.html",
+    "emfl050_5_5": "https://www.minlplib.org/emfl050_5_5.html",
+    "emfl100_3_3": "https://www.minlplib.org/emfl100_3_3.html",
+    "emfl100_5_5": "https://www.minlplib.org/emfl100_5_5.html"
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "schema": "streaming-interval-audit-on-archived-original-points-v1",
+  "status": "PASS",
+  "auditor_sha256": "11c34bbea7b70ea6c7dd4bc0eb3933b2a5afa17660aa7d1a61ae0b56ae52a9da",
+  "rows": [
+    {
+      "task": "mitt_boundary_cont6_n0004__HH",
+      "strict_qcqp": true,
+      "audit_precision": "streaming_outward_binary64_fsum",
+      "residual_upper": {
+        "primal": 4.440892098500628e-15,
+        "dual": 6.541467393356311e-09,
+        "complementarity": 5.725224642805583e-07
+      }
+    },
+    {
+      "task": "mitt_boundary_cont6_n0004__R3",
+      "strict_qcqp": true,
+      "audit_precision": "streaming_outward_binary64_fsum",
+      "residual_upper": {
+        "primal": 3.996802888650565e-15,
+        "dual": 6.541467393301677e-09,
+        "complementarity": 5.725224642805485e-07
+      }
+    },
+    {
+      "task": "mitt_boundary_cont6_n0069__HH",
+      "strict_qcqp": true,
+      "audit_precision": "streaming_outward_binary64_fsum",
+      "residual_upper": {
+        "primal": 9.325873406851318e-15,
+        "dual": 1.385430408185171e-07,
+        "complementarity": 5.10886530974625e-07
+      }
+    },
+    {
+      "task": "mitt_boundary_cont6_n0069__R3",
+      "strict_qcqp": true,
+      "audit_precision": "streaming_outward_binary64_fsum",
+      "residual_upper": {
+        "primal": 1.2434497875801756e-14,
+        "dual": 1.4389298961285083e-07,
+        "complementarity": 5.163039973141091e-07
+      }
+    },
+    {
+      "task": "mitt_boundary_cont6_n0070__HH",
+      "strict_qcqp": false,
+      "audit_precision": "streaming_outward_binary64_fsum",
+      "residual_upper": {
+        "primal": 0.08440941892464382,
+        "dual": 0.6564626843007996,
+        "complementarity": 0.7211981241719426
+      }
+    },
+    {
+      "task": "mitt_boundary_cont6_n0070__R3",
+      "strict_qcqp": true,
+      "audit_precision": "streaming_outward_binary64_fsum",
+      "residual_upper": {
+        "primal": 6.661338147750941e-15,
+        "dual": 1.2678891294868295e-07,
+        "complementarity": 4.701122701362106e-07
+      }
+    },
+    {
+      "task": "mitt_boundary_cont6_n0071__HH",
+      "strict_qcqp": false,
+      "audit_precision": "streaming_outward_binary64_fsum",
+      "residual_upper": {
+        "primal": 0.08323969148642611,
+        "dual": 0.6565396443869056,
+        "complementarity": 0.7111529816482715
+      }
+    },
+    {
+      "task": "mitt_boundary_cont6_n0071__R3",
+      "strict_qcqp": true,
+      "audit_precision": "streaming_outward_binary64_fsum",
+      "residual_upper": {
+        "primal": 5.7731597280508156e-15,
+        "dual": 1.2210798312044037e-07,
+        "complementarity": 4.818417130638854e-07
+      }
+    },
+    {
+      "task": "mitt_boundary_cont6_n0072__HH",
+      "strict_qcqp": false,
+      "audit_precision": "streaming_outward_binary64_fsum",
+      "residual_upper": {
+        "primal": 0.08210190655444317,
+        "dual": 0.6566162829455872,
+        "complementarity": 0.701376396022563
+      }
+    },
+    {
+      "task": "mitt_boundary_cont6_n0072__R3",
+      "strict_qcqp": true,
+      "audit_precision": "streaming_outward_binary64_fsum",
+      "residual_upper": {
+        "primal": 7.99360577730113e-15,
+        "dual": 1.2333671700607566e-07,
+        "complementarity": 4.7631512538724236e-07
+      }
+    },
+    {
+      "task": "mitt_boundary_cont6_n0103__HH",
+      "strict_qcqp": false,
+      "audit_precision": "streaming_outward_binary64_fsum",
+      "residual_upper": {
+        "primal": 0.05766068949258675,
+        "dual": 0.6587286018889171,
+        "complementarity": 0.5955597400626405
+      }
+    },
+    {
+      "task": "mitt_boundary_cont6_n0103__R3",
+      "strict_qcqp": true,
+      "audit_precision": "streaming_outward_binary64_fsum",
+      "residual_upper": {
+        "primal": 7.99360577730113e-15,
+        "dual": 2.0182981150206335e-07,
+        "complementarity": 6.416759790547488e-07
+      }
+    }
+  ],
+  "strict": 8,
+  "nonstrict": 4,
+  "optimizer_invocations": 0
+}

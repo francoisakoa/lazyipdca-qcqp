@@ -1,0 +1,54 @@
+{
+  "abstract_words": 249,
+  "component_index": "i",
+  "equality_index": "j",
+  "labels_renamed": {
+    "eq:sharp-qcqp": "eq:attainment-qcqp",
+    "supp:smooth-sharp": "supp:smooth-attainment",
+    "eq:smooth-sharp-example": "eq:smooth-attainment-example"
+  },
+  "no_sharp_wording_in_manuscript_or_supplement": true,
+  "AI_declaration_unchanged": true,
+  "all_numerical_tokens_preserved": true,
+  "all_table_and_figure_environments_preserved": true,
+  "editorial_replacements": 35,
+  "mathematics_preserved_up_to_dummy_index_and_label_renaming": true,
+  "unchanged_analysis_files": 155,
+  "unchanged_figure_files": 10,
+  "documents": {
+    "main": {
+      "pages": 33,
+      "sha256": "1f6096b07de0343f38d949d1e7c3d3c86784fa994d899fb1b4902939502073b7",
+      "undefined_references": false,
+      "overfull_boxes": false,
+      "missing_glyphs": false,
+      "detailed_rendered_pages": [
+        1,
+        4,
+        5,
+        6,
+        13,
+        29,
+        30
+      ]
+    },
+    "supplement": {
+      "pages": 65,
+      "sha256": "ad02dc1d06448fdb43867229bd440f944521f98ffe2697044e41d0712b2d4ec9",
+      "undefined_references": false,
+      "overfull_boxes": false,
+      "missing_glyphs": false,
+      "detailed_rendered_pages": [
+        15,
+        16,
+        17,
+        53,
+        54,
+        58,
+        59
+      ]
+    }
+  },
+  "bibliography_unchanged": true,
+  "visual_review": "pass: abstract, active-set definition, kappa interpretation, theorem and attainment proof, related-work comparison, conclusion and supplementary attainment example inspected; equations readable and layouts preserved"
+}

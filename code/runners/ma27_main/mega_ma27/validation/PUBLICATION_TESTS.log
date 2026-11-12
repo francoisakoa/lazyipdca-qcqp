@@ -1,0 +1,6 @@
+test_raw_false_becomes_indeterminate_without_transient_failure (__main__.PublicationTests.test_raw_false_becomes_indeterminate_without_transient_failure) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+OK

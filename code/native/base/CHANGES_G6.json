@@ -1,0 +1,29 @@
+{
+  "identity": {
+    "version": "0.4.28r3p28g6-research-dca",
+    "api_version": 4332,
+    "build_id": "v0.4.28r3p28g6-research-dca-api-4332",
+    "branch": "filter-lazy-dca-research",
+    "parent": "0.4.28r3p28g5-adaptive-dca",
+    "performance_target_met": false
+  },
+  "default_cli_research_flags": false,
+  "runner_default_research_profile": "block",
+  "implemented": [
+    "active inequality gradient evaluation",
+    "exact support atom operations",
+    "deferred merit evaluation",
+    "block inverse Ritz admissions",
+    "guarded local Anderson",
+    "tangent curvature certificate option",
+    "sufficient certificate transport option",
+    "symmetric LDL equilibration option",
+    "MUMPS curvature and pivoted recovery options",
+    "independent comparison runner and diagnostics"
+  ],
+  "not_implemented": [
+    "strong-active inequality DCA local mode",
+    "additional partial sparse equality elimination"
+  ],
+  "performance_target_met": false
+}

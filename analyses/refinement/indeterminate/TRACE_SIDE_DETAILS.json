@@ -1,0 +1,5180 @@
+[
+  {
+    "case_id": "CUTEst__LIPPERT1",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Pas accept\u00e9 avant une initialisation absente",
+    "status": "infeasible",
+    "original_class": "nonstrict",
+    "trace_success": true,
+    "side_error": "",
+    "frozen_verified": true,
+    "side_init": 0,
+    "side_accepted": 0,
+    "native_steps": 0,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "CUTEst__LIPPERT1",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Pas accept\u00e9 avant une initialisation absente",
+    "status": "infeasible",
+    "original_class": "nonstrict",
+    "trace_success": true,
+    "side_error": "",
+    "frozen_verified": true,
+    "side_init": 0,
+    "side_accepted": 0,
+    "native_steps": 0,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "CUTEst__LIPPERT1",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Pas accept\u00e9 avant une initialisation absente",
+    "status": "infeasible",
+    "original_class": "nonstrict",
+    "trace_success": true,
+    "side_error": "",
+    "frozen_verified": true,
+    "side_init": 0,
+    "side_accepted": 0,
+    "native_steps": 0,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "CUTEst__LIPPERT1",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Pas accept\u00e9 avant une initialisation absente",
+    "status": "infeasible",
+    "original_class": "nonstrict",
+    "trace_success": true,
+    "side_error": "",
+    "frozen_verified": true,
+    "side_init": 0,
+    "side_accepted": 0,
+    "native_steps": 0,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "CUTEst__LIPPERT1",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Pas accept\u00e9 avant une initialisation absente",
+    "status": "infeasible",
+    "original_class": "nonstrict",
+    "trace_success": true,
+    "side_error": "",
+    "frozen_verified": true,
+    "side_init": 0,
+    "side_accepted": 0,
+    "native_steps": 0,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "CUTEst__LIPPERT1",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Pas accept\u00e9 avant une initialisation absente",
+    "status": "infeasible",
+    "original_class": "nonstrict",
+    "trace_success": true,
+    "side_error": "",
+    "frozen_verified": true,
+    "side_init": 0,
+    "side_accepted": 0,
+    "native_steps": 0,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "CUTEst__LIPPERT1",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Pas accept\u00e9 avant une initialisation absente",
+    "status": "infeasible",
+    "original_class": "nonstrict",
+    "trace_success": true,
+    "side_error": "",
+    "frozen_verified": true,
+    "side_init": 0,
+    "side_accepted": 0,
+    "native_steps": 0,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "CUTEst__LIPPERT1",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Pas accept\u00e9 avant une initialisation absente",
+    "status": "infeasible",
+    "original_class": "nonstrict",
+    "trace_success": true,
+    "side_error": "",
+    "frozen_verified": true,
+    "side_init": 0,
+    "side_accepted": 0,
+    "native_steps": 0,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "CBLIB__nb",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "line_search_failure",
+    "original_class": "nonstrict",
+    "trace_success": false,
+    "side_error": "frozen inequality metric changed",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 146,
+    "native_steps": 146,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 12,
+      "1": 134
+    },
+    "dims": [
+      [
+        2383,
+        797,
+        123
+      ],
+      [
+        2383,
+        1590,
+        123
+      ]
+    ]
+  },
+  {
+    "case_id": "CBLIB__nb",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "line_search_failure",
+    "original_class": "nonstrict",
+    "trace_success": true,
+    "side_error": "",
+    "frozen_verified": true,
+    "side_init": 1,
+    "side_accepted": 147,
+    "native_steps": 147,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 12,
+      "1": 135
+    },
+    "dims": [
+      [
+        2383,
+        797,
+        123
+      ],
+      [
+        2383,
+        1590,
+        123
+      ]
+    ]
+  },
+  {
+    "case_id": "CBLIB__nb",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "inner_failure",
+    "original_class": "nonstrict",
+    "trace_success": false,
+    "side_error": "frozen inequality metric changed",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 298,
+    "native_steps": 298,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 15,
+      "1": 283
+    },
+    "dims": [
+      [
+        2383,
+        797,
+        123
+      ],
+      [
+        2383,
+        1590,
+        123
+      ]
+    ]
+  },
+  {
+    "case_id": "CBLIB__nb",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "frozen inequality metric changed",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 2025,
+    "native_steps": 2025,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 15,
+      "1": 2010
+    },
+    "dims": [
+      [
+        2383,
+        797,
+        123
+      ],
+      [
+        2383,
+        1590,
+        123
+      ]
+    ]
+  },
+  {
+    "case_id": "CBLIB__nb",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "line_search_failure",
+    "original_class": "nonstrict",
+    "trace_success": false,
+    "side_error": "frozen inequality metric changed",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 1095,
+    "native_steps": 1095,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 12,
+      "1": 1083
+    },
+    "dims": [
+      [
+        2383,
+        797,
+        123
+      ],
+      [
+        2383,
+        1590,
+        123
+      ]
+    ]
+  },
+  {
+    "case_id": "CBLIB__nb",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": true,
+    "side_error": "",
+    "frozen_verified": true,
+    "side_init": 1,
+    "side_accepted": 1893,
+    "native_steps": 1893,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 15,
+      "1": 1878
+    },
+    "dims": [
+      [
+        2383,
+        797,
+        123
+      ],
+      [
+        2383,
+        1590,
+        123
+      ]
+    ]
+  },
+  {
+    "case_id": "CBLIB__nb",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": true,
+    "side_error": "",
+    "frozen_verified": true,
+    "side_init": 1,
+    "side_accepted": 5000,
+    "native_steps": 5000,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 15,
+      "1": 4985
+    },
+    "dims": [
+      [
+        2383,
+        797,
+        123
+      ],
+      [
+        2383,
+        1590,
+        123
+      ]
+    ]
+  },
+  {
+    "case_id": "CBLIB__nb",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "max_outer_iterations",
+    "original_class": "nonstrict",
+    "trace_success": true,
+    "side_error": "",
+    "frozen_verified": true,
+    "side_init": 1,
+    "side_accepted": 4999,
+    "native_steps": 4999,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 12,
+      "1": 4987
+    },
+    "dims": [
+      [
+        2383,
+        797,
+        123
+      ],
+      [
+        2383,
+        1590,
+        123
+      ]
+    ]
+  },
+  {
+    "case_id": "PGLIB__case30000_goc__sad",
+    "method": "FROZEN_GR3_mumps",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 1,
+    "phase_values": {
+      "1": 4570
+    },
+    "dims": [
+      [
+        206258,
+        211413,
+        199784
+      ]
+    ]
+  },
+  {
+    "case_id": "beam_safety__case_1",
+    "method": "REFINED_GR3_mumps",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "beam_safety__case_1",
+    "method": "REFINED_GHS_ma27",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "beam_safety__case_1",
+    "method": "REFINED_GR3_ma27",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "beam_safety__case_1",
+    "method": "FROZEN_GR3_ma27",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 1,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "beam_safety__case_1",
+    "method": "FROZEN_GR3_mumps",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 1,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "beam_safety__case_2",
+    "method": "FROZEN_GHS_mumps",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 1,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "beam_safety__case_1",
+    "method": "FROZEN_GHS_ma27",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 1,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "beam_safety__case_2",
+    "method": "REFINED_GR3_ma27",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 1,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "beam_safety__case_2",
+    "method": "REFINED_GR3_mumps",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 1,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "beam_safety__case_1",
+    "method": "FROZEN_GHS_mumps",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 1,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "beam_safety__case_2",
+    "method": "FROZEN_GR3_mumps",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 1,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "beam_safety__case_1",
+    "method": "REFINED_GHS_mumps",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 1,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "beam_safety__case_2",
+    "method": "REFINED_GHS_ma27",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 1,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "beam_safety__case_2",
+    "method": "REFINED_GHS_mumps",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 1,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "beam_safety__case_2",
+    "method": "FROZEN_GHS_ma27",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 2,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "beam_safety__case_2",
+    "method": "FROZEN_GR3_ma27",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 2,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "beam_safety__case_3",
+    "method": "REFINED_GR3_mumps",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 1,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "beam_safety__case_3",
+    "method": "FROZEN_GR3_mumps",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 1,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "pooling__haverly",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "frozen inequality metric changed",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 64,
+    "native_steps": 64,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 30,
+      "1": 34
+    },
+    "dims": [
+      [
+        12,
+        14,
+        6
+      ],
+      [
+        12,
+        16,
+        7
+      ]
+    ]
+  },
+  {
+    "case_id": "pooling__haverly",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": true,
+    "side_error": "",
+    "frozen_verified": true,
+    "side_init": 1,
+    "side_accepted": 74,
+    "native_steps": 74,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 30,
+      "1": 44
+    },
+    "dims": [
+      [
+        12,
+        14,
+        6
+      ],
+      [
+        12,
+        16,
+        7
+      ]
+    ]
+  },
+  {
+    "case_id": "pooling__haverly",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": true,
+    "side_error": "",
+    "frozen_verified": true,
+    "side_init": 1,
+    "side_accepted": 151,
+    "native_steps": 151,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 30,
+      "1": 121
+    },
+    "dims": [
+      [
+        12,
+        14,
+        6
+      ],
+      [
+        12,
+        16,
+        7
+      ]
+    ]
+  },
+  {
+    "case_id": "pooling__haverly",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": true,
+    "side_error": "",
+    "frozen_verified": true,
+    "side_init": 1,
+    "side_accepted": 473,
+    "native_steps": 473,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 30,
+      "1": 443
+    },
+    "dims": [
+      [
+        12,
+        14,
+        6
+      ],
+      [
+        12,
+        16,
+        7
+      ]
+    ]
+  },
+  {
+    "case_id": "pooling__haverly",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "frozen inequality metric changed",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 215,
+    "native_steps": 215,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 30,
+      "1": 185
+    },
+    "dims": [
+      [
+        12,
+        14,
+        6
+      ],
+      [
+        12,
+        16,
+        7
+      ]
+    ]
+  },
+  {
+    "case_id": "pooling__haverly",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": true,
+    "side_error": "",
+    "frozen_verified": true,
+    "side_init": 1,
+    "side_accepted": 84,
+    "native_steps": 84,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 30,
+      "1": 54
+    },
+    "dims": [
+      [
+        12,
+        14,
+        6
+      ],
+      [
+        12,
+        16,
+        7
+      ]
+    ]
+  },
+  {
+    "case_id": "pooling__haverly",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "line_search_failure",
+    "original_class": "nonstrict",
+    "trace_success": false,
+    "side_error": "frozen inequality metric changed",
+    "frozen_verified": false,
+    "side_init": 2,
+    "side_accepted": 1468,
+    "native_steps": 1468,
+    "metric_events": 2,
+    "phase_values": {
+      "0": 46,
+      "1": 718,
+      "2": 704
+    },
+    "dims": [
+      [
+        12,
+        14,
+        6
+      ],
+      [
+        12,
+        16,
+        7
+      ]
+    ]
+  },
+  {
+    "case_id": "pooling__haverly",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "line_search_failure",
+    "original_class": "nonstrict",
+    "trace_success": false,
+    "side_error": "frozen inequality metric changed",
+    "frozen_verified": false,
+    "side_init": 2,
+    "side_accepted": 4998,
+    "native_steps": 4998,
+    "metric_events": 2,
+    "phase_values": {
+      "0": 46,
+      "1": 3578,
+      "2": 1374
+    },
+    "dims": [
+      [
+        12,
+        14,
+        6
+      ],
+      [
+        12,
+        16,
+        7
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater02m1",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 77,
+    "native_steps": 77,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 43,
+      "1": 34
+    },
+    "dims": [
+      [
+        19,
+        40,
+        9
+      ],
+      [
+        19,
+        41,
+        11
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater02m1",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 72,
+    "native_steps": 72,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 43,
+      "1": 29
+    },
+    "dims": [
+      [
+        19,
+        40,
+        9
+      ],
+      [
+        19,
+        41,
+        11
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater02m1",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 72,
+    "native_steps": 72,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 43,
+      "1": 29
+    },
+    "dims": [
+      [
+        19,
+        40,
+        9
+      ],
+      [
+        19,
+        41,
+        11
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater02m1",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 73,
+    "native_steps": 73,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 43,
+      "1": 30
+    },
+    "dims": [
+      [
+        19,
+        40,
+        9
+      ],
+      [
+        19,
+        41,
+        11
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater02m1",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 73,
+    "native_steps": 73,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 43,
+      "1": 30
+    },
+    "dims": [
+      [
+        19,
+        40,
+        9
+      ],
+      [
+        19,
+        41,
+        11
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater02m1",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 75,
+    "native_steps": 75,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 43,
+      "1": 32
+    },
+    "dims": [
+      [
+        19,
+        40,
+        9
+      ],
+      [
+        19,
+        41,
+        11
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater02m1",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 75,
+    "native_steps": 75,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 43,
+      "1": 32
+    },
+    "dims": [
+      [
+        19,
+        40,
+        9
+      ],
+      [
+        19,
+        41,
+        11
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater02m1",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 76,
+    "native_steps": 76,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 43,
+      "1": 33
+    },
+    "dims": [
+      [
+        19,
+        40,
+        9
+      ],
+      [
+        19,
+        41,
+        11
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater04m1",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 77,
+    "native_steps": 77,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 40,
+      "1": 37
+    },
+    "dims": [
+      [
+        23,
+        50,
+        11
+      ],
+      [
+        23,
+        52,
+        15
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater04m1",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 77,
+    "native_steps": 77,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 40,
+      "1": 37
+    },
+    "dims": [
+      [
+        23,
+        50,
+        11
+      ],
+      [
+        23,
+        52,
+        15
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater04m1",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 77,
+    "native_steps": 77,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 40,
+      "1": 37
+    },
+    "dims": [
+      [
+        23,
+        50,
+        11
+      ],
+      [
+        23,
+        52,
+        15
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater04m1",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 77,
+    "native_steps": 77,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 40,
+      "1": 37
+    },
+    "dims": [
+      [
+        23,
+        50,
+        11
+      ],
+      [
+        23,
+        52,
+        15
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater04m1",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 81,
+    "native_steps": 81,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 40,
+      "1": 41
+    },
+    "dims": [
+      [
+        23,
+        50,
+        11
+      ],
+      [
+        23,
+        52,
+        15
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater04m1",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 82,
+    "native_steps": 82,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 40,
+      "1": 42
+    },
+    "dims": [
+      [
+        23,
+        50,
+        11
+      ],
+      [
+        23,
+        52,
+        15
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater04m1",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 82,
+    "native_steps": 82,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 40,
+      "1": 42
+    },
+    "dims": [
+      [
+        23,
+        50,
+        11
+      ],
+      [
+        23,
+        52,
+        15
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater04m1",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 81,
+    "native_steps": 81,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 40,
+      "1": 41
+    },
+    "dims": [
+      [
+        23,
+        50,
+        11
+      ],
+      [
+        23,
+        52,
+        15
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater05m1",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 499,
+    "native_steps": 499,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 55,
+      "1": 444
+    },
+    "dims": [
+      [
+        46,
+        101,
+        19
+      ],
+      [
+        46,
+        104,
+        28
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater05m1",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 499,
+    "native_steps": 499,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 55,
+      "1": 444
+    },
+    "dims": [
+      [
+        46,
+        101,
+        19
+      ],
+      [
+        46,
+        104,
+        28
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater05m1",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 501,
+    "native_steps": 501,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 55,
+      "1": 446
+    },
+    "dims": [
+      [
+        46,
+        101,
+        19
+      ],
+      [
+        46,
+        104,
+        28
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater05m1",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 501,
+    "native_steps": 501,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 55,
+      "1": 446
+    },
+    "dims": [
+      [
+        46,
+        101,
+        19
+      ],
+      [
+        46,
+        104,
+        28
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater05m1",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 499,
+    "native_steps": 499,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 55,
+      "1": 444
+    },
+    "dims": [
+      [
+        46,
+        101,
+        19
+      ],
+      [
+        46,
+        104,
+        28
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater05m1",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 501,
+    "native_steps": 501,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 55,
+      "1": 446
+    },
+    "dims": [
+      [
+        46,
+        101,
+        19
+      ],
+      [
+        46,
+        104,
+        28
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater05m1",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 501,
+    "native_steps": 501,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 55,
+      "1": 446
+    },
+    "dims": [
+      [
+        46,
+        101,
+        19
+      ],
+      [
+        46,
+        104,
+        28
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater11m1",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 287,
+    "native_steps": 287,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 45,
+      "1": 242
+    },
+    "dims": [
+      [
+        118,
+        243,
+        27
+      ],
+      [
+        118,
+        244,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater05m1",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 499,
+    "native_steps": 499,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 55,
+      "1": 444
+    },
+    "dims": [
+      [
+        46,
+        101,
+        19
+      ],
+      [
+        46,
+        104,
+        28
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater11m1",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 287,
+    "native_steps": 287,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 45,
+      "1": 242
+    },
+    "dims": [
+      [
+        118,
+        243,
+        27
+      ],
+      [
+        118,
+        244,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater11m1",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 5000,
+    "native_steps": 5000,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 45,
+      "1": 4955
+    },
+    "dims": [
+      [
+        118,
+        243,
+        27
+      ],
+      [
+        118,
+        244,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater11m1",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 5000,
+    "native_steps": 5000,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 45,
+      "1": 4955
+    },
+    "dims": [
+      [
+        118,
+        243,
+        27
+      ],
+      [
+        118,
+        244,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater11m1",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 287,
+    "native_steps": 287,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 45,
+      "1": 242
+    },
+    "dims": [
+      [
+        118,
+        243,
+        27
+      ],
+      [
+        118,
+        244,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater11m1",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 287,
+    "native_steps": 287,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 45,
+      "1": 242
+    },
+    "dims": [
+      [
+        118,
+        243,
+        27
+      ],
+      [
+        118,
+        244,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater12m1",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 394,
+    "native_steps": 394,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 348
+    },
+    "dims": [
+      [
+        196,
+        402,
+        36
+      ],
+      [
+        196,
+        403,
+        46
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater12m1",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 259,
+    "native_steps": 259,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 213
+    },
+    "dims": [
+      [
+        196,
+        402,
+        36
+      ],
+      [
+        196,
+        403,
+        46
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater11m1",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 5000,
+    "native_steps": 5000,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 45,
+      "1": 4955
+    },
+    "dims": [
+      [
+        118,
+        243,
+        27
+      ],
+      [
+        118,
+        244,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater11m1",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 5000,
+    "native_steps": 5000,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 45,
+      "1": 4955
+    },
+    "dims": [
+      [
+        118,
+        243,
+        27
+      ],
+      [
+        118,
+        244,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater12m1",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 394,
+    "native_steps": 394,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 348
+    },
+    "dims": [
+      [
+        196,
+        402,
+        36
+      ],
+      [
+        196,
+        403,
+        46
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater12m1",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 412,
+    "native_steps": 412,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 366
+    },
+    "dims": [
+      [
+        196,
+        402,
+        36
+      ],
+      [
+        196,
+        403,
+        46
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater12m1",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 259,
+    "native_steps": 259,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 213
+    },
+    "dims": [
+      [
+        196,
+        402,
+        36
+      ],
+      [
+        196,
+        403,
+        46
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater12m1",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 259,
+    "native_steps": 259,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 213
+    },
+    "dims": [
+      [
+        196,
+        402,
+        36
+      ],
+      [
+        196,
+        403,
+        46
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater12m1",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 412,
+    "native_steps": 412,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 366
+    },
+    "dims": [
+      [
+        196,
+        402,
+        36
+      ],
+      [
+        196,
+        403,
+        46
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater12m1",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 259,
+    "native_steps": 259,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 213
+    },
+    "dims": [
+      [
+        196,
+        402,
+        36
+      ],
+      [
+        196,
+        403,
+        46
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater13m1",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 4999,
+    "native_steps": 4999,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 30,
+      "1": 4969
+    },
+    "dims": [
+      [
+        382,
+        779,
+        52
+      ],
+      [
+        382,
+        780,
+        67
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater13m1",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 4999,
+    "native_steps": 4999,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 30,
+      "1": 4969
+    },
+    "dims": [
+      [
+        382,
+        779,
+        52
+      ],
+      [
+        382,
+        780,
+        67
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater13m1",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 433,
+    "native_steps": 433,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 44,
+      "1": 389
+    },
+    "dims": [
+      [
+        382,
+        779,
+        52
+      ],
+      [
+        382,
+        780,
+        67
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater13m1",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 403,
+    "native_steps": 403,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 30,
+      "1": 373
+    },
+    "dims": [
+      [
+        382,
+        779,
+        52
+      ],
+      [
+        382,
+        780,
+        67
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater13m1",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 433,
+    "native_steps": 433,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 44,
+      "1": 389
+    },
+    "dims": [
+      [
+        382,
+        779,
+        52
+      ],
+      [
+        382,
+        780,
+        67
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater14m1",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 150,
+    "native_steps": 150,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 43,
+      "1": 107
+    },
+    "dims": [
+      [
+        74,
+        158,
+        24
+      ],
+      [
+        74,
+        160,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater13m1",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 403,
+    "native_steps": 403,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 30,
+      "1": 373
+    },
+    "dims": [
+      [
+        382,
+        779,
+        52
+      ],
+      [
+        382,
+        780,
+        67
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater14m1",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 150,
+    "native_steps": 150,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 43,
+      "1": 107
+    },
+    "dims": [
+      [
+        74,
+        158,
+        24
+      ],
+      [
+        74,
+        160,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater14m1",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 150,
+    "native_steps": 150,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 43,
+      "1": 107
+    },
+    "dims": [
+      [
+        74,
+        158,
+        24
+      ],
+      [
+        74,
+        160,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater14m1",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 167,
+    "native_steps": 167,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 43,
+      "1": 124
+    },
+    "dims": [
+      [
+        74,
+        158,
+        24
+      ],
+      [
+        74,
+        160,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater14m1",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 167,
+    "native_steps": 167,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 43,
+      "1": 124
+    },
+    "dims": [
+      [
+        74,
+        158,
+        24
+      ],
+      [
+        74,
+        160,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater14m1",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 167,
+    "native_steps": 167,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 43,
+      "1": 124
+    },
+    "dims": [
+      [
+        74,
+        158,
+        24
+      ],
+      [
+        74,
+        160,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater14m1",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 167,
+    "native_steps": 167,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 43,
+      "1": 124
+    },
+    "dims": [
+      [
+        74,
+        158,
+        24
+      ],
+      [
+        74,
+        160,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater14m1",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 150,
+    "native_steps": 150,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 43,
+      "1": 107
+    },
+    "dims": [
+      [
+        74,
+        158,
+        24
+      ],
+      [
+        74,
+        160,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater13m1",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 5000,
+    "native_steps": 5000,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 44,
+      "1": 4956
+    },
+    "dims": [
+      [
+        382,
+        779,
+        52
+      ],
+      [
+        382,
+        780,
+        67
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater13m1",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 5000,
+    "native_steps": 5000,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 44,
+      "1": 4956
+    },
+    "dims": [
+      [
+        382,
+        779,
+        52
+      ],
+      [
+        382,
+        780,
+        67
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater15m1",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 651,
+    "native_steps": 651,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 42,
+      "1": 609
+    },
+    "dims": [
+      [
+        46,
+        101,
+        19
+      ],
+      [
+        46,
+        104,
+        28
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater15m1",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 583,
+    "native_steps": 583,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 42,
+      "1": 541
+    },
+    "dims": [
+      [
+        46,
+        101,
+        19
+      ],
+      [
+        46,
+        104,
+        28
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater15m1",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "max_outer_iterations",
+    "original_class": "nonstrict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 5000,
+    "native_steps": 5000,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 42,
+      "1": 4958
+    },
+    "dims": [
+      [
+        46,
+        101,
+        19
+      ],
+      [
+        46,
+        104,
+        28
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater15m1",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "max_outer_iterations",
+    "original_class": "nonstrict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 5000,
+    "native_steps": 5000,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 42,
+      "1": 4958
+    },
+    "dims": [
+      [
+        46,
+        101,
+        19
+      ],
+      [
+        46,
+        104,
+        28
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater15m1",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 583,
+    "native_steps": 583,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 42,
+      "1": 541
+    },
+    "dims": [
+      [
+        46,
+        101,
+        19
+      ],
+      [
+        46,
+        104,
+        28
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater15m1",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 461,
+    "native_steps": 461,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 42,
+      "1": 419
+    },
+    "dims": [
+      [
+        46,
+        101,
+        19
+      ],
+      [
+        46,
+        104,
+        28
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater15m1",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 651,
+    "native_steps": 651,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 42,
+      "1": 609
+    },
+    "dims": [
+      [
+        46,
+        101,
+        19
+      ],
+      [
+        46,
+        104,
+        28
+      ]
+    ]
+  },
+  {
+    "case_id": "water__wastewater15m1",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 461,
+    "native_steps": 461,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 42,
+      "1": 419
+    },
+    "dims": [
+      [
+        46,
+        101,
+        19
+      ],
+      [
+        46,
+        104,
+        28
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund01",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 130,
+    "native_steps": 130,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 42,
+      "1": 88
+    },
+    "dims": [
+      [
+        39,
+        93,
+        8
+      ],
+      [
+        39,
+        95,
+        20
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund01",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 167,
+    "native_steps": 167,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 42,
+      "1": 125
+    },
+    "dims": [
+      [
+        39,
+        93,
+        8
+      ],
+      [
+        39,
+        95,
+        20
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund01",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 130,
+    "native_steps": 130,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 42,
+      "1": 88
+    },
+    "dims": [
+      [
+        39,
+        93,
+        8
+      ],
+      [
+        39,
+        95,
+        20
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund01",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 130,
+    "native_steps": 130,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 42,
+      "1": 88
+    },
+    "dims": [
+      [
+        39,
+        93,
+        8
+      ],
+      [
+        39,
+        95,
+        20
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund01",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 167,
+    "native_steps": 167,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 42,
+      "1": 125
+    },
+    "dims": [
+      [
+        39,
+        93,
+        8
+      ],
+      [
+        39,
+        95,
+        20
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund01",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 246,
+    "native_steps": 246,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 42,
+      "1": 204
+    },
+    "dims": [
+      [
+        39,
+        93,
+        8
+      ],
+      [
+        39,
+        95,
+        20
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund01",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 246,
+    "native_steps": 246,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 42,
+      "1": 204
+    },
+    "dims": [
+      [
+        39,
+        93,
+        8
+      ],
+      [
+        39,
+        95,
+        20
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund01",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 130,
+    "native_steps": 130,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 42,
+      "1": 88
+    },
+    "dims": [
+      [
+        39,
+        93,
+        8
+      ],
+      [
+        39,
+        95,
+        20
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund11",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 127,
+    "native_steps": 127,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 57,
+      "1": 70
+    },
+    "dims": [
+      [
+        63,
+        153,
+        8
+      ],
+      [
+        63,
+        157,
+        32
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund11",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 127,
+    "native_steps": 127,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 57,
+      "1": 70
+    },
+    "dims": [
+      [
+        63,
+        153,
+        8
+      ],
+      [
+        63,
+        157,
+        32
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund11",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 127,
+    "native_steps": 127,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 57,
+      "1": 70
+    },
+    "dims": [
+      [
+        63,
+        153,
+        8
+      ],
+      [
+        63,
+        157,
+        32
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund11",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 127,
+    "native_steps": 127,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 57,
+      "1": 70
+    },
+    "dims": [
+      [
+        63,
+        153,
+        8
+      ],
+      [
+        63,
+        157,
+        32
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund11",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 143,
+    "native_steps": 143,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 57,
+      "1": 86
+    },
+    "dims": [
+      [
+        63,
+        153,
+        8
+      ],
+      [
+        63,
+        157,
+        32
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund11",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 143,
+    "native_steps": 143,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 57,
+      "1": 86
+    },
+    "dims": [
+      [
+        63,
+        153,
+        8
+      ],
+      [
+        63,
+        157,
+        32
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund11",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 143,
+    "native_steps": 143,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 57,
+      "1": 86
+    },
+    "dims": [
+      [
+        63,
+        153,
+        8
+      ],
+      [
+        63,
+        157,
+        32
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund11",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 143,
+    "native_steps": 143,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 57,
+      "1": 86
+    },
+    "dims": [
+      [
+        63,
+        153,
+        8
+      ],
+      [
+        63,
+        157,
+        32
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund14",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 139,
+    "native_steps": 139,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 93
+    },
+    "dims": [
+      [
+        122,
+        296,
+        14
+      ],
+      [
+        122,
+        314,
+        62
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund14",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 139,
+    "native_steps": 139,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 93
+    },
+    "dims": [
+      [
+        122,
+        296,
+        14
+      ],
+      [
+        122,
+        314,
+        62
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund14",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 139,
+    "native_steps": 139,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 93
+    },
+    "dims": [
+      [
+        122,
+        296,
+        14
+      ],
+      [
+        122,
+        314,
+        62
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund14",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 130,
+    "native_steps": 130,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 84
+    },
+    "dims": [
+      [
+        122,
+        296,
+        14
+      ],
+      [
+        122,
+        314,
+        62
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund14",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 130,
+    "native_steps": 130,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 84
+    },
+    "dims": [
+      [
+        122,
+        296,
+        14
+      ],
+      [
+        122,
+        314,
+        62
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund14",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 130,
+    "native_steps": 130,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 84
+    },
+    "dims": [
+      [
+        122,
+        296,
+        14
+      ],
+      [
+        122,
+        314,
+        62
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund14",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 130,
+    "native_steps": 130,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 84
+    },
+    "dims": [
+      [
+        122,
+        296,
+        14
+      ],
+      [
+        122,
+        314,
+        62
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund17",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 113,
+    "native_steps": 113,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 67
+    },
+    "dims": [
+      [
+        73,
+        174,
+        10
+      ],
+      [
+        73,
+        177,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund14",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 139,
+    "native_steps": 139,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 93
+    },
+    "dims": [
+      [
+        122,
+        296,
+        14
+      ],
+      [
+        122,
+        314,
+        62
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund17",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 111,
+    "native_steps": 111,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 65
+    },
+    "dims": [
+      [
+        73,
+        174,
+        10
+      ],
+      [
+        73,
+        177,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund17",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 112,
+    "native_steps": 112,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 66
+    },
+    "dims": [
+      [
+        73,
+        174,
+        10
+      ],
+      [
+        73,
+        177,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund17",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 112,
+    "native_steps": 112,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 66
+    },
+    "dims": [
+      [
+        73,
+        174,
+        10
+      ],
+      [
+        73,
+        177,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund17",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 112,
+    "native_steps": 112,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 66
+    },
+    "dims": [
+      [
+        73,
+        174,
+        10
+      ],
+      [
+        73,
+        177,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund17",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 112,
+    "native_steps": 112,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 66
+    },
+    "dims": [
+      [
+        73,
+        174,
+        10
+      ],
+      [
+        73,
+        177,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund17",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 113,
+    "native_steps": 113,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 67
+    },
+    "dims": [
+      [
+        73,
+        174,
+        10
+      ],
+      [
+        73,
+        177,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund17",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 111,
+    "native_steps": 111,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 46,
+      "1": 65
+    },
+    "dims": [
+      [
+        73,
+        174,
+        10
+      ],
+      [
+        73,
+        177,
+        34
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund18",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 92,
+    "native_steps": 92,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 40,
+      "1": 52
+    },
+    "dims": [
+      [
+        59,
+        145,
+        8
+      ],
+      [
+        59,
+        149,
+        32
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund18",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 296,
+    "native_steps": 296,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 40,
+      "1": 256
+    },
+    "dims": [
+      [
+        59,
+        145,
+        8
+      ],
+      [
+        59,
+        149,
+        32
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund18",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 296,
+    "native_steps": 296,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 40,
+      "1": 256
+    },
+    "dims": [
+      [
+        59,
+        145,
+        8
+      ],
+      [
+        59,
+        149,
+        32
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund18",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 296,
+    "native_steps": 296,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 40,
+      "1": 256
+    },
+    "dims": [
+      [
+        59,
+        145,
+        8
+      ],
+      [
+        59,
+        149,
+        32
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund18",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 92,
+    "native_steps": 92,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 40,
+      "1": 52
+    },
+    "dims": [
+      [
+        59,
+        145,
+        8
+      ],
+      [
+        59,
+        149,
+        32
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund18",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 296,
+    "native_steps": 296,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 40,
+      "1": 256
+    },
+    "dims": [
+      [
+        59,
+        145,
+        8
+      ],
+      [
+        59,
+        149,
+        32
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund18",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 92,
+    "native_steps": 92,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 40,
+      "1": 52
+    },
+    "dims": [
+      [
+        59,
+        145,
+        8
+      ],
+      [
+        59,
+        149,
+        32
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund18",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 92,
+    "native_steps": 92,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 40,
+      "1": 52
+    },
+    "dims": [
+      [
+        59,
+        145,
+        8
+      ],
+      [
+        59,
+        149,
+        32
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund22",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 173,
+    "native_steps": 173,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 51,
+      "1": 122
+    },
+    "dims": [
+      [
+        143,
+        338,
+        14
+      ],
+      [
+        143,
+        356,
+        62
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund22",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 173,
+    "native_steps": 173,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 51,
+      "1": 122
+    },
+    "dims": [
+      [
+        143,
+        338,
+        14
+      ],
+      [
+        143,
+        356,
+        62
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund22",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 170,
+    "native_steps": 170,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 51,
+      "1": 119
+    },
+    "dims": [
+      [
+        143,
+        338,
+        14
+      ],
+      [
+        143,
+        356,
+        62
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund22",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 170,
+    "native_steps": 170,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 51,
+      "1": 119
+    },
+    "dims": [
+      [
+        143,
+        338,
+        14
+      ],
+      [
+        143,
+        356,
+        62
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund22",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 188,
+    "native_steps": 188,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 51,
+      "1": 137
+    },
+    "dims": [
+      [
+        143,
+        338,
+        14
+      ],
+      [
+        143,
+        356,
+        62
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund22",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 190,
+    "native_steps": 190,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 51,
+      "1": 139
+    },
+    "dims": [
+      [
+        143,
+        338,
+        14
+      ],
+      [
+        143,
+        356,
+        62
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund22",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 188,
+    "native_steps": 188,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 51,
+      "1": 137
+    },
+    "dims": [
+      [
+        143,
+        338,
+        14
+      ],
+      [
+        143,
+        356,
+        62
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund22",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 190,
+    "native_steps": 190,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 51,
+      "1": 139
+    },
+    "dims": [
+      [
+        143,
+        338,
+        14
+      ],
+      [
+        143,
+        356,
+        62
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund25",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 203,
+    "native_steps": 203,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 55,
+      "1": 148
+    },
+    "dims": [
+      [
+        119,
+        273,
+        14
+      ],
+      [
+        119,
+        279,
+        44
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund25",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 206,
+    "native_steps": 206,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 55,
+      "1": 151
+    },
+    "dims": [
+      [
+        119,
+        273,
+        14
+      ],
+      [
+        119,
+        279,
+        44
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund25",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 206,
+    "native_steps": 206,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 55,
+      "1": 151
+    },
+    "dims": [
+      [
+        119,
+        273,
+        14
+      ],
+      [
+        119,
+        279,
+        44
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund25",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 168,
+    "native_steps": 168,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 55,
+      "1": 113
+    },
+    "dims": [
+      [
+        119,
+        273,
+        14
+      ],
+      [
+        119,
+        279,
+        44
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund25",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 177,
+    "native_steps": 177,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 55,
+      "1": 122
+    },
+    "dims": [
+      [
+        119,
+        273,
+        14
+      ],
+      [
+        119,
+        279,
+        44
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund25",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 168,
+    "native_steps": 168,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 55,
+      "1": 113
+    },
+    "dims": [
+      [
+        119,
+        273,
+        14
+      ],
+      [
+        119,
+        279,
+        44
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund25",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 203,
+    "native_steps": 203,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 55,
+      "1": 148
+    },
+    "dims": [
+      [
+        119,
+        273,
+        14
+      ],
+      [
+        119,
+        279,
+        44
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund25",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 177,
+    "native_steps": 177,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 55,
+      "1": 122
+    },
+    "dims": [
+      [
+        119,
+        273,
+        14
+      ],
+      [
+        119,
+        279,
+        44
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund27",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 2199,
+    "native_steps": 2199,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 80,
+      "1": 2119
+    },
+    "dims": [
+      [
+        424,
+        920,
+        32
+      ],
+      [
+        424,
+        952,
+        96
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund27",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 2548,
+    "native_steps": 2548,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 80,
+      "1": 2468
+    },
+    "dims": [
+      [
+        424,
+        920,
+        32
+      ],
+      [
+        424,
+        952,
+        96
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund27",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 3219,
+    "native_steps": 3219,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 80,
+      "1": 3139
+    },
+    "dims": [
+      [
+        424,
+        920,
+        32
+      ],
+      [
+        424,
+        952,
+        96
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund27",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 3219,
+    "native_steps": 3219,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 80,
+      "1": 3139
+    },
+    "dims": [
+      [
+        424,
+        920,
+        32
+      ],
+      [
+        424,
+        952,
+        96
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund27",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 2199,
+    "native_steps": 2199,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 80,
+      "1": 2119
+    },
+    "dims": [
+      [
+        424,
+        920,
+        32
+      ],
+      [
+        424,
+        952,
+        96
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund36",
+    "method": "FROZEN_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 330,
+    "native_steps": 330,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 67,
+      "1": 263
+    },
+    "dims": [
+      [
+        320,
+        739,
+        26
+      ],
+      [
+        320,
+        759,
+        116
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund27",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 2548,
+    "native_steps": 2548,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 80,
+      "1": 2468
+    },
+    "dims": [
+      [
+        424,
+        920,
+        32
+      ],
+      [
+        424,
+        952,
+        96
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund36",
+    "method": "FROZEN_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 437,
+    "native_steps": 437,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 67,
+      "1": 370
+    },
+    "dims": [
+      [
+        320,
+        739,
+        26
+      ],
+      [
+        320,
+        759,
+        116
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund36",
+    "method": "FROZEN_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 549,
+    "native_steps": 549,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 67,
+      "1": 482
+    },
+    "dims": [
+      [
+        320,
+        739,
+        26
+      ],
+      [
+        320,
+        759,
+        116
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund36",
+    "method": "REFINED_GHS_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 437,
+    "native_steps": 437,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 67,
+      "1": 370
+    },
+    "dims": [
+      [
+        320,
+        739,
+        26
+      ],
+      [
+        320,
+        759,
+        116
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund36",
+    "method": "REFINED_GHS_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 549,
+    "native_steps": 549,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 67,
+      "1": 482
+    },
+    "dims": [
+      [
+        320,
+        739,
+        26
+      ],
+      [
+        320,
+        759,
+        116
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund27",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 3437,
+    "native_steps": 3437,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 80,
+      "1": 3357
+    },
+    "dims": [
+      [
+        424,
+        920,
+        32
+      ],
+      [
+        424,
+        952,
+        96
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund36",
+    "method": "FROZEN_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 332,
+    "native_steps": 332,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 67,
+      "1": 265
+    },
+    "dims": [
+      [
+        320,
+        739,
+        26
+      ],
+      [
+        320,
+        759,
+        116
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund36",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 332,
+    "native_steps": 332,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 67,
+      "1": 265
+    },
+    "dims": [
+      [
+        320,
+        739,
+        26
+      ],
+      [
+        320,
+        759,
+        116
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund36",
+    "method": "REFINED_GR3_mumps",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 330,
+    "native_steps": 330,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 67,
+      "1": 263
+    },
+    "dims": [
+      [
+        320,
+        739,
+        26
+      ],
+      [
+        320,
+        759,
+        116
+      ]
+    ]
+  },
+  {
+    "case_id": "water__waterund27",
+    "method": "REFINED_GR3_ma27",
+    "reason": "Accepted metric phase is unavailable",
+    "status": "solved",
+    "original_class": "strict",
+    "trace_success": false,
+    "side_error": "unconstructed ablation inequality metric",
+    "frozen_verified": false,
+    "side_init": 1,
+    "side_accepted": 3437,
+    "native_steps": 3437,
+    "metric_events": 1,
+    "phase_values": {
+      "0": 80,
+      "1": 3357
+    },
+    "dims": [
+      [
+        424,
+        920,
+        32
+      ],
+      [
+        424,
+        952,
+        96
+      ]
+    ]
+  },
+  {
+    "case_id": "CBLIB__db-plate-yield-line-fox",
+    "method": "FROZEN_GR3_mumps",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "CBLIB__db-plate-yield-line-fox",
+    "method": "FROZEN_GHS_mumps",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "CBLIB__db-plate-yield-line-fox",
+    "method": "FROZEN_GHS_ma27",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "CBLIB__db-plate-yield-line-fox",
+    "method": "REFINED_GHS_mumps",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "CBLIB__db-plate-yield-line-fox",
+    "method": "REFINED_GHS_ma27",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "CBLIB__db-plate-yield-line-fox",
+    "method": "FROZEN_GR3_ma27",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "CBLIB__db-plate-yield-line-fox",
+    "method": "REFINED_GR3_ma27",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "CBLIB__db-plate-yield-line-fox",
+    "method": "REFINED_GR3_mumps",
+    "reason": null,
+    "status": "endpoint_unavailable",
+    "original_class": null,
+    "trace_success": null,
+    "side_error": null,
+    "frozen_verified": null,
+    "side_init": null,
+    "side_accepted": null,
+    "native_steps": null,
+    "metric_events": 0,
+    "phase_values": {},
+    "dims": []
+  },
+  {
+    "case_id": "beam_safety__case_3",
+    "method": "REFINED_GHS_mumps",
+    "reason": null,
+    "status": "original_audit_unavailable",
+    "original_class": null,
+    "trace_success": true,
+    "side_error": "",
+    "frozen_verified": true,
+    "side_init": 1,
+    "side_accepted": 82,
+    "native_steps": 82,
+    "metric_events": 1,
+    "phase_values": {
+      "1": 82
+    },
+    "dims": [
+      [
+        41473,
+        1298,
+        40176
+      ]
+    ]
+  },
+  {
+    "case_id": "beam_safety__case_3",
+    "method": "FROZEN_GHS_mumps",
+    "reason": null,
+    "status": "original_audit_unavailable",
+    "original_class": null,
+    "trace_success": true,
+    "side_error": "",
+    "frozen_verified": true,
+    "side_init": 1,
+    "side_accepted": 82,
+    "native_steps": 82,
+    "metric_events": 1,
+    "phase_values": {
+      "1": 82
+    },
+    "dims": [
+      [
+        41473,
+        1298,
+        40176
+      ]
+    ]
+  }
+]

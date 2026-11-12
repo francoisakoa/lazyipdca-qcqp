@@ -1,0 +1,190 @@
+case_id,dataset,regime,cell,status,proof_error,original_audit_class,trace_success,native_trace_error,leading_pre_metric_commits,solver_returncode,solver_timed_out,solver_seconds,audit_timed_out,audit_seconds
+CUTEst__LIPPERT1,CUTEst,I,FROZEN_GR3_ma27,infeasible,Pas accepté avant une initialisation absente,nonstrict,True,,0,1,False,0.3617171871010214,False,120.56586951506324
+CUTEst__LIPPERT1,CUTEst,I,FROZEN_GHS_ma27,infeasible,Pas accepté avant une initialisation absente,nonstrict,True,,0,1,False,0.360837671905756,False,120.99415990803391
+CUTEst__LIPPERT1,CUTEst,I,REFINED_GR3_mumps,infeasible,Pas accepté avant une initialisation absente,nonstrict,True,,0,1,False,0.36397677403874695,False,121.42045730515383
+CUTEst__LIPPERT1,CUTEst,I,FROZEN_GR3_mumps,infeasible,Pas accepté avant une initialisation absente,nonstrict,True,,0,1,False,0.3131656909827143,False,121.6736763860099
+CUTEst__LIPPERT1,CUTEst,I,FROZEN_GHS_mumps,infeasible,Pas accepté avant une initialisation absente,nonstrict,True,,0,1,False,0.3147927678655833,False,123.93705277214758
+CUTEst__LIPPERT1,CUTEst,I,REFINED_GHS_ma27,infeasible,Pas accepté avant une initialisation absente,nonstrict,True,,0,1,False,0.3580523310229182,False,123.68933564703912
+CUTEst__LIPPERT1,CUTEst,I,REFINED_GHS_mumps,infeasible,Pas accepté avant une initialisation absente,nonstrict,True,,0,1,False,0.36062983609735966,False,124.05119650089182
+CUTEst__LIPPERT1,CUTEst,I,REFINED_GR3_ma27,infeasible,Pas accepté avant une initialisation absente,nonstrict,True,,0,1,False,0.31139831990003586,False,124.37202660716139
+CBLIB__nb,CBLIB_SOC_reference,I,FROZEN_GR3_ma27,line_search_failure,Accepted metric phase is unavailable,nonstrict,False,frozen inequality metric changed,12,1,False,51.474787067156285,False,0.7600750429555774
+CBLIB__nb,CBLIB_SOC_reference,I,REFINED_GR3_ma27,line_search_failure,Accepted metric phase is unavailable,nonstrict,True,,12,1,False,48.048403379973024,False,0.7585482602007687
+CBLIB__nb,CBLIB_SOC_reference,I,FROZEN_GHS_mumps,inner_failure,Accepted metric phase is unavailable,nonstrict,False,frozen inequality metric changed,15,1,False,115.89046855201013,False,0.7576062269508839
+CBLIB__nb,CBLIB_SOC_reference,I,FROZEN_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,frozen inequality metric changed,15,0,False,358.23881405894645,False,0.7580908830277622
+CBLIB__nb,CBLIB_SOC_reference,I,FROZEN_GHS_ma27,line_search_failure,Accepted metric phase is unavailable,nonstrict,False,frozen inequality metric changed,12,1,False,620.6201938858721,False,0.7586677451618016
+CBLIB__nb,CBLIB_SOC_reference,I,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,True,,15,0,False,662.5387772580143,False,0.7672634280752391
+CBLIB__nb,CBLIB_SOC_reference,I,REFINED_GR3_mumps,solved,Accepted metric phase is unavailable,strict,True,,15,0,False,1474.9574358561076,False,0.7123733588960022
+CBLIB__nb,CBLIB_SOC_reference,I,REFINED_GHS_ma27,max_outer_iterations,Accepted metric phase is unavailable,nonstrict,True,,12,1,False,2802.6116638937965,False,2.1374690160155296
+PGLIB__case30000_goc__sad,PGLIB,M,FROZEN_GR3_mumps,endpoint_unavailable,,,,,0,-15,True,7200.186461557867,,
+beam_safety__case_1,beam_safety,M,REFINED_GR3_mumps,endpoint_unavailable,,,,,0,-9,False,71.3115433449857,,
+beam_safety__case_1,beam_safety,M,REFINED_GHS_ma27,endpoint_unavailable,,,,,0,-9,False,78.82735011400655,,
+beam_safety__case_1,beam_safety,M,REFINED_GR3_ma27,endpoint_unavailable,,,,,0,-9,False,83.6516769239679,,
+beam_safety__case_1,beam_safety,M,FROZEN_GR3_ma27,endpoint_unavailable,,,,,0,-9,False,101.81518625188619,,
+beam_safety__case_1,beam_safety,M,FROZEN_GR3_mumps,endpoint_unavailable,,,,,0,-9,False,108.13351296586916,,
+beam_safety__case_2,beam_safety,M,FROZEN_GHS_mumps,endpoint_unavailable,,,,,0,-9,False,113.08308352297172,,
+beam_safety__case_1,beam_safety,M,FROZEN_GHS_ma27,endpoint_unavailable,,,,,0,-9,False,120.53477348899469,,
+beam_safety__case_2,beam_safety,M,REFINED_GR3_ma27,endpoint_unavailable,,,,,0,-9,False,124.76233017700724,,
+beam_safety__case_2,beam_safety,M,REFINED_GR3_mumps,endpoint_unavailable,,,,,0,-9,False,146.19142240216024,,
+beam_safety__case_1,beam_safety,M,FROZEN_GHS_mumps,endpoint_unavailable,,,,,0,-9,False,157.83992724097334,,
+beam_safety__case_2,beam_safety,M,FROZEN_GR3_mumps,endpoint_unavailable,,,,,0,-9,False,168.3384894609917,,
+beam_safety__case_1,beam_safety,M,REFINED_GHS_mumps,endpoint_unavailable,,,,,0,-9,False,182.84274024609476,,
+beam_safety__case_2,beam_safety,M,REFINED_GHS_ma27,endpoint_unavailable,,,,,0,-9,False,119.53475120477378,,
+beam_safety__case_2,beam_safety,M,REFINED_GHS_mumps,endpoint_unavailable,,,,,0,-9,False,136.90932766511105,,
+beam_safety__case_2,beam_safety,M,FROZEN_GHS_ma27,endpoint_unavailable,,,,,0,-9,False,230.22543960809708,,
+beam_safety__case_2,beam_safety,M,FROZEN_GR3_ma27,endpoint_unavailable,,,,,0,-9,False,241.25232958584093,,
+beam_safety__case_3,beam_safety,M,REFINED_GR3_mumps,endpoint_unavailable,,,,,0,-9,False,156.94154009292834,,
+beam_safety__case_3,beam_safety,M,FROZEN_GR3_mumps,endpoint_unavailable,,,,,0,-9,False,157.6535160690546,,
+pooling__haverly,pooling_MINLPLIB,M,FROZEN_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,frozen inequality metric changed,30,0,False,0.11963375890627503,False,0.06920653488487005
+pooling__haverly,pooling_MINLPLIB,M,REFINED_GHS_ma27,solved,Accepted metric phase is unavailable,strict,True,,30,0,False,0.1260334791149944,False,0.07866048091091216
+pooling__haverly,pooling_MINLPLIB,M,REFINED_GR3_mumps,solved,Accepted metric phase is unavailable,strict,True,,30,0,False,0.1099763079546392,False,0.06693819491192698
+pooling__haverly,pooling_MINLPLIB,M,REFINED_GR3_ma27,solved,Accepted metric phase is unavailable,strict,True,,30,0,False,0.1714097538497299,False,0.07957328902557492
+pooling__haverly,pooling_MINLPLIB,M,FROZEN_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,frozen inequality metric changed,30,0,False,0.1657050959765911,False,0.06252386095002294
+pooling__haverly,pooling_MINLPLIB,M,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,True,,30,0,False,0.16501591401174664,False,0.059442484052851796
+pooling__haverly,pooling_MINLPLIB,M,FROZEN_GHS_ma27,line_search_failure,Accepted metric phase is unavailable,nonstrict,False,frozen inequality metric changed,30,1,False,0.3305101238656789,False,0.06552201393060386
+pooling__haverly,pooling_MINLPLIB,M,FROZEN_GHS_mumps,line_search_failure,Accepted metric phase is unavailable,nonstrict,False,frozen inequality metric changed,30,1,False,3.0482388350646943,False,0.05615271418355405
+water__wastewater02m1,water_networks,M,FROZEN_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,43,0,False,0.11958634108304977,False,0.06958004599437118
+water__wastewater02m1,water_networks,M,FROZEN_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,43,0,False,0.1096203769557178,False,0.05633629998192191
+water__wastewater02m1,water_networks,M,FROZEN_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,43,0,False,0.10728999506682158,False,0.06023152684792876
+water__wastewater02m1,water_networks,M,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,43,0,False,0.11319369077682495,False,0.109184002969414
+water__wastewater02m1,water_networks,M,REFINED_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,43,0,False,0.11061576893553138,False,0.05756532191298902
+water__wastewater02m1,water_networks,M,FROZEN_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,43,0,False,0.1068605708424002,False,0.05939603503793478
+water__wastewater02m1,water_networks,M,REFINED_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,43,0,False,0.1127951240632683,False,0.06145222601480782
+water__wastewater02m1,water_networks,M,REFINED_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,43,0,False,0.10798397497273982,False,0.07699324493296444
+water__wastewater04m1,water_networks,M,FROZEN_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,40,0,False,0.11111366399563849,False,0.07899359310977161
+water__wastewater04m1,water_networks,M,FROZEN_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,40,0,False,0.11038325005210936,False,0.05743535701185465
+water__wastewater04m1,water_networks,M,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,40,0,False,0.1115425880998373,False,0.06287216511555016
+water__wastewater04m1,water_networks,M,REFINED_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,40,0,False,0.11098924814723432,False,0.060043295146897435
+water__wastewater04m1,water_networks,M,FROZEN_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,40,0,False,0.10638778284192085,False,0.06293915514834225
+water__wastewater04m1,water_networks,M,REFINED_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,40,0,False,0.11526224086992443,False,0.056487997993826866
+water__wastewater04m1,water_networks,M,REFINED_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,40,0,False,0.10826615802943707,False,0.05816958798095584
+water__wastewater04m1,water_networks,M,FROZEN_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,40,0,False,0.11055177310481668,False,0.05971606518141925
+water__wastewater05m1,water_networks,M,FROZEN_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,55,0,False,0.2578772511333227,False,0.05735614895820618
+water__wastewater05m1,water_networks,M,REFINED_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,55,0,False,0.2611449770629406,False,0.05702313897199929
+water__wastewater05m1,water_networks,M,FROZEN_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,55,0,False,0.20836533699184656,False,0.06453435611911118
+water__wastewater05m1,water_networks,M,REFINED_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,55,0,False,0.2635790251661092,False,0.05718112597241998
+water__wastewater05m1,water_networks,M,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,55,0,False,0.8146676251199096,False,0.056574207032099366
+water__wastewater05m1,water_networks,M,REFINED_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,55,0,False,0.813754997914657,False,0.05668812710791826
+water__wastewater05m1,water_networks,M,FROZEN_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,55,0,False,0.7595777530223131,False,0.11320583987981081
+water__wastewater11m1,water_networks,M,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,45,0,False,0.3076525398064405,False,0.056556340074166656
+water__wastewater05m1,water_networks,M,FROZEN_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,55,0,False,0.8103672619909048,False,0.05758234788663685
+water__wastewater11m1,water_networks,M,REFINED_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,45,0,False,0.2149519680533558,False,0.05845293216407299
+water__wastewater11m1,water_networks,M,FROZEN_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,45,0,False,1.772412302903831,False,0.1703092500101775
+water__wastewater11m1,water_networks,M,REFINED_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,45,0,False,2.1127091110683978,False,0.08130789012648165
+water__wastewater11m1,water_networks,M,FROZEN_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,45,0,False,0.3100961511954665,False,0.05617468897253275
+water__wastewater11m1,water_networks,M,FROZEN_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,45,0,False,0.207473570946604,False,0.06640307605266571
+water__wastewater12m1,water_networks,M,FROZEN_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.4121238109655678,False,0.05776431015692651
+water__wastewater12m1,water_networks,M,REFINED_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.35809043189510703,False,0.11695995600894094
+water__wastewater11m1,water_networks,M,FROZEN_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,45,0,False,2.9323998240288347,False,0.05754979909397662
+water__wastewater11m1,water_networks,M,REFINED_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,45,0,False,3.321685411967337,False,0.1076851470861584
+water__wastewater12m1,water_networks,M,REFINED_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.4750186400488019,False,0.06011504284106195
+water__wastewater12m1,water_networks,M,REFINED_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.760481528006494,False,0.05802497989498079
+water__wastewater12m1,water_networks,M,FROZEN_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.40972623811103404,False,0.05961018591187894
+water__wastewater12m1,water_networks,M,FROZEN_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.30714246490970254,False,0.05953147797845304
+water__wastewater12m1,water_networks,M,FROZEN_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.7260692499112338,False,0.0656577788759023
+water__wastewater12m1,water_networks,M,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.4130178198684007,False,0.10879482002928853
+water__wastewater13m1,water_networks,M,FROZEN_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,30,0,False,3.4155364090111107,False,0.10833862703293562
+water__wastewater13m1,water_networks,M,REFINED_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,30,0,False,4.3674031279515475,False,0.10657933889888227
+water__wastewater13m1,water_networks,M,FROZEN_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,44,0,False,0.9255535888951272,False,0.06079831696115434
+water__wastewater13m1,water_networks,M,FROZEN_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,30,0,False,0.5642378150951117,False,0.10817417013458908
+water__wastewater13m1,water_networks,M,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,44,0,False,0.9640729711391032,False,0.10750155197456479
+water__wastewater14m1,water_networks,M,REFINED_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,43,0,False,0.15794562199153006,False,0.05822174600325525
+water__wastewater13m1,water_networks,M,REFINED_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,30,0,False,0.6584191371221095,False,0.10654271487146616
+water__wastewater14m1,water_networks,M,REFINED_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,43,0,False,0.16079634404741228,False,0.056585372891277075
+water__wastewater14m1,water_networks,M,FROZEN_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,43,0,False,0.15762846707366407,False,0.11113038007169962
+water__wastewater14m1,water_networks,M,FROZEN_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,43,0,False,0.15699650021269917,False,0.05660118698142469
+water__wastewater14m1,water_networks,M,FROZEN_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,43,0,False,0.20652544009499252,False,0.10847059381194413
+water__wastewater14m1,water_networks,M,REFINED_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,43,0,False,0.1581778498366475,False,0.05645119189284742
+water__wastewater14m1,water_networks,M,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,43,0,False,0.2098869571927935,False,0.058918230002745986
+water__wastewater14m1,water_networks,M,FROZEN_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,43,0,False,0.15673043206334114,False,0.05835407413542271
+water__wastewater13m1,water_networks,M,FROZEN_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,44,0,False,7.884677802911028,False,0.1621781848371029
+water__wastewater13m1,water_networks,M,REFINED_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,44,0,False,8.397920501185581,False,0.10366468201391399
+water__wastewater15m1,water_networks,M,FROZEN_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,42,0,False,0.2604420739226043,False,0.05783869209699333
+water__wastewater15m1,water_networks,M,FROZEN_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,42,0,False,0.31038310192525387,False,0.10898557608015835
+water__wastewater15m1,water_networks,M,FROZEN_GR3_mumps,max_outer_iterations,Accepted metric phase is unavailable,nonstrict,False,unconstructed ablation inequality metric,42,1,False,1.9079670240171254,False,0.06099566305056214
+water__wastewater15m1,water_networks,M,REFINED_GR3_mumps,max_outer_iterations,Accepted metric phase is unavailable,nonstrict,False,unconstructed ablation inequality metric,42,1,False,2.2772624960634857,False,0.11208392912521958
+water__wastewater15m1,water_networks,M,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,42,0,False,0.3356054970063269,False,0.06060843192972243
+water__wastewater15m1,water_networks,M,FROZEN_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,42,0,False,0.2138739509973675,False,0.05621423712000251
+water__wastewater15m1,water_networks,M,REFINED_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,42,0,False,0.31501121702603996,False,0.0562522450927645
+water__wastewater15m1,water_networks,M,REFINED_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,42,0,False,0.21215681894682348,False,0.05725401593372226
+water__waterund01,water_networks,M,FROZEN_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,42,0,False,0.11192498006857932,False,0.057537070009857416
+water__waterund01,water_networks,M,FROZEN_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,42,0,False,0.11088273907080293,False,0.061040690168738365
+water__waterund01,water_networks,M,FROZEN_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,42,0,False,0.15897825988940895,False,0.059800911927595735
+water__waterund01,water_networks,M,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,42,0,False,0.1189870829693973,False,0.05782396998256445
+water__waterund01,water_networks,M,REFINED_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,42,0,False,0.1587520621251315,False,0.05767128081060946
+water__waterund01,water_networks,M,FROZEN_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,42,0,False,0.1622681701555848,False,0.06019362108781934
+water__waterund01,water_networks,M,REFINED_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,42,0,False,0.15695915394462645,False,0.0778704599943012
+water__waterund01,water_networks,M,REFINED_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,42,0,False,0.12293327692896128,False,0.07600416196510196
+water__waterund11,water_networks,M,FROZEN_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,57,0,False,0.15729688084684312,False,0.05791077995672822
+water__waterund11,water_networks,M,FROZEN_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,57,0,False,0.2126522809267044,False,0.10845675389282405
+water__waterund11,water_networks,M,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,57,0,False,0.2083156118169427,False,0.06298790802247822
+water__waterund11,water_networks,M,REFINED_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,57,0,False,0.20774111105129123,False,0.062112656189128757
+water__waterund11,water_networks,M,FROZEN_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,57,0,False,0.16045639594085515,False,0.05778175685554743
+water__waterund11,water_networks,M,REFINED_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,57,0,False,0.1574572108220309,False,0.05930151394568384
+water__waterund11,water_networks,M,REFINED_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,57,0,False,0.21078421198762953,False,0.06351006985642016
+water__waterund11,water_networks,M,FROZEN_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,57,0,False,0.20886311307549477,False,0.06085463101044297
+water__waterund14,water_networks,M,FROZEN_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.1614483220037073,False,0.06058000982739031
+water__waterund14,water_networks,M,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.20987736294046044,False,0.057764860801398754
+water__waterund14,water_networks,M,REFINED_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.20974325202405453,False,0.057498611975461245
+water__waterund14,water_networks,M,FROZEN_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.159445219906047,False,0.10842910106293857
+water__waterund14,water_networks,M,REFINED_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.156835347879678,False,0.05608827783726156
+water__waterund14,water_networks,M,REFINED_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.20963853504508734,False,0.06022672005929053
+water__waterund14,water_networks,M,FROZEN_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.15859125996939838,False,0.05818445002660155
+water__waterund17,water_networks,M,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.2113831990864128,False,0.0575203241314739
+water__waterund14,water_networks,M,FROZEN_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.20955117396079004,False,0.10644868505187333
+water__waterund17,water_networks,M,REFINED_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.1614512160886079,False,0.0613861579913646
+water__waterund17,water_networks,M,FROZEN_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.15778887690976262,False,0.10920254094526172
+water__waterund17,water_networks,M,REFINED_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.12168929213657975,False,0.056642600102350116
+water__waterund17,water_networks,M,REFINED_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.15863460511900485,False,0.06046806089580059
+water__waterund17,water_networks,M,FROZEN_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.1573907919228077,False,0.05810068501159549
+water__waterund17,water_networks,M,FROZEN_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.1624539690092206,False,0.06115639302879572
+water__waterund17,water_networks,M,FROZEN_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,46,0,False,0.15815558820031583,False,0.05786544200964272
+water__waterund18,water_networks,M,REFINED_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,40,0,False,0.12027820805087686,False,0.06257842504419386
+water__waterund18,water_networks,M,FROZEN_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,40,0,False,0.16697921883314848,False,0.0601160351652652
+water__waterund18,water_networks,M,REFINED_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,40,0,False,0.21622526505962014,False,0.05651794304139912
+water__waterund18,water_networks,M,REFINED_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,40,0,False,0.25918454001657665,False,0.06730951392091811
+water__waterund18,water_networks,M,FROZEN_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,40,0,False,0.15747187309898436,False,0.05793174100108445
+water__waterund18,water_networks,M,FROZEN_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,40,0,False,0.21200686390511692,False,0.1109697890933603
+water__waterund18,water_networks,M,FROZEN_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,40,0,False,0.11168690398335457,False,0.06082750088535249
+water__waterund18,water_networks,M,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,40,0,False,0.16585227102041245,False,0.05805786093696952
+water__waterund22,water_networks,M,FROZEN_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,51,0,False,0.17213289299979806,False,0.05656166817061603
+water__waterund22,water_networks,M,REFINED_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,51,0,False,0.21009248588234186,False,0.10817546187900007
+water__waterund22,water_networks,M,REFINED_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,51,0,False,0.20754327508620918,False,0.060532748932018876
+water__waterund22,water_networks,M,FROZEN_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,51,0,False,0.21018799906596541,False,0.05830795504152775
+water__waterund22,water_networks,M,FROZEN_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,51,0,False,0.2606408919673413,False,0.060984306037425995
+water__waterund22,water_networks,M,FROZEN_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,51,0,False,0.21312981704249978,False,0.10809238697402179
+water__waterund22,water_networks,M,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,51,0,False,0.25826676399447024,False,0.0629811380058527
+water__waterund22,water_networks,M,REFINED_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,51,0,False,0.20750146196223795,False,0.11002376209944487
+water__waterund25,water_networks,M,REFINED_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,55,0,False,0.2069090949371457,False,0.05729299411177635
+water__waterund25,water_networks,M,REFINED_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,55,0,False,0.3079363750293851,False,0.05970041104592383
+water__waterund25,water_networks,M,FROZEN_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,55,0,False,0.3137604920193553,False,0.057391811860725284
+water__waterund25,water_networks,M,FROZEN_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,55,0,False,0.20788503694348037,False,0.060649474151432514
+water__waterund25,water_networks,M,FROZEN_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,55,0,False,0.30730948597192764,False,0.11464673886075616
+water__waterund25,water_networks,M,REFINED_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,55,0,False,0.21256921696476638,False,0.05828727409243584
+water__waterund25,water_networks,M,FROZEN_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,55,0,False,0.16083440114744008,False,0.05768685508519411
+water__waterund25,water_networks,M,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,55,0,False,0.31149609899148345,False,0.11115505709312856
+water__waterund27,water_networks,M,FROZEN_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,80,0,False,7.98862851690501,False,0.10692358599044383
+water__waterund27,water_networks,M,FROZEN_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,80,0,False,10.272193396929651,False,0.10791848599910736
+water__waterund27,water_networks,M,FROZEN_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,80,0,False,13.390798663021997,False,0.1064415741711855
+water__waterund27,water_networks,M,REFINED_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,80,0,False,15.409318031976,False,0.1067803509067744
+water__waterund27,water_networks,M,REFINED_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,80,0,False,8.337725141085684,False,0.10656856396235526
+water__waterund36,water_networks,M,FROZEN_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,67,0,False,0.8091330230236053,False,0.10778445587493479
+water__waterund27,water_networks,M,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,80,0,False,11.604625719832256,False,0.10729559301398695
+water__waterund36,water_networks,M,FROZEN_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,67,0,False,1.1100673861801624,False,0.10788528714329004
+water__waterund36,water_networks,M,FROZEN_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,67,0,False,1.5134319309145212,False,0.10656243492849171
+water__waterund36,water_networks,M,REFINED_GHS_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,67,0,False,1.2602622241247445,False,0.10786355496384203
+water__waterund36,water_networks,M,REFINED_GHS_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,67,0,False,1.7625799409579486,False,0.10759306000545621
+water__waterund27,water_networks,M,FROZEN_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,80,0,False,10.08968235598877,False,0.10818718886002898
+water__waterund36,water_networks,M,FROZEN_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,67,0,False,0.6630961447954178,False,0.10849449993111193
+water__waterund36,water_networks,M,REFINED_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,67,0,False,0.7593258761335164,False,0.10727144684642553
+water__waterund36,water_networks,M,REFINED_GR3_mumps,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,67,0,False,0.9227136441040784,False,0.10668679093942046
+water__waterund27,water_networks,M,REFINED_GR3_ma27,solved,Accepted metric phase is unavailable,strict,False,unconstructed ablation inequality metric,80,0,False,11.775762761943042,False,0.10628736182115972
+CBLIB__db-plate-yield-line-fox,CBLIB_SOC_reference,I,FROZEN_GR3_mumps,endpoint_unavailable,,,,,0,-15,True,7200.092370668892,,
+CBLIB__db-plate-yield-line-fox,CBLIB_SOC_reference,I,FROZEN_GHS_mumps,endpoint_unavailable,,,,,0,-15,True,7200.062953020912,,
+CBLIB__db-plate-yield-line-fox,CBLIB_SOC_reference,I,FROZEN_GHS_ma27,endpoint_unavailable,,,,,0,-15,True,7200.0724663089495,,
+CBLIB__db-plate-yield-line-fox,CBLIB_SOC_reference,I,REFINED_GHS_mumps,endpoint_unavailable,,,,,0,-15,True,7200.096135179978,,
+CBLIB__db-plate-yield-line-fox,CBLIB_SOC_reference,I,REFINED_GHS_ma27,endpoint_unavailable,,,,,0,-15,True,7200.086169023998,,
+CBLIB__db-plate-yield-line-fox,CBLIB_SOC_reference,I,FROZEN_GR3_ma27,endpoint_unavailable,,,,,0,-15,True,7200.096135240048,,
+CBLIB__db-plate-yield-line-fox,CBLIB_SOC_reference,I,REFINED_GR3_ma27,endpoint_unavailable,,,,,0,-15,True,7200.054239092162,,
+CBLIB__db-plate-yield-line-fox,CBLIB_SOC_reference,I,REFINED_GR3_mumps,endpoint_unavailable,,,,,0,-15,True,7200.090257353848,,
+beam_safety__case_3,beam_safety,M,REFINED_GHS_mumps,original_audit_unavailable,,,True,,0,0,False,6256.024918005103,True,600.0992031749338
+beam_safety__case_3,beam_safety,M,FROZEN_GHS_mumps,original_audit_unavailable,,,True,,0,0,False,6266.442762488965,True,600.0711481869221

@@ -1,0 +1,11 @@
+test_controller_announces_before_long_validation (__main__.ProgressTests.test_controller_announces_before_long_validation) ... ok
+test_first_message_precedes_blocked_status_read (__main__.ProgressTests.test_first_message_precedes_blocked_status_read) ... ok
+test_global_dataset_and_regime_tables_preserve_unknowns_and_pending (__main__.ProgressTests.test_global_dataset_and_regime_tables_preserve_unknowns_and_pending) ... ok
+test_missing_status_and_json_mode_are_visible (__main__.ProgressTests.test_missing_status_and_json_mode_are_visible) ... ok
+test_root_entry_point_displays_monitor_without_installation_or_audits (__main__.ProgressTests.test_root_entry_point_displays_monitor_without_installation_or_audits) ... ok
+test_status_read_is_bounded (__main__.ProgressTests.test_status_read_is_bounded) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.084s
+
+OK

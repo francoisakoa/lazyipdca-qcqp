@@ -1,0 +1,5 @@
+{
+  "native_qcqp_runs": 0,
+  "state": "superseded_by_fresh_final_full_build",
+  "reason": "Accepted trace used two variables outside scope; fixed in final patch."
+}

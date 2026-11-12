@@ -1,0 +1,27 @@
+{
+  "version": "0.4.17-single-route-defect-soc",
+  "api": 4170,
+  "release_ctest_passed": 48,
+  "release_ctest_total": 48,
+  "asan_ubsan_passed": 48,
+  "asan_ubsan_total": 48,
+  "dca_soc_defect_target": {
+    "zero_target_correction_inf": 4.16454e-05,
+    "defect_target_correction_inf": 4.16493e-07,
+    "target_error_inf": 5.45095e-16,
+    "abs_links": 6
+  },
+  "dca_soc_boundary_continuity": {
+    "accepted_alpha": 0.25,
+    "feasibility": 8.97955e-07,
+    "soc_accepted": true
+  },
+  "lazy_dca_iterated_soc": {
+    "one_shot_alpha": 0.03125,
+    "iterated_alpha": 1.0,
+    "equality_inf": 2.25575e-12,
+    "objective": 0.0857864
+  },
+  "external_core2_run_completed": false,
+  "external_core2_claim": "not yet established"
+}

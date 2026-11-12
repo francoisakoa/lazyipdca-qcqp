@@ -1,0 +1,21 @@
+{
+  "schema": "ma27-native-dependency-selector-validation-v1",
+  "passed": true,
+  "target_backend": "ma27",
+  "mumps_compiled": false,
+  "compile_flags": [
+    "-std=c++17",
+    "-O3",
+    "-DNDEBUG",
+    "-fopenmp",
+    "-DLAZYIPDCA_HAVE_HSL=1",
+    "-DLAZYIPDCA_HAVE_METIS=1",
+    "-DLAZYIPDCA_HAVE_OPENMP=1"
+  ],
+  "link_libraries": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/casadi/libcasadi-tp-openblas.so.0",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/casadi/libcoinmetis.so.2"
+  ],
+  "historical_probe_backend": "native,mumps",
+  "scope": "Historical binary supplies dependency provenance only; generated build selection contains HSL/METIS and no MUMPS. No HSL solve performed."
+}

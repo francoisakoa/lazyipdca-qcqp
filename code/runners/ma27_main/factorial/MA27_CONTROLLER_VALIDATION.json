@@ -1,0 +1,28 @@
+{
+  "schema": "native-ma27-preparation-controller-validation-v1",
+  "native_backend": "ma27",
+  "ma27_gate_controller_tests": 20,
+  "coefficient_controller_tests": 12,
+  "controller_tests_passed": true,
+  "local_native_hsl_build_validation": "mega_ma27/MA27_NATIVE_LOCAL_BUILD_VALIDATION.json",
+  "actual_MA27_numerical_qualification": false,
+  "full_1834_preflight_passed": false,
+  "full_50_parity_passed": false,
+  "production_authorized": false,
+  "source_sha256": {
+    "BUILD_NATIVE.py": "ee0480f4120d4a8d87b2b40cd26bc946edef32b1ccc8f7f6fc6c3fe15b0de6c2",
+    "COMPILER_NATIVE.py": "a9d80a7d684006af623d8388a0de6ce574669e833c89b5e5f859bc0d942d73e5",
+    "PROFILES.py": "41613a4338ad355fe8b2f17512c5f332aeccf68698005d21c416692c71b4cf81",
+    "MA27_RUNTIME.py": "f47098e7ef643a7acac383e7d451a9ac72b40dd4ec2a198a98130dc9e77434a9",
+    "QUALIFIER_MA27.py": "1b7fb233ff437218eda93fa592048817f64d52b2db53971605297349620d3a48",
+    "QUALIFIER_50.py": "4987e681acc5d6b7465105ed4f1f001acaa97335c4e8ca5cdc9481da5ac01164",
+    "TEST_QUALIFIER_50.py": "db5e55df620ce2226cd944a14d19d0de82bac49df8d364b18131b0dcf9f3abfc",
+    "VERIFIER_COUPLAGE.py": "ee9b40a210ece9e612c9b7bb9a2797f3e77284c0e30161c3208c66a278452c3c",
+    "TEST_VERIFIER_COUPLAGE.py": "738e6a8e3a23a0705e48efdf16e7b55acc2ba338058482525f7e6b06c3a8499d"
+  },
+  "required_target_checks": [
+    "24 realHSL runs over sixprofiles and genericI/M/E/Q fixtures",
+    "full1834 coefficient separation check",
+    "freshMA27backendmatched fixed50R3/HHthreewaytrajectorygate plus exactobjectiveprobes"
+  ]
+}

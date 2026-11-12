@@ -1,0 +1,126 @@
+DEUX EXPERIENCES, DEUX ALLOCATIONS DE COEURS
+9 novembre 2026
+
+Ipopt : les 4 078 QCQP, tous les régimes I/M/E/Q et les 28 collections,
+sans Dey. Quatre configurations nouvelles : monotone/MA27,
+monotone/MUMPS, adaptive/MA27, adaptive/MUMPS. Total : 16 312 résolutions.
+22 tâches simultanées sur les cœurs 0 à 21, une seule thread par tâche.
+Les tâches sont alimentées en continu, dans l'ordre CUTEst, Beamforming,
+PGLIB puis autres collections. La fin d'un dataset n'est pas une barrière.
+L'ordre des quatre traitements est équilibré et enregistré.
+
+Raffinement : les 1 834 cas I/M, 4 cellules et 2 solveurs linéaires,
+soit 14 672 résolutions. Le cœur 23 est réservé à cette expérience,
+une seule tâche à la fois, compilation et qualification comprises.
+Les deux dispositifs peuvent fonctionner simultanément. Le cœur 22
+n'est utilisé par aucun des deux lanceurs.
+
+Les sources, données et résultats des campagnes précédentes ne sont ni
+remplacés ni supprimés. Les QCQP et départs gelés sont lus sur place,
+vérifiés par empreintes, sans duplication des 4 078 modèles.
+
+IPOPT : OPTIONS COMMUNES AUX QUATRE CONFIGURATIONS
+
+tol                    1e-8
+constr_viol_tol        1e-6
+dual_inf_tol           1e-6
+compl_inf_tol          1e-6
+acceptable_iter        0
+bound_relax_factor     0
+max_iter               5000
+max_wall_time          7200
+max_cpu_time           7200
+print_user_options     yes
+
+Seuls mu_strategy (adaptive/monotone) et linear_solver (ma27/mumps)
+diffèrent. Le même adaptateur, la même bibliothèque Ipopt 3.14.11, les
+mêmes entrées et les mêmes points bruts sont utilisés. Aucune option
+d'ordering n'est imposée. La lecture d'un ipopt.opt ambiant est désactivée.
+Les options effectives sont relues après initialisation et conservées.
+Les seuils d'infini sont adaptés uniquement lorsque des bornes originales
+finies dépasseraient le seuil par défaut d'Ipopt ; cette représentation
+exacte est déclarée dans l'endpoint, pour les quatre configurations.
+
+Les trois seuils absolus sont alignés sur le seuil de certification.
+Ipopt conserve aussi son critère NLP relatif mis à l'échelle tol=1e-8.
+Cela ne rend pas son statut interne équivalent au certificat indépendant.
+L'audit recalcule primal, dual et complémentarité sur le QCQP original
+complet, bornes et multiplicateurs compris ; chacun doit être <=1e-6.
+Le temps de l'audit est compté séparément de celui de la résolution.
+
+Le budget Ipopt est 7 200 secondes CPU et murales et 5 000 itérations.
+Le plafond de 600 restaurations partagées appartient au solveur Lazy ;
+aucun plafond séparé de 600 restaurations Ipopt n'est prétendu ici.
+Les compteurs non disponibles restent non mesurés, sans être mis à zéro.
+
+CONTROLE NATIF AVANT CAMPAGNE
+
+Ipopt : compilation isolée, puis quatre résolutions de contrôle réelles,
+avec contrôle du backend, des options, des multiplicateurs d'une variable
+fixée et du certificat original. Un ipopt.opt hostile est délibérément
+présent dans le contrôle : il doit être ignoré. Le lancement des 16 312
+tâches exige la réussite des quatre contrôles MA27/MUMPS et des deux
+stratégies sur la machine cible. Il ne dépend pas de l'ablation Lazy.
+
+Raffinement : les corrections sont initialisées par le même mécanisme
+hybride, puis gelées ou raffinées. L'objectif reste exact et les garde-fous
+R3 sont identiques dans les quatre cellules. La seconde dimension est
+le paquet de globalisation R3 ou H/S, dont les réglages sont déclarés.
+Cette expérience mesure l'effet de poursuivre le raffinement à partir
+d'une initialisation commune ; elle ne renomme pas R3 ou HH.
+
+La qualification exige 748 exécutions réelles sur le cœur 23 :
+700 contrôles de fidélité sur 50 cas prédéfinis (25 I, 25 M), dont
+100 comparaisons contre le véritable MA27 installé, et 48 contrôles de
+mécanisme. Les critères ne dépendent pas du résultat du raffinement.
+Le contrat scientifique précède ces essais ; le sceau des binaires et
+preuves est produit après qualification et avant la production.
+Les 1 834 cas de production restent tous dans le dénominateur.
+
+SUIVI, ARRET ET REPRISE
+
+LANCER_TOUT.sh démarre Ipopt sur 0–21 et le raffinement sur 23.
+Les lanceurs individuels sont également disponibles. Les journaux et
+le suivi signalent l'avancement et les blocages toutes les 10 secondes.
+SUIVRE_TOUT.sh affiche les deux dispositifs, avec un tableau par régime.
+Les sorties sont neuves, dans deux dossiers distincts sous /extra.
+Les scripts d'arrêt visent les seuls processus dont l'identité est liée
+au lancement. La reprise vérifie les entrées, exécutables et preuves.
+Une préparation incomplète ne devient jamais une campagne qualifiée.
+
+DEPOUILLEMENT
+
+Les quatre Ipopt alignés sont rapportés séparément, par régime et par
+collection, avec comparaisons appariées et pondération par famille.
+Les douze configurations Lazy existantes sont conservées comme références
+distinctes (six variantes, deux backends), liées aux mêmes entrées.
+Les observations anciennes ne deviennent pas des endpoints nouveaux.
+L'effet de la stratégie Ipopt est mesuré dans la nouvelle campagne à
+backend fixé. Les anciens réglages restent des données de sensibilité.
+
+Les incidents techniques restent identifiables dans les fichiers bruts.
+Le dépouillement donne couverture certifiée et absence de certificat,
+en distinguant la cause numérique d'une preuve ou exécution incomplète.
+La qualité de l'objectif est analysée sur certificats communs, en
+particulier ASU et hors ASU, avec seuils et distributions déclarés.
+Aucun résultat manquant ni estimation de couverture ne devient un chiffre
+de l'article. Le manuscrit sera actualisé sur les résultats réellement
+obtenus avec les quatre réglages alignés.
+
+Une archive de dépouillement est créée à l'issue d'Ipopt ; elle contient
+les observations scalaires complètes, audits et reçus. Les grandes traces
+et les vecteurs restent sur la TRX. EXPORTER_RESULTATS.py --vectors peut
+inclure explicitement tous les endpoints et traces d'acceptation, dans une archive plus grosse.
+
+ETAT VERIFIE AVANT LIVRAISON
+
+Compilation complète réelle de l'adaptateur Ipopt et deux contrôles réels
+MUMPS adaptive/monotone : réussis localement sur la bibliothèque 3.14.11
+dont l'empreinte est celle du reçu TRX. MA27 réel est à qualifier sur TRX.
+L'ablation a passé des contrôles locaux de code et d'intégration ; sa
+compilation complète et ses 748 essais réels sont encore requis sur TRX.
+Aucun bénéfice scientifique du raffinement n'est annoncé avant ces essais
+et les 14 672 résolutions de production.
+
+Documentation officielle des options :
+https://coin-or.github.io/Ipopt/OPTIONS.html

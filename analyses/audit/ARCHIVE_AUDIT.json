@@ -1,0 +1,4718 @@
+{
+  "schema": "ipopt-aligned-independent-archive-validation-v1",
+  "archive_sha256": "8efc0cdd2d3596833c1dff20570cbcf2f1b660766bd88a1dca3b8b4848cbc01f",
+  "planned": 16312,
+  "results": 16312,
+  "matrix_complete": true,
+  "missing": 0,
+  "extra": 0,
+  "case_count": 4078,
+  "classification_counts": {
+    "ipopt_ma27_monotone_aligned": {
+      "strict": 3465,
+      "nonstrict": 569,
+      "indeterminate": 44
+    },
+    "ipopt_mumps_monotone_aligned": {
+      "strict": 3119,
+      "nonstrict": 913,
+      "indeterminate": 46
+    },
+    "ipopt_ma27_adaptive_aligned": {
+      "strict": 3235,
+      "nonstrict": 795,
+      "indeterminate": 48
+    },
+    "ipopt_mumps_adaptive_aligned": {
+      "strict": 3172,
+      "nonstrict": 853,
+      "indeterminate": 53
+    }
+  },
+  "strict_validation_issues": [],
+  "result_binding_issues": [],
+  "native_input_start_binding_issues": [],
+  "comparison_to_status": {
+    "ipopt_ma27_monotone_aligned": true,
+    "ipopt_mumps_monotone_aligned": true,
+    "ipopt_ma27_adaptive_aligned": true,
+    "ipopt_mumps_adaptive_aligned": true
+  },
+  "file_counts": {
+    "COMMAND.json": 16312,
+    "case.json": 16312,
+    "solver_resources.json": 16312,
+    "AUDIT.json": 16213,
+    "audit_resources.json": 16213,
+    "missing:AUDIT.json": 99,
+    "missing:audit_resources.json": 99
+  },
+  "raw_endpoints_present": 0,
+  "raw_solver_logs_present": 0,
+  "qcqp_inputs_present": 0,
+  "own_success_field_disagreements": [
+    {
+      "case_id": "CUTEst__SSEBNLN",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "CUTEst__SSEBNLN",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "CUTEst__SSEBNLN",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "PGLIB__case3970_goc__api",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "PGLIB__case3970_goc__api",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "PGLIB__case3970_goc__api",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "PGLIB__case3970_goc__api",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "PGLIB__case9241_pegase__api",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0009_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0023_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0031_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0031_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0034_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0043_u4_rf4",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0054_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0060_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0067_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0076_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0082_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0087_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0087_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0088_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0088_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0090_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0092_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0092_u4_rf4",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0093_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0095_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0104_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0104_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0107_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0107_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0108_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0108_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0109_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0110_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0110_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0114_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0114_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0118_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0122_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0126_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0126_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0131_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0136_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0140_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0144_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0146_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0149_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0155_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0163_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0169_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0170_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0170_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0179_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0179_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0183_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0189_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0200_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0206_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0208_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0208_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0212_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0246_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0265_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0267_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0267_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0268_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0277_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0278_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0280_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0282_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0287_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0290_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0295_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0297_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0319_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0321_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0336_u4_rf4",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0337_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0342_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0351_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0355_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0356_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0356_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0368_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0377_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0383_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0383_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0392_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0392_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0393_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0399_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0408_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0421_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0427_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0450_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0456_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0459_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0459_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0473_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0473_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0486_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0488_u4_rf4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "beam__asu_public_g0499_u4_rf4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2011-11-08",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2011-11-20",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2011-11-26",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2011-12-17",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-01-22",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-01-30",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-01-31",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-02-08",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-02-16",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-02-19",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-03-18",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-04-07",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-04-24",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-04-26",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-05-02",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-05-07",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-05-08",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-05-11",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-05-19",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-05-24",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-06-15",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-07-04",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-07-06",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-07-10",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-07-22",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-08-01",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-08-02",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-08-25",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-08-31",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-09-12",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-09-18",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-10-04",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-10-12",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-10-13",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-12-26",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2012-12-31",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-01-21",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-01-29",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-02-05",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-02-28",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-02-28",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-02-28",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-02-28",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-03-07",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-03-11",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-03-12",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-03-21",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-03-25",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-04-29",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-05-04",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-05-05",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-05-06",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-05-07",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-05-08",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-05-14",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-05-18",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-05-25",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-06-11",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-06-12",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-06-13",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-06-18",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-06-29",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-07-01",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-07-07",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-07-08",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-07-10",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-08-07",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-10-02",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-10-05",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-10-06",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2013-10-23",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-01-24",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-02-12",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-02-15",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-02-18",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-02-20",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-03-16",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-04-03",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-04-09",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-04-19",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-07-28",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-08-09",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-08-12",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-08-23",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-08-27",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-23",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-23",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-23",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-24",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-24",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-24",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-24",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-28",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-28",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-28",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-29",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-29",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-29",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-30",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-30",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-30",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-31",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-31",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-31",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-10-31",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-01",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-01",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-01",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-01",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-02",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-02",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-02",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-02",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-03",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-03",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-03",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-03",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-04",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-04",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-04",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-04",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-05",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-05",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-05",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-05",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-06",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-06",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-06",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-06",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-07",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-07",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-07",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-07",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-08",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-08",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-08",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-09",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-09",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-09",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-09",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-10",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-10",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-10",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-11",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-11",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-11",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-11",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-12",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-12",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-12",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-13",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-13",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-13",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-13",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-14",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-14",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-14",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-14",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-15",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-15",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-15",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-15",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-16",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-16",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-16",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-16",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-17",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-17",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-17",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-18",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-18",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-18",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-18",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-19",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-19",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-19",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-19",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-20",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-20",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-20",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-20",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-21",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-21",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-21",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-21",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-22",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-22",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-22",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-22",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-23",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-23",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-23",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-24",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-24",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-24",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-25",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-25",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-25",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-26",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-26",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-26",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-27",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-27",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-27",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-27",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-28",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-28",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-28",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-29",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-29",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-29",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-30",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-30",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-11-30",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-01",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-01",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-01",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-01",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-02",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-02",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-02",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-03",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-03",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-03",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-04",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-04",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-04",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-05",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-05",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-05",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-05",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-06",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-06",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-06",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-06",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-07",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-07",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-07",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-08",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-08",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-08",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-08",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-09",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-09",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-09",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-11",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-11",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-11",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-11",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-12",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-12",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-12",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-12",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-13",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-13",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-13",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-13",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-14",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-14",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-14",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-15",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-15",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-15",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-16",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-16",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-16",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-16",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-17",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-17",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-17",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-18",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-18",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-18",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-18",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-19",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-19",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-19",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-20",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-20",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-20",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-20",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-21",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-21",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-21",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-21",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-22",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-22",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-22",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-22",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-23",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-23",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-23",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-23",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-24",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-24",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-24",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-24",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-25",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-25",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-25",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-26",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-26",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-26",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-26",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-27",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-27",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-27",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-28",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-28",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-28",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-29",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-29",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-29",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-29",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-30",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-30",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-30",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-31",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-31",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-31",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2014-12-31",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-01-01",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-01-01",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-01-01",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-01-01",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-01-17",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-01-17",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-01-17",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-01-24",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-01-24",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-01-24",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-01-24",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-01-31",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-01-31",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-01-31",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-01-31",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-02-14",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-02-14",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-02-14",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-02-14",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-02-15",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-02-15",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-02-15",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-02-15",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-02-21",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-02-21",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-02-21",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-02-21",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-02-28",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-02-28",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-02-28",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-02-28",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-03-07",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-03-07",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-03-07",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-03-14",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-03-14",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-03-14",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-03-14",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-03-21",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-03-21",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-03-21",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-03-28",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-03-28",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-03-28",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-03-28",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-04-04",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-04-04",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-04-04",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-04-04",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-04-10",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-04-10",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-04-10",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-04-10",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-04-11",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-04-11",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-04-11",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-04-12",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-04-12",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-04-12",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-05-01",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-05-08",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-07-18",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-07-18",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-07-18",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-07-19",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-07-19",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-07-19",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-07-19",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-08-16",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-09-03",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-09-03",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-09-03",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-09-03",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-10-28",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-11-02",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-11-08",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-11-09",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-11-11",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2015-12-25",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2016-01-09",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2016-01-13",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2016-01-22",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2016-01-24",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2016-02-03",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2016-02-11",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2016-02-15",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2016-02-17",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2016-02-17",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2016-02-17",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "gas__GasLib134__2016-02-17",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_10_addedges_10_attr_0_7",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_10_addedges_10_attr_0_9",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_10_addedges_20_attr_0_3",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_10_addedges_20_attr_0_6",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_10_addedges_20_attr_0_7",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_10_addedges_20_attr_0_7",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_10_addedges_50_attr_0_3",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_10_addedges_50_attr_1_6",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_10_addedges_60_attr_0_8",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_10_addedges_60_attr_1_2",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_15_addedges_15_attr_0_2",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_15_addedges_15_attr_0_4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_15_addedges_15_attr_0_7",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_15_addedges_15_attr_1_1",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_15_addedges_15_attr_1_6",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_15_addedges_30_attr_0_10",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_15_addedges_30_attr_1_4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_15_addedges_45_attr_0_10",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_15_addedges_45_attr_0_2",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_15_addedges_45_attr_1_6",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_15_addedges_45_attr_1_8",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_15_addedges_60_attr_0_5",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_15_addedges_60_attr_1_1",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_15_addedges_60_attr_1_9",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_15_addedges_75_attr_0_7",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_15_addedges_75_attr_1_1",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_15_addedges_90_attr_0_2",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_15_addedges_90_attr_1_9",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_20_addedges_100_attr_0_10",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_20_addedges_100_attr_1_4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_20_addedges_20_attr_0_4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_20_addedges_20_attr_0_6",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_20_addedges_20_attr_1_1",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_20_addedges_40_attr_0_4",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_20_addedges_40_attr_1_2",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_20_addedges_60_attr_1_10",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_20_addedges_60_attr_1_4",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_20_addedges_80_attr_0_9",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "luedtke__haverly_20_addedges_80_attr_1_8",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling__pooling_adhya4tp",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling__pooling_bental4stp",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling__pooling_digabel19",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling__pooling_foulds2stp",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling__pooling_foulds2stp",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling__pooling_haverly1stp",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling__pooling_haverly1stp",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling__pooling_haverly2stp",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling__pooling_haverly2stp",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling__pooling_haverly3stp",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling__pooling_haverly3stp",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling__pooling_haverly3stp",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling__pooling_sppa9pq",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling__pooling_sppa9tp",
+      "method": "ipopt_ma27_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling__pooling_sppa9tp",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling__pooling_sppa9tp",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling__pooling_sppa9tp",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling__pooling_sppb2pq",
+      "method": "ipopt_ma27_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling_pair__pooling_sppb5pq__reduced",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling_pair__pooling_sppb5pq__reduced",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "pooling_pair__pooling_sppc3pq__reduced",
+      "method": "ipopt_mumps_monotone_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    },
+    {
+      "case_id": "water__wastewater05m1",
+      "method": "ipopt_mumps_adaptive_aligned",
+      "recorded": false,
+      "derived": true,
+      "code": 1,
+      "status": "Solved_To_Acceptable_Level"
+    }
+  ],
+  "technical_proof_reason_counts": {
+    "effective:tol": 99,
+    "effective:constr_viol_tol": 99,
+    "effective:dual_inf_tol": 99,
+    "effective:compl_inf_tol": 99,
+    "effective:acceptable_iter": 99,
+    "effective:bound_relax_factor": 99,
+    "effective:max_iter": 99,
+    "effective:max_cpu_time": 99,
+    "effective:max_wall_time": 99,
+    "effective:option_file_name": 99,
+    "effective:print_user_options": 99,
+    "effective:hessian_approximation": 99,
+    "effective:fixed_variable_treatment": 99,
+    "effective:nlp_scaling_method": 99,
+    "effective:mu_strategy": 99,
+    "effective:linear_solver": 99,
+    "proof:aligned_options_verified": 99,
+    "proof:native_route_verified": 99,
+    "proof:backend_verified": 99,
+    "proof:budget_verified": 99,
+    "proof:option_file_disabled": 99,
+    "ipopt_version": 99,
+    "input_representation_overrides": 99,
+    "process_budget_or_censor": 87,
+    "process_returncode": 99,
+    "native_time": 99,
+    "native_iterations": 99,
+    "original_audit_absent": 99,
+    "audit_unavailable": 92,
+    "original_bounds_unverified": 92
+  },
+  "limitations": [
+    "No raw campaign endpoints, solver logs or frozen QCQP coefficients in supplied archive; no new numerical residual evaluation was possible.",
+    "Audited certificates are validated as archived original-KKT audits with their input/start/endpoint/provenance bindings; this is not a fresh endpoint audit.",
+    "Internal success means application status code 0 or 1. Nonnegative application exit codes 2..6 are separately counted and never called success."
+  ],
+  "optimizer_invocations": 0,
+  "new_endpoint_audits": 0,
+  "classification_changes": 0,
+  "own_success_definition_note": "The archived ipopt_own_success Boolean counts application code 0 only; the derived own-success-or-acceptable category counts 0 and 1. The 577 differences are definitional and do not alter any original certificate.",
+  "complete_nonstrict_proofs_verified": 3130,
+  "technical_terminal_counts": {
+    "Not_Enough_Degrees_Of_Freedom": 92,
+    "external_wall_time_limit": 87,
+    "SIGSEGV_endpoint_absent": 12
+  }
+}

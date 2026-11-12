@@ -1,0 +1,34 @@
+{
+  "schema": "local-test-dependencies-not-production",
+  "native_backend": "ma27_adapter_and_mumps",
+  "compiler": "g++",
+  "compile_flags": [
+    "-std=c++17",
+    "-O1",
+    "-DNDEBUG",
+    "-fopenmp",
+    "-DLAZYIPDCA_HAVE_MUMPS=1",
+    "-DLAZYIPDCA_HAVE_HSL=1",
+    "-DLAZYIPDCA_HAVE_METIS=1",
+    "-DLAZYIPDCA_HAVE_OPENMP=1"
+  ],
+  "include_roots": [
+    "/workspace/scratch/c3ac684ecab7/runtime_probe/backends/include",
+    "/workspace/scratch/c3ac684ecab7/runtime_probe/apt/root/usr/include"
+  ],
+  "link_libraries": [
+    "/workspace/scratch/c3ac684ecab7/runtime_probe/backends/lib/libdmumps.so",
+    "/usr/lib/x86_64-linux-gnu/libmetis.so.5",
+    "/usr/lib/x86_64-linux-gnu/liblapack.so.3",
+    "/usr/lib/x86_64-linux-gnu/libblas.so.3"
+  ],
+  "production_dependencies_verified": false,
+  "local_MUMPS_version": "5.8.2",
+  "production_MA27_runtime_available": false,
+  "dependency_sha256": {
+    "/workspace/scratch/c3ac684ecab7/runtime_probe/backends/lib/libdmumps.so": "ba128c276731c8a2cc11883150390c481c9b364f1b5869e5b5db51bd2babd0b2",
+    "/usr/lib/x86_64-linux-gnu/libmetis.so.5": "d2e832eb73876ca526dd718e9e3bcee6e3217eb02a587c8516298617f740fc38",
+    "/usr/lib/x86_64-linux-gnu/liblapack.so.3": "7efae004d2cafae3d37c7690bbf3c1ad9e4cd01db01c125755d2db74f7a565b1",
+    "/usr/lib/x86_64-linux-gnu/libblas.so.3": "2b3fdbf8e9daa85ce62e449b9738cad4c8b50ba220342f51501c9ade19670895"
+  }
+}

@@ -1,0 +1,33 @@
+LAZYIPDCA_QCQP_V1
+name structural_control_6
+n 4
+x0 0.5 0.8660254037844386 2 1
+lb -2 -2 0 -4
+ub 2 2 8 4
+objective
+quadratic
+name f
+constant 0
+linear -0.2 0 1 0.1
+hessian_nnz 1
+1 1 0.4
+end_quadratic
+equalities 1
+quadratic
+name h0
+constant -1
+linear 0 0 0 0
+hessian_nnz 2
+0 0 2
+1 1 2
+end_quadratic
+inequalities 1
+quadratic
+name g0
+constant 1
+linear 0 0 0 0
+hessian_nnz 2
+2 2 -2
+3 3 0.2
+end_quadratic
+end_problem

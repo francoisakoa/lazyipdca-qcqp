@@ -1,0 +1,294 @@
+{
+  "passed": true,
+  "matched_summaries": 48,
+  "checks": [
+    {
+      "left": "R3_ma27",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "R3_ma27",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "R3_ma27",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "R3_ma27",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "HH_ma27",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "HH_ma27",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "HH_ma27",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "HH_ma27",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "HS_ma27",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "HS_ma27",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "HS_ma27",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "HS_ma27",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "SH_ma27",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "SH_ma27",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "SH_ma27",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "SH_ma27",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "SS_ma27",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "SS_ma27",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "SS_ma27",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "SS_ma27",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "SS_legacy_ma27",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "SS_legacy_ma27",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "SS_legacy_ma27",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "SS_legacy_ma27",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "R3_mumps",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "R3_mumps",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "R3_mumps",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "R3_mumps",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "HH_mumps",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "HH_mumps",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "HH_mumps",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "HH_mumps",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "HS_mumps",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "HS_mumps",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "HS_mumps",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "HS_mumps",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "SH_mumps",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "SH_mumps",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "SH_mumps",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "SH_mumps",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "SS_mumps",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "SS_mumps",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "SS_mumps",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "SS_mumps",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "SS_legacy_mumps",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "SS_legacy_mumps",
+      "right": "ipopt_ma27_default",
+      "threshold": 0.01,
+      "passed": true
+    },
+    {
+      "left": "SS_legacy_mumps",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.001,
+      "passed": true
+    },
+    {
+      "left": "SS_legacy_mumps",
+      "right": "ipopt_mumps_default",
+      "threshold": 0.01,
+      "passed": true
+    }
+  ]
+}

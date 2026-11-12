@@ -1,0 +1,76 @@
+LAZYIPDCA_QCQP_V1
+name checkpoint_rank_leaf
+n 4
+x0 1 0 1 0
+lb -2 -2 -2 -2
+ub 2 2 2 2
+objective
+quadratic
+name objective
+constant 2.5
+linear -2 0 0 -1
+hessian_nnz 4
+0 0 1
+1 1 1
+2 2 1
+3 3 1
+end_quadratic
+equalities 2
+quadratic
+name leafa
+constant 0
+linear 0 0 0 0
+hessian_nnz 6
+0 2 -2
+0 3 3
+1 2 -3
+1 3 -2
+2 2 4
+3 3 4
+end_quadratic
+quadratic
+name leafb
+constant 0
+linear 0 0 0 0
+hessian_nnz 6
+0 2 -3
+0 3 -2
+1 2 2
+1 3 -3
+2 2 6
+3 3 6
+end_quadratic
+inequalities 4
+quadratic
+name lower0
+constant 0.25
+linear 0 0 0 0
+hessian_nnz 2
+0 0 -2
+1 1 -2
+end_quadratic
+quadratic
+name upper0
+constant -4
+linear 0 0 0 0
+hessian_nnz 2
+0 0 2
+1 1 2
+end_quadratic
+quadratic
+name lower2
+constant 0.25
+linear 0 0 0 0
+hessian_nnz 2
+2 2 -2
+3 3 -2
+end_quadratic
+quadratic
+name upper2
+constant -4
+linear 0 0 0 0
+hessian_nnz 2
+2 2 2
+3 3 2
+end_quadratic
+end_problem
